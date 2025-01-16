@@ -15,5 +15,14 @@
 
 - **Access Control**  
   - Only specific individuals will be allowed to push to `main`.  
-  - Currently, only the repository owner (Charlie) has push access.  
+  - Currently, only the repository owner (Charlie) has push access.
+
+- **File Structure**
+  - Please follow this file structure within your branch to simplify merging. If you think the current file structure isn't optimal, let me (Charlie) know and we can modify it.
+  - Art
+  - Code
+    - Scripts
+  - Level
+    - Scenes
+    - UI
 
