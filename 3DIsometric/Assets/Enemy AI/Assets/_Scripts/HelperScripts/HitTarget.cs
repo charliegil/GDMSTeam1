@@ -16,25 +16,31 @@ public class HitTarget : MonoBehaviour
     [SerializeField, Range(0, 1)]
     private float m_volume = 0.8f;
     public void PerformHit()
+{
+    Debug.Log("Performing hit");
+    GameObject target = null;
+
+    // Use only the detected target, not a temporary fallback
+    if (m_RangeDetector != null && m_RangeDetector.DetectedTarget != null)
     {
-        Debug.Log("Performing hit");
-        GameObject target = null;
-        if (m_RangeDetector.DetectedTarget == null)
-        {
-            target = m_temporaryTarget;
-        }
-        else
-        {
-            target = m_RangeDetector.DetectedTarget.gameObject;
-        }
-        HitHandler handler = target.GetComponent<HitHandler>();
-        if (handler != null)
-        {
-            handler.GetHit(gameObject);
-        }
-        StopAllCoroutines();
-        StartCoroutine(PlaySwordSound());
+        target = m_RangeDetector.DetectedTarget.gameObject;
     }
+
+    if (target == null)
+    {
+        Debug.LogWarning("No valid target to hit.");
+        return; // Stop execution if no valid target is found
+    }
+
+    HitHandler handler = target.GetComponent<HitHandler>();
+    if (handler != null)
+    {
+        handler.GetHit(gameObject);
+    }
+
+    StopAllCoroutines();
+    StartCoroutine(PlaySwordSound());
+}
 
     private IEnumerator PlaySwordSound()
     {
