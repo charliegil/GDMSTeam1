@@ -1,3 +1,4 @@
+
 using UnityEngine;
 
 public class TransformHandler : MonoBehaviour
@@ -6,32 +7,33 @@ public class TransformHandler : MonoBehaviour
     private bool isAbleTransform = false;
     public GameObject currentPlayer;
     private GameObject tempPlayer;
-    //private IControllable inputHandler;
     private PlayerInputHandler inputHandler;
     
     private void Awake(){
-        inputHandler = PlayerInputHandler.Instance;
-        Debug.Log(inputHandler != null ? "InputHandler assigned successfully!" : "InputHandler is null!");
+        inputHandler = GameObject.Find("PlayerInputHandler").GetComponent<PlayerInputHandler>();
     }
     private void Update(){
         HandleTransform();
     }
-    void HandleTransform(){
+    protected void HandleTransform(){
         if(inputHandler.TransformTriggered&&isAbleTransform){
-            //currentPlayer = tempPlayer;
+            currentPlayer = tempPlayer;
             Debug.Log("Pressed E for transform and abled");
-            // if(currentPlayer.TryGetComponent<IControllable>(out var controllable)){
-            //     inputHandler.SetControllable(controllable);
-            //     Debug.Log("Pressed E for transform and abled");
-            // }
-            
-
+            if (currentPlayer.TryGetComponent<IControllable>(out var controllable))
+            {
+                // Activate or perform the required action on the IControllable
+                controllable.ActivateInput();
+                TryGetComponent<IControllable>(out var currentControl);
+                currentControl.DisactivateInput();
+                
+                Debug.Log("Activated IControllable on another");
+            }
         }
     }
     private void OnTriggerEnter(Collider other){
         if(other.gameObject.layer == LayerMask.NameToLayer("Monster")){
             Debug.Log("monster near able transform");
-            //tempPlayer = other.gameObject;
+            tempPlayer = other.gameObject;
             isAbleTransform = true;
         }
     }
