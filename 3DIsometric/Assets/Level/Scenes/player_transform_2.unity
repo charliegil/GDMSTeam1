@@ -231,7 +231,6 @@ MonoBehaviour:
   m_Cameras: []
   m_RendererIndex: -1
   m_VolumeLayerMask:
-    serializedVersion: 2
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
@@ -323,7 +322,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 74e98ba8d476f4af7b180404fe61badb, type: 2}
+  - {fileID: 2100000, guid: 8012621501d0cc14b8712645465a4767, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -429,7 +428,12 @@ MonoBehaviour:
   isActive: 0
   hp: 0
   attackDmg: 0
+  <CanTransform>k__BackingField: 0
+  <TargetTransformPlayer>k__BackingField: {fileID: 0}
+  inputHandler: {fileID: 0}
   walkSpeed: 1
+  characterController: {fileID: 0}
+  currentMvt: {x: 0, y: 0, z: 0}
 --- !u!54 &363680976
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -453,7 +457,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
@@ -642,7 +646,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bdc6eee59f67841debd3983c12728a69, type: 2}
+  - {fileID: 2100000, guid: 91ea58897e4f1254698062d4361abb87, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -695,6 +699,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4651782123871147673, guid: 414c7f20426a177459d4f47cafa18428, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 49a20b4bd38c7064f9e23c6087dfef2b, type: 2}
     - target: {fileID: 5703114717738508490, guid: 414c7f20426a177459d4f47cafa18428, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.27
@@ -778,6 +786,10 @@ MonoBehaviour:
   blendDistance: 0
   weight: 1
   sharedProfile: {fileID: 11400000, guid: 10fc4df2da32a41aaa32d77bc913491c, type: 2}
+  m_Colliders: []
+  m_PreviousLayer: 0
+  m_PreviousPriority: 0
+  m_InternalProfile: {fileID: 0}
 --- !u!4 &832575519
 Transform:
   m_ObjectHideFlags: 0
@@ -873,6 +885,26 @@ MonoBehaviour:
   actionMapName: Player
   transformS: Interact
   move: Move
+  transformAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 4c566e47-4ef0-413b-bbff-0aa67efb74ca
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  moveAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 2b4aad66-0150-4f04-b150-d0d5ac467e54
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  <TransformTriggered>k__BackingField: 0
+  <MoveInput>k__BackingField: {x: 0, y: 0}
 --- !u!1001 &998902986474442848
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -881,6 +913,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4651782123871147673, guid: 414c7f20426a177459d4f47cafa18428, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 49a20b4bd38c7064f9e23c6087dfef2b, type: 2}
     - target: {fileID: 5703114717738508490, guid: 414c7f20426a177459d4f47cafa18428, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.131505
