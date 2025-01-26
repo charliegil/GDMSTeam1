@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      dungeon floor cracked_0: 7623761502753939844
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

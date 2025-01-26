@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      dungeon floor crater_0: -367075066008574854
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
