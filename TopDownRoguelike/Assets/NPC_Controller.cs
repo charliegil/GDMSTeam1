@@ -76,7 +76,11 @@ public class NPC_Controller : MonoBehaviour
 
     void Patrol()
     {
-    
+         if (path == null)
+        {
+            Debug.LogWarning("path was null, initializing it.");
+            path = new List<Node>();
+        }
         if (AStarManager.instance == null)
         {
             Debug.LogError("AStarManager.instance is null! Cannot generate path.");
