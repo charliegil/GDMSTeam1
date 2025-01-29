@@ -4,7 +4,7 @@ using Pathfinding;
 public class EnemyAI : MonoBehaviour
 {
     public Transform target;
-    public float speed = 200f;
+    public float speed = 400f;
     public float nextWaypointDistance = 3f;
 
     public Transform enemyGFX;
@@ -17,9 +17,10 @@ public class EnemyAI : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
-
+        target = Player.ActivePlayer.transform;
         InvokeRepeating("UpdatePath",0f, .5f);
         
     }
@@ -33,11 +34,15 @@ public class EnemyAI : MonoBehaviour
             currentWaypoint = 0;
         }
     }
+    void Update(){
+        target = Player.ActivePlayer.transform;
+    }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(path == null) return;
+        target = Player.ActivePlayer.transform;
+        if(path == null) {return;}
         if(currentWaypoint>=path.vectorPath.Count){
             reachedEndOfPath = true;
             return;
