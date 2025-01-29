@@ -24,6 +24,7 @@ public class skeletonControl : Player, IControllable
    
     public override void HandleMovement(){
         if(isActive){
+        //if(ActivePlayer){
             enemyAI.enabled = false;
             Vector2 inputDirection = new Vector2(inputHandler.MoveInput.x, inputHandler.MoveInput.y);
             currentMvt = inputDirection.normalized * walkSpeed;
