@@ -42,17 +42,7 @@ public class PlayerInputHandler : MonoBehaviour
 
         RegisterInputActions();
     }
-    //  public void SetControllable(IControllable controllable){
-        
-    //      currentControllable = controllable;
-    //  }
-
-    // private void Update(){
-    //     if(currentControllable!=null){
-    //         currentControllable.HandleInput();
-    //     }
-    // }
-    
+   
     void RegisterInputActions(){
         transformAction.performed += context => TransformTriggered = true;
         transformAction.canceled += context => TransformTriggered = false;
