@@ -1,15 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
     // REFERENCES
     private InputSystem_Actions playerInputActions;
     private Rigidbody2D rb;
+    [SerializeField] TextMeshProUGUI healthText;
 
     // MODIFIABLE
     [SerializeField] private float moveSpeed = 5f;
@@ -30,6 +33,7 @@ public class PlayerController : MonoBehaviour
     private float dodgeCooldown;
     private float currentSpeed;
     private float phaseTimer;
+    private float health = 100;
 
     private enum PlayerState {
         Normal,
@@ -127,5 +131,17 @@ public class PlayerController : MonoBehaviour
         spriteRenderer.color = oldColor;
         currentSpeed = moveSpeed;
         enemy.GetComponent<BoxCollider2D>().enabled = true;
+    }
+
+    void OnTriggerEnter2D(Collider2D other) {
+        if (other.CompareTag("Projectile")) {
+            Debug.Log("I'm hit!");
+            TakeDamage(1);
+        }
+    }
+
+    void TakeDamage(float damage) {
+        health -= damage;
+        healthText.SetText(health.ToString());
     }
 }
