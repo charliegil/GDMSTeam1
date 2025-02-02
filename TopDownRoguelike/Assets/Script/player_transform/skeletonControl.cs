@@ -23,21 +23,28 @@ public class skeletonControl : Player, IControllable
     public override void HandleInput(){}
    
     public override void HandleMovement(){
-        if(isActive){
-        //if(ActivePlayer){
-            enemyAI.enabled = false;
+        if(ActivePlayer==this){
+             enemyAI.enabled = false;
             Vector2 inputDirection = new Vector2(inputHandler.MoveInput.x, inputHandler.MoveInput.y);
             currentMvt = inputDirection.normalized * walkSpeed;
-        }else{
+         }else{
             enemyAI.enabled = true;
-            //patrol
-            //engage
-        }
+         }
+        // if(isActive){
+        // //if(ActivePlayer){
+        //     enemyAI.enabled = false;
+        //     Vector2 inputDirection = new Vector2(inputHandler.MoveInput.x, inputHandler.MoveInput.y);
+        //     currentMvt = inputDirection.normalized * walkSpeed;
+        // }else{
+        //     enemyAI.enabled = true;
+        //     //patrol
+        //     //engage
+        // }
        
     }
 
    private void FixedUpdate(){
-        if(isActive){
+        if(ActivePlayer==this){
             rb.linearVelocity = currentMvt;
         }
    }

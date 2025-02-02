@@ -24,7 +24,7 @@ public class playerControl : Player, IControllable
     public override void HandleInput(){}
    
     public override void HandleMovement(){
-        if(isActive){
+        if(ActivePlayer==this){
             Vector2 inputDirection = new Vector2(inputHandler.MoveInput.x, inputHandler.MoveInput.y);
             currentMvt = inputDirection.normalized * walkSpeed;
         }
