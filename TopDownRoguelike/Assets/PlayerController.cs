@@ -39,7 +39,6 @@ public class PlayerController : MonoBehaviour
     private Coroutine attackCoroutine;
 
     // ===================== DEBUG & TESTING =====================
-    [SerializeField] private GameObject enemy;
 
     // ===================== UNITY CALLBACKS =====================
     private void Awake() {
@@ -83,7 +82,6 @@ public class PlayerController : MonoBehaviour
 
     private void OnAttack(InputAction.CallbackContext context) {
         attackInput = context.ReadValue<float>();
-        Debug.Log(attackInput);
     }
 
     // ===================== GAMEPLAY LOGIC =====================
@@ -105,8 +103,10 @@ public class PlayerController : MonoBehaviour
     private void Attack() {
         if (attackInput > 0) {
             if (targetEnemy == null) {
-                if (Vector3.Distance(transform.position, enemy.transform.position) <= attackRange) {
-                    targetEnemy = enemy;  // Modify to find closest enemy in range
+
+                GameObject closestEnemy = GetClosestEnemy();
+                if (closestEnemy != null && Vector3.Distance(transform.position, closestEnemy.transform.position) <= attackRange) {
+                    targetEnemy = closestEnemy;  // Modify to find closest enemy in range
                 }
             }
 
@@ -117,11 +117,17 @@ public class PlayerController : MonoBehaviour
         
         // Attack button released
         else {
-            if (attackCoroutine != null || Vector3.Distance(transform.position, enemy.transform.position) > attackRange) {
+            if (attackCoroutine != null) {
                 StopCoroutine(attackCoroutine);
                 attackCoroutine = null;
             }
 
+            targetEnemy = null;
+        }
+
+        if (targetEnemy != null && Vector3.Distance(transform.position, targetEnemy.transform.position) > attackRange && attackCoroutine != null) {
+            StopCoroutine(attackCoroutine);
+            attackCoroutine = null;
             targetEnemy = null;
         }
     }
@@ -130,8 +136,26 @@ public class PlayerController : MonoBehaviour
         spriteRenderer.flipX = movementDirection.x < 0;
     }
 
+    private GameObject GetClosestEnemy() {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject closest = null;
+        float minDistance = Mathf.Infinity;
+
+        for (int i = 0; i < enemies.Length; i++) {
+            float distanceToCurrent = Vector3.Distance(transform.position, enemies[i].transform.position);
+
+            if (distanceToCurrent < minDistance) {
+                closest = enemies[i];
+                minDistance = distanceToCurrent;
+            }
+        }
+
+        return closest;
+    }
+
     // ===================== COROUTINES =====================
     private IEnumerator Phase() {
+
         isPhasing = true;
 
         // Adjust transparency
@@ -144,33 +168,46 @@ public class PlayerController : MonoBehaviour
 
         // Allow player to phase through enemies but not environment
         // TODO: See if there is a better way to do this
-        enemy.GetComponent<BoxCollider2D>().enabled = false;
+
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject enemy in enemies) {
+            enemy.GetComponent<BoxCollider2D>().enabled = false;
+        }
 
         yield return new WaitForSeconds(phaseDuration);
 
         // Return player to normal state
         spriteRenderer.color = oldColor;
         currentSpeed = moveSpeed;
-        enemy.GetComponent<BoxCollider2D>().enabled = true;
+
+        foreach (GameObject enemy in enemies) {
+            enemy.GetComponent<BoxCollider2D>().enabled = true;
+        }
 
         isPhasing = false;
     }
 
     private IEnumerator DamageOverTime() {
         // TODO potentially make player unable to attack while phasing
+
         while (true) {
-            // Damage enemy
-            targetEnemy.GetComponent<Health>().TakeDamage(10);
+
+            if (targetEnemy != null && targetEnemy.gameObject != null) {
+                targetEnemy.GetComponent<Health>().TakeDamage(10);
+            } else {
+                yield break;
+            }
+
             yield return new WaitForSeconds(0.5f);
         }
     }
 
     // ===================== DEBUGGING =====================
-    void OnDrawGizmos() {
-        Handles.DrawWireDisc(transform.position, Vector3.forward, attackRange);
+    // void OnDrawGizmos() {
+    //     Handles.DrawWireDisc(transform.position, Vector3.forward, attackRange);
 
-        if (attackCoroutine != null) {
-            Gizmos.DrawLine(transform.position, targetEnemy.transform.position);
-        }
-    }
+    //     if (attackCoroutine != null) {
+    //         Gizmos.DrawLine(transform.position, targetEnemy.transform.position);
+    //     }
+    // }
 }
