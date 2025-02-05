@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
 
     // TESTING
     [SerializeField] private GameObject enemy;
-    [SerializeField] private bool canPhase = true;
+    bool isPhasing = false;
     
     // LOCAL
     private Vector2 movementDirection;
@@ -29,12 +29,6 @@ public class PlayerController : MonoBehaviour
     private float dodgeTimer;
     private float dodgeCooldown;
     private float currentSpeed;
-    private float phaseTimer;
-
-    private enum PlayerState {
-        Normal,
-        Rolling
-    }
 
     private PlayerState playerState;
     private Animator animator;
@@ -47,7 +41,6 @@ public class PlayerController : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         currentSpeed = moveSpeed;
-        phaseTimer = phaseCooldown;
     }
 
     private void OnEnable() {
@@ -77,22 +70,9 @@ public class PlayerController : MonoBehaviour
     }
 
     private void Update() {
-        // Update phase cooldown timer
-        // if (phaseTimer <= 0) {
-        //     canPhase = true;
-        // } else {
-        //     phaseTimer -= Time.deltaTime;
-
-        //     if (phaseInput > 0) {
-        //         Debug.Log("Can't phase yet!");
-        //         phaseInput = 0;  // TO DEBUG
-        //     }
-        // }
-
         AdjustPlayerDirection();
-        if (phaseInput > 0) {
+        if (phaseInput > 0 && !isPhasing) {
             StartCoroutine(Phase());
-            phaseInput = 0;  // DEBUG: this should be done automatically since we are subscribed to Phase.canceled
         } else {
             Move();
         }
@@ -107,18 +87,19 @@ public class PlayerController : MonoBehaviour
         spriteRenderer.flipX = movementDirection.x < 0;
     }
 
-
-    // DEBUG: Pressing phase while currently phasing breaks
     private IEnumerator Phase() {
+        isPhasing = true;
+
         // Adjust transparency
         Color oldColor = spriteRenderer.color;  // Store old color
-        float alpha = 0.5f;  // Modify transparency
+        float alpha = 0.5f;  // Modify transparencyw
         spriteRenderer.color = new Color(oldColor.r, oldColor.g, oldColor.b, alpha);
 
         // Increase movement speed
         currentSpeed = phaseSpeed;
 
         // Allow player to phase through enemies but not environment
+        // TODO see if there is a better way to do this
         enemy.GetComponent<BoxCollider2D>().enabled = false;
 
         yield return new WaitForSeconds(phaseDuration);
@@ -127,5 +108,7 @@ public class PlayerController : MonoBehaviour
         spriteRenderer.color = oldColor;
         currentSpeed = moveSpeed;
         enemy.GetComponent<BoxCollider2D>().enabled = true;
+
+        isPhasing = false;
     }
 }
