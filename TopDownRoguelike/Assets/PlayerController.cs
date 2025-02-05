@@ -110,4 +110,7 @@ public class PlayerController : MonoBehaviour
 
         isPhasing = false;
     }
+
+    void OnDrawGizmos() {
+    }
 }
