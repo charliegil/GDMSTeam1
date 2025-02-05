@@ -30,7 +30,6 @@ public class PlayerController : MonoBehaviour
     private float dodgeCooldown;
     private float currentSpeed;
 
-    private PlayerState playerState;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
 
