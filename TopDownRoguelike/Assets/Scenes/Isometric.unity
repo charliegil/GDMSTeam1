@@ -20391,7 +20391,6 @@ MonoBehaviour:
   phaseSpeed: 7.5
   phaseCooldown: 5
   attackRange: 3
-  enemy: {fileID: 349756499}
 --- !u!212 &865914801
 SpriteRenderer:
   m_ObjectHideFlags: 0
