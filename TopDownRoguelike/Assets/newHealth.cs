@@ -21,9 +21,12 @@ public class newHealth : MonoBehaviour
     private float time= 0;
     public TMP_Text Val;
 
+    public GameObject panel;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        if(panel != null) panel.active  = false;
         setHP(sliderChange.value*totalHP);
     }
 
@@ -38,10 +41,16 @@ public class newHealth : MonoBehaviour
     }
 
     void setHP(float hp){
+        
         if(hp> totalHP) hp = totalHP;
         currentHP = hp;
         StartCoroutine(LerpHealthBar(HealthBar.value, (float)hp/totalHP));
         Val.text = (int)hp+"/"+totalHP;
+        if(hp == 0) {
+            Time.timeScale = 0;
+            if(panel != null) panel.active  = true;
+            if(sliderChange != null) sliderChange.interactable   = false;
+            }
         
     }
     public void onValueChange(){
