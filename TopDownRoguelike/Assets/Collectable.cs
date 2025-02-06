@@ -6,7 +6,7 @@ using System;
 public class Collectable : MonoBehaviour
 {
     // this script is for identifying objects that can be collected. It defines how you can collect them. 
-    // need to start making the map. corridors, simple rooms. make prefabs for each
+  
     [SerializeField] float collectRadius;
     [SerializeField] bool CollectAutomatically = false;
     [SerializeField] KeyCode keyToObtain = KeyCode.E; // specifies which key must be pressed in order to collect that item
