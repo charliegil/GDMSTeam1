@@ -11,7 +11,7 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] float returnRange = 5f;
     public Transform enemyGFX;
     private Vector2 startPos;
-    private float maxSpeed = 3;
+    [SerializeField] float maxSpeed = 2;
 
     
     Path path;
