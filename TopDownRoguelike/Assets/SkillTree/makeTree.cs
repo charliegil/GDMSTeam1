@@ -19,11 +19,19 @@ public class makeTree : MonoBehaviour
    
     public int seed = 1250;
 
-    public Sprite circleSprite;
+    public Sprite circleSprite; 
+    public Color colorAfterBuy = Color.red;
+    public Color ColorBeforeBuy = Color.yellow;
+
+    
     // solution: each node has a fixed length that his Children can take. the length is determined by most left and most right 
     
     void Start()
     {
+        skillNode.spriteImage = circleSprite;
+        skillNode.colorAfterBuy = colorAfterBuy;
+        skillNode.colorBeforeBuy = ColorBeforeBuy;
+
         treeNode root = setTree();
         printTree(root);
         TreeHelpers.CalculateNodePositions(root);
@@ -34,10 +42,7 @@ public class makeTree : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
     treeNode setTree(){
         Queue<treeNode> queue = new Queue<treeNode>();
         
@@ -90,22 +95,29 @@ public class makeTree : MonoBehaviour
         }
     }
     public void DrawTree(treeNode root) {
-        GameObject nodeObject = new GameObject(""+ root.value);
+        GameObject nodeObject = new GameObject("node");
         nodeObject.transform.position = new Vector2(root.X*spaceBetweenNodesX , -spaceBetweenNodesY*(float)root.Y);
-        SpriteRenderer spriteRenderer = nodeObject.AddComponent<SpriteRenderer>();
-        spriteRenderer.sprite = circleSprite;  // Assign the sprite for the node
+        nodeObject.AddComponent<SpriteRenderer>();
+ 
+        root.upgrade = new skillTreeUpgrade();
+        skillNode SkillNode = nodeObject.AddComponent<skillNode>();
+        SkillNode.setTreeNode(root);
+        
+        
+        
+        // dont forget to add a specific skillTreeUpgrade to the root/node
+
+        
         nodeObject.transform.localScale = new Vector3(NodeSize,NodeSize,NodeSize);
         foreach (treeNode child in root.Children) {
             CreateEdge(new Vector2(child.X*spaceBetweenNodesX  , -spaceBetweenNodesY*(float)child.Y), new Vector2(root.X*spaceBetweenNodesX  ,-spaceBetweenNodesY* (float)root.Y));
             DrawTree(child);
         }
-
-        
     }
 
     private void CreateEdge(Vector2 start, Vector2 end) {
         
-        GameObject lineObject = new GameObject("2DLine");
+        GameObject lineObject = new GameObject("line");
 
         // Add LineRenderer component
         LineRenderer lineRenderer = lineObject.AddComponent<LineRenderer>();
@@ -128,6 +140,7 @@ public class makeTree : MonoBehaviour
         lineRenderer.SetPosition(0, start); // Start point
         lineRenderer.SetPosition(1, end); // End point
     }
+    
 
 }
 
