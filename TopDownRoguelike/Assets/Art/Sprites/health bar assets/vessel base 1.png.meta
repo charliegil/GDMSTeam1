@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 0e1d86435877d924fad8b350738814f5
+guid: 29a7df71fecd846d384c2f416321489a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -112968808170193824
-    second: eye_0
+      213: 4601276933048849062
+    second: vessel base 1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: eye_0
+      name: vessel base 1_0
       rect:
         serializedVersion: 2
-        x: 2
-        y: 0
-        width: 141
-        height: 141
+        x: 25
+        y: 9
+        width: 144
+        height: 189
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 06cf05ea777ae6ef0800000000000000
-      internalID: -112968808170193824
+      spriteID: 6a25393fdf40bdf30800000000000000
+      internalID: 4601276933048849062
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      eye_0: -112968808170193824
+      vessel base 1_0: 4601276933048849062
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
