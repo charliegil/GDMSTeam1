@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
 
     // ===================== PHASING =====================
     [SerializeField] private float phaseDuration = 1f;
-    [SerializeField] private float phaseSpeed = 7.5f;
+    [SerializeField] private float phaseFactor = 2f;
     [SerializeField] private float phaseCooldown = 5f;
     private bool isPhasing = false;
     private float phaseInput;
@@ -164,14 +164,14 @@ public class PlayerController : MonoBehaviour
         spriteRenderer.color = new Color(oldColor.r, oldColor.g, oldColor.b, alpha);
 
         // Increase movement speed
-        currentSpeed = phaseSpeed;
+        currentSpeed = moveSpeed * phaseFactor;
 
         // Allow player to phase through enemies but not environment
         // TODO: See if there is a better way to do this
 
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (GameObject enemy in enemies) {
-            enemy.GetComponent<BoxCollider2D>().enabled = false;
+            enemy.GetComponent<Collider2D>().enabled = false;
         }
 
         yield return new WaitForSeconds(phaseDuration);
@@ -181,7 +181,7 @@ public class PlayerController : MonoBehaviour
         currentSpeed = moveSpeed;
 
         foreach (GameObject enemy in enemies) {
-            enemy.GetComponent<BoxCollider2D>().enabled = true;
+            enemy.GetComponent<Collider2D>().enabled = true;
         }
 
         isPhasing = false;
