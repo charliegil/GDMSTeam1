@@ -3,7 +3,6 @@ using UnityEngine;
 public class tongControl : Player, IControllable
 {
 
-
     [Header("Movement Speed")]
     [SerializeField] private float walkSpeed = 3.0f;
 
@@ -22,14 +21,10 @@ public class tongControl : Player, IControllable
     public override void HandleInput(){}
    
     public override void HandleMovement(){
-        if(isActive){
+        if(ActivePlayer==this){
             Vector2 inputDirection = new Vector2(inputHandler.MoveInput.x, inputHandler.MoveInput.y);
             currentMvt = inputDirection.normalized * walkSpeed;
-        }else{
-            //patrol
-            //engage
         }
-       
     }
 
    private void FixedUpdate(){

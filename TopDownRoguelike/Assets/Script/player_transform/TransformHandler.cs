@@ -24,7 +24,6 @@ public class TransformHandler : MonoBehaviour
                 // Activate or perform the required action on the IControllable
                 controllable.ActivateInput();
                 TryGetComponent<IControllable>(out var currentControl);
-                currentControl.DisactivateInput();
                 
                 Debug.Log("Activated IControllable on another");
             }
