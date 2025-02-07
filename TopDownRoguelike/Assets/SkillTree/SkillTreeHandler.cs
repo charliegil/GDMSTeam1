@@ -49,7 +49,7 @@ public class SkillTreeHandler : MonoBehaviour
             int original  = skillPoints;
             skillPoints = skillnode.sellSkill(skillPoints);
             
-            if(original != skillPoints){
+            if(original != skillPoints){ // the upgrade was already purchased
                 upgradesOwned.Remove(skillnode.getNode().upgrade);
                 Debug.Log("you sold" + skillnode.getNode());
             }

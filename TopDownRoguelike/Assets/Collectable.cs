@@ -73,7 +73,7 @@ public class Collectable : MonoBehaviour
             CollectableRenderer.material.color = Color.red;
         }
     }
-    private bool isWallBetweenPlayer(Collider2D obj){
+    public bool isWallBetweenPlayer(Collider2D obj ){
         Vector2 direction = obj.transform.position - transform.position;
         RaycastHit2D[] hit = castRayAndGetCollider(direction);
         foreach(RaycastHit2D col in hit){

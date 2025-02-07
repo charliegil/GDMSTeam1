@@ -31,6 +31,8 @@ public class PlayerController : MonoBehaviour
     private float currentSpeed;
     private float phaseTimer;
 
+    private Vector2 externalVelocity = new Vector2(0, 0);
+
     private enum PlayerState {
         Normal,
         Rolling
@@ -100,7 +102,8 @@ public class PlayerController : MonoBehaviour
 
     private void Move() {
         currentMovement = movementDirection * currentSpeed;
-        rb.linearVelocity = currentMovement;
+        //Debug.Log(externalVelocity);
+        rb.linearVelocity = currentMovement +  externalVelocity;
     }
 
     private void AdjustPlayerDirection() {
@@ -128,4 +131,9 @@ public class PlayerController : MonoBehaviour
         currentSpeed = moveSpeed;
         enemy.GetComponent<BoxCollider2D>().enabled = true;
     }
+
+    public void setExternalVelocity(Vector2 vec) {externalVelocity = vec;}
+    public void addExternalVelocity(Vector2 vec) {externalVelocity+= vec;}
+
+    public bool isDashing() {return isDodging;}
 }
