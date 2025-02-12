@@ -16,7 +16,7 @@ using UnityEngine;
         public int Height { get; set; }
 
 
-        public skillTreeUpgrade upgrade;
+        private skillTreeUpgrade upgrade;
         public int value;
 
         public treeNode( treeNode parent)
@@ -112,6 +112,12 @@ using UnityEngine;
         }
         public bool canBeBought(){
             return !upgrade.Isbought();
+        }
+        public skillTreeUpgrade GetUpgrade(){
+            return upgrade;
+        }
+        public void setUpgrade(skillTreeUpgrade upg){
+            upgrade = upg;
         }
        
     }

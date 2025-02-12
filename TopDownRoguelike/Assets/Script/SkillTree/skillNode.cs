@@ -1,11 +1,9 @@
 using UnityEngine;
+using TMPro;
 
 public class skillNode : MonoBehaviour
 {
     // this is just a wrapper class to be able to hold a treeNode object inside a gameobject
-
-    // 
-    
     private treeNode node;
     
     public static Sprite spriteImage;
@@ -15,12 +13,11 @@ public class skillNode : MonoBehaviour
     private SpriteRenderer spriteRenderer;
 
     public static Color colorAfterBuy; // color that is shown when you bought the upgrade
-    public static Color colorBeforeBuy; // color that is shown when can buy the upgrade
+    public static Color colorBeforeBuy; // color that is shown when can buy the upgrade.
+    public static TextMeshPro textAttributes;
     
     void Awake()
     {
-       
-      
     
         SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         if (spriteRenderer == null) spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
@@ -55,9 +52,18 @@ public class skillNode : MonoBehaviour
         return points;
     }
     public override string ToString(){
-        return node.upgrade.ToString();
+        return node.GetUpgrade().ToString();
     }
     public treeNode getNode(){
         return node;
     }
+    private void OnMouseEnter()
+    {
+        textAttributes.text = node.GetUpgrade().ToString();
+    }
+    private void OnMouseExit()
+    {
+        textAttributes.text = "Hover to see attributes";
+    }
+
 }

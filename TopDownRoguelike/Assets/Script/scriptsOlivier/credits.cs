@@ -10,7 +10,7 @@ public class credits : MonoBehaviour
         if(cam== null) cam = Camera.main;
     }
 
-    // Update is called once per frame
+    // Update is called once per frame.
     void Update()
     {
         if((cam.transform.position + new Vector3(0,0,10)).magnitude< 23)

@@ -5,7 +5,7 @@ using System;
 
 public class Collectable : MonoBehaviour
 {
-    // this script is for identifying objects that can be collected. It defines how you can collect them. 
+    // this script is for identifying objects that can be collected. It defines how you can collect them
   
     [SerializeField] float collectRadius;
     [SerializeField] bool CollectAutomatically = false;

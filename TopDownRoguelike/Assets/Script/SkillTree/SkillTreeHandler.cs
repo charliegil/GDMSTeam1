@@ -16,7 +16,7 @@ public class SkillTreeHandler : MonoBehaviour
     // update number of skill points, and sending updates to other scripts to apply these upgrades. will do these action if the skillpoint returned
    
 
-    // this is the method responsible to change the appearance of the gameObject
+    // this is the method responsible to change the appearance of the gameObject.
     
 
     // Update is called once per frame
@@ -38,7 +38,7 @@ public class SkillTreeHandler : MonoBehaviour
             skillPoints = skillnode.buySkill(skillPoints);
             
             if(original != skillPoints){
-                upgradesOwned.Add(skillnode.getNode().upgrade);
+                upgradesOwned.Add(skillnode.getNode().GetUpgrade());
                 Debug.Log("you bought" + skillnode);
             }
     }
@@ -50,7 +50,7 @@ public class SkillTreeHandler : MonoBehaviour
             skillPoints = skillnode.sellSkill(skillPoints);
             
             if(original != skillPoints){ // the upgrade was already purchased
-                upgradesOwned.Remove(skillnode.getNode().upgrade);
+                upgradesOwned.Remove(skillnode.getNode().GetUpgrade());
                 Debug.Log("you sold" + skillnode.getNode());
             }
     }
