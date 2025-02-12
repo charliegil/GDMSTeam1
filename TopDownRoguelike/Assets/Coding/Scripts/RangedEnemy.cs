@@ -5,6 +5,14 @@ public class RangedEnemy : Player
     private GameObject player;
     [SerializeField] GameObject projectilePrefab;
 
+    [SerializeField] int numberOfProjectiles = 5; // the total projectiles to lauch. -1 means its infinite
+
+    [SerializeField] float timeBetweenProjectile = 1; // the time between each projectile
+
+    private float time =  0;
+
+    private int projectilesLauched = 0;
+
     public override void HandleInput()
     {
         throw new System.NotImplementedException();
@@ -32,12 +40,20 @@ public class RangedEnemy : Player
     {
         // Find player
         player = GameObject.FindGameObjectWithTag("Player");
-        PerformAttack();
+        //PerformAttack();
+        time = timeBetweenProjectile;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if(time >= timeBetweenProjectile && ((projectilesLauched < numberOfProjectiles)  || numberOfProjectiles ==-1) ){
+            time = 0;
+            PerformAttack();
+            projectilesLauched++;
+        }
+        else{
+            time+=Time.deltaTime;
+        }
     }
 }

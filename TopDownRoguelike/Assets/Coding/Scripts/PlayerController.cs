@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
     private float phaseTimer;
     private float health = 100;
 
-    private bool canMove { get; set; } = true;
+    private bool canMove = true;
 
     private enum PlayerState {
         Normal,
@@ -202,5 +202,8 @@ public class PlayerController : MonoBehaviour
             }
             addExternalVelocity(-oldDirection);
             canMove = before;
+    }
+    public void setCanMove(bool move){
+        canMove = move;
     }
 }

@@ -9,8 +9,8 @@ public class PullPlayer : MonoBehaviour
 
     public Sprite spritePull;
     // will need to add sprites for when the zone is pulling, vs not pulling
-
-    public float pullTime; // the time it will take you to go to the center
+    public Color colorPullZone = Color.white;
+    public Color colorDamagezone = Color.red;
 
     public float pullRadius; // when enter that radius, will start pulling you from that center
     public float pullVelocity; // the velocity at which you get pulled towards the center
@@ -23,6 +23,7 @@ public class PullPlayer : MonoBehaviour
 
     public float reloadtime; // used with variable on top, specifies the reload time before it can start pulling things again
 
+    public int  lifetime = -1; // is used to specify the lifetime of the object. if not -1, will destroy after x seconds
 
     public bool canMoveWhilePulled = true; // will need to implement this
 
@@ -35,13 +36,16 @@ public class PullPlayer : MonoBehaviour
 
     private CircleCollider2D PullCollider; // if you are in this collider, you will get pulled towards the center
 
-    private SpriteRenderer PullRenderer;
 
     private float TimeInDamageZone = 0;
 
     private float reloadCounter = 0;
 
     private PlayerController playerController;
+
+    private SpriteRenderer PullRenderer;
+    private SpriteRenderer DamageRenderer; 
+    
 
     private Vector2 currentDirection = new Vector2(0, 0);
 
@@ -55,6 +59,23 @@ public class PullPlayer : MonoBehaviour
         
         PullRenderer = gameObject.AddComponent<SpriteRenderer>();
         PullRenderer.sprite  = spritePull;
+        PullRenderer.color = colorPullZone;
+
+        PullRenderer.drawMode = SpriteDrawMode.Sliced; // Options: Simple, Sliced, Tiled
+        PullRenderer.size = new Vector2(2*pullRadius,2* pullRadius);
+
+        if(lifetime!= -1) Destroy(gameObject, lifetime);
+
+        GameObject damageZone = new GameObject("zoneDamage");
+        damageZone.transform.SetParent(transform);
+        damageZone.transform.localPosition = Vector3.zero;
+
+        DamageRenderer = damageZone.AddComponent<SpriteRenderer>();
+        DamageRenderer.sprite = spritePull;
+
+        DamageRenderer.drawMode = SpriteDrawMode.Sliced; 
+        DamageRenderer.size = new Vector2(2*damageRadius, 2*damageRadius);
+        DamageRenderer.color = colorDamagezone;
 
     }
 
@@ -73,6 +94,8 @@ public class PullPlayer : MonoBehaviour
         if(playerController== null) playerController = obj.GetComponent<PlayerController>();
 
         if(!canPull) return;
+
+        playerController.setCanMove(canMoveWhilePulled);
 
         /*playerController.addExternalVelocity(-currentDirection);
         currentDirection = pullVelocity*(transform.position - obj.transform.position).normalized;
@@ -99,6 +122,7 @@ public class PullPlayer : MonoBehaviour
         canPull = false;
         reloadCounter = 0; 
         timePassedPull = 0;
+        playerController.setCanMove(true);
 
     }
 
@@ -130,8 +154,13 @@ public class PullPlayer : MonoBehaviour
         
 
         playerController.addExternalVelocity(-currentDirection);
+        if((transform.position - obj.transform.position).magnitude > 0.1){
         currentDirection = pullVelocity*(transform.position - obj.transform.position).normalized;
         playerController.addExternalVelocity(currentDirection);
+        }
+        else{
+            currentDirection = new Vector2(0,0);
+        }
 
 
     
