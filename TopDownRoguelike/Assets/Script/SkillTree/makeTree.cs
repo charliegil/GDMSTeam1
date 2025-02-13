@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using System.Collections.Generic;
+using TMPro;
 
 public class makeTree : MonoBehaviour
 {
@@ -13,36 +14,53 @@ public class makeTree : MonoBehaviour
 
     public int spaceBetweenNodesX = 3;
     public int spaceBetweenNodesY= 2;
+
+    public int initialPositionRootX = 0;
+    public int initialPositionRootY = 0;
+
     
     public float NodeSize = 1;
     
-   
+    public GameObject panel;
     public int seed = 1250;
 
     public Sprite circleSprite; 
     public Color colorAfterBuy = Color.red;
     public Color ColorBeforeBuy = Color.yellow;
 
+    public TextMeshPro textAttributes;
+
     
-    // solution: each node has a fixed length that his Children can take. the length is determined by most left and most right 
+    // solution: each node has a fixed length that his Children can take. the length is determined by most left and most right. 
     
     void Start()
     {
         skillNode.spriteImage = circleSprite;
         skillNode.colorAfterBuy = colorAfterBuy;
         skillNode.colorBeforeBuy = ColorBeforeBuy;
+        skillNode.textAttributes = textAttributes;
 
+        if(enableCoolerTrees) minNumOfChildren = Math.Max(minNumOfChildren, 1);
         treeNode root = setTree();
         printTree(root);
         TreeHelpers.CalculateNodePositions(root);
         DrawTree(root);
-        Camera.main.transform.position = new Vector3(root.X*spaceBetweenNodesX  ,(float)root.Y* -spaceBetweenNodesY,-10 );
-        if(enableCoolerTrees) minNumOfChildren = Math.Max(minNumOfChildren, 1);
+        //Camera.main.transform.position = new Vector3(root.X*spaceBetweenNodesX  ,(float)root.Y* -spaceBetweenNodesY -12 ,-10 );
+        //panel.SetActive(false);
+
+    }
+    void Update(){
+        if(Input.GetKey(KeyCode.E)){
+            panel.SetActive(true);
+        }
+        if(Input.GetKey(KeyCode.Q)){
+            panel.SetActive(false);
+        }
 
     }
 
     // Update is called once per frame
-    
+
     treeNode setTree(){
         Queue<treeNode> queue = new Queue<treeNode>();
         
@@ -96,23 +114,25 @@ public class makeTree : MonoBehaviour
     }
     public void DrawTree(treeNode root) {
         GameObject nodeObject = new GameObject("node");
-        nodeObject.transform.position = new Vector2(root.X*spaceBetweenNodesX , -spaceBetweenNodesY*(float)root.Y);
+        
+        Vector2 positionNode =new Vector2(root.X*spaceBetweenNodesX-initialPositionRootX , -spaceBetweenNodesY*(float)root.Y-initialPositionRootY);
+        nodeObject.transform.position = positionNode;
         nodeObject.AddComponent<SpriteRenderer>();
  
-        root.upgrade = new skillTreeUpgrade();
+        root.setUpgrade(new skillTreeUpgrade());
         skillNode SkillNode = nodeObject.AddComponent<skillNode>();
         SkillNode.setTreeNode(root);
         
         
+        nodeObject.transform.localScale = new Vector3(NodeSize,NodeSize,NodeSize);
         
         // dont forget to add a specific skillTreeUpgrade to the root/node
-
-        
-        nodeObject.transform.localScale = new Vector3(NodeSize,NodeSize,NodeSize);
         foreach (treeNode child in root.Children) {
-            CreateEdge(new Vector2(child.X*spaceBetweenNodesX  , -spaceBetweenNodesY*(float)child.Y), new Vector2(root.X*spaceBetweenNodesX  ,-spaceBetweenNodesY* (float)root.Y));
+            Vector2 positionChild = new Vector2(child.X*spaceBetweenNodesX-initialPositionRootX  , -spaceBetweenNodesY*(float)child.Y-initialPositionRootY);
+            CreateEdge(positionChild,positionNode);
             DrawTree(child);
         }
+        nodeObject.transform.SetParent(panel.transform);
     }
 
     private void CreateEdge(Vector2 start, Vector2 end) {
@@ -139,6 +159,8 @@ public class makeTree : MonoBehaviour
         lineRenderer.positionCount = 2; // The line consists of 2 points
         lineRenderer.SetPosition(0, start); // Start point
         lineRenderer.SetPosition(1, end); // End point
+
+        lineObject.transform.SetParent(panel.transform);
     }
     
 

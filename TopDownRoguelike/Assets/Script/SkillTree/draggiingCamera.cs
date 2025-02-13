@@ -13,7 +13,7 @@ public class draggiingCamera : MonoBehaviour
         if(camera == null) camera = Camera.main;
     }
 
-    // Update is called once per frame
+    // Update is called once per frame.
     void Update()
     {
         if(Input.GetMouseButton(0)){

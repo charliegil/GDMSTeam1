@@ -13,14 +13,17 @@ public class skillTreeUpgrade
 
     int price;
 
+    int id;
+
 
 
    
-   public skillTreeUpgrade(string desc , float val , upgradeType typ , int prix ){
+   public skillTreeUpgrade(string desc , float val , upgradeType typ , int prix , int id ){
     description = desc;
     value = val;
     type = typ;
     price = prix;
+    this.id = id;
    }
 
    public skillTreeUpgrade()
@@ -50,6 +53,7 @@ public class skillTreeUpgrade
     public bool Isbought(){
         return bought;
     }
+    public int getId(){ return id;}
 }
 
 public enum upgradeType{
@@ -62,3 +66,6 @@ public enum upgradeType{
     levelStart
     
 }
+
+
+
