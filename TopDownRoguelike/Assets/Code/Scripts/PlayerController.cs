@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 
 using UnityEngine;
@@ -11,6 +12,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
+    private PlayerAttackLineRenderer lineRenderer;
 
     // ===================== MOVEMENT =====================
     [SerializeField] private float moveSpeed = 5f;
@@ -50,6 +52,10 @@ public class PlayerController : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         currentSpeed = moveSpeed;
+        lineRenderer = gameObject.transform.GetChild(0).GetComponent<PlayerAttackLineRenderer>();
+        if (lineRenderer != null) {
+            Debug.Log("Found line renderer");
+        }
     }
 
     private void OnEnable() {
@@ -108,7 +114,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // TODO clean up code
     private void Attack() {
+        // Show/hide attack line placeholder
+        if (attackInput > 0 && targetEnemy != null && targetEnemy.gameObject != null && attackCoroutine != null) {
+            lineRenderer.DrawAttackLine(transform.position, targetEnemy.transform.position);
+        } else {
+            lineRenderer.ClearLine();
+        }
+
         if (attackInput > 0) {
             if (targetEnemy == null) {
 
@@ -133,6 +147,7 @@ public class PlayerController : MonoBehaviour
             targetEnemy = null;
         }
 
+        // Moved too far from enemy
         if (targetEnemy != null && Vector3.Distance(transform.position, targetEnemy.transform.position) > attackRange && attackCoroutine != null) {
             StopCoroutine(attackCoroutine);
             attackCoroutine = null;
