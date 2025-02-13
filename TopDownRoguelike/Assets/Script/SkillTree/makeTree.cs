@@ -5,6 +5,9 @@ using TMPro;
 
 public class makeTree : MonoBehaviour
 {
+    /*
+    this is the script used to make the skill tree. 
+    */
     public int minNumOfChildren = 0;
     public int maxNumOfChildren = 3;
     public int totalNodes = 20;
@@ -138,24 +141,23 @@ public class makeTree : MonoBehaviour
     private void CreateEdge(Vector2 start, Vector2 end) {
         
         GameObject lineObject = new GameObject("line");
-
+        
         // Add LineRenderer component
         LineRenderer lineRenderer = lineObject.AddComponent<LineRenderer>();
-
+        lineRenderer.useWorldSpace = false;
         // Configure LineRenderer for 2D
-        lineRenderer.startWidth = 0.25f;  // Line width at the start
-        lineRenderer.endWidth = 0.25f;    // Line width at the end
-        lineRenderer.useWorldSpace = true; // Use world space coordinates
-        lineRenderer.numCapVertices = 2;  // Rounded edges for the line
+        lineRenderer.startWidth = 0.25f; 
+        lineRenderer.endWidth = 0.25f;   
+        lineRenderer.numCapVertices = 2;  
 
-        // Assign a default 2D material
+     
         lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
 
-        // Set the color of the line
+
         lineRenderer.startColor = Color.red;
         lineRenderer.endColor = Color.red;
 
-        // Set positions of the line
+ 
         lineRenderer.positionCount = 2; // The line consists of 2 points
         lineRenderer.SetPosition(0, start); // Start point
         lineRenderer.SetPosition(1, end); // End point

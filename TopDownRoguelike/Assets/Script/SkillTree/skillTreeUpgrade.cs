@@ -3,6 +3,8 @@ using System;
 
 public class skillTreeUpgrade
 {
+    // feel free to change this class, as well the the upgrade type.
+    // just dont change the bool bought and the return values of the methods that handle buy/sell
     string description;
 
     float value;
@@ -38,7 +40,7 @@ public class skillTreeUpgrade
     }
   
     public int doUpgrade(int skillPoints){ 
-        if (skillPoints < price || bought) return  skillPoints;
+        if (skillPoints < price || bought) return  skillPoints; // if you dont have enough skill points to buy that upgrade
         bought = true;
         return skillPoints-price;
     }
