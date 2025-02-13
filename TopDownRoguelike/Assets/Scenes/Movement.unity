@@ -1166,9 +1166,10 @@ GameObject:
   - component: {fileID: 349756502}
   - component: {fileID: 349756501}
   - component: {fileID: 349756500}
+  - component: {fileID: 349756503}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1289,6 +1290,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &349756503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 349756499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8898022347ea147b483cf0844e8fc6a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth: 100
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1559,11 +1573,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  phaseDuration: 1
-  phaseSpeed: 7.5
+  phaseDuration: 0.3
+  phaseFactor: 2
   phaseCooldown: 5
-  enemy: {fileID: 349756499}
-  canPhase: 1
+  attackRange: 3
+  damageTickDelay: 0.5
 --- !u!212 &865914801
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6313,10 +6327,104 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1001 &2112187670626096558
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 259855931793119727, guid: cc27756a940f645f3abab42e8fc72531, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 259855931793119727, guid: cc27756a940f645f3abab42e8fc72531, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 259855931793119727, guid: cc27756a940f645f3abab42e8fc72531, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 259855931793119727, guid: cc27756a940f645f3abab42e8fc72531, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 259855931793119727, guid: cc27756a940f645f3abab42e8fc72531, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 259855931793119727, guid: cc27756a940f645f3abab42e8fc72531, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 259855931793119727, guid: cc27756a940f645f3abab42e8fc72531, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 259855931793119727, guid: cc27756a940f645f3abab42e8fc72531, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 259855931793119727, guid: cc27756a940f645f3abab42e8fc72531, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 259855931793119727, guid: cc27756a940f645f3abab42e8fc72531, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1532470009253089211, guid: cc27756a940f645f3abab42e8fc72531, type: 3}
+      propertyPath: sounds.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1532470009253089211, guid: cc27756a940f645f3abab42e8fc72531, type: 3}
+      propertyPath: sounds.Array.data[0].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: b264bb460cf246340a4a229a5aaa29a0, type: 3}
+    - target: {fileID: 1532470009253089211, guid: cc27756a940f645f3abab42e8fc72531, type: 3}
+      propertyPath: sounds.Array.data[0].name
+      value: Main Theme
+      objectReference: {fileID: 0}
+    - target: {fileID: 1532470009253089211, guid: cc27756a940f645f3abab42e8fc72531, type: 3}
+      propertyPath: sounds.Array.data[1].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: f7787552e729c4f03acbf8c8d22f20ad, type: 3}
+    - target: {fileID: 1532470009253089211, guid: cc27756a940f645f3abab42e8fc72531, type: 3}
+      propertyPath: sounds.Array.data[1].name
+      value: Damage Tick
+      objectReference: {fileID: 0}
+    - target: {fileID: 1532470009253089211, guid: cc27756a940f645f3abab42e8fc72531, type: 3}
+      propertyPath: sounds.Array.data[0].pitch
+      value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 1532470009253089211, guid: cc27756a940f645f3abab42e8fc72531, type: 3}
+      propertyPath: sounds.Array.data[1].pitch
+      value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1532470009253089211, guid: cc27756a940f645f3abab42e8fc72531, type: 3}
+      propertyPath: sounds.Array.data[0].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1532470009253089211, guid: cc27756a940f645f3abab42e8fc72531, type: 3}
+      propertyPath: sounds.Array.data[1].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7378932598469134031, guid: cc27756a940f645f3abab42e8fc72531, type: 3}
+      propertyPath: m_Name
+      value: AudioManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: cc27756a940f645f3abab42e8fc72531, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 2112187670626096558}
   - {fileID: 519420032}
   - {fileID: 619394802}
   - {fileID: 865914799}

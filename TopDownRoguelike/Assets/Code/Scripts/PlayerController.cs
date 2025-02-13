@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour
     private float attackInput;
     private GameObject targetEnemy;
     private Coroutine attackCoroutine;
+    [SerializeField] private float damageTickDelay = 0.5f;
 
     // ===================== DEBUG & TESTING =====================
 
@@ -210,12 +211,15 @@ public class PlayerController : MonoBehaviour
         while (true) {
 
             if (targetEnemy != null && targetEnemy.gameObject != null) {
-                //targetEnemy.GetComponent<Health>().TakeDamage(10);
+                targetEnemy.GetComponent<Health>().TakeDamage(10);
+
+                // Play damage tick sound
+                AudioManager.Instance.Play("Damage Tick");
             } else {
                 yield break;
             }
 
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(damageTickDelay);
         }
     }
 public void setExternalVelocity(Vector2 vec){
