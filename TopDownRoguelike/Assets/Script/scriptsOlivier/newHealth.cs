@@ -27,7 +27,7 @@ public class newHealth : MonoBehaviour
     void Start()
     {
         if(panel != null) panel.active  = false;
-        setHP(sliderChange.value*totalHP);
+        setHP(sliderChange.value*totalHP, false);
     }
 
     // Update is called once per frame
@@ -35,16 +35,21 @@ public class newHealth : MonoBehaviour
     {
         if(Time.time - time >=1f && regenerate){
             time = Time.time;
-            setHP(currentHP+regenerationPerSecond);
+            setHP(currentHP+regenerationPerSecond , true);
             //sliderChange.value = currentHP;
         }
     }
 
-    void setHP(float hp){
+    void setHP(float hp, bool animation){
         
         if(hp> totalHP) hp = totalHP;
         currentHP = hp;
-        StartCoroutine(LerpHealthBar(HealthBar.value, (float)hp/totalHP));
+        if(animation){
+            StartCoroutine(LerpHealthBar(HealthBar.value, (float)hp/totalHP));
+        }
+        else{
+            HealthBar.value = hp;
+        }
         Val.text = (int)hp+"/"+totalHP;
         if(hp == 0) {
             Time.timeScale = 0;
@@ -55,7 +60,7 @@ public class newHealth : MonoBehaviour
     }
     public void onValueChange(){
         float value = sliderChange.value;
-        setHP(value*totalHP);
+        setHP(value*totalHP , true);
         
     }
    
@@ -72,7 +77,8 @@ public class newHealth : MonoBehaviour
 
         HealthBar.value = end; 
     }
-    void addHP(float add){
-        setHP(currentHP+add);
+    public void addHP(float add , bool animation){
+        setHP(currentHP+add, animation);
     }
+    
 }
