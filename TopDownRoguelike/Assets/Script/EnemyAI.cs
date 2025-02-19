@@ -56,7 +56,10 @@ public class EnemyAI : MonoBehaviour
         }
     }
     void Update(){
-        target = Player.ActivePlayer.transform;
+        if(Player.ActivePlayer!=null){
+            target = Player.ActivePlayer.transform;
+        }
+        
     }
 
     // Update is called once per frame

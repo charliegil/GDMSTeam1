@@ -41,13 +41,13 @@ public class Horse_inputControl : Core
     void SelectState(){
         
         //logic of which to select
-        if(){
-            machine.Set(idleState);
-            machine.Set(patrolState);
-            machine.Set(followState);
-            machine.Set(attackState);
+        // if(){
+        //     machine.Set(idleState);
+        //     machine.Set(patrolState);
+        //     machine.Set(followState);
+        //     machine.Set(attackState);
             
-        }
+        // }
         
         //isComplete allow use same animation 
         
