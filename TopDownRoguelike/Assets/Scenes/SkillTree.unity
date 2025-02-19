@@ -193,8 +193,8 @@ MonoBehaviour:
   panel: {fileID: 1794365456}
   seed: 21
   circleSprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  colorAfterBuy: {r: 1, g: 0, b: 0, a: 1}
-  ColorBeforeBuy: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  SpriteLocked: {fileID: -162039004593993079, guid: 50d54d4f9ca01104cb167faa2f32c77a, type: 3}
+  SpriteUnlocked: {fileID: -1818097775005303466, guid: 08de95bfa2d3a2143a1b657650093b8c, type: 3}
   textAttributes: {fileID: 912532581}
 --- !u!212 &171946376
 SpriteRenderer:

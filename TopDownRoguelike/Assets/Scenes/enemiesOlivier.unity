@@ -59961,6 +59961,10 @@ PrefabInstance:
       propertyPath: lineOfSightAngle
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 315322413647152379, guid: bf32a9b6938d2b741b93473d6d25b6ca, type: 3}
+      propertyPath: radiusCircularAttack
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5620610294107980925, guid: bf32a9b6938d2b741b93473d6d25b6ca, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

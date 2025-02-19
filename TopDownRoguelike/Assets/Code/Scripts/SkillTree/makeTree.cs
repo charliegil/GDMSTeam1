@@ -5,9 +5,6 @@ using TMPro;
 
 public class makeTree : MonoBehaviour
 {
-    /*
-    this is the script used to make the skill tree. 
-    */
     public int minNumOfChildren = 0;
     public int maxNumOfChildren = 3;
     public int totalNodes = 20;
@@ -28,19 +25,18 @@ public class makeTree : MonoBehaviour
     public int seed = 1250;
 
     public Sprite circleSprite; 
-    public Color colorAfterBuy = Color.red;
-    public Color ColorBeforeBuy = Color.yellow;
+    public Sprite SpriteLocked;
+    public Sprite SpriteUnlocked;
 
     public TextMeshPro textAttributes;
 
     
     // solution: each node has a fixed length that his Children can take. the length is determined by most left and most right. 
-    
+
     void Start()
     {
-        skillNode.spriteImage = circleSprite;
-        skillNode.colorAfterBuy = colorAfterBuy;
-        skillNode.colorBeforeBuy = ColorBeforeBuy;
+        skillNode.SpriteLocked = SpriteLocked;
+        skillNode.SpriteUnlocked = SpriteUnlocked;
         skillNode.textAttributes = textAttributes;
 
         if(enableCoolerTrees) minNumOfChildren = Math.Max(minNumOfChildren, 1);
@@ -141,26 +137,27 @@ public class makeTree : MonoBehaviour
     private void CreateEdge(Vector2 start, Vector2 end) {
         
         GameObject lineObject = new GameObject("line");
-        
-       
+
+        // Add LineRenderer component
         LineRenderer lineRenderer = lineObject.AddComponent<LineRenderer>();
-        lineRenderer.useWorldSpace = false;
-      
+
+        // Configure LineRenderer for 2D
         lineRenderer.startWidth = 0.25f; 
         lineRenderer.endWidth = 0.25f;   
-        lineRenderer.numCapVertices = 2;  
+        lineRenderer.useWorldSpace = true;
+        lineRenderer.numCapVertices = 2; 
 
-     
+       
         lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
 
-
+        
         lineRenderer.startColor = Color.red;
         lineRenderer.endColor = Color.red;
 
- 
-        lineRenderer.positionCount = 2; 
-        lineRenderer.SetPosition(0, start); 
-        lineRenderer.SetPosition(1, end);
+       
+        lineRenderer.positionCount = 2; // The line consists of 2 points
+        lineRenderer.SetPosition(0, start); // Start point
+        lineRenderer.SetPosition(1, end); // End point
 
         lineObject.transform.SetParent(panel.transform);
     }
