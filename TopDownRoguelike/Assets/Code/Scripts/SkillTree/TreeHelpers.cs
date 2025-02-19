@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-
+    /*Dont use this script, only helper methods to help place the nodes*/
     public static class TreeHelpers    
     {
         private static int nodeSize = 1;
