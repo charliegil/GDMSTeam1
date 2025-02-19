@@ -142,10 +142,10 @@ public class makeTree : MonoBehaviour
         
         GameObject lineObject = new GameObject("line");
         
-        // Add LineRenderer component
+       
         LineRenderer lineRenderer = lineObject.AddComponent<LineRenderer>();
         lineRenderer.useWorldSpace = false;
-        // Configure LineRenderer for 2D
+      
         lineRenderer.startWidth = 0.25f; 
         lineRenderer.endWidth = 0.25f;   
         lineRenderer.numCapVertices = 2;  
@@ -158,9 +158,9 @@ public class makeTree : MonoBehaviour
         lineRenderer.endColor = Color.red;
 
  
-        lineRenderer.positionCount = 2; // The line consists of 2 points
-        lineRenderer.SetPosition(0, start); // Start point
-        lineRenderer.SetPosition(1, end); // End point
+        lineRenderer.positionCount = 2; 
+        lineRenderer.SetPosition(0, start); 
+        lineRenderer.SetPosition(1, end);
 
         lineObject.transform.SetParent(panel.transform);
     }
