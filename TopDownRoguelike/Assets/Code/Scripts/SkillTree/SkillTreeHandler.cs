@@ -39,6 +39,7 @@ public class SkillTreeHandler : MonoBehaviour
             
             if(original != skillPoints){
                 upgradesOwned.Add(skillnode.getNode().GetUpgrade());
+                GetComponent<AudioSource>().Play();
                 Debug.Log("you bought" + skillnode);
             }
     }
