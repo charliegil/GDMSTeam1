@@ -288,12 +288,12 @@ public class CloseEnemy : MonoBehaviour
         Array.Sort(hits, (x, y) => x.distance.CompareTo(y.distance));
         return hits;
     }
-        Vector3 RotateVector(Vector3 v, float degrees){
+    Vector3 RotateVector(Vector3 v, float degrees){
         float rad = degrees * Mathf.Deg2Rad;
         float cos = Mathf.Cos(rad);
         float sin = Mathf.Sin(rad);
         return new Vector3(v.x*cos-v.y*sin, v.x*sin + v.y*cos);
-        }
+    }
     private void setLineRenderer(){
         // Start of the FOV renderer
         float lineWidth = 0.08f;

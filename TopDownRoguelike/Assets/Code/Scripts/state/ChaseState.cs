@@ -20,6 +20,7 @@ public class ChaseState : State
     public IdleState idle;
 
     Seeker seeker;
+    // should be the primary chase state we will use
     public override void Enter() //only once
     {
         seeker = GetComponent<Seeker>();

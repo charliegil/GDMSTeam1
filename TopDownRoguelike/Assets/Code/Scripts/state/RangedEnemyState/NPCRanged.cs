@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class NPC : Core
+public class NPCRanged : Core
 {
     public RoutePatrol patrol;
     public ChaseState chase;
@@ -10,7 +10,7 @@ public class NPC : Core
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        base.Start();
         Debug.Log("NPC Start() is running...");
         machine = new StateMachine(); // Ensure `machine` exists
         SetupInstances();

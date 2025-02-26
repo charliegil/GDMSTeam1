@@ -1,0 +1,28 @@
+Patrol: the ranged enemy will alternate between some Points, stopping x seconds before going to the next anchor point.
+can maybe shoot some random projectiles while patrolling
+The FOV of the enemy is 360
+
+Chase : the enemy will try to stay at a certain distance of the Player. If the player is too close, 
+it will be forced to reposition, at a certain distance from the player. in reposition, can attack, but with bad accuracy
+
+Attack : enemy doenst move when attacked.
+
+
+Patrol -> Chase : when the player is in the detection range of the enemy, the enemy will go into patrol. 
+the enemy doesnt see through wall
+ 
+Chase -> Patrol : if the enemy doesnt see the player anymore, or it went outside of the zone of operation, go into patrol mode
+
+
+Ex : Zone of operation  = 20 , detection range  = 15, attack range = 13, too close = 7 : 
+Patrol -> Chase : move to be between attack range and too close
+when in attack, dont move
+reposition : move to be in attack range
+
+Left to do: 
+implement the attack
+implement the chase mechanic
+
+
+
+

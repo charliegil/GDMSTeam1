@@ -1,47 +1,56 @@
 using UnityEngine;
 
-public class NPC : Core
+public class NPCExploding : Core
 {
-    public RoutePatrol patrol;
+
+    public IdleState idle;
     public ChaseState chase;
+
+    public StraightChaseState straightChase;
+
+
+    [SerializeField] public bool usePathFinding = false;
+
+    [SerializeField] public float MaxAliveTime = 4;
+    
 
     public AttackState attack;
     // will need to attach the start position, as well as attach the line Renderer for the slime patrol
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
         Debug.Log("NPC Start() is running...");
         machine = new StateMachine(); // Ensure `machine` exists
         SetupInstances();
         
-        if (patrol == null)
+        if (idle == null)
         {
-            Debug.LogError("Patrol state is NULL in NPC!");
+            Debug.LogError("idle state is NULL in NPC exploding!");
             return;
         }
         //patrol.SetCore(core);
-        Set(patrol);
+        Set(idle);
     }
 
     // Update is called once per frame
+    // this NPC destroys after one attack, so no need for some advanced ai thing
     void Update()
     {
-        // can modify that
-        // still need to determine when to enter the attackState
-        if(CloseEnough(target.position)){
+        if(IsPlayerInAttackRange(target.transform.position) || MaxAliveTime <= 0){
+            Set(attack);
+        }
+        else if(CloseEnough(target.position)){
             if(machine.state!=chase){
                 Set(chase);
             }
-        }else if(FarEnough(target.position)&&state.isComplete){ 
-
-            if(machine.state!=patrol){
-                Set(patrol);
-            }
-
         }
+        
 
        // if(state.isComplete){
+       
+       if((machine.state == chase)|| (machine.state == straightChase)){
+        MaxAliveTime-= Time.deltaTime;
+       }
            
         if(state!=null){
             state.DoBranch();
@@ -53,3 +62,4 @@ public class NPC : Core
      state.FixedDoBranch();   
     }
 }
+

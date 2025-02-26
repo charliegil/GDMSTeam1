@@ -1,0 +1,25 @@
+Patrol : random movement in a big circle (zone of operation)
+
+Chase: will follow the player while making sure it stays in his FOV. 
+
+Patrol -> Chase : either the player attacked the enemy or the enemy sees him in his FOV
+
+Chase -> Patrol: either the player goes out of the zone of operation, or the player isnt in the FOV of the enemy. 
+in the later case, the enemy will go to the last known location of the enemy. 
+
+Attack : if Player just attacked, the enemy will attack immediately, with a reaction time
+If the player is close enough to the enemy, the enemy will do a circular attack
+If the player is not close enough, it will do a tongue attack
+
+an alternate solution would be to do it normally. attack when reaches zone, do circluar attack when dont see him 
+but player is close enough
+
+In attackMode, will not move when attacking, and will try to keep him in his FOV
+
+Left to do: 
+implement the attack
+figure out how to display the FOV, as right now we are only changing the rotation of the rigidbody
+
+
+
+Global : do some testing

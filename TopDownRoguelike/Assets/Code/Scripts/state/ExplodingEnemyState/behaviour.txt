@@ -1,0 +1,16 @@
+Patrol : stay in place. 
+
+Chase: as soon as they see the player, will sprint towards him. 
+
+Attack: when in range of the player, will explode
+
+there will be two types
+
+Base : goes in straight line, doesnt care for the player position after that
+
+Expert : will follow the Player at high speed. exploding either when reach the player or after a period of time (long). 
+if he dies, will still explode
+
+
+Left to do: 
+implement the attack

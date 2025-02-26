@@ -1,23 +1,34 @@
 using UnityEngine;
 
-public class PatrolState : State
+public class RoutePatrol : State
 {
+
+    /*
+    Modified the default patrol state to be able to set as many anchors as possible,
+    as well as how much time the enemy passes at each anchor
+    */
+    // for some reason it is not seeing this script when attached to a patrol object
     public Navigate navigate;
     public IdleState idle;
-    public Transform anchor1;
-    public Transform anchor2;
+    public Transform []  anchors;
+    [SerializeField]  Vector2 IdleInterval = new Vector2(1,5);
+    private void OnValidate() {if (IdleInterval.x > IdleInterval.y) IdleInterval.x = IdleInterval.y;} 
 
-        
+    private float IdleTime= 1;
+
+    private int currentIndex = 0;
     
 
     //public AnimationClip anim;
     public float maxXSpeed;
     
     void GoToNextDestination(){
-        if(navigate.destination == (Vector2)anchor1.position){
-            navigate.destination = anchor2.position; 
-        }else{
-            navigate.destination = anchor1.position;
+        if(navigate.destination == (Vector2)anchors[currentIndex].position){
+            currentIndex = (currentIndex+1) % anchors.Length;
+            navigate.destination = (Vector2)anchors[currentIndex].position; 
+        }
+        else{
+            navigate.destination = (Vector2)anchors[currentIndex].position;
         }
         // float randomSpot = Random.Range(anchor1.position.x, anchor2.position.x);
         // navigate.destination = new Vector2(randomSpot, core.transform.position.y); //destination of our navigate state
@@ -25,6 +36,7 @@ public class PatrolState : State
     }
     public override void Enter()
     {
+
         GoToNextDestination();
         //animator.Play("Patrol");
     }
@@ -36,13 +48,16 @@ public class PatrolState : State
         if(machine.state == navigate){
             if(navigate.isComplete){
                 //navigate.isComplete = false;
+                IdleTime = Random.Range(IdleInterval.x, IdleInterval.y);
                 Set(idle, true);
                 body.linearVelocity = new Vector2(0, body.linearVelocityY);;
                 
             }
-        }else if(machine.state == idle){
+        }
+        else if(machine.state == idle){
             Debug.Log("you are in idle and waiting for next");
-            if(machine.state.time>3){
+            
+            if(machine.state.time>IdleTime){
                 Debug.Log("you should now move to the other side");
                 GoToNextDestination();
             }

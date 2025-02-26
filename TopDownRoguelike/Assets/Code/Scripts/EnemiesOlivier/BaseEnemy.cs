@@ -97,7 +97,7 @@ public void dealDamage(){
         float cos = Mathf.Cos(rad);
         float sin = Mathf.Sin(rad);
         return new Vector3(v.x*cos-v.y*sin, v.x*sin + v.y*cos);
-        }
+    }
 
 
 

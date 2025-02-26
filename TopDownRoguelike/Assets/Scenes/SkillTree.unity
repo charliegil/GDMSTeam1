@@ -183,16 +183,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minNumOfChildren: 0
   maxNumOfChildren: 3
-  totalNodes: 30
+  totalNodes: 20
   probabilityZeroChildren: 20
-  enableCoolerTrees: 1
+  enableCoolerTrees: 0
   spaceBetweenNodesX: 6
   spaceBetweenNodesY: 10
   initialPositionRootX: 50
   initialPositionRootY: -25
   NodeSize: 2
   panel: {fileID: 1794365456}
-  seed: 101
+  seed: 78
   circleSprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   SpriteLocked: {fileID: -162039004593993079, guid: 50d54d4f9ca01104cb167faa2f32c77a, type: 3}
   SpriteUnlocked: {fileID: -1818097775005303466, guid: 08de95bfa2d3a2143a1b657650093b8c, type: 3}
