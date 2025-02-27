@@ -11,15 +11,35 @@ Attack : if Player just attacked, the enemy will attack immediately, with a reac
 If the player is close enough to the enemy, the enemy will do a circular attack
 If the player is not close enough, it will do a tongue attack
 
-an alternate solution would be to do it normally. attack when reaches zone, do circluar attack when dont see him 
-but player is close enough
+
 
 In attackMode, will not move when attacking, and will try to keep him in his FOV
 
 Left to do: 
 implement the attack
 figure out how to display the FOV, as right now we are only changing the rotation of the rigidbody
-
+the FOV is not working, 
+Solution: make a variable that tracks the rotation, set it
 
 
 Global : do some testing
+ask acacie about the detection range from chase and patrol.
+ask acacie about the force and linear velocity
+ask acacie about return range
+ask acacie about isComplete IMPORTANT
+ask acacie about stopping the player at a certain distance. maybe with some deceleration
+ask acacie about the force that is not stopping t
+
+could change to change the rotation of the FOV lines in the state script
+continue attack state, maybe enter iddle mode when not attacking instead of making a timer
+continue chase state, make sure it is going to the last known position of the player before changing state
+maybe find a new way of controlling the rotation, instead of going through body.rotation
+
+use late update to modify FOVLines
+problem is about isComplete
+
+only modify rotation in Chase state when it is not isComplete
+
+
+
+WILL USE THE ALREADY DID CLOSE ENEMY, BUT FOR FUTURE ENEMIES, WILL USE THAT STATE MACHINE WITH THE FOVS.

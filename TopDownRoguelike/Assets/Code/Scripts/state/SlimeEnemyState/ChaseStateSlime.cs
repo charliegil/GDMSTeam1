@@ -1,13 +1,16 @@
 using UnityEngine;
 using Pathfinding;
-public class ChaseState : State
+public class ChaseStateSlime : State
 {
+    // not done, ask acacie
     public Transform target;
     public GameObject startPos;
     public AnimationClip anim;
     public float speed = 400f;
     public float nextWaypointDistance = 3f;
-    public float detectionRange = 4f;
+
+    public float RotationSpeed = 3;
+    [SerializeField] public  float detectionRange = 4f;
     
     public Transform enemyGFX;
     
@@ -32,8 +35,6 @@ public class ChaseState : State
     {
         if(returnPos){
             float playerDistance = Vector2.Distance(body.position, startPos.transform.position);
-            Debug.Log("the player distance to start point"+playerDistance+" with current pos "+body.position+" startPos: "+startPos.transform.position);
-            Debug.Log("the returnPos"+returnPos);
             if(playerDistance<=0.7){
                 returnPos = false;
                 Debug.Log("you have returned home");
@@ -83,7 +84,9 @@ public class ChaseState : State
     }
     // Update is called once per frame
     void FixedUpdate()
-    {   Debug.Log("reachedEndOfPath"+reachedEndOfPath);
+    {   
+        
+        Debug.Log("reachedEndOfPath"+reachedEndOfPath);
         //target = Player.ActivePlayer.transform;
         if(path == null) {return;}
         if(currentWaypoint>=path.vectorPath.Count){
@@ -96,7 +99,7 @@ public class ChaseState : State
         }
         
         
-        
+            
             Vector2 direction = ((Vector2) path.vectorPath[currentWaypoint] - body.position).normalized;
             float distanceToTarget = Vector2.Distance(body.position, startPos.transform.position);
             // Reduce speed when approaching home
@@ -108,6 +111,12 @@ public class ChaseState : State
             {
                 body.linearVelocity = body.linearVelocity.normalized * maxSpeed;
             }
+            
+            // will maybe have to change this lines elsewhere. good practice, but need to account when dont see the player
+            float angle = Mathf.Atan2(body.linearVelocity.y, body.linearVelocity.x) * Mathf.Rad2Deg; 
+            float newAngle = Mathf.LerpAngle(body.transform.rotation.eulerAngles.z, angle, RotationSpeed);
+            body.transform.rotation = Quaternion.Euler(0,0,newAngle);
+            
             float distance = Vector2.Distance(body.position, path.vectorPath[currentWaypoint]);
             if(distance < nextWaypointDistance){
                 currentWaypoint++;

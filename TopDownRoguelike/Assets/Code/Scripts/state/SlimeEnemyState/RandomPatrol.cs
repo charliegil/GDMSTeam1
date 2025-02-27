@@ -12,11 +12,13 @@ public class RandomPatrol : State
 
     [SerializeField] float findSpeed = 4;
 
+    [SerializeField] float rotationSpeed = 4;
+
     private float timer;
 
     [SerializeField] float RateOfChangeDirection = 3; // specifies when to change direction
 
-    [SerializeField] float ZoneOfOperation;
+    public float ZoneOfOperation;
 
     
     private Vector3 randomMovement;
@@ -43,22 +45,30 @@ public class RandomPatrol : State
     {
         StartPosition = new Vector3(0,0,0); // for now, figure it later
         GoToNextDestination();
+        randomMovement  = body.linearVelocity;
+        timer = RateOfChangeDirection;
         //animator.Play("Patrol");
     }
     public override void Do()
     {
-        if (timer<=0 || (transform.position-StartPosition).magnitude >= ZoneOfOperation){ // need to pick a new direction to go in
+        if((transform.position-StartPosition).magnitude >= ZoneOfOperation){
+            randomMovement = (StartPosition-body.transform.position).normalized;
+            timer = RateOfChangeDirection;  
+        }
+        else if (timer<=0){ // need to pick a new direction to go in
            GoToNextDestination();
         }
+        
         timer-= Time.deltaTime;
         body.linearVelocity= body.transform.right*findSpeed;
+        AdjustRotation();
         
 
     }
     private void AdjustRotation(){
         float angle = Mathf.Atan2(randomMovement.y, randomMovement.x) * Mathf.Rad2Deg; 
 
-        float newAngle = Mathf.LerpAngle(body.transform.rotation.eulerAngles.z, angle, findSpeed * Time.deltaTime);
+        float newAngle = Mathf.LerpAngle(body.transform.rotation.eulerAngles.z, angle, rotationSpeed * Time.deltaTime);
         body.transform.rotation = Quaternion.Euler(0, 0, newAngle);
     }
     public override void Exit()

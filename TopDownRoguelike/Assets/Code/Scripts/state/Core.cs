@@ -22,17 +22,24 @@ public abstract class Core : MonoBehaviour
      // his starting position
 
     [SerializeField] protected int FOV = 360;
+    [SerializeField] protected bool showFOV = true;
 
     private Vector3 StartPosition;
 
 
-    private LineRenderer FOVLines;
+    [SerializeField] public GameObject FOVLines;
 
 
 
     public void Start()
     {
         StartPosition = transform.position;
+
+    }
+    void LateUpdate(){
+        if(showFOV){ 
+            FOVLines.transform.rotation = body.transform.rotation;  
+        }   
     }
     protected void Set(State newState, bool forceReset = false)
     {
@@ -97,17 +104,16 @@ public abstract class Core : MonoBehaviour
         
         if(isWallBetweenPlayerAndEnemy(detectionRange)) return false; // if there is a wall between the player and the enemy
 
-        Vector2 direction = (transform.position - target.position);
+        Vector2 direction = ((Vector2)target.position - (Vector2)transform.position);
         float distanceToPlayer = direction.magnitude;
         
         if(distanceToPlayer > detectionRange) return false;
         
         direction.Normalize();
         
-        float angle = Vector2.Angle(transform.right, direction);
+        float angle = Vector2.Angle(body.transform.right, direction);
         
-        if (angle < (FOV/2)) return false;
-        return true;
+        return angle < (FOV / 2);
     }
     
     // methods to detect player----------------------------------------------

@@ -22,6 +22,7 @@ reposition : move to be in attack range
 Left to do: 
 implement the attack
 implement the chase mechanic
+implement the retreat mechanic
 
 
 

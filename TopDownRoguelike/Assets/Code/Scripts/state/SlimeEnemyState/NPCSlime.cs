@@ -5,7 +5,7 @@ using UnityEngine;
 public class NPCSlime : Core
 {
     public RandomPatrol patrol;
-    public ChaseState chase;
+    public ChaseStateSlime chase;
 
 
     public AttackState attack;
@@ -16,12 +16,13 @@ public class NPCSlime : Core
     void Start()
     {
         base.Start();
-        DrawFOV FOVLines = GetComponent<DrawFOV>();
-        if (FOVLines == null) FOVLines = gameObject.AddComponent<DrawFOV>();
+        if(showFOV){
+            DrawFOV lines = FOVLines.GetComponent<DrawFOV>();
+            if (lines == null) lines = FOVLines.AddComponent<DrawFOV>();
         
-        FOV = 90;
-        FOVLines.drawLines(detectionRange , FOV);
-        
+            FOV = 90;
+            lines.drawLines(detectionRange , FOV);
+        }
         
         Debug.Log("NPC Start() is running...");
         machine = new StateMachine(); // Ensure `machine` exists
@@ -32,6 +33,8 @@ public class NPCSlime : Core
             Debug.LogError("Patrol state is NULL in NPC!");
             return;
         }
+        patrol.ZoneOfOperation = ZoneOfOperation;
+        chase.detectionRange = detectionRange;
         //patrol.SetCore(core);
         Set(patrol);
     }
@@ -48,27 +51,24 @@ public class NPCSlime : Core
         bool isInLineOfSight = IsPlayerInlineOfSight(); // this methods already check the same thing as close enough
         bool isInZone = IsPlayerInZoneOfOperation(target.transform.position);
 
-        if (isInAttackRange && isInLineOfSight) {
+       
+        if (isInAttackRange) {
             SetState(attack);
         } 
         else if (isInLineOfSight && isInZone) {
             SetState(chase);
         } 
-        else if ((!isInLineOfSight || !isInZone) && state.isComplete) {
+        else if ((!isInLineOfSight || !isInZone)  /*&& state.isComplete*/) {
             SetState(patrol);
         }
-
-
-        
-        
-        
-        
+       
        // if(state.isComplete){
            
         if(state!=null){
             state.DoBranch();
         }
     }
+    
 
     void FixedUpdate()
     {

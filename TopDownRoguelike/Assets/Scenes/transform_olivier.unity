@@ -426,13 +426,13 @@ Transform:
   m_GameObject: {fileID: 194586396}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.2799997, y: 0.5799999, z: 0.026409542}
+  m_LocalPosition: {x: 0.05000019, y: -1.02, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1409397999}
   - {fileID: 10901187}
-  m_Father: {fileID: 1869088674}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &194586403
 MonoBehaviour:
@@ -451,7 +451,10 @@ MonoBehaviour:
   detectionRange: 5
   target: {fileID: 865914799}
   returnRange: 5
+  ZoneOfOperation: 5
+  attackRange: 5
   FOV: 360
+  showFOV: 1
   patrol: {fileID: 1210111731}
   chase: {fileID: 238074734}
   attack: {fileID: 0}
@@ -1878,7 +1881,10 @@ MonoBehaviour:
   detectionRange: 4
   target: {fileID: 865914799}
   returnRange: 5
+  ZoneOfOperation: 5
+  attackRange: 5
   FOV: 360
+  showFOV: 1
   patrol: {fileID: 0}
   chase: {fileID: 1564421669}
   attack: {fileID: 0}
@@ -6775,8 +6781,7 @@ Transform:
   m_LocalPosition: {x: -5.2299995, y: -1.5999999, z: -0.026409542}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 194586402}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2070651694
@@ -7533,6 +7538,7 @@ SceneRoots:
   - {fileID: 675007590}
   - {fileID: 1669814458}
   - {fileID: 4512951}
+  - {fileID: 194586402}
   - {fileID: 1869088674}
   - {fileID: 677635504}
   - {fileID: 46811275}

@@ -4,6 +4,9 @@ using UnityEngine;
 public class DrawFOV : MonoBehaviour{
 
     private LineRenderer FOVLines;
+
+
+    
     public void drawLines(int range , int angle){
         // Start of the FOV renderer
         float lineWidth = 0.08f;
