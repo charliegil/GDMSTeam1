@@ -20,7 +20,7 @@ when in attack, dont move
 reposition : move to be in attack range
 
 Left to do: 
-implement the attack
+implement the attack -> should be like the ranged enemy script
 implement the chase mechanic
 implement the retreat mechanic
 

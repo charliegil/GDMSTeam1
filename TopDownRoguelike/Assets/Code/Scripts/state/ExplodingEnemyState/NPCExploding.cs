@@ -6,15 +6,18 @@ public class NPCExploding : Core
     public IdleState idle;
     public ChaseState chase;
 
+    public AttackState attack;
+
     public StraightChaseState straightChase;
 
+    
+    public float DamageArea = 3;
 
     [SerializeField] public bool usePathFinding = false;
 
     [SerializeField] public float MaxAliveTime = 4;
     
 
-    public AttackState attack;
     // will need to attach the start position, as well as attach the line Renderer for the slime patrol
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -38,6 +41,7 @@ public class NPCExploding : Core
     {
         if(IsPlayerInAttackRange(target.transform.position) || MaxAliveTime <= 0){
             Set(attack);
+            gameObject.SetActive(false);
         }
         else if(CloseEnough(target.position)){
             if(machine.state!=chase){

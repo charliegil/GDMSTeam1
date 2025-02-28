@@ -52,15 +52,17 @@ public class NPCSlime : Core
         bool isInZone = IsPlayerInZoneOfOperation(target.transform.position);
 
        
-        if (isInAttackRange) {
+         
+        
+        if ((!isInLineOfSight || !isInZone)  /*&& state.isComplete*/) {
+            SetState(patrol);
+        }
+        else if (isInAttackRange) {
             SetState(attack);
-        } 
+        }
         else if (isInLineOfSight && isInZone) {
             SetState(chase);
         } 
-        else if ((!isInLineOfSight || !isInZone)  /*&& state.isComplete*/) {
-            SetState(patrol);
-        }
        
        // if(state.isComplete){
            

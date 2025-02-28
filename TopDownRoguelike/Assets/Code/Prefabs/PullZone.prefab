@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7539934992512245278}
-  - component: {fileID: 8286325776759674030}
+  - component: {fileID: 7750241426095092923}
   m_Layer: 0
-  m_Name: damageZone
+  m_Name: PullZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8286325776759674030
+--- !u!114 &7750241426095092923
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,19 +41,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 5758668801065032574}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbf555febe657f34bb34763c7213bb5d, type: 3}
+  m_Script: {fileID: 11500000, guid: 083b7ffc210a253459fdf58da859cbf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spritePull: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  colorPullZone: {r: 0.735849, g: 0.29850477, b: 0.7052582, a: 0.60784316}
-  colorDamagezone: {r: 1, g: 0, b: 0, a: 0.63529414}
-  pullRadius: 2
-  pullVelocity: 7
-  damageRadius: 0.5
+  spritePull: {fileID: 0}
+  colorPullZone: {r: 1, g: 1, b: 1, a: 1}
+  colorDamagezone: {r: 1, g: 0, b: 0, a: 1}
+  pullRadius: 4
+  pullVelocity: 5
+  damageRadius: 2
   damagePerTick: 10
-  tickRate: 1
-  stopsAfterTime: 2
-  reloadtime: 1
-  lifetime: 4
+  tickRate: 2
+  stopsAfterTime: 3
+  reloadtime: 3
+  lifetime: -1
   canMoveWhilePulled: 1
   canEscapeWithDash: 0

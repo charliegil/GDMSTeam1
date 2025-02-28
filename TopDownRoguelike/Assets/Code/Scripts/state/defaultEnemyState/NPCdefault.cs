@@ -42,33 +42,30 @@ public class NPCDefault : Core
         // can modify that
         // still need to determine when to enter the attackState
         
-        if(IsPlayerInlineOfSight()){ // is player in lineof sight uses detection range
-            if(machine.state!=chase){
-                Set(chase);
-            }
-        }
-        else if((!IsPlayerInlineOfSight() || !IsPlayerInZoneOfOperation(target.transform.position)) && state.isComplete){ 
+        
+        
+        if((!IsPlayerInlineOfSight() || !IsPlayerInZoneOfOperation(target.transform.position)) && state.isComplete){ 
 
             if(machine.state!=patrol){
                 Set(patrol);
             }
 
         }
-        
-        
-        
-        if(CloseEnough(target.position)){
+        else if(IsPlayerInAttackRange(target.position)){
+            if(machine.state!=attack){
+                Set(attack);
+            }
+        }
+        else if(IsPlayerInlineOfSight()){ // is player in lineof sight uses detection range
             if(machine.state!=chase){
                 Set(chase);
-        }
-        }
-        else if(FarEnough(target.position)&&state.isComplete){ 
-
-            if(machine.state!=patrol){
-                Set(patrol);
             }
-
         }
+        
+        
+        
+        
+        
 
        // if(state.isComplete){
            
