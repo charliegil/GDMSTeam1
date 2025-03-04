@@ -116,12 +116,6 @@ public class PlayerController : MonoBehaviour
 
     // TODO clean up code
     private void Attack() {
-        // Show/hide attack line placeholder
-        if (attackInput > 0 && targetEnemy != null && targetEnemy.gameObject != null && attackCoroutine != null) {
-            lineRenderer.DrawAttackLine(transform.position, targetEnemy.transform.position);
-        } else {
-            lineRenderer.ClearLine();
-        }
 
         if (attackInput > 0) {
             if (targetEnemy == null) {
@@ -129,6 +123,8 @@ public class PlayerController : MonoBehaviour
                 GameObject closestEnemy = GetClosestEnemy();
                 if (closestEnemy != null && Vector3.Distance(transform.position, closestEnemy.transform.position) <= attackRange) {
                     targetEnemy = closestEnemy;  // Modify to find closest enemy in range
+                    EnergyBeam beam = GameObject.FindFirstObjectByType<EnergyBeam>();
+                    beam.SetTarget(targetEnemy.transform);
                 }
             }
 
@@ -138,27 +134,29 @@ public class PlayerController : MonoBehaviour
         } 
         
         // Attack button released
-        else {
-            if (attackCoroutine != null) {
-                StopCoroutine(attackCoroutine);
-                attackCoroutine = null;
-            }
-
-            targetEnemy = null;
+        else if (attackCoroutine != null) {
+            CancelAttack();
         }
 
         // Moved too far from enemy
         if (targetEnemy != null && Vector3.Distance(transform.position, targetEnemy.transform.position) > attackRange && attackCoroutine != null) {
-            StopCoroutine(attackCoroutine);
-            attackCoroutine = null;
-            targetEnemy = null;
+            CancelAttack();
         }
+    }
+
+    void CancelAttack() {
+        StopCoroutine(attackCoroutine);
+        attackCoroutine = null;
+        targetEnemy = null;
+        EnergyBeam beam = GameObject.FindFirstObjectByType<EnergyBeam>();
+        beam.SetTarget(null);
     }
 
     private void AdjustPlayerDirection() {
         spriteRenderer.flipX = movementDirection.x < 0;
     }
 
+    // TODO optimize?
     private GameObject GetClosestEnemy() {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         GameObject closest = null;
@@ -175,6 +173,7 @@ public class PlayerController : MonoBehaviour
 
         return closest;
     }
+
     void OnTriggerEnter2D(Collider2D other) {
         if (other.CompareTag("Projectile")) {
             Debug.Log("I'm hit!");
