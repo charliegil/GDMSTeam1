@@ -54,6 +54,8 @@ public class CloseEnemy : MonoBehaviour
 
     private Rigidbody2D rb;
 
+    private bool isChasing =false;
+
     //private float currentTime = 0;
 
     // when the player is in the line of sight of the enemy, the enemy will follow him and face him forward. 
@@ -116,7 +118,9 @@ public class CloseEnemy : MonoBehaviour
             Debug.Log("is in sight");
         }
         else{
-         
+            if(isChasing){
+                followLastKnownPosition();
+            }
             dontSeePlayer();
             Debug.Log("dont see it");
         }
@@ -142,6 +146,11 @@ public class CloseEnemy : MonoBehaviour
         }
 
     }
+    void followLastKnownPosition(){
+        isChasing = false;
+        timer = RateOfChangeDirection+3;
+        randomMovement = (player.transform.position - transform.position).normalized;
+    }
 
     void dontSeePlayer(){ // called when the enemy doesnt see the player 
         
@@ -160,6 +169,7 @@ public class CloseEnemy : MonoBehaviour
 
     void followPlayer(){
         rb.linearVelocity= transform.right*movingSpeed;
+        isChasing = true;
     }
 
     bool IsPlayerInlineOfSight(){
@@ -209,7 +219,7 @@ public class CloseEnemy : MonoBehaviour
         //tongue.transform.eulerAngles= new Vector3(0,0,-90); 
         float duration  = attackDuration;
         float speedRate =2*frontAttackRange / duration;
-        tongue.transform.localScale = new Vector3(0.5f,0,0);
+        tongue.transform.localScale = new Vector3(1,0,0);
         tongueRenderer.enabled = true;
         bool reachEnd = false;
         
@@ -230,7 +240,7 @@ public class CloseEnemy : MonoBehaviour
         TimeBeforeAttack = attackReload;
         IsAttacking = false;
         tongueRenderer.enabled = false;
-        tongue.transform.localScale =new Vector3(0.5f , radiusCircularAttack,0); // return it to normal
+        tongue.transform.localScale =new Vector3(1, radiusCircularAttack,0); // return it to normal
     }
     private IEnumerator CircularAttack(){
         float duration  = attackDuration;

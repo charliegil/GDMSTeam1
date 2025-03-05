@@ -30,16 +30,9 @@ ask acacie about isComplete IMPORTANT
 ask acacie about stopping the player at a certain distance. maybe with some deceleration
 ask acacie about the force that is not stopping t
 
-could change to change the rotation of the FOV lines in the state script
-continue attack state, maybe enter iddle mode when not attacking instead of making a timer
-continue chase state, make sure it is going to the last known position of the player before changing state
-maybe find a new way of controlling the rotation, instead of going through body.rotation
 
 use late update to modify FOVLines
 problem is about isComplete
 
-only modify rotation in Chase state when it is not isComplete
 
-
-
-WILL USE THE ALREADY DID CLOSE ENEMY, BUT FOR FUTURE ENEMIES, WILL USE THAT STATE MACHINE WITH THE FOVS.
+Dont use SlimeStateSlime

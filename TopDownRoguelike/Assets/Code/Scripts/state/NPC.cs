@@ -29,10 +29,16 @@ public class NPC : Core
     {
         // can modify that
         // still need to determine when to enter the attackState
+        if(IsPlayerInAttackRange(target.position)){
+            if(machine.state!=attack){
+                Set(attack);
+            }
+        }
         if(CloseEnough(target.position)){
             if(machine.state!=chase){
                 Set(chase);
             }
+
         }else if(FarEnough(target.position)&&state.isComplete){ 
 
             if(machine.state!=patrol){

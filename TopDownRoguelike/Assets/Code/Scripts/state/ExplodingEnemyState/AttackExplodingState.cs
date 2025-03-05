@@ -14,7 +14,7 @@ public class AttackExplodingState : State
     }
     public override void Do()
     {
-        Instantiate(DamageZonePrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        Instantiate(DamageZonePrefab, transform.position, Quaternion.identity);
         body.linearVelocity  = new Vector2(0, 0);
 
     }

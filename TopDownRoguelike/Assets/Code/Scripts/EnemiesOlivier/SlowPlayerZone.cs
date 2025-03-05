@@ -18,17 +18,8 @@ public class SlowPlayerZone : MonoBehaviour
     public int damagePerTick; // number of damage you take per tick, while being in the zone (damage radius)
     public float tickRate; // in seconds, the tick rate at which you take damage
 
-    public float stopsAfterTime; // when you start to get pulled, it will stop after the time indicated by this variable
-
-    public float reloadtime; // used with variable on top, specifies the reload time before it can start pulling things again
 
     public int  lifetime = -1; // is used to specify the lifetime of the object. if not -1, will destroy after x seconds
-
-    public bool canMoveWhilePulled = true; // will need to implement this
-
-    private bool canPull = true;
-
-    private float timePassedPull = 0; // indicates for how long the object has spent pulling the player
     
     public bool canEscapeWithDash; // if true, the velocity of the worm will have no effect while dashing. need to implement that
     //public newHealth UIHealth;
@@ -58,14 +49,7 @@ public class SlowPlayerZone : MonoBehaviour
         spriteRenderer.drawMode = SpriteDrawMode.Sliced; // Options: Simple, Sliced, Tiled
         spriteRenderer.size = new Vector2(2*zoneRadius,2* zoneRadius);
 
-        if(lifetime!= -1) Destroy(gameObject, lifetime);
-
-
-    }
-
-    void Update(){
-        if(reloadCounter > reloadtime && canPull == false) canPull = true; // maybe issue with this why its not working properly
-        else {reloadCounter+=Time.deltaTime;}
+        if(lifetime != -1) Destroy(gameObject, lifetime);
 
 
     }
@@ -77,8 +61,6 @@ public class SlowPlayerZone : MonoBehaviour
         
         if(playerController== null) playerController = obj.GetComponent<PlayerController>();
 
-        if(!canPull) return;
-
         playerController.applySpeedModifier(SlowMultiplier);
 
     
@@ -89,15 +71,13 @@ public class SlowPlayerZone : MonoBehaviour
     { // issue with this
         if(!(obj.name.Contains("Player") || obj.tag.Contains("Player") ) || isWallBetweenPlayer(obj)) return; 
         Debug.Log("the player has left the pull zone");
-        if(!canPull) return;
         StopSlowZone();
         
     }
 
     private void StopSlowZone(){ // called when the zone stops pulling the player. for various reasons
-        canPull = false;
+        
         reloadCounter = 0; 
-        timePassedPull = 0;
         playerController.applySpeedModifier(1/SlowMultiplier);
 
     }
@@ -115,19 +95,7 @@ public class SlowPlayerZone : MonoBehaviour
         TimeInDamageZone+=Time.deltaTime;
         
         // end of the damage handler
-        if(!canPull) return; // can move this part to the top to say that if the object is not pulling the player, the damage zone does nothing
-        // next, handle the pull player part
-        timePassedPull+= Time.deltaTime;
-        
-        
-        if(timePassedPull > stopsAfterTime){
-            StopSlowZone();
-            return;
-        }
-        
-
-
-    
+        // next, handle the pull player par
     }
     
     

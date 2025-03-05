@@ -4,9 +4,9 @@ public class NPCExploding : Core
 {
 
     public IdleState idle;
-    public ChaseState chase;
+    public AttackExplodingState attack;
+    public noPathFindingChaseState chase;
 
-    public AttackState attack;
 
     public StraightChaseState straightChase;
 
@@ -25,7 +25,7 @@ public class NPCExploding : Core
         Debug.Log("NPC Start() is running...");
         machine = new StateMachine(); // Ensure `machine` exists
         SetupInstances();
-        
+        base.Start();
         if (idle == null)
         {
             Debug.LogError("idle state is NULL in NPC exploding!");
@@ -43,10 +43,13 @@ public class NPCExploding : Core
             Set(attack);
             gameObject.SetActive(false);
         }
-        else if(CloseEnough(target.position)){
-            if(machine.state!=chase){
+        else if(CloseEnough(target.position) && !((machine.state == chase)|| (machine.state == straightChase))){
+            if(usePathFinding){
                 Set(chase);
             }
+            else{
+                Set(straightChase);
+            } 
         }
         
 

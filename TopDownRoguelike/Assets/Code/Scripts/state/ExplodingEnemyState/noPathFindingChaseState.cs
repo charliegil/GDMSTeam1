@@ -3,7 +3,7 @@ using Pathfinding;
 public class noPathFindingChaseState : State
 {
     public Transform target;
-    [SerializeField] float speed = 10;
+    [SerializeField] float targetSpeed = 10;
 
     [SerializeField] private float acceleration = 2f; // Adjust as needed
 
@@ -19,7 +19,7 @@ public class noPathFindingChaseState : State
     }
     public override void Do() //update
     {
-        currentSpeed = Mathf.Lerp(currentSpeed,speed,acceleration* Time.deltaTime);
+        currentSpeed = Mathf.Lerp(currentSpeed,targetSpeed,acceleration* Time.deltaTime);
         direction = (target.position - body.transform.position).normalized * currentSpeed;
         body.linearVelocity = direction;
     }
