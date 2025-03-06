@@ -41,7 +41,11 @@ public class PlayerController : MonoBehaviour
     private float attackInput;
     private GameObject targetEnemy;
     private Coroutine attackCoroutine;
-    [SerializeField] private float damageTickDelay = 0.5f;
+
+    public float attackDamage = 10f;
+    public float damageTickDelay = 0.5f;
+    public float critChance = 0f;
+    public int numTargets = 1;
 
     // ===================== DEBUG & TESTING =====================
 
@@ -223,9 +227,8 @@ public class PlayerController : MonoBehaviour
         // TODO potentially make player unable to attack while phasing
 
         while (true) {
-
             if (targetEnemy != null && targetEnemy.gameObject != null) {
-                targetEnemy.GetComponent<Health>().TakeDamage(10);
+                targetEnemy.GetComponent<Health>().TakeDamage(attackDamage);
 
                 // Play damage tick sound
                 AudioManager.Instance.Play("Damage Tick");
@@ -236,17 +239,21 @@ public class PlayerController : MonoBehaviour
             yield return new WaitForSeconds(damageTickDelay);
         }
     }
-public void setExternalVelocity(Vector2 vec){
+
+    public void setExternalVelocity(Vector2 vec){
         externalVelocity = vec;
     }
+
     public void addExternalVelocity(Vector2 vec){
         externalVelocity+=vec;
     }
+
     public Vector2 getExternalVelocity(){return externalVelocity;}
 
     public void SetTimerVelocity(float time, Vector2 direction, bool canMoveDuring){ // this function applies a velocity for a fixed amount of time
         StartCoroutine(SetTimeVelocityEnumerator(time, direction, canMoveDuring));
     }
+
     private IEnumerator SetTimeVelocityEnumerator(float time, Vector2 direction, bool canMoveDuring){
             bool before = canMove;
             canMove = canMoveDuring;;
@@ -309,4 +316,33 @@ public void setExternalVelocity(Vector2 vec){
     //         Gizmos.DrawLine(transform.position, targetEnemy.transform.position);
     //     }
     // }
+
+    // ===================== SKILL TREE UPGRADES =================================
+    public void IncreaseAttackDamage(float percentIncrease) {
+        attackDamage *= percentIncrease;
+    }
+
+    public void ReduceAttackDelay(float percentDecrease) {
+        damageTickDelay /= percentDecrease;
+    }
+
+    public void ReducePhaseCooldown(float percentDecrease) {
+        phaseCooldown /= percentDecrease;
+    }
+
+    public void IncreaseNumTargets(int numTargets) {
+        this.numTargets = numTargets;
+    }
+
+    public void IncreaseCritChance(float percentIncrease) {
+        if (critChance == 0f) {
+            critChance = 0.1f;
+        }
+
+        else critChance *= percentIncrease;
+    }
+
+    public void AddFreeze() {
+
+    }
 }

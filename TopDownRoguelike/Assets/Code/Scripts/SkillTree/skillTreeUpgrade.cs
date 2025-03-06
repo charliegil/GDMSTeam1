@@ -15,9 +15,6 @@ public class skillTreeUpgrade
 
     int id;
 
-
-
-   
    public skillTreeUpgrade(string desc , float val , upgradeType typ , int prix , int id ){
     description = desc;
     value = val;
@@ -64,7 +61,6 @@ public enum upgradeType{
     defence,
     critiqualHit,
     levelStart
-    
 }
 
 

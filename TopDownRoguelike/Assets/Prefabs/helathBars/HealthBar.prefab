@@ -184,6 +184,8 @@ MonoBehaviour:
   sliderChange: {fileID: 0}
   HealthBar: {fileID: 4291782877625067138}
   animationDuration: 0.1
+  Val: {fileID: 0}
+  panel: {fileID: 0}
 --- !u!1 &3706015382754223599
 GameObject:
   m_ObjectHideFlags: 0
