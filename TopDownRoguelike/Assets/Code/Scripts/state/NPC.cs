@@ -34,7 +34,7 @@ public class NPC : Core
                 Set(attack);
             }
         }
-        if(CloseEnough(target.position)){
+        if(IsPlayerInDetectionRange(target.position)){
             if(machine.state!=chase){
                 Set(chase);
             }

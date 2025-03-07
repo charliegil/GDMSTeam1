@@ -48,6 +48,7 @@ public class PlayerController : MonoBehaviour
     private void Awake() {
         playerInputActions = new InputSystem_Actions();
         animator = GetComponent<Animator>();
+        
         spriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         currentSpeed = moveSpeed;

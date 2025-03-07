@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 083b7ffc210a253459fdf58da859cbf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spritePull: {fileID: 0}
+  spritePull: {fileID: -162039004593993079, guid: 50d54d4f9ca01104cb167faa2f32c77a, type: 3}
   colorPullZone: {r: 1, g: 1, b: 1, a: 1}
   colorDamagezone: {r: 1, g: 0, b: 0, a: 1}
   pullRadius: 4

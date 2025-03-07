@@ -8,10 +8,10 @@ public abstract class Core : MonoBehaviour
     public Animator animator;
     //public Horse_inputControl input; //need change which input not horse input but more the chatacter
     public StateMachine machine;
-    public State state => machine.state;
+    [SerializeField] protected State state => machine.state;
     [SerializeField] protected int detectionRange = 4;// the range at which the enemy detects the player
 
-
+    public float reloadTime = 1;
     [SerializeField] protected Transform target; // according to the scene, it should be the player
 
     [SerializeField] protected float returnRange = 5f; 
@@ -81,7 +81,7 @@ public abstract class Core : MonoBehaviour
     
     
     
-    protected bool CloseEnough(Vector2 targetPos){
+    protected bool IsPlayerInDetectionRange(Vector2 targetPos){
         float playerDistance = Vector2.Distance(body.position, targetPos);
         return playerDistance <= detectionRange;
     }

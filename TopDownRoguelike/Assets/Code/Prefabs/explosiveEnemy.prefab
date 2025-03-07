@@ -127,6 +127,7 @@ MonoBehaviour:
   body: {fileID: 714578632738120844}
   animator: {fileID: 0}
   detectionRange: 20
+  reloadTime: 1
   target: {fileID: 0}
   returnRange: 5
   ZoneOfOperation: 40
@@ -355,7 +356,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 4
   DamageArea: 4
-  DamageZonePrefab: {fileID: 0}
+  DamageZonePrefab: {fileID: 5178940424677874266, guid: 7d6d5ded3878fa044bc36e0b49f6bcf9, type: 3}
 --- !u!1 &5968541043436679079
 GameObject:
   m_ObjectHideFlags: 0

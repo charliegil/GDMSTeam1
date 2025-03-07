@@ -29,7 +29,9 @@ public abstract class State : MonoBehaviour
         }
         core = _core;
     }
-    public virtual void Enter(){}
+    public virtual void Enter(){
+        startTime = Time.time;
+    }
     public virtual void Do(){}
     public virtual void FixedDo(){}
     public virtual void Exit(){}

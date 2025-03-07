@@ -23,20 +23,15 @@ public class RoutePatrol : State
     public float maxXSpeed;
     
     void GoToNextDestination(){
-        if(navigate.destination == (Vector2)anchors[currentIndex].position){
+          
             currentIndex = (currentIndex+1) % anchors.Length;
-            navigate.destination = (Vector2)anchors[currentIndex].position; 
-        }
-        else{
-            navigate.destination = (Vector2)anchors[currentIndex].position;
-        }
-        // float randomSpot = Random.Range(anchor1.position.x, anchor2.position.x);
-        // navigate.destination = new Vector2(randomSpot, core.transform.position.y); //destination of our navigate state
-        Set(navigate, true);
+            
+            navigate.destination = (Vector2)anchors[currentIndex].transform.position;
+            Set(navigate, true);
     }
     public override void Enter()
     {
-
+        navigate.speed = maxXSpeed;
         GoToNextDestination();
         //animator.Play("Patrol");
     }
@@ -50,17 +45,18 @@ public class RoutePatrol : State
                 //navigate.isComplete = false;
                 IdleTime = Random.Range(IdleInterval.x, IdleInterval.y);
                 Set(idle, true);
-                body.linearVelocity = new Vector2(0, body.linearVelocityY);;
+                body.linearVelocity = new Vector2(0, body.linearVelocityY);
                 
             }
         }
         else if(machine.state == idle){
             Debug.Log("you are in idle and waiting for next");
-            
+            GoToNextDestination();
             if(machine.state.time>IdleTime){
                 Debug.Log("you should now move to the other side");
                 GoToNextDestination();
             }
+            Debug.Log(machine.state.time);
         }
 
     }

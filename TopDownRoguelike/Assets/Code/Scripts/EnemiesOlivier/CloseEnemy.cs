@@ -9,7 +9,7 @@ using Pathfinding.Util;
 
 
 
-public class CloseEnemy : MonoBehaviour
+public class CloseEnemy : MonoBehaviour, IEnemyBehaviour
 {
     public int damage;
     public float radiusCircularAttack;
@@ -112,18 +112,7 @@ public class CloseEnemy : MonoBehaviour
             return;
         }
         
-        if(IsPlayerInlineOfSight()) {
-            
-            followPlayer();
-            Debug.Log("is in sight");
-        }
-        else{
-            if(isChasing){
-                followLastKnownPosition();
-            }
-            dontSeePlayer();
-            Debug.Log("dont see it");
-        }
+        move();
     }
 
     void LateUpdate()
@@ -137,7 +126,7 @@ public class CloseEnemy : MonoBehaviour
 
             float newAngle = Mathf.LerpAngle(transform.rotation.eulerAngles.z, angle, trackingSpeed * Time.deltaTime);
             transform.rotation = Quaternion.Euler(0, 0, newAngle);
-}
+        }
         else{
             float angle = Mathf.Atan2(randomMovement.y, randomMovement.x) * Mathf.Rad2Deg; 
 
@@ -197,7 +186,7 @@ public class CloseEnemy : MonoBehaviour
 
 
 
-    void Attack(){
+    public void Attack(){
         
         TimeBeforeAttack = attackReload;
         if( getDistanceToPlayer() < radiusCircularAttack){
@@ -297,6 +286,31 @@ public class CloseEnemy : MonoBehaviour
         Array.Sort(hits, (x, y) => x.distance.CompareTo(y.distance));
         return hits;
     }
-    
-    
+
+
+    public void takeDamage()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void move()
+    {
+        if(IsPlayerInlineOfSight()) {
+            
+            followPlayer();
+            Debug.Log("is in sight");
+        }
+        else{
+            if(isChasing){
+                followLastKnownPosition();
+            }
+            dontSeePlayer();
+            Debug.Log("dont see it");
+        }
+    }
+
+    public void OnDeath()
+    {
+        throw new NotImplementedException();
+    }
 }

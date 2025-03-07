@@ -1,29 +1,32 @@
 using UnityEngine;
 
-public class RangedEnemy : Player
+public class RangedEnemy : MonoBehaviour , IEnemyBehaviour
 {
     private GameObject player;
     [SerializeField] GameObject projectilePrefab;
+
+    [SerializeField] Rigidbody2D body;
 
     [SerializeField] int numberOfProjectiles = 5; // the total projectiles to lauch. -1 means its infinite
 
     [SerializeField] float timeBetweenProjectile = 1; // the time between each projectile
 
-    private float time =  0;
+    [SerializeField] float attackRange = 10;
+
+    [SerializeField] float detectionRange = 100;
+
+    [SerializeField] float speed;
+    
+    private bool isInAttackRange = false;
+    private bool isRetreating = false;
+
+    private Vector2 destination;
+
+    private float timer =  0;
 
     private int projectilesLauched = 0;
 
-    public override void HandleInput()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override void HandleMovement()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override void PerformAttack()
+    public void Attack()
     {
         Debug.Log(player.transform.position);
         Shoot();
@@ -33,6 +36,9 @@ public class RangedEnemy : Player
         GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
         Vector2 projectileDirection = (player.transform.position - transform.position).normalized;
         projectile.GetComponent<EnemyProjectile>().SetDirection(projectileDirection);
+        projectilesLauched++;
+        timer = timeBetweenProjectile;
+
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -41,19 +47,46 @@ public class RangedEnemy : Player
         // Find player
         player = GameObject.FindGameObjectWithTag("Player");
         //PerformAttack();
-        time = timeBetweenProjectile;
+        timer = timeBetweenProjectile;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(time >= timeBetweenProjectile && ((projectilesLauched < numberOfProjectiles)  || numberOfProjectiles ==-1) ){
-            time = 0;
-            PerformAttack();
-            projectilesLauched++;
+        if(IsPlayerInAttackRange()){
+            if(!isRetreating) body.linearVelocity = new Vector2(0,0);
+            
+            if(projectilesLauched< numberOfProjectiles && timer < 0) Attack();
         }
         else{
-            time+=Time.deltaTime;
+            isRetreating = false;
+            move();
+            timer = 0.2f;
         }
+        timer -= Time.deltaTime;
+    }
+    public void move(){
+        if(isRetreating){
+            body.linearVelocity = destination.normalized * speed;
+        }
+        body.linearVelocity = getDirectionToPlayer().normalized * speed;
+    }
+    bool IsPlayerInAttackRange(){
+        return getDirectionToPlayer().magnitude < attackRange;
+    }
+    Vector2 getDirectionToPlayer(){
+        return (player.transform.position - transform.position);
+    }
+    
+
+    public void takeDamage()
+    {
+        destination = -getDirectionToPlayer().normalized;
+        isRetreating = true;
+    }
+
+    public void OnDeath()
+    {
+        throw new System.NotImplementedException();
     }
 }

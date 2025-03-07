@@ -42,9 +42,9 @@ public class SlowPlayerZone : MonoBehaviour
         ZoneCollider.radius = zoneRadius;
         ZoneCollider.isTrigger = true;
         
-        spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
-        spriteRenderer.sprite  = sprite;
-        spriteRenderer.color = spriteColor;
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        /*spriteRenderer.sprite  = sprite;
+        spriteRenderer.color = spriteColor;*/
 
         spriteRenderer.drawMode = SpriteDrawMode.Sliced; // Options: Simple, Sliced, Tiled
         spriteRenderer.size = new Vector2(2*zoneRadius,2* zoneRadius);

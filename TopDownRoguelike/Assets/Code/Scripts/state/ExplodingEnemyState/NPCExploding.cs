@@ -43,7 +43,7 @@ public class NPCExploding : Core
             Set(attack);
             gameObject.SetActive(false);
         }
-        else if(CloseEnough(target.position) && !((machine.state == chase)|| (machine.state == straightChase))){
+        else if(IsPlayerInDetectionRange(target.position) && !((machine.state == chase)|| (machine.state == straightChase))){
             if(usePathFinding){
                 Set(chase);
             }
