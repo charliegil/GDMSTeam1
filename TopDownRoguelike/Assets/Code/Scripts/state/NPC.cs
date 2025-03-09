@@ -2,12 +2,11 @@ using UnityEngine;
 
 public class NPC : Core
 {
-    public Transform target;
-    public PatrolState patrol;
+    public RoutePatrol patrol;
     public ChaseState chase;
-   
-    private float detectionRange = 4f;
-    [SerializeField] float returnRange = 5f;
+
+    public AttackState attack;
+    // will need to attach the start position, as well as attach the line Renderer for the slime patrol
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -28,10 +27,18 @@ public class NPC : Core
     // Update is called once per frame
     void Update()
     {
-        if(CloseEnough(target.position)){
+        // can modify that
+        // still need to determine when to enter the attackState
+        if(IsPlayerInAttackRange(target.position)){
+            if(machine.state!=attack){
+                Set(attack);
+            }
+        }
+        if(IsPlayerInDetectionRange(target.position)){
             if(machine.state!=chase){
                 Set(chase);
             }
+
         }else if(FarEnough(target.position)&&state.isComplete){ 
 
             if(machine.state!=patrol){
@@ -45,14 +52,6 @@ public class NPC : Core
         if(state!=null){
             state.DoBranch();
         }
-    }
-    bool CloseEnough(Vector2 targetPos){
-        float playerDistance = Vector2.Distance(body.position, targetPos);
-        return playerDistance <= detectionRange;
-    }
-    bool FarEnough(Vector2 targetPos){
-         float playerDistance = Vector2.Distance(body.position, targetPos);
-        return playerDistance > returnRange;
     }
 
     void FixedUpdate()

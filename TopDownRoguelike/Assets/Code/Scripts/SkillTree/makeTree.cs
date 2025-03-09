@@ -19,7 +19,7 @@ public class makeTree : MonoBehaviour
     public int initialPositionRootY = 0;
 
     
-    public float NodeSize = 1;
+    public float NodeSize = 0.5f;
     
     public GameObject panel;
     public int seed = 1250;
@@ -142,17 +142,18 @@ public class makeTree : MonoBehaviour
         LineRenderer lineRenderer = lineObject.AddComponent<LineRenderer>();
 
         // Configure LineRenderer for 2D
-        lineRenderer.startWidth = 0.25f; 
-        lineRenderer.endWidth = 0.25f;   
-        lineRenderer.useWorldSpace = true;
+        lineRenderer.startWidth = 0.4f; 
+        lineRenderer.endWidth = 0.4f;   
+        lineRenderer.useWorldSpace = false;
         lineRenderer.numCapVertices = 2; 
-
+        lineRenderer.sortingOrder = -1;
+        
        
         lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
 
         
-        lineRenderer.startColor = Color.red;
-        lineRenderer.endColor = Color.red;
+        lineRenderer.startColor = Color.black;
+        lineRenderer.endColor = Color.black;
 
        
         lineRenderer.positionCount = 2; // The line consists of 2 points

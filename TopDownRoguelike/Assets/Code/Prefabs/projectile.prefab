@@ -98,12 +98,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 5272891131574521910}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3dbed290895ac4a4b8996b3c66a6588e, type: 3}
+  m_Script: {fileID: 11500000, guid: 2fff287bb9dc2354db411a16c1ecead3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 8
-  damageZonePrefab: {fileID: 5758668801065032574, guid: 859ab93ee7172c34ba6e70461c5e961c, type: 3}
-  range: 15
+  speed: 5
+  damageZonePrefab: {fileID: 4464915834915434591, guid: e4311f11226ad2d46a19505a1537cf5e, type: 3}
+  range: 10
 --- !u!58 &876094588378361370
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -21,6 +21,8 @@ public class PlayerController : MonoBehaviour
     private Vector2 externalVelocity = new Vector2(0, 0);
     private float currentSpeed;
 
+    private float SpeedMultiplier = 1;
+
     bool canMove = true;
 
 
@@ -53,6 +55,7 @@ public class PlayerController : MonoBehaviour
     private void Awake() {
         playerInputActions = new InputSystem_Actions();
         animator = GetComponent<Animator>();
+        
         spriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         currentSpeed = moveSpeed;
@@ -111,10 +114,10 @@ public class PlayerController : MonoBehaviour
     private void Move() {
         currentMovement = movementDirection * currentSpeed;
         if(canMove){
-            rb.linearVelocity = currentMovement + externalVelocity;
+            rb.linearVelocity = (currentMovement + externalVelocity)* SpeedMultiplier;
         }
         else{
-            rb.linearVelocity = externalVelocity;
+            rb.linearVelocity = externalVelocity* SpeedMultiplier;
         }
     }
 
@@ -188,6 +191,12 @@ public class PlayerController : MonoBehaviour
         //health -= damage;
         //healthText.SetText(health.ToString());
     }
+    public void applySpeedModifier(float multiplier){
+        SpeedMultiplier *= multiplier;
+    }
+    public void setSpeedModifier(float multiplier) {
+         SpeedMultiplier = multiplier;
+    }
 
     // ===================== COROUTINES =====================
     private IEnumerator Phase() {
@@ -250,6 +259,15 @@ public class PlayerController : MonoBehaviour
 
     public Vector2 getExternalVelocity(){return externalVelocity;}
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
     public void SetTimerVelocity(float time, Vector2 direction, bool canMoveDuring){ // this function applies a velocity for a fixed amount of time
         StartCoroutine(SetTimeVelocityEnumerator(time, direction, canMoveDuring));
     }

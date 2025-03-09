@@ -5,10 +5,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Rendering;
 using System.Reflection;
+using Pathfinding.Util;
 
 
 
-public class CloseEnemy : MonoBehaviour
+public class CloseEnemy : MonoBehaviour, IEnemyBehaviour
 {
     public int damage;
     public float radiusCircularAttack;
@@ -41,7 +42,6 @@ public class CloseEnemy : MonoBehaviour
     public SpriteRenderer tongueRenderer;
     private Sprite tongueSprite; 
 
-    private LineRenderer FOVLines;
     private Collider2D PlayerCollider;
     
     private bool IsAttacking = false; //beause of the coroutines
@@ -53,6 +53,10 @@ public class CloseEnemy : MonoBehaviour
     private Vector2 randomMovement = new Vector2( 0,0);
 
     private Rigidbody2D rb;
+
+    
+
+    private bool isChasing =false;
 
     //private float currentTime = 0;
 
@@ -91,9 +95,7 @@ public class CloseEnemy : MonoBehaviour
         if (rb == null) rb = gameObject.AddComponent<Rigidbody2D>();
         
         
-        setLineRenderer();
-        
-        
+        gameObject.AddComponent<DrawFOV>().drawLines(viewDistance,lineOfSightAngle);
         
         tongueRenderer.enabled = false;
         rb.gravityScale = 0;
@@ -111,16 +113,7 @@ public class CloseEnemy : MonoBehaviour
             return;
         }
         
-        if(IsPlayerInlineOfSight()) {
-            
-            followPlayer();
-            Debug.Log("is in sight");
-        }
-        else{
-         
-            dontSeePlayer();
-            Debug.Log("dont see it");
-        }
+        move();
     }
 
     void LateUpdate()
@@ -132,16 +125,21 @@ public class CloseEnemy : MonoBehaviour
             randomMovement  =direction;
             timer = RateOfChangeDirection;
 
-            float newAngle = Mathf.LerpAngle(transform.rotation.eulerAngles.z, angle, trackingSpeed * Time.deltaTime);
+            float newAngle = Mathf.LerpAngle(transform.rotation.eulerAngles.z, angle, trackingSpeed);
             transform.rotation = Quaternion.Euler(0, 0, newAngle);
-}
+        }
         else{
             float angle = Mathf.Atan2(randomMovement.y, randomMovement.x) * Mathf.Rad2Deg; 
 
-            float newAngle = Mathf.LerpAngle(transform.rotation.eulerAngles.z, angle, trackingSpeed * Time.deltaTime);
+            float newAngle = Mathf.LerpAngle(transform.rotation.eulerAngles.z, angle, trackingSpeed);
             transform.rotation = Quaternion.Euler(0, 0, newAngle);
         }
 
+    }
+    void followLastKnownPosition(){
+        isChasing = false;
+        timer = RateOfChangeDirection+3;
+        randomMovement = (player.transform.position - transform.position).normalized;
     }
 
     void dontSeePlayer(){ // called when the enemy doesnt see the player 
@@ -161,6 +159,7 @@ public class CloseEnemy : MonoBehaviour
 
     void followPlayer(){
         rb.linearVelocity= transform.right*movingSpeed;
+        isChasing = true;
     }
 
     bool IsPlayerInlineOfSight(){
@@ -188,7 +187,7 @@ public class CloseEnemy : MonoBehaviour
 
 
 
-    void Attack(){
+    public void Attack(){
         
         TimeBeforeAttack = attackReload;
         if( getDistanceToPlayer() < radiusCircularAttack){
@@ -210,13 +209,13 @@ public class CloseEnemy : MonoBehaviour
         //tongue.transform.eulerAngles= new Vector3(0,0,-90); 
         float duration  = attackDuration;
         float speedRate =2*frontAttackRange / duration;
-        tongue.transform.localScale = new Vector3(0.5f,0,0);
+        tongue.transform.localScale = new Vector3(1,0,0);
         tongueRenderer.enabled = true;
         bool reachEnd = false;
         
         while(duration > 0){
-            if(reachEnd) tongue.transform.localScale-=new Vector3(0,speedRate*Time.deltaTime,0);
-            else {tongue.transform.localScale+=new Vector3(0,speedRate*Time.deltaTime,0);}
+            if(reachEnd) tongue.transform.localScale-=new Vector3(0,speedRate,0);
+            else {tongue.transform.localScale+=new Vector3(0,speedRate,0);}
             if(tongue.transform.localScale.y >= frontAttackRange) {
                 reachEnd = true;
                 Vector3.ClampMagnitude(tongue.transform.localScale,frontAttackRange);
@@ -231,7 +230,7 @@ public class CloseEnemy : MonoBehaviour
         TimeBeforeAttack = attackReload;
         IsAttacking = false;
         tongueRenderer.enabled = false;
-        tongue.transform.localScale =new Vector3(0.5f , radiusCircularAttack,0); // return it to normal
+        tongue.transform.localScale =new Vector3(1, radiusCircularAttack,0); // return it to normal
     }
     private IEnumerator CircularAttack(){
         float duration  = attackDuration;
@@ -288,58 +287,32 @@ public class CloseEnemy : MonoBehaviour
         Array.Sort(hits, (x, y) => x.distance.CompareTo(y.distance));
         return hits;
     }
-        Vector3 RotateVector(Vector3 v, float degrees){
-        float rad = degrees * Mathf.Deg2Rad;
-        float cos = Mathf.Cos(rad);
-        float sin = Mathf.Sin(rad);
-        return new Vector3(v.x*cos-v.y*sin, v.x*sin + v.y*cos);
-        }
-    private void setLineRenderer(){
-        // Start of the FOV renderer
-        float lineWidth = 0.08f;
-        FOVLines = GetComponent<LineRenderer>();
-        if (FOVLines == null) FOVLines = gameObject.AddComponent<LineRenderer>();
-        FOVLines.startWidth = lineWidth;
-        FOVLines.endWidth = lineWidth;
-        FOVLines.useWorldSpace = false;
-        FOVLines.sortingLayerName = "Default";  
-        FOVLines.sortingOrder = 10;
 
-        Vector3 start = transform.position;
-        Vector3 dir1 = RotateVector(Vector3.right, lineOfSightAngle/2);
-        Vector3 dir2 = RotateVector(Vector3.right, -lineOfSightAngle/2);
 
-        Vector3[] arcPoints = GenerateArc(start, start + dir1, start + dir2, 20);
-        FOVLines.positionCount = 4 + arcPoints.Length; 
-        
-        FOVLines.SetPosition(0, start);
-        FOVLines.SetPosition(1, start + dir2 * viewDistance);
-        FOVLines.SetPosition(2, start);
-        FOVLines.SetPosition(3, start + dir1 * viewDistance);
-        
-        for (int i = 0; i < arcPoints.Length; i++)
-        {
-            FOVLines.SetPosition(i + 4, arcPoints[i]);
+    public void takeDamage()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void move()
+    {
+        if(IsPlayerInlineOfSight()) {
+            
+            followPlayer();
+            Debug.Log("is in sight");
         }
-        // End of the FOV renderer
+        else{
+            if(isChasing){
+                followLastKnownPosition();
+            }
+            dontSeePlayer();
+            Debug.Log("dont see it");
+        }
+    }
+
+    public void OnDeath()
+    {
+        throw new NotImplementedException();
     }
     
-    
-    Vector3[] GenerateArc(Vector3 center, Vector3 pointA, Vector3 pointB, int resolution){
-        float radius = (pointA-center).magnitude;
-        float startAngle = 0;
-        float endAngle = Vector3.SignedAngle((pointA-center), (pointB - center), transform.forward);
-        
-
-        float step = (endAngle -startAngle)/ resolution;
-        float angle = startAngle;
-        Vector3[] arcPoints = new Vector3[resolution];
-        for(int i = 0; i < resolution; i++){
-            angle += step;
-            if(startAngle > endAngle)Debug.Log("there is a problem with circle generation");
-            arcPoints[i] = viewDistance * (RotateVector((pointA) , angle)); 
-        }
-
-        return arcPoints;
-    }
 }

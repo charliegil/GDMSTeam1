@@ -7,7 +7,7 @@ public class ChaseState : State
     public AnimationClip anim;
     public float speed = 400f;
     public float nextWaypointDistance = 3f;
-    [SerializeField] float detectionRange = 4f;
+    public float detectionRange = 4f;
     
     public Transform enemyGFX;
     
@@ -20,6 +20,7 @@ public class ChaseState : State
     public IdleState idle;
 
     Seeker seeker;
+    // should be the primary chase state we will use
     public override void Enter() //only once
     {
         seeker = GetComponent<Seeker>();
@@ -50,7 +51,7 @@ public class ChaseState : State
     }
     bool CloseEnough(Vector2 targetPos){
         float playerDistance = Vector2.Distance(body.position, targetPos);
-        if(playerDistance <= detectionRange){
+        if(playerDistance <= 5){
             return true;
         }
 
@@ -82,7 +83,7 @@ public class ChaseState : State
     }
     // Update is called once per frame
     void FixedUpdate()
-    {   Debug.Log("reachedEndOfPath"+reachedEndOfPath);
+    {   //Debug.Log("reachedEndOfPath"+reachedEndOfPath);
         //target = Player.ActivePlayer.transform;
         if(path == null) {return;}
         if(currentWaypoint>=path.vectorPath.Count){
@@ -112,9 +113,9 @@ public class ChaseState : State
                 currentWaypoint++;
             }
             if(force.x >= 0.01f){
-                enemyGFX.localScale = new Vector3(-1f,1f,1f);
+                //enemyGFX.localScale = new Vector3(-1f,1f,1f);
             }else if(force.x<=-0.01f){
-                enemyGFX.localScale = new Vector3(1f,1f,1f);
+                //enemyGFX.localScale = new Vector3(1f,1f,1f);
             }
     }
 }

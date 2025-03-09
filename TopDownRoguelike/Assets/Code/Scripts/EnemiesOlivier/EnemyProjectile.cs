@@ -39,16 +39,16 @@ public class EnemyProjectile : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("Collision");
-        if (other.CompareTag("Player"))
+        if (!other.CompareTag("Enemy"))
         {
-            Debug.Log("Hit player");
+            Debug.Log("Hit Something");
             // Damage player here
-            Destroy(gameObject);
 
             // Get point of collision
             Vector3 pointOfContact = GetComponent<Collider2D>().ClosestPoint(other.transform.position);
 
             GameObject damageZone = Instantiate(damageZonePrefab, pointOfContact, Quaternion.identity);
+            Destroy(gameObject);
         }
     }
 }

@@ -7,6 +7,8 @@ public class PullPlayer : MonoBehaviour
     // then, make the ennemy that shoots random zones in patrol mode, and targets the player in alert more.
     // but before all of that, make a basic enemy that shoots at the ennemy
 
+    // maybe instead of applying velocity, do a acceleration
+
     public Sprite spritePull;
     // will need to add sprites for when the zone is pulling, vs not pulling
     public Color colorPullZone = Color.white;

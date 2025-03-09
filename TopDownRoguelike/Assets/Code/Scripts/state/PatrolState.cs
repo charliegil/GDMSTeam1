@@ -7,6 +7,9 @@ public class PatrolState : State
     public Transform anchor1;
     public Transform anchor2;
 
+        
+    
+
     //public AnimationClip anim;
     public float maxXSpeed;
     
@@ -39,7 +42,7 @@ public class PatrolState : State
             }
         }else if(machine.state == idle){
             Debug.Log("you are in idle and waiting for next");
-            if(machine.state.time>1){
+            if(machine.state.time>3){
                 Debug.Log("you should now move to the other side");
                 GoToNextDestination();
             }

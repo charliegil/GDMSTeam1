@@ -1,0 +1,12 @@
+His behaviour will be simple.
+patrol : will have 4 anchor points, alternate between them
+chase: when the enemy is within x meters of the player, he will start chasing him.
+attack. when enemy is in range of like 0.5 meters, he will attack. can still move while attacking
+
+for the enemy to go from chase to patrol, either the player is outside of x meters, or the player goes
+out of the zone of operation (circle). the zone of operation is a zone that the enemy cant go past it. It has a fixed center position
+
+in case the enemy lost sight of the player, will go to last known location of it. then  will go into patrol mode
+
+reuse NPC slime, but change attack range, and FOV to be 360
+
