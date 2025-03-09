@@ -19,6 +19,8 @@ public class DrawFOV : MonoBehaviour{
         FOVLines.sortingOrder = 10;
 
         Vector3 start = transform.position;
+        start = Vector3.zero; // Set the start point to be the local position (relative to the GameObject)
+
         Vector3 dir1 = RotateVector(Vector3.right, angle/2);
         Vector3 dir2 = RotateVector(Vector3.right, -angle/2);
 
@@ -56,7 +58,7 @@ public class DrawFOV : MonoBehaviour{
         for(int i = 0; i < resolution; i++){
             angle += step;
             if(startAngle > endAngle)Debug.Log("there is a problem with circle generation");
-            arcPoints[i] = viewDistance * (RotateVector((pointA) , angle)); 
+            arcPoints[i] = center + viewDistance * RotateVector((pointA - center), angle); 
         }
 
         return arcPoints;

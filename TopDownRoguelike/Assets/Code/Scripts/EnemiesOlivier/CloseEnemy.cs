@@ -54,6 +54,8 @@ public class CloseEnemy : MonoBehaviour, IEnemyBehaviour
 
     private Rigidbody2D rb;
 
+    
+
     private bool isChasing =false;
 
     //private float currentTime = 0;
@@ -95,7 +97,6 @@ public class CloseEnemy : MonoBehaviour, IEnemyBehaviour
         
         gameObject.AddComponent<DrawFOV>().drawLines(viewDistance,lineOfSightAngle);
         
-        
         tongueRenderer.enabled = false;
         rb.gravityScale = 0;
         rb.freezeRotation = true;
@@ -124,13 +125,13 @@ public class CloseEnemy : MonoBehaviour, IEnemyBehaviour
             randomMovement  =direction;
             timer = RateOfChangeDirection;
 
-            float newAngle = Mathf.LerpAngle(transform.rotation.eulerAngles.z, angle, trackingSpeed * Time.deltaTime);
+            float newAngle = Mathf.LerpAngle(transform.rotation.eulerAngles.z, angle, trackingSpeed);
             transform.rotation = Quaternion.Euler(0, 0, newAngle);
         }
         else{
             float angle = Mathf.Atan2(randomMovement.y, randomMovement.x) * Mathf.Rad2Deg; 
 
-            float newAngle = Mathf.LerpAngle(transform.rotation.eulerAngles.z, angle, trackingSpeed * Time.deltaTime);
+            float newAngle = Mathf.LerpAngle(transform.rotation.eulerAngles.z, angle, trackingSpeed);
             transform.rotation = Quaternion.Euler(0, 0, newAngle);
         }
 
@@ -213,8 +214,8 @@ public class CloseEnemy : MonoBehaviour, IEnemyBehaviour
         bool reachEnd = false;
         
         while(duration > 0){
-            if(reachEnd) tongue.transform.localScale-=new Vector3(0,speedRate*Time.deltaTime,0);
-            else {tongue.transform.localScale+=new Vector3(0,speedRate*Time.deltaTime,0);}
+            if(reachEnd) tongue.transform.localScale-=new Vector3(0,speedRate,0);
+            else {tongue.transform.localScale+=new Vector3(0,speedRate,0);}
             if(tongue.transform.localScale.y >= frontAttackRange) {
                 reachEnd = true;
                 Vector3.ClampMagnitude(tongue.transform.localScale,frontAttackRange);
@@ -313,4 +314,5 @@ public class CloseEnemy : MonoBehaviour, IEnemyBehaviour
     {
         throw new NotImplementedException();
     }
+    
 }
