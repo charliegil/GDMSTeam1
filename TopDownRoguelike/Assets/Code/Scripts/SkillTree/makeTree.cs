@@ -25,19 +25,18 @@ public class makeTree : MonoBehaviour
     public int seed = 1250;
 
     public Sprite circleSprite; 
-    public Color colorAfterBuy = Color.red;
-    public Color ColorBeforeBuy = Color.yellow;
+    public Sprite SpriteLocked;
+    public Sprite SpriteUnlocked;
 
     public TextMeshPro textAttributes;
 
     
     // solution: each node has a fixed length that his Children can take. the length is determined by most left and most right. 
-    
+
     void Start()
     {
-        skillNode.spriteImage = circleSprite;
-        skillNode.colorAfterBuy = colorAfterBuy;
-        skillNode.colorBeforeBuy = ColorBeforeBuy;
+        skillNode.SpriteLocked = SpriteLocked;
+        skillNode.SpriteUnlocked = SpriteUnlocked;
         skillNode.textAttributes = textAttributes;
 
         if(enableCoolerTrees) minNumOfChildren = Math.Max(minNumOfChildren, 1);
@@ -143,19 +142,19 @@ public class makeTree : MonoBehaviour
         LineRenderer lineRenderer = lineObject.AddComponent<LineRenderer>();
 
         // Configure LineRenderer for 2D
-        lineRenderer.startWidth = 0.25f;  // Line width at the start
-        lineRenderer.endWidth = 0.25f;    // Line width at the end
-        lineRenderer.useWorldSpace = true; // Use world space coordinates
-        lineRenderer.numCapVertices = 2;  // Rounded edges for the line
+        lineRenderer.startWidth = 0.25f; 
+        lineRenderer.endWidth = 0.25f;   
+        lineRenderer.useWorldSpace = true;
+        lineRenderer.numCapVertices = 2; 
 
-        // Assign a default 2D material
+       
         lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
 
-        // Set the color of the line
+        
         lineRenderer.startColor = Color.red;
         lineRenderer.endColor = Color.red;
 
-        // Set positions of the line
+       
         lineRenderer.positionCount = 2; // The line consists of 2 points
         lineRenderer.SetPosition(0, start); // Start point
         lineRenderer.SetPosition(1, end); // End point

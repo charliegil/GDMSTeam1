@@ -6,14 +6,11 @@ public class skillNode : MonoBehaviour
     // this is just a wrapper class to be able to hold a treeNode object inside a gameobject
     private treeNode node;
     
-    public static Sprite spriteImage;
-
-   
+    public static Sprite SpriteLocked;
+    public static Sprite SpriteUnlocked;
 
     private SpriteRenderer spriteRenderer;
 
-    public static Color colorAfterBuy; // color that is shown when you bought the upgrade
-    public static Color colorBeforeBuy; // color that is shown when can buy the upgrade.
     public static TextMeshPro textAttributes;
     
     void Awake()
@@ -21,8 +18,8 @@ public class skillNode : MonoBehaviour
     
         SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         if (spriteRenderer == null) spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
-        spriteRenderer.sprite = spriteImage;
-        spriteRenderer.color = colorBeforeBuy;
+        spriteRenderer.sprite = SpriteLocked;
+       
 
 
         gameObject.AddComponent<CircleCollider2D>();
@@ -36,9 +33,9 @@ public class skillNode : MonoBehaviour
         int points = node.buyUpgrade(skillPoints);
         Debug.Log("is node null" + (node ==null));
         Debug.Log("is renderer null" + (spriteRenderer ==null));
-        Debug.Log("is colorAfterBuy null" + (colorAfterBuy ==null));
+       
 
-        if (skillPoints != points ) gameObject.GetComponent<SpriteRenderer>().color = colorAfterBuy;
+        if (skillPoints != points ) gameObject.GetComponent<SpriteRenderer>().sprite = SpriteUnlocked;
         return points;
     }
     public int sellSkill(int skillPoints){
@@ -46,9 +43,9 @@ public class skillNode : MonoBehaviour
         int points = node.sellUpgrade(skillPoints); 
         Debug.Log("is node null" + (node ==null));
         Debug.Log("is renderer null" + (spriteRenderer ==null));
-        Debug.Log("is colorBeforeBuy null" + (colorBeforeBuy ==null));
         
-        if (skillPoints != points ) gameObject.GetComponent<SpriteRenderer>().color = colorBeforeBuy;
+        
+        if (skillPoints != points ) gameObject.GetComponent<SpriteRenderer>().sprite = SpriteLocked;
         return points;
     }
     public override string ToString(){
