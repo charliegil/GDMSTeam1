@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 
 using UnityEngine;
@@ -11,6 +12,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
+    private PlayerAttackLineRenderer lineRenderer;
 
     // ===================== MOVEMENT =====================
     [SerializeField] private float moveSpeed = 5f;
@@ -40,6 +42,11 @@ public class PlayerController : MonoBehaviour
     private GameObject targetEnemy;
     private Coroutine attackCoroutine;
 
+    public float attackDamage = 10f;
+    public float damageTickDelay = 0.5f;
+    public float critChance = 0f;
+    public int numTargets = 1;
+
     // ===================== DEBUG & TESTING =====================
 
     // ===================== UNITY CALLBACKS =====================
@@ -49,6 +56,10 @@ public class PlayerController : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         currentSpeed = moveSpeed;
+        lineRenderer = gameObject.transform.GetChild(0).GetComponent<PlayerAttackLineRenderer>();
+        if (lineRenderer != null) {
+            Debug.Log("Found line renderer");
+        }
     }
 
     private void OnEnable() {
@@ -107,13 +118,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // TODO clean up code
     private void Attack() {
+
         if (attackInput > 0) {
             if (targetEnemy == null) {
 
                 GameObject closestEnemy = GetClosestEnemy();
                 if (closestEnemy != null && Vector3.Distance(transform.position, closestEnemy.transform.position) <= attackRange) {
                     targetEnemy = closestEnemy;  // Modify to find closest enemy in range
+                    EnergyBeam beam = GameObject.FindFirstObjectByType<EnergyBeam>();
+                    beam.SetTarget(targetEnemy.transform);
                 }
             }
 
@@ -123,26 +138,29 @@ public class PlayerController : MonoBehaviour
         } 
         
         // Attack button released
-        else {
-            if (attackCoroutine != null) {
-                StopCoroutine(attackCoroutine);
-                attackCoroutine = null;
-            }
-
-            targetEnemy = null;
+        else if (attackCoroutine != null) {
+            CancelAttack();
         }
 
+        // Moved too far from enemy
         if (targetEnemy != null && Vector3.Distance(transform.position, targetEnemy.transform.position) > attackRange && attackCoroutine != null) {
-            StopCoroutine(attackCoroutine);
-            attackCoroutine = null;
-            targetEnemy = null;
+            CancelAttack();
         }
+    }
+
+    void CancelAttack() {
+        StopCoroutine(attackCoroutine);
+        attackCoroutine = null;
+        targetEnemy = null;
+        EnergyBeam beam = GameObject.FindFirstObjectByType<EnergyBeam>();
+        beam.SetTarget(null);
     }
 
     private void AdjustPlayerDirection() {
         spriteRenderer.flipX = movementDirection.x < 0;
     }
 
+    // TODO optimize?
     private GameObject GetClosestEnemy() {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         GameObject closest = null;
@@ -159,6 +177,7 @@ public class PlayerController : MonoBehaviour
 
         return closest;
     }
+
     void OnTriggerEnter2D(Collider2D other) {
         if (other.CompareTag("Projectile")) {
             Debug.Log("I'm hit!");
@@ -208,27 +227,33 @@ public class PlayerController : MonoBehaviour
         // TODO potentially make player unable to attack while phasing
 
         while (true) {
-
             if (targetEnemy != null && targetEnemy.gameObject != null) {
-                //targetEnemy.GetComponent<Health>().TakeDamage(10);
+                targetEnemy.GetComponent<Health>().TakeDamage(attackDamage);
+
+                // Play damage tick sound
+                AudioManager.Instance.Play("Damage Tick");
             } else {
                 yield break;
             }
 
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(damageTickDelay);
         }
     }
-public void setExternalVelocity(Vector2 vec){
+
+    public void setExternalVelocity(Vector2 vec){
         externalVelocity = vec;
     }
+
     public void addExternalVelocity(Vector2 vec){
         externalVelocity+=vec;
     }
+
     public Vector2 getExternalVelocity(){return externalVelocity;}
 
     public void SetTimerVelocity(float time, Vector2 direction, bool canMoveDuring){ // this function applies a velocity for a fixed amount of time
         StartCoroutine(SetTimeVelocityEnumerator(time, direction, canMoveDuring));
     }
+
     private IEnumerator SetTimeVelocityEnumerator(float time, Vector2 direction, bool canMoveDuring){
             bool before = canMove;
             canMove = canMoveDuring;;
@@ -291,4 +316,33 @@ public void setExternalVelocity(Vector2 vec){
     //         Gizmos.DrawLine(transform.position, targetEnemy.transform.position);
     //     }
     // }
+
+    // ===================== SKILL TREE UPGRADES =================================
+    public void IncreaseAttackDamage(float percentIncrease) {
+        attackDamage *= percentIncrease;
+    }
+
+    public void ReduceAttackDelay(float percentDecrease) {
+        damageTickDelay /= percentDecrease;
+    }
+
+    public void ReducePhaseCooldown(float percentDecrease) {
+        phaseCooldown /= percentDecrease;
+    }
+
+    public void IncreaseNumTargets(int numTargets) {
+        this.numTargets = numTargets;
+    }
+
+    public void IncreaseCritChance(float percentIncrease) {
+        if (critChance == 0f) {
+            critChance = 0.1f;
+        }
+
+        else critChance *= percentIncrease;
+    }
+
+    public void AddFreeze() {
+
+    }
 }

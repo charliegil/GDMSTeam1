@@ -1,10 +1,13 @@
+
 using System.Collections;
 using Unity.VisualScripting;
+
 using UnityEngine;
 
 public class Health : MonoBehaviour
 {
     [SerializeField] float currentHealth = 100f;
+
 
     [SerializeField] float Totalhealth = 0;
 
@@ -20,6 +23,7 @@ public class Health : MonoBehaviour
     //         Destroy(gameObject);
     //     }
     // }
+
 
     public void TakeDamage(float damage) {
         currentHealth -= damage;
