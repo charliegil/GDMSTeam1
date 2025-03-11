@@ -9,26 +9,29 @@ public class sang_spawn_projectiles : MonoBehaviour
 
     [SerializeField]
     GameObject projectile;
-    public Vector2 startPoint;
+    private Vector2 startPoint;
+    public GameObject stick;
     float radius, moveSpeed;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        
+        startPoint = stick.transform.position;
         radius = 5f;
         moveSpeed = 5f;
-        SpawnProjectiles(numberOfProjectiles);
+        SpawnProjectiles(numberOfProjectiles, 0);
+        //SpawnProjectiles(numberOfProjectiles, 10);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-        
+        startPoint = stick.transform.position;
     }
 
-    void SpawnProjectiles(int numberOfProjectiles){
-        float angleStep = 360f / numberOfProjectiles;
-        float angle = 0f;
+    void SpawnProjectiles(int numberOfProjectiles, float offset){
+        float angleStep = 360f / (numberOfProjectiles);
+        float angle = offset;
         for (int i=0; i<= numberOfProjectiles - 1; i++){
             float projectileDirXposition = startPoint.x + Mathf.Sin((angle * Mathf.PI)/180) * radius;
             float projectileDirYposition = startPoint.y + Mathf.Cos((angle * Mathf.PI)/180) * radius;
