@@ -5,17 +5,17 @@ public class skillTreeUpgrade
 {
     // feel free to change this class, as well the the upgrade type.
     // just dont change the bool bought and the return values of the methods that handle buy/sell
-    string description;
+    private string description;
 
-    float value;
+    private float value;
 
-    upgradeType type;
+    private upgradeType type;
 
-    bool bought = false;
+    private bool bought = false;
 
-    int price;
+    private int price;
 
-    int id;
+    private int id;
 
    public skillTreeUpgrade(string desc , float val , upgradeType typ , int prix , int id ){
     description = desc;

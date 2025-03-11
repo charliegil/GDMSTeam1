@@ -28,7 +28,7 @@ public class Navigate : State
         Vector2 direction = (destination - (Vector2)core.transform.position).normalized;
         body.linearVelocity = new Vector2(direction.x*speed, direction.y*speed);
     }
-    void FaceDestination(){
+    private void FaceDestination(){
         core.transform.localScale = new Vector3(Mathf.Sign(body.linearVelocityX),body.linearVelocityY,1);
     }
 }

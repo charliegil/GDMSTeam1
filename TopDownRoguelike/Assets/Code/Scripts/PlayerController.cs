@@ -1,8 +1,7 @@
 using System;
 using System.Collections;
-
+using UnityEngine.UI;
 using UnityEngine;
-
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
@@ -10,9 +9,15 @@ public class PlayerController : MonoBehaviour
     // ===================== REFERENCES =====================
     private InputSystem_Actions playerInputActions;
     private Rigidbody2D rb;
-    private Animator animator;
-    private SpriteRenderer spriteRenderer;
+    [SerializeField] private Animator animator;
+    [SerializeField] private SpriteRenderer spriteRenderer;
     private PlayerAttackLineRenderer lineRenderer;
+
+
+    // ===================== UI =====================
+
+    public Slider SliderPhaseCooldown;
+    public Slider SliderCurrentHealth;
 
     // ===================== MOVEMENT =====================
     [SerializeField] private float moveSpeed = 5f;
@@ -23,7 +28,7 @@ public class PlayerController : MonoBehaviour
 
     private float SpeedMultiplier = 1;
 
-    bool canMove = true;
+    private bool canMove = true;
 
 
     // ===================== PHASING =====================
@@ -32,6 +37,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float phaseCooldown = 5f;
     private bool isPhasing = false;
     private float phaseInput;
+
+    private float phaseTimer;
 
     // ===================== DODGING =====================
     private bool isDodging = false;
@@ -49,14 +56,19 @@ public class PlayerController : MonoBehaviour
     public float critChance = 0f;
     public int numTargets = 1;
 
+    // ===================== Health =====================
+    public float maxHealth;
+    private float currentHealth;
+    private float healthMultiplier;
+
     // ===================== DEBUG & TESTING =====================
 
     // ===================== UNITY CALLBACKS =====================
     private void Awake() {
         playerInputActions = new InputSystem_Actions();
-        animator = GetComponent<Animator>();
+        //animator = GetComponent<Animator>();
         
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        //spriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         currentSpeed = moveSpeed;
         lineRenderer = gameObject.transform.GetChild(0).GetComponent<PlayerAttackLineRenderer>();
@@ -103,11 +115,14 @@ public class PlayerController : MonoBehaviour
     // ===================== GAMEPLAY LOGIC =====================
     private void Update() {
         AdjustPlayerDirection();
-        if (phaseInput > 0 && !isPhasing) {
+        if (phaseInput > 0 && !isPhasing && phaseTimer<=0 ) {
             StartCoroutine(Phase());
         } else {
             Move();
             Attack();
+        }
+        if(!isPhasing){
+            phaseTimer-= Time.deltaTime;
         }
     }
 
@@ -151,7 +166,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void CancelAttack() {
+    private void CancelAttack() {
         StopCoroutine(attackCoroutine);
         attackCoroutine = null;
         targetEnemy = null;
@@ -181,15 +196,24 @@ public class PlayerController : MonoBehaviour
         return closest;
     }
 
-    void OnTriggerEnter2D(Collider2D other) {
+    private void OnTriggerEnter2D(Collider2D other) {
         if (other.CompareTag("Projectile")) {
             Debug.Log("I'm hit!");
             TakeDamage(1);
         }
+        
     }
     public void TakeDamage(float damage) {
-        //health -= damage;
+    
         //healthText.SetText(health.ToString());
+        currentHealth -= damage;
+        if(currentHealth< 0 ) OnDeath();
+        animator.SetTrigger("takingDamage");
+
+        
+    }
+    public void OnDeath(){
+
     }
     public void applySpeedModifier(float multiplier){
         SpeedMultiplier *= multiplier;
@@ -207,13 +231,15 @@ public class PlayerController : MonoBehaviour
         Color oldColor = spriteRenderer.color;
         float alpha = 0.5f;
         spriteRenderer.color = new Color(oldColor.r, oldColor.g, oldColor.b, alpha);
+        
+        animator.gameObject.transform.rotation = Quaternion.Euler(0,20,0);
 
         // Increase movement speed
         currentSpeed = moveSpeed * phaseFactor;
 
         // Allow player to phase through enemies but not environment
         // TODO: See if there is a better way to do this
-
+        
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (GameObject enemy in enemies) {
             enemy.GetComponent<Collider2D>().enabled = false;
@@ -222,13 +248,14 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(phaseDuration);
 
         // Return player to normal state
+        animator.gameObject.transform.rotation = Quaternion.Euler(0,0,0);
         spriteRenderer.color = oldColor;
         currentSpeed = moveSpeed;
 
         foreach (GameObject enemy in enemies) {
             enemy.GetComponent<Collider2D>().enabled = true;
         }
-
+        phaseTimer = phaseCooldown;
         isPhasing = false;
     }
 
@@ -237,7 +264,7 @@ public class PlayerController : MonoBehaviour
 
         while (true) {
             if (targetEnemy != null && targetEnemy.gameObject != null) {
-                targetEnemy.GetComponent<Health>().TakeDamage(attackDamage);
+                targetEnemy.GetComponent<BaseEnemy>().TakeDamage(attackDamage);
 
                 // Play damage tick sound
                 AudioManager.Instance.Play("Damage Tick");
@@ -350,6 +377,12 @@ public class PlayerController : MonoBehaviour
 
     public void IncreaseNumTargets(int numTargets) {
         this.numTargets = numTargets;
+    }
+    public void IncreaseMaxHealthByValue(float increase) {
+        maxHealth+=increase;
+    }
+    public void IncreaseMaxHealthByPercentage(float increase) {
+        healthMultiplier*=increase;
     }
 
     public void IncreaseCritChance(float percentIncrease) {

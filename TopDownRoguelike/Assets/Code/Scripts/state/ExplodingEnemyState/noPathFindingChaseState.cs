@@ -3,7 +3,7 @@ using Pathfinding;
 public class noPathFindingChaseState : State
 {
     public Transform target;
-    [SerializeField] float targetSpeed = 10;
+    [SerializeField] private float targetSpeed = 10;
 
     [SerializeField] private float acceleration = 2f; // Adjust as needed
 

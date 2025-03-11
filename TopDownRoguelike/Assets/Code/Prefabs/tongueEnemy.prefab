@@ -218,6 +218,7 @@ GameObject:
   - component: {fileID: 2350537063954348452}
   - component: {fileID: 2602418872503654059}
   - component: {fileID: 8239975298236918870}
+  - component: {fileID: 4333110304495375834}
   m_Layer: 0
   m_Name: tongueEnemy
   m_TagString: Enemy
@@ -316,10 +317,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
+  attackRange: 10
+  maxSpeed: 10
+  acceleration: 1
+  animator: {fileID: 0}
+  body: {fileID: 4333110304495375834}
   radiusCircularAttack: 5
   frontAttackRange: 10
   trackingSpeed: 0.05
-  hp: 100
   lineOfSightAngle: 70
   viewDistance: 25
   attackReload: 2
@@ -327,7 +332,33 @@ MonoBehaviour:
   movingSpeed: 5
   findSpeed: 5
   attackDuration: 0.4
-  player: {fileID: 5262204009416871712, guid: bf9c071341f2cad46926f51e67e2fbf8, type: 3}
+  RateOfChangeDirection: 2
   tongue: {fileID: 2918968734974195244}
   tongueRenderer: {fileID: 5442735987739416539}
-  RateOfChangeDirection: 2
+--- !u!50 &4333110304495375834
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4689976023714847063}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4

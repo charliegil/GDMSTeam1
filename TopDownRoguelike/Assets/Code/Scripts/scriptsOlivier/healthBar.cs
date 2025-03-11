@@ -14,13 +14,13 @@ public class healthBar : MonoBehaviour
     public Sprite halfHearth;
 
     public Slider slider;
-    
 
-    void Start(){
+
+    private void Start(){
         setMaxHealth(numOfHearths);
         getMaxhealth();
     }
-    void setHealth(int num){
+    private void setHealth(int num){
         health = num;
         for(int i = 0; i< health ;i++){
             hearths[i].sprite = fullHeart;
@@ -29,24 +29,24 @@ public class healthBar : MonoBehaviour
             hearths[i].sprite = emptyHearth;
         }
     }
-   void addHealth(int num){
+    private void addHealth(int num){
         for(int i = 0; i< num ;i++){
             hearths[i+health].sprite = fullHeart;
         }
         health+=num;
     }
-   void increaseMaxHealth(int num){
+    private void increaseMaxHealth(int num){
     for(int i =0 ; i<num;i++){
         hearths[i+numOfHearths].enabled = true;
         hearths[i+numOfHearths].sprite = emptyHearth;
     }
     numOfHearths+= num;
    }
-   void setMaxHealth(int num){
+    private void setMaxHealth(int num){
     increaseMaxHealth(num-numOfHearths);
     
    }
-   void getMaxhealth(){
+    private void getMaxhealth(){
     setHealth(numOfHearths);
    }
 

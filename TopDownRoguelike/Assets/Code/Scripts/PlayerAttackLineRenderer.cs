@@ -4,7 +4,7 @@ public class PlayerAttackLineRenderer : MonoBehaviour
 {
     private LineRenderer lineRenderer;
 
-    void Awake()
+    private void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = 2;

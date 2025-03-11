@@ -10,13 +10,15 @@ public class DrawFOV : MonoBehaviour{
     public void drawLines(int range , int angle){
         // Start of the FOV renderer
         float lineWidth = 0.08f;
-        FOVLines = GetComponent<LineRenderer>();
+        
+        
         if (FOVLines == null) FOVLines = gameObject.AddComponent<LineRenderer>();
+        FOVLines.material.color = new Color32(138, 0, 0, 255);
         FOVLines.startWidth = lineWidth;
         FOVLines.endWidth = lineWidth;
         FOVLines.useWorldSpace = false;
         FOVLines.sortingLayerName = "Default";  
-        FOVLines.sortingOrder = 10;
+        FOVLines.sortingOrder = 4;
 
         Vector3 start = transform.position;
         start = Vector3.zero; // Set the start point to be the local position (relative to the GameObject)
@@ -46,7 +48,7 @@ public class DrawFOV : MonoBehaviour{
         return new Vector3(v.x*cos-v.y*sin, v.x*sin + v.y*cos);
     }
 
-        Vector3[] GenerateArc(Vector3 center, Vector3 pointA, Vector3 pointB, int resolution , int viewDistance){
+    private Vector3[] GenerateArc(Vector3 center, Vector3 pointA, Vector3 pointB, int resolution , int viewDistance){
         float radius = (pointA-center).magnitude;
         float startAngle = 0;
         float endAngle = Vector3.SignedAngle((pointA-center), (pointB - center), transform.forward);

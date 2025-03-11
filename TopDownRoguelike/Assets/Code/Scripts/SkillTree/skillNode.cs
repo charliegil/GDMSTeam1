@@ -1,7 +1,8 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.EventSystems;
 
-public class skillNode : MonoBehaviour
+public class skillNode : MonoBehaviour , IPointerEnterHandler, IPointerExitHandler
 {
     // this is just a wrapper class to be able to hold a treeNode object inside a gameobject
     private treeNode node;
@@ -11,18 +12,22 @@ public class skillNode : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
 
-    public static TextMeshPro textAttributes;
+    public static GameObject textAttributes;
+
     
-    void Awake()
+
+    private void Awake()
     {
     
         SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         if (spriteRenderer == null) spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
         spriteRenderer.sprite = SpriteLocked;
+
+        
        
 
 
-        gameObject.AddComponent<CircleCollider2D>();
+        
     }
     public void setTreeNode(treeNode tree){
         node = tree;
@@ -54,13 +59,22 @@ public class skillNode : MonoBehaviour
     public treeNode getNode(){
         return node;
     }
-    private void OnMouseEnter()
+    
+    public void OnPointerEnter(PointerEventData eventData)
     {
-        textAttributes.text = node.GetUpgrade().ToString();
+        Debug.Log("on mouse over");
+
+        textAttributes.GetComponent<TextMeshProUGUI>().text = node.GetUpgrade().ToString();
     }
-    private void OnMouseExit()
+
+    public void OnPointerExit(PointerEventData eventData)
     {
-        textAttributes.text = "Hover to see attributes";
+        Debug.Log(textAttributes == null ? "textAttributes is NULL!" : "textAttributes exists: " + textAttributes.name);
+        Debug.Log(textAttributes?.GetComponent<TextMeshProUGUI>() == null ? "TextMeshPro component is MISSING!" : "TextMeshPro found.");
+         Debug.Log("on mouse dxit");
+
+        textAttributes.GetComponent<TextMeshProUGUI>().text = "Hover to see attributes";
     }
+    
 
 }

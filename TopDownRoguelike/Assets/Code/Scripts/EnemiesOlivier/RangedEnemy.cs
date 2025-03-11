@@ -3,16 +3,15 @@ using UnityEngine;
 
 public class RangedEnemy : BaseEnemy
 {
-    [SerializeField] GameObject projectilePrefab;
+    private GameObject projectilePrefab;
 
+/// <summary>
+/// the total projectiles to lauch. -1 means its infinite
+/// </summary>
+    private int numberOfProjectiles = 5; 
+    private float timeBetweenProjectile = 1; // the time between each projectile
 
-    [SerializeField] int numberOfProjectiles = 5; // the total projectiles to lauch. -1 means its infinite
-
-    [SerializeField] float timeBetweenProjectile = 1; // the time between each projectile
-
-    [SerializeField] float approachingRange = 10;
-
-    [SerializeField] float detectionRange = 100;
+    private float approachingRange = 10;
 
 
     private bool isRetreating = false;
@@ -34,8 +33,9 @@ public class RangedEnemy : BaseEnemy
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Start()
     {
+        base.Start();
         // Find player
         player = GameObject.FindGameObjectWithTag("Player");
         //PerformAttack();
@@ -43,12 +43,13 @@ public class RangedEnemy : BaseEnemy
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if(!isRetreating && (player.transform.position-transform.position).magnitude<2){
+        if(!isRetreating && getDirectionToPlayer().magnitude<2){
             destination = -getDirectionToPlayer().normalized;
             isRetreating = true;
             Debug.Log("is retreating");
+            TakeDamage(12);
         }
         
         if(!IsPlayerInAttackRange()){
@@ -95,31 +96,20 @@ public class RangedEnemy : BaseEnemy
         }
         
     }
-    bool IsPlayerInAttackRange(){
-        return getDirectionToPlayer().magnitude < attackRange;
-    }
-
-    bool IsPlayerInApproachingRange(){
+    private bool IsPlayerInApproachingRange(){
         return getDirectionToPlayer().magnitude < approachingRange;
     }
-    bool IsPlayerInDetectionRange(){
-        return getDirectionToPlayer().magnitude < detectionRange;
-    }
-    Vector2 getDirectionToPlayer(){
-        return (player.transform.position - transform.position);
-    }
+    
     
 
     public void TakeDamage(int damage)
     {
         base.TakeDamage(damage);
         isRetreating = true;
+
     }
 
-    public override void OnDeath()
-    {
-        throw new System.NotImplementedException();
-    }
+ 
     
     public override void Attack()
     {

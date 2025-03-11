@@ -8,7 +8,7 @@ public class NPC : Core
     public AttackState attack;
     // will need to attach the start position, as well as attach the line Renderer for the slime patrol
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Start()
     {
 
         Debug.Log("NPC Start() is running...");
@@ -25,7 +25,7 @@ public class NPC : Core
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         // can modify that
         // still need to determine when to enter the attackState
@@ -54,7 +54,7 @@ public class NPC : Core
         }
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
      state.FixedDoBranch();   
     }

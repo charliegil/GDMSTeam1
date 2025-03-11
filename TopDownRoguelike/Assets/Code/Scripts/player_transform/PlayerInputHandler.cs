@@ -42,8 +42,8 @@ public class PlayerInputHandler : MonoBehaviour
 
         RegisterInputActions();
     }
-   
-    void RegisterInputActions(){
+
+    private void RegisterInputActions(){
         transformAction.performed += context => TransformTriggered = true;
         transformAction.canceled += context => TransformTriggered = false;
         //all other action

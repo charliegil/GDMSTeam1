@@ -12,14 +12,14 @@ public class ChaseState : State
     public Transform enemyGFX;
     
     private float maxSpeed = 3;
-    Path path;
-    int currentWaypoint = 0;
-    bool reachedEndOfPath = false;
+    private Path path;
+    private int currentWaypoint = 0;
+    private bool reachedEndOfPath = false;
     private bool returnPos = false;
     public Navigate navigate;
     public IdleState idle;
 
-    Seeker seeker;
+    private Seeker seeker;
     // should be the primary chase state we will use
     public override void Enter() //only once
     {
@@ -49,7 +49,7 @@ public class ChaseState : State
         //isComplete (have finish the state)
 
     }
-    bool CloseEnough(Vector2 targetPos){
+    private bool CloseEnough(Vector2 targetPos){
         float playerDistance = Vector2.Distance(body.position, targetPos);
         if(playerDistance <= 5){
             return true;
@@ -57,7 +57,7 @@ public class ChaseState : State
 
         return false;
     }
-     void UpdatePath(){
+    private void UpdatePath(){
         
         if(CloseEnough(target.position)){
             returnPos = false;
@@ -70,7 +70,7 @@ public class ChaseState : State
         }
         
     }
-    void OnPathComplete(Path p){
+    private void OnPathComplete(Path p){
         if(!p.error){
             path = p;
             currentWaypoint = 0;
@@ -82,7 +82,7 @@ public class ChaseState : State
         
     }
     // Update is called once per frame
-    void FixedUpdate()
+    private void FixedUpdate()
     {   //Debug.Log("reachedEndOfPath"+reachedEndOfPath);
         //target = Player.ActivePlayer.transform;
         if(path == null) {return;}

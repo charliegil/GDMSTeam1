@@ -10,13 +10,13 @@ public class RandomPatrol : State
     */
    // for this one, will omit the navigate and idle state, handle everything here because it is very simple
 
-    [SerializeField] float findSpeed = 4;
+    [SerializeField] private float findSpeed = 4;
 
-    [SerializeField] float rotationSpeed = 4;
+    [SerializeField] private float rotationSpeed = 4;
 
     private float timer;
 
-    [SerializeField] float RateOfChangeDirection = 3; // specifies when to change direction
+    [SerializeField] private float RateOfChangeDirection = 3; // specifies when to change direction
 
     public float ZoneOfOperation;
 
@@ -37,7 +37,7 @@ public class RandomPatrol : State
         Debug.Log("in start function from randomPatrol");
     }
 
-    void GoToNextDestination(){
+    private void GoToNextDestination(){
         randomMovement = UnityEngine.Random.insideUnitCircle.normalized;
         timer = RateOfChangeDirection;  
     }

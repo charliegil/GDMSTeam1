@@ -6,15 +6,15 @@ public class draggiingCamera : MonoBehaviour
 
     public float sens = 1;
 
-    Vector3 oldPosition = Vector3.zero;
-    bool isDragging = false;
+    private Vector3 oldPosition = Vector3.zero;
+    private bool isDragging = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start(){
+    private void Start(){
         if(camera == null) camera = Camera.main;
     }
 
     // Update is called once per frame.
-    void Update()
+    private void Update()
     {
         if(Input.GetMouseButton(0)){
 

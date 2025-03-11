@@ -14,7 +14,7 @@ public class EnergyBeam : MonoBehaviour
     private LineRenderer lineRenderer;
     private List<Vector3> points = new List<Vector3>();
 
-    void Start()
+    private void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = pointCount;
@@ -23,7 +23,7 @@ public class EnergyBeam : MonoBehaviour
         lineRenderer.endWidth = beamWidth;
     }
 
-    void Update()
+    private void Update()
     {
         if (target == null) {
             lineRenderer.enabled = false;

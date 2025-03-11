@@ -19,9 +19,9 @@ public class ExplosionZone : MonoBehaviour
 
     private PlayerController playerController;
 
-    
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Start()
     { 
         if(lifetime!= -1) Destroy(gameObject, lifetime);
     }
@@ -32,7 +32,8 @@ public class ExplosionZone : MonoBehaviour
     private void OnTriggerStay2D(Collider2D obj){
         // do nothing if its not the player
         if(!(obj.name.Contains("Player") || obj.tag.Contains("Player") ) ) return; 
-
+        
+        playerController = obj.gameObject.GetComponent<PlayerController>();
         if(hasPlayerTakenDamage) return;
 
         hasPlayerTakenDamage = true;
@@ -42,7 +43,7 @@ public class ExplosionZone : MonoBehaviour
     
     }
     private void takeDamage(){
-        Debug.Log("spent some time in damage zone, taking damage");
+        playerController.TakeDamage(damage);
     }
 
 }

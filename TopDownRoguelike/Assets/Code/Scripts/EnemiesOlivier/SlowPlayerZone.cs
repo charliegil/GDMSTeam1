@@ -34,9 +34,9 @@ public class SlowPlayerZone : MonoBehaviour
     private float reloadCounter = 0;
 
     private PlayerController playerController;
-    
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Start()
     { 
         ZoneCollider = gameObject.AddComponent<CircleCollider2D>();
         ZoneCollider.radius = zoneRadius;
@@ -109,7 +109,7 @@ public class SlowPlayerZone : MonoBehaviour
         return false;
 
     }
-    RaycastHit2D[] castRayAndGetCollider(Vector2 direction ){
+    private RaycastHit2D[] castRayAndGetCollider(Vector2 direction ){
         
         Debug.DrawRay(transform.position, direction);
         //Ray ray = new Ray(transform.position,direction);      

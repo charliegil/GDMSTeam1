@@ -3,8 +3,8 @@ using UnityEngine;
 public class EnemyProjectile : MonoBehaviour
 {
     private Vector3 direction;
-    [SerializeField] float speed = 5f;
-    [SerializeField] GameObject damageZonePrefab;
+    [SerializeField] private float speed = 5f;
+    [SerializeField] private GameObject damageZonePrefab;
 
     public int range = 10; // will not stop until it has traveled this amount of ground
     
@@ -13,14 +13,14 @@ public class EnemyProjectile : MonoBehaviour
     private Vector3 StartPosition;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Start()
     {
         Debug.Log("Hello from projectile");
         StartPosition = transform.position;
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if((transform.position - StartPosition).magnitude > range){
             Debug.Log("the projectile has reached its range. transforming into a damage zone now");
@@ -36,7 +36,7 @@ public class EnemyProjectile : MonoBehaviour
         this.direction = direction;
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("Collision");
         if (!other.CompareTag("Enemy"))

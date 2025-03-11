@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 using TMPro;
+using UnityEngine.UI;
 
 public class makeTree : MonoBehaviour
 {
@@ -18,6 +19,10 @@ public class makeTree : MonoBehaviour
     public int initialPositionRootX = 0;
     public int initialPositionRootY = 0;
 
+    public int lineWidth = 0;
+
+    public Sprite lineSprite;
+
     
     public float NodeSize = 0.5f;
     
@@ -28,12 +33,12 @@ public class makeTree : MonoBehaviour
     public Sprite SpriteLocked;
     public Sprite SpriteUnlocked;
 
-    public TextMeshPro textAttributes;
+    public GameObject textAttributes;
 
-    
+
     // solution: each node has a fixed length that his Children can take. the length is determined by most left and most right. 
 
-    void Start()
+    private void Start()
     {
         skillNode.SpriteLocked = SpriteLocked;
         skillNode.SpriteUnlocked = SpriteUnlocked;
@@ -48,7 +53,7 @@ public class makeTree : MonoBehaviour
         //panel.SetActive(false);
 
     }
-    void Update(){
+    private void Update(){
         if(Input.GetKey(KeyCode.E)){
             panel.SetActive(true);
         }
@@ -60,7 +65,7 @@ public class makeTree : MonoBehaviour
 
     // Update is called once per frame
 
-    treeNode setTree(){
+    private treeNode setTree(){
         Queue<treeNode> queue = new Queue<treeNode>();
         
         System.Random random = new System.Random(seed);
@@ -103,9 +108,9 @@ public class makeTree : MonoBehaviour
         return root;
     }
 
-    void printTree(treeNode node){
+    private void printTree(treeNode node){
         for(int i=0;i<node.Children.Count;i++){
-            Debug.Log("node " + node.value + " has Children: " + +node.Children[i].value);
+           // Debug.Log("node " + node.value + " has Children: " + +node.Children[i].value);
         }
         for(int i=0;i<node.Children.Count;i++){
             printTree(node.Children[i]);
@@ -114,24 +119,26 @@ public class makeTree : MonoBehaviour
     public void DrawTree(treeNode root) {
         GameObject nodeObject = new GameObject("node");
         
-        Vector2 positionNode =new Vector2(root.X*spaceBetweenNodesX-initialPositionRootX , -spaceBetweenNodesY*(float)root.Y-initialPositionRootY);
-        nodeObject.transform.position = positionNode;
-        nodeObject.AddComponent<SpriteRenderer>();
- 
+        Vector2 positionNode =new Vector2(-spaceBetweenNodesX*(float)root.X, -spaceBetweenNodesY*(float)root.Y)+ new Vector2(initialPositionRootX, initialPositionRootY);
+        
+        nodeObject.AddComponent<Image>();
+        nodeObject.GetComponent<Image>().sprite = SpriteLocked;
         root.setUpgrade(new skillTreeUpgrade());
         skillNode SkillNode = nodeObject.AddComponent<skillNode>();
         SkillNode.setTreeNode(root);
         
         
-        nodeObject.transform.localScale = new Vector3(NodeSize,NodeSize,NodeSize);
-        
+        RectTransform rectTransform = nodeObject.GetComponent<RectTransform>();
+        rectTransform.sizeDelta = new Vector2(NodeSize, NodeSize);  // Example size: 200x200
+        rectTransform.anchoredPosition = positionNode;
+    
         // dont forget to add a specific skillTreeUpgrade to the root/node
         foreach (treeNode child in root.Children) {
-            Vector2 positionChild = new Vector2(child.X*spaceBetweenNodesX-initialPositionRootX  , -spaceBetweenNodesY*(float)child.Y-initialPositionRootY);
-            CreateEdge(positionChild,positionNode);
+            Vector2 positionChild = new Vector2(-spaceBetweenNodesX*(float)child.X , -spaceBetweenNodesY*(float)child.Y) + new Vector2(initialPositionRootX, initialPositionRootY);
+            CreateEdge(positionNode,positionChild);
             DrawTree(child);
         }
-        nodeObject.transform.SetParent(panel.transform);
+        nodeObject.transform.SetParent(panel.transform,true);
     }
 
     private void CreateEdge(Vector2 start, Vector2 end) {
@@ -139,29 +146,48 @@ public class makeTree : MonoBehaviour
         GameObject lineObject = new GameObject("line");
 
         // Add LineRenderer component
-        LineRenderer lineRenderer = lineObject.AddComponent<LineRenderer>();
+        Image lineRenderer = lineObject.AddComponent<Image>();
 
+        float distance = Vector2.Distance(start, end);
+        float angle = Vector2.SignedAngle((end-start).normalized, new Vector2(1, 0));
+        
+        RectTransform rectTransform = lineRenderer.GetComponent<RectTransform>();
+        
+        rectTransform.anchoredPosition = (start + end) / 2;
+        //rectTransform.anchoredPosition = end;
+        rectTransform.rotation = Quaternion.Euler(0, 0, -angle);
+        
+        rectTransform.sizeDelta = new Vector2(distance, lineWidth);
+        
+        lineRenderer.sprite = lineSprite;
+        
         // Configure LineRenderer for 2D
-        lineRenderer.startWidth = 0.4f; 
-        lineRenderer.endWidth = 0.4f;   
-        lineRenderer.useWorldSpace = false;
-        lineRenderer.numCapVertices = 2; 
-        lineRenderer.sortingOrder = -1;
-        
-       
         lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
-
-        
-        lineRenderer.startColor = Color.black;
-        lineRenderer.endColor = Color.black;
-
-       
-        lineRenderer.positionCount = 2; // The line consists of 2 points
-        lineRenderer.SetPosition(0, start); // Start point
-        lineRenderer.SetPosition(1, end); // End point
-
-        lineObject.transform.SetParent(panel.transform);
+        lineObject.transform.SetParent(panel.transform,true);
+        //rectTransform.pivot = new Vector2(0.5f, 0.5f);
     }
+    private void CreateEdge2(Vector2 start, Vector2 end) {
+    
+    GameObject lineObject = new GameObject("Line");
+
+    // Add SpriteRenderer instead of Image
+    SpriteRenderer lineRenderer = lineObject.AddComponent<SpriteRenderer>();
+    lineRenderer.sprite = lineSprite;
+
+    // Calculate position, angle, and scale
+    Vector2 midpoint = (start + end) / 2;
+    float distance = Vector2.Distance(start, end);
+    float angle = Vector2.SignedAngle((end - start).normalized, Vector2.right);
+
+    // Apply transformations
+    lineObject.transform.position = start;  // Set world-space position
+    lineObject.transform.rotation = Quaternion.Euler(0, 0, angle); // Rotate correctly
+    lineObject.transform.localScale = new Vector3(1, 1, 1); // Scale properly
+
+    // Set parent (optional)
+    lineObject.transform.parent = panel.transform; 
+}
+
     
 
 }
