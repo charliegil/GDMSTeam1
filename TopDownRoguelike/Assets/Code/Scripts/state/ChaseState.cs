@@ -16,8 +16,8 @@ public class ChaseState : State
     private int currentWaypoint = 0;
     private bool reachedEndOfPath = false;
     private bool returnPos = false;
-    public Navigate navigate;
-    public IdleState idle;
+    //public Navigate navigate;
+    //public IdleState idle;
 
     private Seeker seeker;
     // should be the primary chase state we will use
@@ -32,11 +32,11 @@ public class ChaseState : State
     {
         if(returnPos){
             float playerDistance = Vector2.Distance(body.position, startPos.transform.position);
-            Debug.Log("the player distance to start point"+playerDistance+" with current pos "+body.position+" startPos: "+startPos.transform.position);
-            Debug.Log("the returnPos"+returnPos);
+            //Debug.Log("the player distance to start point"+playerDistance+" with current pos "+body.position+" startPos: "+startPos.transform.position);
+            //Debug.Log("the returnPos"+returnPos);
             if(playerDistance<=0.7){
                 returnPos = false;
-                Debug.Log("you have returned home");
+                //Debug.Log("you have returned home");
                 isComplete = true;
             }
         }
@@ -82,7 +82,7 @@ public class ChaseState : State
         
     }
     // Update is called once per frame
-    private void FixedUpdate()
+    void FixedUpdate()
     {   //Debug.Log("reachedEndOfPath"+reachedEndOfPath);
         //target = Player.ActivePlayer.transform;
         if(path == null) {return;}
