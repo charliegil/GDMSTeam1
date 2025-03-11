@@ -8,7 +8,7 @@ public class AudioManager : MonoBehaviour
     public Sound[] sounds;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Awake()
+    private void Awake()
     {
         if (Instance == null) {
             Instance = this;

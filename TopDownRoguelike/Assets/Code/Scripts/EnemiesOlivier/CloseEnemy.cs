@@ -9,23 +9,18 @@ using Pathfinding.Util;
 
 
 
-public class CloseEnemy : MonoBehaviour, IEnemyBehaviour
+public class CloseEnemy : BaseEnemy
 {
-    public int damage;
+    
     public float radiusCircularAttack;
 
     public float frontAttackRange;
     public float trackingSpeed; // the rotation speed of the enemy
 
-    public int hp =  100;
-
     public int lineOfSightAngle = 180; // Is the FOV of the enemy
 
-    public int viewDistance = 5; 
     public float attackReload = 1;  // the time between each attack
-    private float TimeBeforeAttack; 
 
-    
     public float reactionTime = 0;
 
     public float movingSpeed = 1; // the speed when he sees you
@@ -34,53 +29,34 @@ public class CloseEnemy : MonoBehaviour, IEnemyBehaviour
 
     public float attackDuration = 0.2f; // the duration of the attack
 
-    private CircleCollider2D attackCollider; // t
 
-    public GameObject player;
+    public float RateOfChangeDirection = 2f; // Time before changing direction
+    
 
     public GameObject tongue;
     public SpriteRenderer tongueRenderer;
     private Sprite tongueSprite; 
 
+    private CircleCollider2D attackCollider; // t
     private Collider2D PlayerCollider;
     
-    private bool IsAttacking = false; //beause of the coroutines
-    public float RateOfChangeDirection = 2f; // Time before changing direction
-    private float timer;
-    
     private Quaternion targetRotation;
-
     private Vector2 randomMovement = new Vector2( 0,0);
-
-    private Rigidbody2D rb;
-
+    
+    
+    private bool IsAttacking = false; //beause of the coroutines
+    private float TimeBeforeAttack; 
+    
+    
     
 
     private bool isChasing =false;
 
-    //private float currentTime = 0;
 
-    // when the player is in the line of sight of the enemy, the enemy will follow him and face him forward. 
-    // when the player is in the attack radius and in view of the enemy, the enemy will do an attack. 
-    // if the enemy doesnt see the player, it will walk in different directions, and face in these directions
 
-    // The enemy has two attacks. when in field of view, perform front attack. When not in field of view but in the attack radius, perform the circular attack
-    
-    
-    /* the description of the enemy is this: this enemy is aware of his surroundings. if he sees you, he will follow you and use his 
-    tongue has a spear when you are close to him. His ears are very good. if you are close to him and he doesnt see you, he will know.
-    he will then use his tongue and make a circular attack all around him
-
-    
-    could implement the fact that enemies cant see you when you are dashing
-
-    Still need to implement the cone that tells us the FOV of the enemy
-
-    will need to make this class a child of BaseEnemy and implement Pathfinding
-    */
-    void Start()
+    private void Start()
     {
-       
+        base.Start();
         TimeBeforeAttack = attackReload;
         attackCollider = gameObject.AddComponent<CircleCollider2D>();
         attackCollider.radius = frontAttackRange;
@@ -90,33 +66,28 @@ public class CloseEnemy : MonoBehaviour, IEnemyBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         
         PlayerCollider = player.GetComponent<Collider2D>();
-
-        rb = GetComponent<Rigidbody2D>();
-        if (rb == null) rb = gameObject.AddComponent<Rigidbody2D>();
         
         
-        gameObject.AddComponent<DrawFOV>().drawLines(viewDistance,lineOfSightAngle);
+        gameObject.AddComponent<DrawFOV>().drawLines(viewDistance,FOV);
         
         tongueRenderer.enabled = false;
-        rb.gravityScale = 0;
-        rb.freezeRotation = true;
-        rb.bodyType = RigidbodyType2D.Dynamic;
+        
         
     }
-    
+
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         transform.rotation = Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z);
-        if(IsAttacking) {
-            rb.linearVelocity = new Vector2(0,0);
+        if(IsAttacking || IsPlayerInAttackRange()) {
+            body.linearVelocity = new Vector2(0,0);
             return;
         }
         
         move();
     }
 
-    void LateUpdate()
+    private void LateUpdate()
     {
         if (IsPlayerInlineOfSight()){
             Vector2 direction = (player.transform.position - transform.position).normalized;
@@ -136,13 +107,13 @@ public class CloseEnemy : MonoBehaviour, IEnemyBehaviour
         }
 
     }
-    void followLastKnownPosition(){
+    private void followLastKnownPosition(){
         isChasing = false;
         timer = RateOfChangeDirection+3;
         randomMovement = (player.transform.position - transform.position).normalized;
     }
 
-    void dontSeePlayer(){ // called when the enemy doesnt see the player 
+    private void dontSeePlayer(){ // called when the enemy doesnt see the player 
         
        
            if (timer<=0){ // need to pick a new direction to go in
@@ -152,17 +123,17 @@ public class CloseEnemy : MonoBehaviour, IEnemyBehaviour
             timer-= Time.deltaTime;
             
             
-            rb.linearVelocity= transform.right*findSpeed;
+            body.linearVelocity= transform.right*findSpeed;
     
     }
 
 
-    void followPlayer(){
-        rb.linearVelocity= transform.right*movingSpeed;
+    private void followPlayer(){
+        body.linearVelocity= transform.right*movingSpeed;
         isChasing = true;
     }
 
-    bool IsPlayerInlineOfSight(){
+    private bool IsPlayerInlineOfSight(){
         
         if(isWallBetweenPlayer(player)) return false; // if there is a wall between the player and the enemy
 
@@ -180,14 +151,14 @@ public class CloseEnemy : MonoBehaviour, IEnemyBehaviour
     }
 
 
-    float getDistanceToPlayer(){
+    private float getDistanceToPlayer(){
         return(transform.position- player.transform.position).magnitude;
     }
 
 
 
 
-    public void Attack(){
+    public override void Attack(){
         
         TimeBeforeAttack = attackReload;
         if( getDistanceToPlayer() < radiusCircularAttack){
@@ -207,24 +178,27 @@ public class CloseEnemy : MonoBehaviour, IEnemyBehaviour
     private IEnumerator FrontAttack(){
         
         //tongue.transform.eulerAngles= new Vector3(0,0,-90); 
-        float duration  = attackDuration;
-        float speedRate =2*frontAttackRange / duration;
-        tongue.transform.localScale = new Vector3(1,0,0);
+        float duration = attackDuration;
+        float speedRate = 2 * frontAttackRange / duration; 
+        tongue.transform.localScale = new Vector3(1, 0, 0); 
         tongueRenderer.enabled = true;
         bool reachEnd = false;
         
         while(duration > 0){
-            if(reachEnd) tongue.transform.localScale-=new Vector3(0,speedRate,0);
-            else {tongue.transform.localScale+=new Vector3(0,speedRate,0);}
-            if(tongue.transform.localScale.y >= frontAttackRange) {
+            
+            if(reachEnd) tongue.transform.localScale -= new Vector3(0, speedRate * Time.deltaTime, 0);
+            else {tongue.transform.localScale += new Vector3(0, speedRate * Time.deltaTime, 0);}
+            
+            if (tongue.transform.localScale.y >= frontAttackRange){
                 reachEnd = true;
-                Vector3.ClampMagnitude(tongue.transform.localScale,frontAttackRange);
+                tongue.transform.localScale = new Vector3(tongue.transform.localScale.x, frontAttackRange, tongue.transform.localScale.z); // Clamp y to frontAttackRange
             }
+
             if(tongue.transform.localScale.y < 0) break;
             
             duration -= Time.deltaTime;
-           
             yield return null;
+        
         }
         //tongue.transform.eulerAngles= new Vector3(0,0,-90); 
         TimeBeforeAttack = attackReload;
@@ -235,8 +209,12 @@ public class CloseEnemy : MonoBehaviour, IEnemyBehaviour
     private IEnumerator CircularAttack(){
         float duration  = attackDuration;
         tongueRenderer.enabled = true;
+        float step = 360f / attackDuration;
+   
         while(duration > 0){
-            tongue.transform.Rotate(new Vector3(0,0,25));
+            float angle = step * Time.deltaTime;
+            tongue.transform.Rotate(new Vector3(0,0,angle));
+            
 
             duration -= Time.deltaTime;
            
@@ -249,7 +227,7 @@ public class CloseEnemy : MonoBehaviour, IEnemyBehaviour
         
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if(IsAttacking) return;
         
@@ -258,7 +236,7 @@ public class CloseEnemy : MonoBehaviour, IEnemyBehaviour
         Invoke("Attack", reactionTime); 
         
     }
-    void OnTriggerStay2D(Collider2D collision) // when enemy sees the player and in line of sight, instantly attack. if was already in 
+    private void OnTriggerStay2D(Collider2D collision) // when enemy sees the player and in line of sight, instantly attack. if was already in 
     // line of sight, there is a counter that will be counted
     {
         if(IsAttacking) return;
@@ -269,17 +247,8 @@ public class CloseEnemy : MonoBehaviour, IEnemyBehaviour
         }
         else TimeBeforeAttack -= Time.deltaTime;
     }
-    public bool isWallBetweenPlayer(GameObject obj ){
-        Vector2 direction = obj.transform.position - transform.position;
-        RaycastHit2D[] hit = castRayAndGetCollider(direction);
-        foreach(RaycastHit2D col in hit){
-            if(col.transform.gameObject.tag == "Finish") return true;
-            else if (col.transform.gameObject.tag == "Player" || col.transform.gameObject.name.Contains("Player")) return false;
-        }
-        return false;
 
-    }
-    RaycastHit2D[] castRayAndGetCollider(Vector2 direction ){
+    private RaycastHit2D[] castRayAndGetCollider(Vector2 direction ){
         
         Debug.DrawRay(transform.position, direction);
         //Ray ray = new Ray(transform.position,direction);      
@@ -294,7 +263,7 @@ public class CloseEnemy : MonoBehaviour, IEnemyBehaviour
         throw new NotImplementedException();
     }
 
-    public void move()
+    public override void move()
     {
         if(IsPlayerInlineOfSight()) {
             
@@ -310,9 +279,6 @@ public class CloseEnemy : MonoBehaviour, IEnemyBehaviour
         }
     }
 
-    public void OnDeath()
-    {
-        throw new NotImplementedException();
-    }
+   
     
 }

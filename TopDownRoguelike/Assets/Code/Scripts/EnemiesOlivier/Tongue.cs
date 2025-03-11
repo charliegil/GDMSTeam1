@@ -1,0 +1,35 @@
+using UnityEngine;
+
+public class Tongue : MonoBehaviour
+{
+    [SerializeField] private BoxCollider2D BoxCollider;
+
+    public int damage;
+
+    private PlayerController playerController;
+
+    private GameObject parent;
+
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private void Start()
+    {
+        parent = transform.parent.gameObject;
+    }
+
+    // Update is called once per frame
+    private void Update()
+    {
+        //BoxCollider.size = parent.transform.localScale/2;
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        
+        if(!collision.gameObject.CompareTag("Player")) return;
+        
+        if(playerController == null) playerController = collision.gameObject.GetComponent<PlayerController>();
+
+        playerController.TakeDamage(damage);
+        
+    }
+}

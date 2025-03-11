@@ -5,22 +5,22 @@ using System.Collections.Generic;
 public class SkillTreeHandler : MonoBehaviour
 {
     public int skillPoints = 100;
-    List<skillTreeUpgrade> upgradesOwned = new List<skillTreeUpgrade>();
+    private List<skillTreeUpgrade> upgradesOwned = new List<skillTreeUpgrade>();
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Start()
     {
         
     }
 
     // will call the method buy or sell depending on mouse Input and inside these method, it will be responsible to add the upgrade to the list,
     // update number of skill points, and sending updates to other scripts to apply these upgrades. will do these action if the skillpoint returned
-   
+
 
     // this is the method responsible to change the appearance of the gameObject.
-    
+
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (Input.GetMouseButtonDown(0)){
             HandleSkillPurchase();
@@ -55,7 +55,8 @@ public class SkillTreeHandler : MonoBehaviour
                 Debug.Log("you sold" + skillnode.getNode());
             }
     }
-    skillNode getNodeCLicked(){
+#pragma warning disable IDE1006 // Naming Styles
+    private skillNode getNodeCLicked(){
         
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         //Debug.Log("the position: " + Input.mousePosition);
@@ -69,5 +70,6 @@ public class SkillTreeHandler : MonoBehaviour
         return null;
        
     }
+#pragma warning restore IDE1006 // Naming Styles
 
 }

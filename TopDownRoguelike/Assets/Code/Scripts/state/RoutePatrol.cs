@@ -11,7 +11,7 @@ public class RoutePatrol : State
     public Navigate navigate;
     public IdleState idle;
     public Transform []  anchors;
-    [SerializeField]  Vector2 IdleInterval = new Vector2(1,5);
+    [SerializeField] private Vector2 IdleInterval = new Vector2(1,5);
     private void OnValidate() {if (IdleInterval.x > IdleInterval.y) IdleInterval.x = IdleInterval.y;} 
 
     private float IdleTime= 1;
@@ -21,8 +21,8 @@ public class RoutePatrol : State
 
     //public AnimationClip anim;
     public float maxXSpeed;
-    
-    void GoToNextDestination(){
+
+    private void GoToNextDestination(){
           
             currentIndex = (currentIndex+1) % anchors.Length;
             

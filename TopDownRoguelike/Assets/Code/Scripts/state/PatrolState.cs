@@ -12,8 +12,8 @@ public class PatrolState : State
 
     //public AnimationClip anim;
     public float maxXSpeed;
-    
-    void GoToNextDestination(){
+
+    private void GoToNextDestination(){
         if(navigate.destination == (Vector2)anchor1.position){
             navigate.destination = anchor2.position; 
         }else{

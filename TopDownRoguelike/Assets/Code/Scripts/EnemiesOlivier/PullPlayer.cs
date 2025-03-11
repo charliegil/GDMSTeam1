@@ -51,9 +51,9 @@ public class PullPlayer : MonoBehaviour
 
     private Vector2 currentDirection = new Vector2(0, 0);
 
-    
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Start()
     { 
         PullCollider = gameObject.AddComponent<CircleCollider2D>();
         PullCollider.radius = pullRadius;
@@ -81,7 +81,7 @@ public class PullPlayer : MonoBehaviour
 
     }
 
-    void Update(){
+    private void Update(){
         if(reloadCounter > reloadtime && canPull == false) canPull = true; // maybe issue with this why its not working properly
         else {reloadCounter+=Time.deltaTime;}
 
@@ -179,7 +179,7 @@ public class PullPlayer : MonoBehaviour
         return false;
 
     }
-    RaycastHit2D[] castRayAndGetCollider(Vector2 direction ){
+    private RaycastHit2D[] castRayAndGetCollider(Vector2 direction ){
         
         Debug.DrawRay(transform.position, direction);
         //Ray ray = new Ray(transform.position,direction);      

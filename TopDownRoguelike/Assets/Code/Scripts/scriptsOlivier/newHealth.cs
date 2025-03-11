@@ -24,14 +24,14 @@ public class newHealth : MonoBehaviour
     public GameObject panel;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Start()
     {
-        if(panel != null) panel.active  = false;
+        if(panel != null) panel.SetActive(false);
         setHP(sliderChange.value*totalHP, false);
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if(Time.time - time >=1f && regenerate){
             time = Time.time;
@@ -40,7 +40,7 @@ public class newHealth : MonoBehaviour
         }
     }
 
-    void setHP(float hp, bool animation){
+    private void setHP(float hp, bool animation){
         
         if(hp> totalHP) hp = totalHP;
         currentHP = hp;
@@ -63,8 +63,8 @@ public class newHealth : MonoBehaviour
         setHP(value*totalHP , true);
         
     }
-   
-    IEnumerator LerpHealthBar(float start, float end)
+
+    private IEnumerator LerpHealthBar(float start, float end)
     {
         float timeElapsed = 0f;
 

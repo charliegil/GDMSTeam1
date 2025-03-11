@@ -7,53 +7,57 @@ using System.Collections.Generic;
 
 public abstract class BaseEnemy : MonoBehaviour
 {
-protected int hp;
-protected int CurrentHp;
+[SerializeField] protected float maxHP;
+protected float CurrentHp;
 protected float currentSpeed = 0;
 [SerializeField] protected int damage;
-
+public event Action EventDeath;
 [SerializeField] protected float attackRange = 10;
 [SerializeField] protected float maxSpeed = 10;
 [SerializeField] protected float acceleration = 1;
 [SerializeField] protected Animator animator;
 [SerializeField] protected Rigidbody2D body;
-int FOV; // the FOV of the enemy. If the player is not in the FOV of the enemy, the enemy cannot see him. need to implement with pathfinding
-int viewDistance; // the enemy can see the player when the distance between them is smaller than viewDistance. Need to implement with pathfinding
+
+[Range (0,360f)] [SerializeField] protected int FOV; // the FOV of the enemy. If the player is not in the FOV of the enemy, the enemy cannot see him. need to implement with pathfinding
+
+[SerializeField] protected int viewDistance; // the enemy can see the player when the distance between them is smaller than viewDistance. Need to implement with pathfinding
 protected static GameObject player;
 
 protected float timer;
 
- /* starting next week, I will make this class the base class for all the enemies. integrating this with the pathfinding program, we will be able
- to design enemies faster and reuse components
-
-
- */
     public abstract void Attack();
-    public void TakeDamage(int damage){
+    public void TakeDamage(float damage){
         animator.SetTrigger("takeDamage");
         CurrentHp-=damage;
 
         if(CurrentHp < 0) OnDeath();
     }
 
+    public void Start()
+    {
+        CurrentHp = maxHP;
+    }
+
     public abstract void move();
 
-    public abstract void OnDeath();
+    public void OnDeath(){
+        EventDeath?.Invoke();
+        // spawn objects that player can pick up
+    }
 
 
-    // in this class, get the health component of the player and deal him damage. Will need to make a coroutine in the health script to deal 
-    // damage over time
 
 
 
-   
 
-    
-    
-    
-    
-    
-    bool IsPlayerInlineOfSight(){
+
+
+
+
+
+
+
+    private bool IsPlayerInlineOfSight(){
         
         if(isWallBetweenPlayer(player)) return false; // if there is a wall between the player and the enemy
 
@@ -69,7 +73,7 @@ protected float timer;
         if (angle < (FOV/2)) return false;
         return true;
     }
-    float getDistanceToPlayer(){
+    private float getDistanceToPlayer(){
         return(transform.position- player.transform.position).magnitude;
     }
         public bool isWallBetweenPlayer(GameObject obj ){
@@ -89,6 +93,16 @@ protected float timer;
         RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position,direction, viewDistance, Physics2D.DefaultRaycastLayers);
         Array.Sort(hits, (x, y) => x.distance.CompareTo(y.distance));
         return hits;
+    }
+    protected bool IsPlayerInAttackRange(){
+        return getDirectionToPlayer().magnitude < attackRange;
+    }
+
+    protected bool IsPlayerInDetectionRange(){
+        return getDirectionToPlayer().magnitude < viewDistance;
+    }
+    protected Vector2 getDirectionToPlayer(){
+        return (player.transform.position - transform.position);
     }
 
 

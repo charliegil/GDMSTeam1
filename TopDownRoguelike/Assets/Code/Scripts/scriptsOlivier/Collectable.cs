@@ -7,24 +7,24 @@ public class Collectable : MonoBehaviour
 {
     // this script is for identifying objects that can be collected. It defines how you can collect them
   
-    [SerializeField] float collectRadius;
-    [SerializeField] bool CollectAutomatically = false;
-    [SerializeField] KeyCode keyToObtain = KeyCode.E; // specifies which key must be pressed in order to collect that item
+    [SerializeField] private float collectRadius;
+    [SerializeField] private bool CollectAutomatically = false;
+    [SerializeField] private KeyCode keyToObtain = KeyCode.E; // specifies which key must be pressed in order to collect that item
 
 
-    [SerializeField] float movementDuration= 0.5f;
+    [SerializeField] private float movementDuration= 0.5f;
 
 
     private CircleCollider2D CollectableCollider;
     private Renderer CollectableRenderer;
-    
-    
-    
+
+
+
     // TODO
     // some sort of effect that indicates that you can pick them up
     //  when picked up, either make the animation linear or non linear
-    
-    void Start()
+
+    private void Start()
     {
        CollectableCollider = gameObject.AddComponent<CircleCollider2D>();
        
@@ -40,9 +40,9 @@ public class Collectable : MonoBehaviour
        CollectableRenderer.material.color = Color.green;
     }
 
-    
+
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         
     }
@@ -83,7 +83,7 @@ public class Collectable : MonoBehaviour
         return false;
 
     }
-    RaycastHit2D[] castRayAndGetCollider(Vector2 direction){
+    private RaycastHit2D[] castRayAndGetCollider(Vector2 direction){
         
         Debug.DrawRay(transform.position, direction);
         //Ray ray = new Ray(transform.position,direction);      

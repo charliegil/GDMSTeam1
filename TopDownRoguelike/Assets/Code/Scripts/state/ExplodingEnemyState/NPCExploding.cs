@@ -16,11 +16,11 @@ public class NPCExploding : Core
     [SerializeField] public bool usePathFinding = false;
 
     [SerializeField] public float MaxAliveTime = 4;
-    
+
 
     // will need to attach the start position, as well as attach the line Renderer for the slime patrol
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Start()
     {
         Debug.Log("NPC Start() is running...");
         machine = new StateMachine(); // Ensure `machine` exists
@@ -37,7 +37,7 @@ public class NPCExploding : Core
 
     // Update is called once per frame
     // this NPC destroys after one attack, so no need for some advanced ai thing
-    void Update()
+    private void Update()
     {
         if(IsPlayerInAttackRange(target.transform.position) || MaxAliveTime <= 0){
             Set(attack);
@@ -64,7 +64,7 @@ public class NPCExploding : Core
         }
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
      state.FixedDoBranch();   
     }

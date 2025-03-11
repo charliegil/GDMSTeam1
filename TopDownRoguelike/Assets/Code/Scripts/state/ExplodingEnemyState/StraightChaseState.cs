@@ -3,7 +3,7 @@ using Pathfinding;
 public class StraightChaseState : State
 {
     public Transform target;
-    [SerializeField] float speed = 10;
+    [SerializeField] private float speed = 10;
 
     [SerializeField] private float acceleration = 2f; // Adjust as needed
 

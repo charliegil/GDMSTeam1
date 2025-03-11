@@ -7,7 +7,7 @@ public class PushPlayer : MonoBehaviour
 {
     public int radius; // specifies the that when it enters it, the player will get ejected
 
-    [SerializeField] KeyCode keyToObtain = KeyCode.E;
+    [SerializeField] private KeyCode keyToObtain = KeyCode.E;
 
     private CircleCollider2D colliderCircle;
 
@@ -21,7 +21,7 @@ public class PushPlayer : MonoBehaviour
 
     public float ejectionTime = 2;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Start()
     {
         colliderCircle = gameObject.AddComponent<CircleCollider2D>();
         //colliderCircle = gameObject.GetComponent<CircleCollider2D>();
@@ -75,7 +75,7 @@ public class PushPlayer : MonoBehaviour
         return false;
 
     }
-    RaycastHit2D[] castRayAndGetCollider(Vector2 direction){
+    private RaycastHit2D[] castRayAndGetCollider(Vector2 direction){
         
         Debug.DrawRay(transform.position, direction);
         //Ray ray = new Ray(transform.position,direction);      

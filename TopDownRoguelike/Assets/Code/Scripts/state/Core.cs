@@ -8,7 +8,9 @@ public abstract class Core : MonoBehaviour
     public Animator animator;
     //public Horse_inputControl input; //need change which input not horse input but more the chatacter
     public StateMachine machine;
+#pragma warning disable IDE1006 // Naming Styles
     [SerializeField] protected State state => machine.state;
+#pragma warning restore IDE1006 // Naming Styles
     [SerializeField] protected int detectionRange = 4;// the range at which the enemy detects the player
 
     public float reloadTime = 1;
@@ -36,7 +38,7 @@ public abstract class Core : MonoBehaviour
         StartPosition = transform.position;
 
     }
-    void LateUpdate(){
+    private void LateUpdate(){
         if(showFOV){ 
             FOVLines.transform.rotation = body.transform.rotation;  
         }   
@@ -117,6 +119,7 @@ public abstract class Core : MonoBehaviour
     }
     
     // methods to detect player----------------------------------------------
+#pragma warning disable IDE1006 // Naming Styles
     private RaycastHit2D[] castRayAndGetCollider(Vector2 direction, float range ){
         
         Debug.DrawRay(transform.position, direction);
@@ -125,6 +128,8 @@ public abstract class Core : MonoBehaviour
         Array.Sort(hits, (x, y) => x.distance.CompareTo(y.distance));
         return hits;
     }
+#pragma warning restore IDE1006 // Naming Styles
+#pragma warning disable IDE1006 // Naming Styles
     private bool isWallBetweenPlayerAndEnemy(float range){
         Vector2 direction = target.transform.position - transform.position;
         RaycastHit2D[] hit = castRayAndGetCollider(direction,range);
@@ -135,6 +140,7 @@ public abstract class Core : MonoBehaviour
         return false;
 
     }
+#pragma warning restore IDE1006 // Naming Styles
 
     
 }

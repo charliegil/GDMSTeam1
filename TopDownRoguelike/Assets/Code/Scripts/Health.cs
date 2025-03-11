@@ -6,12 +6,12 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] float currentHealth = 100f;
+    [SerializeField] private float currentHealth = 100f;
 
 
-    [SerializeField] float Totalhealth = 0;
+    [SerializeField] private float Totalhealth = 0;
 
-    [SerializeField] newHealth UIHealth;
+    [SerializeField] private newHealth UIHealth;
 
 
     // will need to integrate the UI health bar with This
