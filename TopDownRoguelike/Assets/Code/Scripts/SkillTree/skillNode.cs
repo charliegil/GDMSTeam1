@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class skillNode : MonoBehaviour , IPointerEnterHandler, IPointerExitHandler
 {
@@ -19,8 +20,8 @@ public class skillNode : MonoBehaviour , IPointerEnterHandler, IPointerExitHandl
     private void Awake()
     {
     
-        SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-        if (spriteRenderer == null) spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
+        Image spriteRenderer = gameObject.GetComponent<Image>();
+        if (spriteRenderer == null) spriteRenderer = gameObject.AddComponent<Image>();
         spriteRenderer.sprite = SpriteLocked;
 
         
@@ -40,7 +41,7 @@ public class skillNode : MonoBehaviour , IPointerEnterHandler, IPointerExitHandl
         Debug.Log("is renderer null" + (spriteRenderer ==null));
        
 
-        if (skillPoints != points ) gameObject.GetComponent<SpriteRenderer>().sprite = SpriteUnlocked;
+        if (skillPoints != points ) gameObject.GetComponent<Image>().sprite = SpriteUnlocked;
         return points;
     }
     public int sellSkill(int skillPoints){
@@ -50,7 +51,7 @@ public class skillNode : MonoBehaviour , IPointerEnterHandler, IPointerExitHandl
         Debug.Log("is renderer null" + (spriteRenderer ==null));
         
         
-        if (skillPoints != points ) gameObject.GetComponent<SpriteRenderer>().sprite = SpriteLocked;
+        if (skillPoints != points ) gameObject.GetComponent<Image>().sprite = SpriteLocked;
         return points;
     }
     public override string ToString(){

@@ -11,7 +11,7 @@ public class Health : MonoBehaviour
 
     [SerializeField] private float Totalhealth = 0;
 
-    [SerializeField] private newHealth UIHealth;
+    [SerializeField] private HealthManager UIHealth;
 
 
     // will need to integrate the UI health bar with This
