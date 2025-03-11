@@ -29,7 +29,7 @@ public class tongControl : Player, IControllable
             Vector2 inputDirection = new Vector2(inputHandler.MoveInput.x, inputHandler.MoveInput.y);
             currentMvt = inputDirection.normalized * walkSpeed;
         }else{
-            Debug.Log("hey should move");
+            //Debug.Log("hey should move");
             Vector2 point = currentPoint.position - transform.position;
             if(currentPoint == pointB.transform){
                 rb.linearVelocity = new Vector2(walkSpeed, 0);

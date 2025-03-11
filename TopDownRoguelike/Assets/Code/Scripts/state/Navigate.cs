@@ -14,10 +14,10 @@ public class Navigate : State
     }
     public override void Do()
     {
-        Debug.Log("the distance is "+Vector2.Distance(core.transform.position, destination));
+       // Debug.Log("the distance is "+Vector2.Distance(core.transform.position, destination));
         if(Vector2.Distance(core.transform.position, destination)<threshold){
-            Debug.Log("aaaaaaaaaaaaaaaabbbbbbbbbbbbbbb");
-            Debug.Log("navigate is "+isComplete);
+            //Debug.Log("aaaaaaaaaaaaaaaabbbbbbbbbbbbbbb");
+            //Debug.Log("navigate is "+isComplete);
             isComplete = true;
         }   
         FaceDestination();

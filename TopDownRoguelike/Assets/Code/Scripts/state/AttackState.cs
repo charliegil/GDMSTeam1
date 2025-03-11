@@ -2,8 +2,10 @@ using UnityEngine;
 
 public class AttackState : State
 {
+    public GameObject spear;
     public override void Enter()
     {
+
         
     }
     public override void Do()
