@@ -54,12 +54,12 @@ public class makeTree : MonoBehaviour
 
     }
     private void Update(){
-        if(Input.GetKey(KeyCode.E)){
+        /*if(Input.GetKey(KeyCode.E)){
             panel.SetActive(true);
         }
         if(Input.GetKey(KeyCode.Q)){
             panel.SetActive(false);
-        }
+        }*/
 
     }
 
@@ -122,7 +122,7 @@ public class makeTree : MonoBehaviour
         Vector2 positionNode =new Vector2(-spaceBetweenNodesX*(float)root.X, -spaceBetweenNodesY*(float)root.Y)+ new Vector2(initialPositionRootX, initialPositionRootY);
         
         nodeObject.AddComponent<Image>();
-        nodeObject.GetComponent<Image>().sprite = SpriteLocked;
+        //nodeObject.GetComponent<Image>().sprite = SpriteLocked;
         root.setUpgrade(new skillTreeUpgrade());
         skillNode SkillNode = nodeObject.AddComponent<skillNode>();
         SkillNode.setTreeNode(root);

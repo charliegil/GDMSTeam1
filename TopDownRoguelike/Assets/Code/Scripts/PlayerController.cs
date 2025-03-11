@@ -17,7 +17,9 @@ public class PlayerController : MonoBehaviour
     // ===================== UI =====================
 
     public Slider SliderPhaseCooldown;
-    public Slider SliderCurrentHealth;
+   
+
+    public GameObject LoseScreen;
 
     // ===================== MOVEMENT =====================
     [SerializeField] private float moveSpeed = 5f;
@@ -61,6 +63,8 @@ public class PlayerController : MonoBehaviour
     private float currentHealth;
     private float healthMultiplier;
 
+    public HealthManager healthManager;
+
     // ===================== DEBUG & TESTING =====================
 
     // ===================== UNITY CALLBACKS =====================
@@ -75,6 +79,8 @@ public class PlayerController : MonoBehaviour
         if (lineRenderer != null) {
             Debug.Log("Found line renderer");
         }
+        healthManager.totalHP = maxHealth;
+        healthManager.currentHP = maxHealth;
     }
 
     private void OnEnable() {
@@ -122,6 +128,7 @@ public class PlayerController : MonoBehaviour
             Attack();
         }
         if(!isPhasing){
+            SliderPhaseCooldown.value = (phaseCooldown-phaseTimer)/phaseCooldown;
             phaseTimer-= Time.deltaTime;
         }
     }
@@ -199,7 +206,7 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.CompareTag("Projectile")) {
             Debug.Log("I'm hit!");
-            TakeDamage(1);
+            TakeDamage(3);
         }
         
     }
@@ -207,12 +214,17 @@ public class PlayerController : MonoBehaviour
     
         //healthText.SetText(health.ToString());
         currentHealth -= damage;
+        currentHealth = Math.Max(currentHealth,maxHealth);
         if(currentHealth< 0 ) OnDeath();
         animator.SetTrigger("takingDamage");
 
+        //healthManager.addHP(-damage,true);
+        healthManager.addHP(-5,true);
         
     }
     public void OnDeath(){
+        LoseScreen.SetActive(true);
+        //Time.timeScale = 0;
 
     }
     public void applySpeedModifier(float multiplier){
@@ -244,8 +256,13 @@ public class PlayerController : MonoBehaviour
         foreach (GameObject enemy in enemies) {
             enemy.GetComponent<Collider2D>().enabled = false;
         }
-
-        yield return new WaitForSeconds(phaseDuration);
+        float timer = phaseDuration;
+        while(timer>0){
+            SliderPhaseCooldown.value = (timer)/phaseDuration;
+            timer-= Time.deltaTime;
+            yield return null;
+        }
+        
 
         // Return player to normal state
         animator.gameObject.transform.rotation = Quaternion.Euler(0,0,0);

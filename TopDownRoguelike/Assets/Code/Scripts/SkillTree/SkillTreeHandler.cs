@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.EventSystems;
 
 public class SkillTreeHandler : MonoBehaviour
 {
@@ -32,7 +33,7 @@ public class SkillTreeHandler : MonoBehaviour
 
     }
     private void HandleSkillPurchase(){
-        skillNode skillnode = getNodeCLicked();
+        skillNode skillnode = getNodeClickedUI();
             if (skillnode == null) return;
             int original  = skillPoints;
             skillPoints = skillnode.buySkill(skillPoints);
@@ -45,7 +46,7 @@ public class SkillTreeHandler : MonoBehaviour
     }
 
     private void HandleSkillSell(){
-        skillNode skillnode = getNodeCLicked();
+        skillNode skillnode = getNodeClickedUI();
             if (skillnode == null) return;
             int original  = skillPoints;
             skillPoints = skillnode.sellSkill(skillPoints);
@@ -55,7 +56,7 @@ public class SkillTreeHandler : MonoBehaviour
                 Debug.Log("you sold" + skillnode.getNode());
             }
     }
-#pragma warning disable IDE1006 // Naming Styles
+
     private skillNode getNodeCLicked(){
         
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -70,6 +71,27 @@ public class SkillTreeHandler : MonoBehaviour
         return null;
        
     }
-#pragma warning restore IDE1006 // Naming Styles
+    private skillNode getNodeClickedUI()
+{
+    PointerEventData pointerEventData = new PointerEventData(EventSystem.current)
+    {
+        position = Input.mousePosition
+    };
+
+    RaycastResult raycastResult = new RaycastResult();
+    List<RaycastResult> results = new List<RaycastResult>();
+    EventSystem.current.RaycastAll(pointerEventData, results);
+
+    foreach (RaycastResult result in results)
+    {
+        if (result.gameObject.name == "node")
+        {
+            return result.gameObject.GetComponent<skillNode>();
+        }
+    }
+
+    return null;
+}
+
 
 }
