@@ -25,6 +25,9 @@ public class small_chain_script : MonoBehaviour
             Debug.Log("chain collision IS INN"+collision.gameObject.tag);
 
             player_script.addEffect();
+        }else{
+            Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
+            Debug.Log("Chain ignored enemy collision");
         }
         
     }
