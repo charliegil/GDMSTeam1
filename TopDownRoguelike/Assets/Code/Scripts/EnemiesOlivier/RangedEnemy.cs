@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class RangedEnemy : BaseEnemy
 {
-    private GameObject projectilePrefab;
+    public GameObject projectilePrefab;
 
 /// <summary>
 /// the total projectiles to lauch. -1 means its infinite

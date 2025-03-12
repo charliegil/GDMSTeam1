@@ -3,12 +3,12 @@ using UnityEngine.UI;
 using System.Collections;
 using TMPro;
 
-public class newHealth : MonoBehaviour
+public class HealthManager : MonoBehaviour
 {
     public float regenerationPerSecond= 0;
-    public float totalHP =100;
+    [HideInInspector] public float totalHP =100;
 
-    public float currentHP = 100;
+    [HideInInspector] public float currentHP = 100;
 
     public bool regenerate = false;
 
@@ -21,13 +21,13 @@ public class newHealth : MonoBehaviour
     private float time= 0;
     public TMP_Text Val;
 
-    public GameObject panel;
+    private Coroutine currentLerpCoroutine;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
-        if(panel != null) panel.SetActive(false);
-        setHP(sliderChange.value*totalHP, false);
+
     }
 
     // Update is called once per frame
@@ -40,23 +40,26 @@ public class newHealth : MonoBehaviour
         }
     }
 
-    private void setHP(float hp, bool animation){
-        
-        if(hp> totalHP) hp = totalHP;
+    private void setHP(float hp, bool animation)
+    {
+        if (hp > totalHP) hp = totalHP;
         currentHP = hp;
-        if(animation){
-            StartCoroutine(LerpHealthBar(HealthBar.value, (float)hp/totalHP));
+        if (animation)
+        {
+            // Stop any existing coroutine before starting a new one
+            if (currentLerpCoroutine != null)
+            {
+                StopCoroutine(currentLerpCoroutine);
+            }
+
+            // Start the new coroutine and store the reference
+            currentLerpCoroutine = StartCoroutine(LerpHealthBar(HealthBar.value, hp / totalHP));
         }
-        else{
+        else
+        {
             HealthBar.value = hp;
         }
-        Val.text = (int)hp+"/"+totalHP;
-        if(hp == 0) {
-            Time.timeScale = 0;
-            if(panel != null) panel.active  = true;
-            if(sliderChange != null) sliderChange.interactable   = false;
-            }
-        
+        Val.text = (int)hp + "/" + totalHP;
     }
     public void onValueChange(){
         float value = sliderChange.value;
@@ -64,8 +67,7 @@ public class newHealth : MonoBehaviour
         
     }
 
-    private IEnumerator LerpHealthBar(float start, float end)
-    {
+    private IEnumerator LerpHealthBar(float start, float end){
         float timeElapsed = 0f;
 
         while (timeElapsed < animationDuration)
@@ -75,10 +77,11 @@ public class newHealth : MonoBehaviour
             yield return null;
         }
 
-        HealthBar.value = end; 
+        HealthBar.value = end;
     }
-    public void addHP(float add , bool animation){
-        setHP(currentHP+add, animation);
+
+    public void addHP(float add, bool animation){
+        setHP(currentHP + add, animation);
     }
     
 }
