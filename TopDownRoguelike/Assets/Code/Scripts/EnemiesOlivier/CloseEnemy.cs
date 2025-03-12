@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEngine.Rendering;
 using System.Reflection;
 using Pathfinding.Util;
+using NUnit.Framework;
 
 
 
@@ -16,8 +17,6 @@ public class CloseEnemy : BaseEnemy
 
     public float frontAttackRange;
     public float trackingSpeed; // the rotation speed of the enemy
-
-    public int lineOfSightAngle = 180; // Is the FOV of the enemy
 
     public float attackReload = 1;  // the time between each attack
 
@@ -35,12 +34,15 @@ public class CloseEnemy : BaseEnemy
 
     public GameObject tongue;
     public SpriteRenderer tongueRenderer;
+    
     private Sprite tongueSprite; 
+
+    public GameObject enemySprite;
 
     private CircleCollider2D attackCollider; // t
     private Collider2D PlayerCollider;
     
-    private Quaternion targetRotation;
+  
     private Vector2 randomMovement = new Vector2( 0,0);
     
     
@@ -51,6 +53,7 @@ public class CloseEnemy : BaseEnemy
     
 
     private bool isChasing =false;
+    
 
 
 
@@ -63,7 +66,7 @@ public class CloseEnemy : BaseEnemy
         attackCollider.isTrigger = true;
         //gameObject.AddComponent<SpriteRenderer>().sprite = tongueSprite; 
 
-        player = GameObject.FindGameObjectWithTag("Player");
+        
         
         PlayerCollider = player.GetComponent<Collider2D>();
         
@@ -71,6 +74,7 @@ public class CloseEnemy : BaseEnemy
         gameObject.AddComponent<DrawFOV>().drawLines(viewDistance,FOV);
         
         tongueRenderer.enabled = false;
+        tongue.SetActive(false);
         
         
     }
@@ -79,6 +83,7 @@ public class CloseEnemy : BaseEnemy
     private void Update()
     {
         transform.rotation = Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z);
+        enemySprite.transform.localRotation  = Quaternion.Euler(0,0,-transform.rotation.eulerAngles.z);
         if(IsAttacking || IsPlayerInAttackRange()) {
             body.linearVelocity = new Vector2(0,0);
             return;
@@ -89,6 +94,7 @@ public class CloseEnemy : BaseEnemy
 
     private void LateUpdate()
     {
+        if(IsAttacking) return;
         if (IsPlayerInlineOfSight()){
             Vector2 direction = (player.transform.position - transform.position).normalized;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
@@ -97,13 +103,19 @@ public class CloseEnemy : BaseEnemy
             timer = RateOfChangeDirection;
 
             float newAngle = Mathf.LerpAngle(transform.rotation.eulerAngles.z, angle, trackingSpeed);
+            
             transform.rotation = Quaternion.Euler(0, 0, newAngle);
+            enemySprite.transform.localRotation = Quaternion.Euler(0, 0, -transform.rotation.eulerAngles.z);
+
         }
         else{
             float angle = Mathf.Atan2(randomMovement.y, randomMovement.x) * Mathf.Rad2Deg; 
 
             float newAngle = Mathf.LerpAngle(transform.rotation.eulerAngles.z, angle, trackingSpeed);
+            //Debug.Log(newAngle);
             transform.rotation = Quaternion.Euler(0, 0, newAngle);
+            enemySprite.transform.localRotation = Quaternion.Euler(-transform.rotation.eulerAngles.x, -transform.rotation.eulerAngles.y, -transform.rotation.eulerAngles.z);
+
         }
 
     }
@@ -133,22 +145,7 @@ public class CloseEnemy : BaseEnemy
         isChasing = true;
     }
 
-    private bool IsPlayerInlineOfSight(){
-        
-        if(isWallBetweenPlayer(player)) return false; // if there is a wall between the player and the enemy
-
-        Vector2 direction = (player.transform.position - transform.position);
-        float distanceToPlayer = direction.magnitude;
-        
-        if(distanceToPlayer > viewDistance) return false;
-        
-        direction.Normalize();
-        
-        float angle = Vector2.Angle(transform.right, direction);
-        
-        if (angle > (lineOfSightAngle/2)) return false;
-        return true;
-    }
+    
 
 
     private float getDistanceToPlayer(){
@@ -159,7 +156,7 @@ public class CloseEnemy : BaseEnemy
 
 
     public override void Attack(){
-        
+        if(IsAttacking) return;
         TimeBeforeAttack = attackReload;
         if( getDistanceToPlayer() < radiusCircularAttack){
             IsAttacking = true;
@@ -182,6 +179,7 @@ public class CloseEnemy : BaseEnemy
         float speedRate = 2 * frontAttackRange / duration; 
         tongue.transform.localScale = new Vector3(1, 0, 0); 
         tongueRenderer.enabled = true;
+        tongue.SetActive(true);
         bool reachEnd = false;
         
         while(duration > 0){
@@ -209,6 +207,7 @@ public class CloseEnemy : BaseEnemy
     private IEnumerator CircularAttack(){
         float duration  = attackDuration;
         tongueRenderer.enabled = true;
+        tongue.SetActive(true);
         float step = 360f / attackDuration;
    
         while(duration > 0){
@@ -268,14 +267,14 @@ public class CloseEnemy : BaseEnemy
         if(IsPlayerInlineOfSight()) {
             
             followPlayer();
-            Debug.Log("is in sight");
+            //Debug.Log("is in sight");
         }
         else{
             if(isChasing){
                 followLastKnownPosition();
             }
             dontSeePlayer();
-            Debug.Log("dont see it");
+            //Debug.Log("dont see it");
         }
     }
 

@@ -4,8 +4,7 @@ public class explosiveEnemy : BaseEnemy
 {
 
     
-    public float DamageArea = 3;
-
+   
      public bool usePathFinding = false;
 
     public float MaxAliveTime = 4;
@@ -18,13 +17,13 @@ public class explosiveEnemy : BaseEnemy
 
     public override void Attack()
     {
-        OnDeath();
         Instantiate(DamageZonePrefab, transform.position, Quaternion.identity);
+        OnDeath();
         
     }
 
     public override void move(){
-       currentSpeed = Mathf.Lerp(currentSpeed,maxSpeed,acceleration);
+       currentSpeed = Mathf.Lerp(currentSpeed,maxSpeed,acceleration*Time.deltaTime);
        if(usePathFinding) followPlayer();
        else straightMovement();
     }

@@ -23,7 +23,9 @@ public class WaveSystem : MonoBehaviour
 
     private List<GameObject> enemiesToSpawn = new List<GameObject>();
 
-    
+    public TextMeshProUGUI currentWaveUIText;
+
+
     private int minValue;
 
 
@@ -33,6 +35,7 @@ public class WaveSystem : MonoBehaviour
     {
         minValue = GetMinValue();
        GenerateWave();
+       
 
 
     }
@@ -57,6 +60,8 @@ public class WaveSystem : MonoBehaviour
         enemiesLeft = enemiesToSpawn.Count;
         StartCoroutine(SpawnEnemies());
         waveValue*= waveMultiplier;
+        currentWaveUIText.text = "Current Wave: " + currentWave;
+        currentWave++;
     }
 
     
@@ -92,7 +97,7 @@ public class WaveSystem : MonoBehaviour
         List<GameObject> generatedEnemies = new List<GameObject>();
         while(valueToSpend>0){
             int randomEnemy = Random.Range(0,enemylist.Count);
-            if(valueToSpend-randomEnemy>=0){
+            if(valueToSpend-enemylist[randomEnemy].value>=0){
                 generatedEnemies.Add(enemylist[randomEnemy].enemyPrefab);
                 valueToSpend-=randomEnemy;
             }

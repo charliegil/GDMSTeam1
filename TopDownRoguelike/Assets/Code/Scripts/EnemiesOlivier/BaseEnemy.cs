@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 public abstract class BaseEnemy : MonoBehaviour
 {
-[SerializeField] protected float maxHP;
+[SerializeField] protected float maxHP =100;
 protected float CurrentHp;
 protected float currentSpeed = 0;
 [SerializeField] protected int damage;
@@ -30,11 +30,12 @@ protected float timer;
         animator.SetTrigger("takeDamage");
         CurrentHp-=damage;
 
-        if(CurrentHp < 0) OnDeath();
+        if(CurrentHp <= 0) OnDeath();
     }
 
     public void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         CurrentHp = maxHP;
     }
 
@@ -42,6 +43,7 @@ protected float timer;
 
     public void OnDeath(){
         EventDeath?.Invoke();
+        GameObject.Destroy(gameObject);
         // spawn objects that player can pick up
     }
 
@@ -57,7 +59,7 @@ protected float timer;
 
 
 
-    private bool IsPlayerInlineOfSight(){
+    protected bool IsPlayerInlineOfSight(){
         
         if(isWallBetweenPlayer(player)) return false; // if there is a wall between the player and the enemy
 
