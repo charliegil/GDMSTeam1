@@ -1304,6 +1304,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentHealth: 1000000
+  Totalhealth: 0
+  UIHealth: {fileID: 0}
 --- !u!114 &349756504
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1361,6 +1363,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentHealth: 1000000
+  Totalhealth: 0
+  UIHealth: {fileID: 0}
 --- !u!61 &492365414
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1861,6 +1865,16 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5759314488107059657, guid: 856417dae426441bbb8d6a4603114fae, type: 3}
   m_PrefabInstance: {fileID: 330708292217109715}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &920225662 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8491179394956785049, guid: 856417dae426441bbb8d6a4603114fae, type: 3}
+  m_PrefabInstance: {fileID: 330708292217109715}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &920225664 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 8786251223192862977, guid: 856417dae426441bbb8d6a4603114fae, type: 3}
+  m_PrefabInstance: {fileID: 330708292217109715}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &979173741
 GameObject:
   m_ObjectHideFlags: 0
@@ -1906,6 +1920,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentHealth: 1000000
+  Totalhealth: 0
+  UIHealth: {fileID: 0}
 --- !u!61 &979173744
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6607,9 +6623,17 @@ PrefabInstance:
       value: 0.53076935
       objectReference: {fileID: 0}
     - target: {fileID: 4547444923225304251, guid: 856417dae426441bbb8d6a4603114fae, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 920225662}
+    - target: {fileID: 4547444923225304251, guid: 856417dae426441bbb8d6a4603114fae, type: 3}
       propertyPath: attackRange
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 4547444923225304251, guid: 856417dae426441bbb8d6a4603114fae, type: 3}
+      propertyPath: spriteRenderer
+      value: 
+      objectReference: {fileID: 920225664}
     - target: {fileID: 5759314488107059657, guid: 856417dae426441bbb8d6a4603114fae, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.4
