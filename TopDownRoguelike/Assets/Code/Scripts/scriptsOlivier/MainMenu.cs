@@ -8,7 +8,7 @@ public class MainMenu : MonoBehaviour
     public void play()
     {
         Time.timeScale = 1;
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Movement");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("EnemiesOlivier");
     }
     public void load()
     {
