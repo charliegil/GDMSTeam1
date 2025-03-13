@@ -8,7 +8,7 @@ using System.Collections.Generic;
 public abstract class BaseEnemy : MonoBehaviour
 {
 [SerializeField] protected float maxHP;
-protected float CurrentHp;
+[SerializeField] protected float CurrentHp;
 protected float currentSpeed = 0;
 [SerializeField] protected int damage;
 public event Action EventDeath;
@@ -44,6 +44,11 @@ protected float timer;
         EventDeath?.Invoke();
         // spawn objects that player can pick up
     }
+    // public void takeDamage()
+    // {
+    //     CurrentHp-=damage;
+    //     throw new NotImplementedException();
+    // }
 
 
 

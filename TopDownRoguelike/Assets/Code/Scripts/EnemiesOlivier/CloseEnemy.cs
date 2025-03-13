@@ -11,7 +11,8 @@ using Pathfinding.Util;
 
 public class CloseEnemy : BaseEnemy
 {
-    
+    [SerializeField] private float maxHp = 100;
+    //[SerializeField] private int damage = 5;
     public float radiusCircularAttack;
 
     public float frontAttackRange;
@@ -258,10 +259,7 @@ public class CloseEnemy : BaseEnemy
     }
 
 
-    public void takeDamage()
-    {
-        throw new NotImplementedException();
-    }
+    
 
     public override void move()
     {

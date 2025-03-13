@@ -3,10 +3,13 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour
 {
     // ===================== REFERENCES =====================
+    
+    private InputActionReference pointerPosition;
     private InputSystem_Actions playerInputActions;
     private Rigidbody2D rb;
     [SerializeField] private Animator animator;
@@ -32,7 +35,7 @@ public class PlayerController : MonoBehaviour
 
     private bool canMove = true;
 
-
+    private Vector2 pointerInput;
     // ===================== PHASING =====================
     [SerializeField] private float phaseDuration = 1f;
     [SerializeField] private float phaseFactor = 2f;
@@ -48,6 +51,12 @@ public class PlayerController : MonoBehaviour
     private float dodgeCooldown;
 
     // ===================== ATTACKING =====================
+    // [SerializeField]
+    // private GameObject _bulletPrefab;
+    // [SerializeField]
+    // private float _bulletSpeed;
+
+    // private bool _fireContinuously;
     [SerializeField] private float attackRange = 3f;
     private float attackInput;
     private GameObject targetEnemy;
@@ -115,16 +124,21 @@ public class PlayerController : MonoBehaviour
     }
 
     private void OnAttack(InputAction.CallbackContext context) {
+       // _fireContinuously = context.performed;
         attackInput = context.ReadValue<float>();
     }
 
     // ===================== GAMEPLAY LOGIC =====================
     private void Update() {
+        //pointerInput = GetPointerInput();
         AdjustPlayerDirection();
         if (phaseInput > 0 && !isPhasing && phaseTimer<=0 ) {
             StartCoroutine(Phase());
         } else {
             Move();
+            // if(_fireContinuously){
+            // FireBullet();
+            // }
             Attack();
         }
         if(!isPhasing){
@@ -132,6 +146,17 @@ public class PlayerController : MonoBehaviour
             phaseTimer-= Time.deltaTime;
         }
     }
+    // private void FireBullet(){
+    //     GameObject bullet = Instantiate(_bulletPrefab, transform.position, transform.rotation);
+    //     Rigidbody2D rigidbody = bullet.GetComponent<Rigidbody2D>();
+    //     rigidbody.linearVelocity = _bulletSpeed * transform.up;
+    // }
+    // private Vector2 GetPointerInput(){
+    //     // Vector2 mousePos = pointerPosition.action.ReadValue<Vector2>();
+    //     // mousePos.z = Camera.main.nearClipPlane;
+    //     // return Camera.main.ScreenToWorldPoint(mousePos);
+        
+    // }
 
     private void Move() {
         currentMovement = movementDirection * currentSpeed;
@@ -145,32 +170,32 @@ public class PlayerController : MonoBehaviour
 
     // TODO clean up code
     private void Attack() {
+       // Debug.Log("you click attack playerControl");
+        // if (attackInput > 0) {
+        //     if (targetEnemy == null) {
 
-        if (attackInput > 0) {
-            if (targetEnemy == null) {
+        //         GameObject closestEnemy = GetClosestEnemy();
+        //         if (closestEnemy != null && Vector3.Distance(transform.position, closestEnemy.transform.position) <= attackRange) {
+        //             targetEnemy = closestEnemy;  // Modify to find closest enemy in range
+        //             EnergyBeam beam = GameObject.FindFirstObjectByType<EnergyBeam>();
+        //             beam.SetTarget(targetEnemy.transform);
+        //         }
+        //     }
 
-                GameObject closestEnemy = GetClosestEnemy();
-                if (closestEnemy != null && Vector3.Distance(transform.position, closestEnemy.transform.position) <= attackRange) {
-                    targetEnemy = closestEnemy;  // Modify to find closest enemy in range
-                    EnergyBeam beam = GameObject.FindFirstObjectByType<EnergyBeam>();
-                    beam.SetTarget(targetEnemy.transform);
-                }
-            }
-
-            if (targetEnemy != null && attackCoroutine == null) {
-                attackCoroutine = StartCoroutine(DamageOverTime());
-            }
-        } 
+        //     if (targetEnemy != null && attackCoroutine == null) {
+        //         attackCoroutine = StartCoroutine(DamageOverTime());
+        //     }
+        // } 
         
-        // Attack button released
-        else if (attackCoroutine != null) {
-            CancelAttack();
-        }
+        // // Attack button released
+        // else if (attackCoroutine != null) {
+        //     CancelAttack();
+        // }
 
-        // Moved too far from enemy
-        if (targetEnemy != null && Vector3.Distance(transform.position, targetEnemy.transform.position) > attackRange && attackCoroutine != null) {
-            CancelAttack();
-        }
+        // // Moved too far from enemy
+        // if (targetEnemy != null && Vector3.Distance(transform.position, targetEnemy.transform.position) > attackRange && attackCoroutine != null) {
+        //     CancelAttack();
+        // }
     }
 
     private void CancelAttack() {
