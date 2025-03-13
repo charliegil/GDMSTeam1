@@ -5,13 +5,15 @@ using System.Collections;
 using System.Collections.Generic;
 
 
-public abstract class BaseEnemy : MonoBehaviour
+public abstract class BaseEnemy : MonoBehaviour , IEventListener
 {
-[SerializeField] protected float maxHP;
+
+[SerializeField] protected float maxHP =100;
 [SerializeField] protected float CurrentHp;
+
 protected float currentSpeed = 0;
 [SerializeField] protected int damage;
-public event Action EventDeath;
+
 [SerializeField] protected float attackRange = 10;
 [SerializeField] protected float maxSpeed = 10;
 [SerializeField] protected float acceleration = 1;
@@ -30,18 +32,22 @@ protected float timer;
         animator.SetTrigger("takeDamage");
         CurrentHp-=damage;
 
-        if(CurrentHp < 0) OnDeath();
+        if(CurrentHp <= 0) OnDeath();
     }
 
     public void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         CurrentHp = maxHP;
     }
 
     public abstract void move();
 
     public void OnDeath(){
-        EventDeath?.Invoke();
+        EventManager.EnemyDied();
+        //EventManager.SpawnCollectible(transform.position);
+        Destroy(gameObject);
+
         // spawn objects that player can pick up
     }
     // public void takeDamage()
@@ -50,23 +56,19 @@ protected float timer;
     //     throw new NotImplementedException();
     // }
 
+    void OnDisable()
+    {
+       unsubscribe(); 
+    }
 
 
 
 
-
-
-
-
-
-
-
-
-    private bool IsPlayerInlineOfSight(){
+    protected bool IsPlayerInlineOfSight(){
         
         if(isWallBetweenPlayer(player)) return false; // if there is a wall between the player and the enemy
 
-        Vector2 direction = (transform.position - player.transform.position);
+         Vector2 direction = (player.transform.position - transform.position);
         float distanceToPlayer = direction.magnitude;
         
         if(distanceToPlayer > viewDistance) return false;
@@ -75,7 +77,7 @@ protected float timer;
         
         float angle = Vector2.Angle(transform.right, direction);
         
-        if (angle < (FOV/2)) return false;
+        if (angle > (FOV/2)) return false;
         return true;
     }
     private float getDistanceToPlayer(){
@@ -110,8 +112,13 @@ protected float timer;
         return (player.transform.position - transform.position);
     }
 
+    public void subscribe()
+    {
+        
+    }
 
-
-
-
+    public void unsubscribe()
+    {
+        Debug.Log("enemy died");
+    }
 }

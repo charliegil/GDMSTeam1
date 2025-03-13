@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class skillNode : MonoBehaviour , IPointerEnterHandler, IPointerExitHandler
+public class skillNode : MonoBehaviour , IPointerEnterHandler, IPointerExitHandler,  IPointerClickHandler
 {
     // this is just a wrapper class to be able to hold a treeNode object inside a gameobject
     private treeNode node;
@@ -75,6 +75,17 @@ public class skillNode : MonoBehaviour , IPointerEnterHandler, IPointerExitHandl
          Debug.Log("on mouse dxit");
 
         textAttributes.GetComponent<TextMeshProUGUI>().text = "Hover to see attributes";
+    }
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Right){
+            EventManager.SellSkill(this);
+        }
+        else{
+            EventManager.BuySkill(this);
+        }
+        
+
     }
     
 

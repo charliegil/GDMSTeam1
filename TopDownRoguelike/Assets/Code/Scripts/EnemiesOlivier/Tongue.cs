@@ -27,9 +27,9 @@ public class Tongue : MonoBehaviour
         
         if(!collision.gameObject.CompareTag("Player")) return;
         
-        if(playerController == null) playerController = collision.gameObject.GetComponent<PlayerController>();
+        EventManager.PlayerTakeDamage(damage);
 
-        playerController.TakeDamage(damage);
+        
         
     }
 }
