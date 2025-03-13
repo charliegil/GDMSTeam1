@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      omen-full-portrait_0: -6199493832784154024
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
 using TMPro;
@@ -38,7 +39,12 @@ public class HealthManager : MonoBehaviour
             setHP(currentHP+regenerationPerSecond , true);
             //sliderChange.value = currentHP;
         }
+
+        if (currentHP <= 0) {
+            SceneManager.LoadScene("EndDeat");
+        }
     }
+
 
     public void setHP(float hp, bool animation)
     {
