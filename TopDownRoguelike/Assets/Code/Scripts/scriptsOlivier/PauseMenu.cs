@@ -71,5 +71,10 @@ public class PauseMenu : MonoBehaviour
         PauseUI.SetActive(true);
         Debug.Log("close skill tree");
     }
+    public void restart()
+    {
+        Time.timeScale = 1;
+        UnityEngine.SceneManagement.SceneManager.LoadScene("enemiesOlivier");
+    }
     
 }

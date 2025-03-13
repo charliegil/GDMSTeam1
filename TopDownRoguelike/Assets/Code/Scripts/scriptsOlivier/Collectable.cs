@@ -106,12 +106,16 @@ public class Collectable : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
+        OnPlayerCollect(Player);
         transform.position = Player.transform.position;
         Destroy(gameObject);
     }
-    
 
 
+
+    protected virtual void OnPlayerCollect(GameObject Player){
+        Debug.Log("the collectible has reached the player");
+    }
 
 }
     

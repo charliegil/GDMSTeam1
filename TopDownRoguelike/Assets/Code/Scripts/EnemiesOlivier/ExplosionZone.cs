@@ -42,8 +42,8 @@ public class ExplosionZone : MonoBehaviour
 
     
     }
-    private void takeDamage(){
-        playerController.TakeDamage(damage);
+    private void takeDamage(){    
+        EventManager.PlayerTakeDamage(damage);
     }
 
 }

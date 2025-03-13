@@ -35,6 +35,7 @@ public class WaveSystem : MonoBehaviour
     {
         minValue = GetMinValue();
        GenerateWave();
+       EventManager.OnEnemyDied += EnemyDied;
        
 
 
@@ -76,7 +77,7 @@ public class WaveSystem : MonoBehaviour
             int randomSpawnPoint = Random.Range(0, spawnLocation.Count);
             GameObject enemy = Instantiate(enemiesToSpawn[i], spawnLocation[randomSpawnPoint].transform.position, Quaternion.identity);
             
-            enemy.GetComponent<BaseEnemy>().EventDeath += EnemyDied;
+            
             
             yield return new WaitForSeconds(spawnInterval);
         }

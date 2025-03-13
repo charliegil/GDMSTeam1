@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3121624165747418784}
   - component: {fileID: 1743344865510732532}
   - component: {fileID: 2254374646263108580}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: tongueEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -45,7 +45,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3869671721269029456}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
@@ -191,7 +191,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3970335357445067990}
   - component: {fileID: 8318052465199300624}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -278,7 +278,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5881017176576399315}
   - component: {fileID: 4244936413889423027}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Triangle (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -366,7 +366,7 @@ GameObject:
   - component: {fileID: 3438693143881769170}
   - component: {fileID: 3027478348887225965}
   - component: {fileID: 8412994230917609879}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: tongue
   m_TagString: Enemy
   m_Icon: {fileID: 0}

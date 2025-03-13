@@ -40,7 +40,7 @@ public class HealthManager : MonoBehaviour
         }
     }
 
-    private void setHP(float hp, bool animation)
+    public void setHP(float hp, bool animation)
     {
         if (hp > totalHP) hp = totalHP;
         currentHP = hp;

@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour , IEventListener
 {
     // ===================== REFERENCES =====================
     private InputSystem_Actions playerInputActions;
@@ -18,8 +18,8 @@ public class PlayerController : MonoBehaviour
 
     public Slider SliderPhaseCooldown;
    
-
     public GameObject LoseScreen;
+ 
 
     // ===================== MOVEMENT =====================
     [SerializeField] private float moveSpeed = 5f;
@@ -68,10 +68,10 @@ public class PlayerController : MonoBehaviour
     // ===================== DEBUG & TESTING =====================
 
     // ===================== UNITY CALLBACKS =====================
-    private void Awake() {
+    public  void Awake() {
         playerInputActions = new InputSystem_Actions();
         //animator = GetComponent<Animator>();
-        
+        subscribe();
         //spriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         currentSpeed = moveSpeed;
@@ -81,7 +81,12 @@ public class PlayerController : MonoBehaviour
         }
         healthManager.totalHP = maxHealth;
         healthManager.currentHP = maxHealth;
+        currentHealth = maxHealth;
+
+        gameObject.layer = LayerMask.NameToLayer("Player");
+
     }
+
 
     private void OnEnable() {
         playerInputActions.Player.Enable();
@@ -101,6 +106,7 @@ public class PlayerController : MonoBehaviour
         playerInputActions.Player.Phase.canceled -= OnPhase;
         playerInputActions.Player.Attack.performed -= OnAttack;
         playerInputActions.Player.Attack.canceled -= OnAttack;
+        unsubscribe();
     }
 
     // ===================== INPUT HANDLING =====================
@@ -214,16 +220,19 @@ public class PlayerController : MonoBehaviour
     
         //healthText.SetText(health.ToString());
         currentHealth -= damage;
-        currentHealth = Math.Max(currentHealth,maxHealth);
-        if(currentHealth< 0 ) OnDeath();
+        currentHealth = Math.Min(currentHealth,maxHealth);
+        if(currentHealth < 0 ) OnDeath();
+        Debug.Log("health: " + currentHealth);
         animator.SetTrigger("takingDamage");
 
         //healthManager.addHP(-damage,true);
-        healthManager.addHP(-5,true);
+        healthManager.setHP(currentHealth,false);
         
     }
     public void OnDeath(){
+        Debug.Log("im dead");
         LoseScreen.SetActive(true);
+        EventManager.PlayerDied();
         //Time.timeScale = 0;
 
     }
@@ -251,11 +260,11 @@ public class PlayerController : MonoBehaviour
 
         // Allow player to phase through enemies but not environment
         // TODO: See if there is a better way to do this
-        
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        foreach (GameObject enemy in enemies) {
-            enemy.GetComponent<Collider2D>().enabled = false;
-        }
+       int playerLayer = LayerMask.NameToLayer("Player");
+       int monsterLayer = LayerMask.NameToLayer("Monster");
+
+       Physics2D.IgnoreLayerCollision(playerLayer,monsterLayer,true);
+       
         float timer = phaseDuration;
         while(timer>0){
             SliderPhaseCooldown.value = (timer)/phaseDuration;
@@ -269,9 +278,8 @@ public class PlayerController : MonoBehaviour
         spriteRenderer.color = oldColor;
         currentSpeed = moveSpeed;
 
-        foreach (GameObject enemy in enemies) {
-            enemy.GetComponent<Collider2D>().enabled = true;
-        }
+        
+        Physics2D.IgnoreLayerCollision(monsterLayer,playerLayer,false);
         phaseTimer = phaseCooldown;
         isPhasing = false;
     }
@@ -412,5 +420,15 @@ public class PlayerController : MonoBehaviour
 
     public void AddFreeze() {
 
+    }
+
+    public void subscribe()
+    {
+        EventManager.OnPlayerTakeDamage += TakeDamage;
+    }
+
+    public void unsubscribe()
+    {
+        EventManager.OnPlayerTakeDamage -= TakeDamage;
     }
 }

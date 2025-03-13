@@ -70,7 +70,7 @@ public class CloseEnemy : BaseEnemy
         
         PlayerCollider = player.GetComponent<Collider2D>();
         
-        
+        tongue.transform.localScale =new Vector3(1, radiusCircularAttack,0); // return it to normal
         gameObject.AddComponent<DrawFOV>().drawLines(viewDistance,FOV);
         
         tongueRenderer.enabled = false;
@@ -95,6 +95,7 @@ public class CloseEnemy : BaseEnemy
     private void LateUpdate()
     {
         if(IsAttacking) return;
+        
         if (IsPlayerInlineOfSight()){
             Vector2 direction = (player.transform.position - transform.position).normalized;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
@@ -111,7 +112,7 @@ public class CloseEnemy : BaseEnemy
         else{
             float angle = Mathf.Atan2(randomMovement.y, randomMovement.x) * Mathf.Rad2Deg; 
 
-            float newAngle = Mathf.LerpAngle(transform.rotation.eulerAngles.z, angle, trackingSpeed);
+            float newAngle = Mathf.LerpAngle(transform.rotation.eulerAngles.z, angle,  trackingSpeed);
             //Debug.Log(newAngle);
             transform.rotation = Quaternion.Euler(0, 0, newAngle);
             enemySprite.transform.localRotation = Quaternion.Euler(-transform.rotation.eulerAngles.x, -transform.rotation.eulerAngles.y, -transform.rotation.eulerAngles.z);
@@ -205,6 +206,7 @@ public class CloseEnemy : BaseEnemy
         tongue.transform.localScale =new Vector3(1, radiusCircularAttack,0); // return it to normal
     }
     private IEnumerator CircularAttack(){
+        
         float duration  = attackDuration;
         tongueRenderer.enabled = true;
         tongue.SetActive(true);
@@ -232,7 +234,7 @@ public class CloseEnemy : BaseEnemy
         
         if(!collision.gameObject.CompareTag("Player")) return;
         
-        Invoke("Attack", reactionTime); 
+        //Invoke("Attack", reactionTime); 
         
     }
     private void OnTriggerStay2D(Collider2D collision) // when enemy sees the player and in line of sight, instantly attack. if was already in 
