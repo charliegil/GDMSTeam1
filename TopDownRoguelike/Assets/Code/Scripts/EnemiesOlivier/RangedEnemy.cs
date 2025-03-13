@@ -8,10 +8,13 @@ public class RangedEnemy : BaseEnemy
 /// <summary>
 /// the total projectiles to lauch. -1 means its infinite
 /// </summary>
-    private int numberOfProjectiles = 5; 
-    private float timeBetweenProjectile = 1; // the time between each projectile
+    [SerializeField] private int numberOfProjectiles = 5; 
+    [SerializeField] private float timeBetweenProjectile = 1; // the time between each projectile
 
-    private float approachingRange = 10;
+/// <summary>
+/// when chasing towards the player, will stop at that range
+/// </summary>
+    [SerializeField] private float approachingRange = 10;
 
 
     private bool isRetreating = false;
@@ -37,7 +40,7 @@ public class RangedEnemy : BaseEnemy
     {
         base.Start();
         // Find player
-        player = GameObject.FindGameObjectWithTag("Player");
+        
         //PerformAttack();
         timer = timeBetweenProjectile;
     }
@@ -49,7 +52,7 @@ public class RangedEnemy : BaseEnemy
             destination = -getDirectionToPlayer().normalized;
             isRetreating = true;
             Debug.Log("is retreating");
-            TakeDamage(12);
+            //TakeDamage(12);
         }
         
         if(!IsPlayerInAttackRange()){

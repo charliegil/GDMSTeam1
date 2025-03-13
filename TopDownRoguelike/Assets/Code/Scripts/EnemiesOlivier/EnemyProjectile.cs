@@ -38,9 +38,11 @@ public class EnemyProjectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        
         Debug.Log("Collision");
         if (!other.CompareTag("Enemy"))
         {
+            Debug.Log(other.tag);
             Debug.Log("Hit Something");
             // Damage player here
 
