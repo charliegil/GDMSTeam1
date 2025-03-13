@@ -8,6 +8,8 @@ public class Health : MonoBehaviour
     [SerializeField] private float Totalhealth = 0;
     [SerializeField] private HealthManager UIHealth;
 
+    public GameObject damagePopupPrefab;
+
     // will need to integrate the UI health bar with This
 
     // // Update is called once per frame
@@ -33,7 +35,13 @@ public class Health : MonoBehaviour
     public void TakeDamage(float damage) {
         currentHealth -= damage;
         Debug.Log(currentHealth);
-       
+
+        if (damagePopupPrefab != null) {
+
+            GameObject popup = Instantiate(damagePopupPrefab, transform.position + new Vector3(0,1,0), Quaternion.identity);
+            DamagePopup damagePopup = popup.GetComponent<DamagePopup>();
+            damagePopup.Setup(damage);
+        }
     }
     
     public void TakeDamageOverTime(float damage, float time, float step) {
