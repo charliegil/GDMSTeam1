@@ -1039,7 +1039,7 @@
     "m_Title": "Creating the Ripple Using SIne and Controlling it's Strength",
     "m_Position": {
         "x": 885.7141723632813,
-        "y": 454.85699462890627
+        "y": 454.85711669921877
     }
 }
 
@@ -2078,7 +2078,7 @@
     "m_ObjectId": "78a291f6d9c948d0a446e4a2947c71da",
     "m_Title": "RippleSpeed",
     "m_Position": {
-        "x": -395.99993896484377,
+        "x": -396.0,
         "y": 319.4285888671875
     }
 }
@@ -2527,8 +2527,8 @@
     "m_ObjectId": "c790851190bb418f9c4f4883edcbb715",
     "m_Title": "Ripple Center",
     "m_Position": {
-        "x": -395.99993896484377,
-        "y": 834.8571166992188
+        "x": -396.0,
+        "y": 834.8572387695313
     }
 }
 

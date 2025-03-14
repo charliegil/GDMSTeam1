@@ -16,7 +16,7 @@ public class PlayerShoot : MonoBehaviour
    private bool _fireSingle;
     void Update()
     {
-        _fireContinuously = Input.GetKey(KeyCode.E);
+        _fireContinuously = Input.GetKey(KeyCode.Mouse0);
         if(_fireContinuously){ //|| _fireSingle){
             float timeSinceLastFire = Time.time - _lastFireTime;
             if(timeSinceLastFire >= _timeBtwShots){

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5255313667614966944}
   - component: {fileID: 6672456159531741594}
   m_Layer: 0
-  m_Name: "\u54ED\u4E27\u68D2"
+  m_Name: kuSang
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,8 +28,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.108, y: 0.3176, z: 0}
-  m_LocalScale: {x: 0.13710578, y: 2.7196, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.88, y: 0.88, z: 0.88}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1147703745909214079}
   m_Father: {fileID: 0}
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 2829232388215122354, guid: 1d03d58c45e891742a9a3aae585ae103, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -146,5 +146,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfProjectiles: 10
-  projectile: {fileID: 0}
+  projectile: {fileID: 2751218285902966238, guid: a6d25a12133adad4cb09718574541ba5, type: 3}
   stick: {fileID: 5399754051495631809}

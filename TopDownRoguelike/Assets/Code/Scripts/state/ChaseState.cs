@@ -7,7 +7,7 @@ public class ChaseState : State
     public AnimationClip anim;
     public float speed = 400f;
     public float nextWaypointDistance = 3f;
-    public float detectionRange = 4f;
+    [SerializeField] float detectionRange = 30f;
     
     public Transform enemyGFX;
     
@@ -50,8 +50,9 @@ public class ChaseState : State
 
     }
     private bool CloseEnough(Vector2 targetPos){
+        Debug.Log("isClosed Enough");
         float playerDistance = Vector2.Distance(body.position, targetPos);
-        if(playerDistance <= 5){
+        if(playerDistance <= detectionRange){
             return true;
         }
 

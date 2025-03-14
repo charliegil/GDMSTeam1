@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class Hei : Core
 {
-    public Transform target;
     //public PatrolState patrol;
     public HeiState3 state3;
     public HeiState2 state2;
@@ -12,8 +11,8 @@ public class Hei : Core
     [SerializeField] private int hp;
 
    
-    private float detectionRange = 4f;
-    [SerializeField] float returnRange = 5f;
+    //private float detectionRange = 4f;
+    //[SerializeField] float returnRange = 5f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -34,6 +33,7 @@ public class Hei : Core
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("hei state: "+machine.state);
         // Debug.Log("current state hei: "+machine.state);
 
         if(CloseEnough(target.position)){
