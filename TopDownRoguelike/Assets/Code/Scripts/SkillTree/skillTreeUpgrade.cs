@@ -14,15 +14,13 @@ public class skillTreeUpgrade
     private bool bought = false;
 
     private int price;
-
-    private int id;
+    private int rarity;
 
    public skillTreeUpgrade(string desc , float val , upgradeType typ , int prix , int id ){
     description = desc;
     value = val;
     type = typ;
     price = prix;
-    this.id = id;
    }
 
    public skillTreeUpgrade()
@@ -52,17 +50,27 @@ public class skillTreeUpgrade
     public bool Isbought(){
         return bought;
     }
-    public int getId(){ return id;}
+  
 }
 
 public enum upgradeType{
-    attack,
-    health,
-    transform,
-    dash,
-    defence,
-    critiqualHit,
-    levelStart
+    Attack,
+    Defence,
+    /// <summary>
+    /// increase Maximum Health by a parameter
+    /// </summary>
+    Health,
+    Dash,
+    CritiqualHit,
+    Speed,
+    /// <summary>
+    /// influences the drop rate of power ups of the enemies when they die
+    /// </summary>
+    DropRate,
+    /// <summary>
+    /// For all skill tree upgrades that unlocks a new attack
+    /// </summary>
+    WeaponUnlocked
 }
 
 

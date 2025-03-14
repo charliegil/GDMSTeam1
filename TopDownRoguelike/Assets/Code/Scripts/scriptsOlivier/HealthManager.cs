@@ -63,7 +63,7 @@ public class HealthManager : MonoBehaviour
         }
         else
         {
-            HealthBar.value = hp;
+            HealthBar.value =  hp / totalHP;
         }
         Val.text = (int)hp + "/" + totalHP;
     }

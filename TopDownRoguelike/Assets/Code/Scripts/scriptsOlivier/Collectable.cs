@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+/// <summary>
+/// Collectable : a class that defines objects that can be collected by the player, automatically or not
+/// </summary>
 public class Collectable : MonoBehaviour
 {
     // this script is for identifying objects that can be collected. It defines how you can collect them
@@ -11,9 +14,14 @@ public class Collectable : MonoBehaviour
     [SerializeField] private bool CollectAutomatically = false;
     [SerializeField] private KeyCode keyToObtain = KeyCode.E; // specifies which key must be pressed in order to collect that item
 
+    [SerializeField] private float value;
+/// <summary>
+/// specifies how much time the boost is gonna last. not used for Life and skillPoint
+/// </summary>
+    [SerializeField] private float duration;
 
+    [SerializeField] private CollectableType type;
     [SerializeField] private float movementDuration= 0.5f;
-
 
     private CircleCollider2D CollectableCollider;
     private Renderer CollectableRenderer;
@@ -113,11 +121,52 @@ public class Collectable : MonoBehaviour
 
 
 
-    protected virtual void OnPlayerCollect(GameObject Player){
+    protected void OnPlayerCollect(GameObject Player){
+        
         Debug.Log("the collectible has reached the player");
+        
+        if (type == CollectableType. Life){
+            EventManager.PlayerTakeDamage(-value);
+
+        }
+        else if (type == CollectableType.SkillPoint){
+            EventManager.SkillPointAcquired((int)value); 
+        }
+        else if (type == CollectableType.AttackBoost){
+            ApplyTemporaryBoost(EventManager.AttackBoost);
+        }
+        else if (type == CollectableType.DefenceBoost){
+            ApplyTemporaryBoost(EventManager.DefenceBoost);
+        }
+        
+        else if (type == CollectableType.CritiqualHit){ 
+            ApplyTemporaryBoost(EventManager.CriticalHitBoost);
+        }
+        else if (type == CollectableType.SpeedBoost){ 
+            ApplyTemporaryBoost(EventManager.SpeedBoost);
+        }
+
     }
 
-}
+        private IEnumerator ApplyTemporaryBoost(Action<float> EventToCall){
+
+            EventToCall(value);
+            yield return new WaitForSeconds(duration);
+            EventToCall(1/value);
+    }
+    }
+
+    public enum CollectableType {
+        Life,
+        AttackBoost,
+        DefenceBoost,
+    
+        SkillPoint,
+        CritiqualHit,
+        SpeedBoost
+    }
+
+
     
 
     

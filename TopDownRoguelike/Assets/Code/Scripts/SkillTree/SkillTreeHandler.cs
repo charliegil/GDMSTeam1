@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public class SkillTreeHandler : MonoBehaviour , IEventListener
 {
-    public int skillPoints = 100;
+    public int skillPoints = 0;
     private List<skillTreeUpgrade> upgradesOwned = new List<skillTreeUpgrade>();
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
@@ -36,6 +36,9 @@ public class SkillTreeHandler : MonoBehaviour , IEventListener
             
         }
     }
+    private void HandleSkillPointAcquired(int value){
+        skillPoints+=value;
+    }
 
     private void HandleSkillSell(skillNode skillnode){
         
@@ -49,16 +52,24 @@ public class SkillTreeHandler : MonoBehaviour , IEventListener
         }
     }
 
+    private void applyUpgrade(skillTreeUpgrade upgrade){
+        // almost same logic has in the collectable script : TODO
+    }
+
     public void subscribe()
     {
         EventManager.OnBuySkill += HandleSkillPurchase;
         EventManager.OnSellSkill += HandleSkillSell;
+        EventManager.OnSkillPointAcquired += HandleSkillPointAcquired;
     }
 
     public void unsubscribe()
     {
         EventManager.OnBuySkill -= HandleSkillPurchase;
         EventManager.OnSellSkill -= HandleSkillSell;
+        EventManager.OnSkillPointAcquired -= HandleSkillPointAcquired;
     }
+
+    
 
 }

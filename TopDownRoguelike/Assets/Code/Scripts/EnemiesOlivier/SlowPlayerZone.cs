@@ -58,12 +58,8 @@ public class SlowPlayerZone : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D obj){
         if(!(obj.name.Contains("Player") || obj.tag.Contains("Player") ) || isWallBetweenPlayer(obj)) return; 
-        
-        if(playerController== null) playerController = obj.GetComponent<PlayerController>();
 
-        playerController.applySpeedModifier(SlowMultiplier);
-
-    
+        EventManager.SpeedBoost(SlowMultiplier);
     }
     // the conditions for the reload time to embark are these:
     // only if the object has pulled for x amount of time
@@ -78,7 +74,8 @@ public class SlowPlayerZone : MonoBehaviour
     private void StopSlowZone(){ // called when the zone stops pulling the player. for various reasons
         
         reloadCounter = 0; 
-        playerController.applySpeedModifier(1/SlowMultiplier);
+        
+        EventManager.SpeedBoost(1/SlowMultiplier);
 
     }
 
