@@ -251,7 +251,7 @@ public class PlayerController : MonoBehaviour , IEventListener
         animator.SetTrigger("takingDamage");
 
         //healthManager.addHP(-damage,true);
-        healthManager.setHP(currentHealth,false);
+        healthManager.setHP(currentHealth,true);
         
     }
     public void OnDeath(){
