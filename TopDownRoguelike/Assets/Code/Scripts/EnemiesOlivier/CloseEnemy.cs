@@ -85,7 +85,7 @@ public class CloseEnemy : BaseEnemy
     {
         transform.rotation = Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z);
         enemySprite.transform.localRotation  = Quaternion.Euler(0,0,-transform.rotation.eulerAngles.z);
-        if(IsAttacking || IsPlayerInAttackRange()) {
+        if(IsAttacking || IsPlayerInAttackRange() || getDirectionToPlayer().magnitude < radiusCircularAttack*(2/3)) {
             body.linearVelocity = new Vector2(0,0);
             return;
         }

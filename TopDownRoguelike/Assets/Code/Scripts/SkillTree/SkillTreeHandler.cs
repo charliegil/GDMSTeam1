@@ -2,23 +2,21 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class SkillTreeHandler : MonoBehaviour , IEventListener
 {
-    public int skillPoints = 100;
+    public int skillPoints = 0;
+    public TextMeshProUGUI skillPointsText;
+
     private List<skillTreeUpgrade> upgradesOwned = new List<skillTreeUpgrade>();
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
-        
+        skillPointsText.text = "skill points "+skillPoints;
         subscribe();
     }
 
-    // will call the method buy or sell depending on mouse Input and inside these method, it will be responsible to add the upgrade to the list,
-    // update number of skill points, and sending updates to other scripts to apply these upgrades. will do these action if the skillpoint returned
-
-
-    // this is the method responsible to change the appearance of the gameObject.
 
 
     // Update is called once per frame
@@ -33,8 +31,14 @@ public class SkillTreeHandler : MonoBehaviour , IEventListener
             upgradesOwned.Add(skillnode.getNode().GetUpgrade());
             GetComponent<AudioSource>().Play();
             Debug.Log("you bought" + skillnode);
+            skillPointsText.text = "skill points "+skillPoints;
+            applyUpgrade(skillnode.getNode().GetUpgrade(),false);
             
         }
+    }
+    private void HandleSkillPointAcquired(int value){
+        skillPoints+=value;
+        skillPointsText.text = "skill points "+skillPoints;
     }
 
     private void HandleSkillSell(skillNode skillnode){
@@ -46,19 +50,93 @@ public class SkillTreeHandler : MonoBehaviour , IEventListener
         if(original != skillPoints){ // the upgrade was already purchased
             upgradesOwned.Remove(skillnode.getNode().GetUpgrade());
             Debug.Log("you sold" + skillnode.getNode());
+            skillPointsText.text = "skill points "+skillPoints;
+            applyUpgrade(skillnode.getNode().GetUpgrade(),true);
         }
     }
+
+/// <summary>
+/// apply the upgrade to reflect on the game experience
+/// </summary>
+/// <param name="upgrade"></param>
+/// <param name="undo"> specifies if you have to apply(false) or undo(true) the upgrade</param>
+    private void applyUpgrade(skillTreeUpgrade upgrade, bool undo){
+        
+        float value = upgrade.value;
+        upgradeType type = upgrade.type;
+        if(value != 0 && undo){
+            value = 1/value;
+        }
+        
+      
+        switch (type)
+        {
+            case upgradeType.Attack:
+                EventManager.AttackBoost(value);
+                break;
+
+            case upgradeType.Defence:
+                EventManager.DefenceBoost(value);
+                break;
+
+            case upgradeType.Health:
+                EventManager.IncreaseMaxHealth(value);
+                break;
+
+            case upgradeType.PhaseCooldown:
+                EventManager.PhaseCooldownBoost(value);
+                break;
+
+            case upgradeType.PhaseDuration:
+                EventManager.PhaseDurationBoost(value);
+                break;
+
+            case upgradeType.CritiqualHit:
+                EventManager.CriticalHitBoost(value);
+                break;
+
+            case upgradeType.DropRate:
+                CollectibleSpawner.DropRate *= value;
+                break;
+
+            case upgradeType.PowerUpEffectMultiplier:
+                Collectable.effectMultiplier *= value;
+                break;
+
+            case upgradeType.PowerUpDurationtMultiplier:
+                Collectable.durationMultiplier /= value;
+                break;
+
+            case upgradeType.WeaponUnlocked:
+                Debug.Log("You have got a new weapon");
+                break;
+
+            default:
+                Debug.LogWarning("not recognized upgrade type: " + type);
+                break; 
+        }   
+
+
+
+
+    
+    }
+    
 
     public void subscribe()
     {
         EventManager.OnBuySkill += HandleSkillPurchase;
         EventManager.OnSellSkill += HandleSkillSell;
+        EventManager.OnSkillPointAcquired += HandleSkillPointAcquired;
     }
 
     public void unsubscribe()
     {
         EventManager.OnBuySkill -= HandleSkillPurchase;
         EventManager.OnSellSkill -= HandleSkillSell;
+        EventManager.OnSkillPointAcquired -= HandleSkillPointAcquired;
     }
+
+    
 
 }

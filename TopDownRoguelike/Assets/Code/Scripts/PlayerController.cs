@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour , IEventListener
     private Vector2 externalVelocity = new Vector2(0, 0);
     private float currentSpeed;
 
-    private float SpeedMultiplier = 1;
+   private float speedMultiplier = 1;
 
     private bool canMove = true;
 
@@ -45,10 +45,15 @@ public class PlayerController : MonoBehaviour , IEventListener
 
     private float phaseTimer;
 
-    // ===================== DODGING =====================
-    private bool isDodging = false;
-    private float dodgeTimer;
-    private float dodgeCooldown;
+    // ===================== DASH =====================
+    private bool isDashing = false;
+    private float DashTimer;
+    private float DashCooldown;
+    private float DashVelocity; // will remain constant
+    private float Dashduration; // will remain constant
+
+    // ===================== DEFENCE =====================
+    private float defenceBoost = 1; 
 
     // ===================== ATTACKING =====================
     // [SerializeField]
@@ -73,6 +78,7 @@ public class PlayerController : MonoBehaviour , IEventListener
     private float healthMultiplier;
 
     public HealthManager healthManager;
+    
 
     // ===================== DEBUG & TESTING =====================
 
@@ -165,12 +171,12 @@ public class PlayerController : MonoBehaviour , IEventListener
     // }
 
     private void Move() {
-        currentMovement = movementDirection * currentSpeed;
+        currentMovement = movementDirection * currentSpeed * speedMultiplier;
         if(canMove){
-            rb.linearVelocity = (currentMovement + externalVelocity)* SpeedMultiplier;
+            rb.linearVelocity = (currentMovement + externalVelocity);
         }
         else{
-            rb.linearVelocity = externalVelocity* SpeedMultiplier;
+            rb.linearVelocity = externalVelocity;
         }
     }
 
@@ -244,12 +250,14 @@ public class PlayerController : MonoBehaviour , IEventListener
     public void TakeDamage(float damage) {
     
         //healthText.SetText(health.ToString());
+        damage*= defenceBoost;         
         currentHealth -= damage;
         currentHealth = Math.Min(currentHealth,maxHealth);
         if(currentHealth < 0 ) OnDeath();
         Debug.Log("health: " + currentHealth);
-        animator.SetTrigger("takingDamage");
-
+        if(damage > 0){
+            animator.SetTrigger("takingDamage");
+        }
         //healthManager.addHP(-damage,true);
         healthManager.setHP(currentHealth,true);
         
@@ -261,12 +269,7 @@ public class PlayerController : MonoBehaviour , IEventListener
         //Time.timeScale = 0;
 
     }
-    public void applySpeedModifier(float multiplier){
-        SpeedMultiplier *= multiplier;
-    }
-    public void setSpeedModifier(float multiplier) {
-         SpeedMultiplier = multiplier;
-    }
+    
 
     // ===================== COROUTINES =====================
     private IEnumerator Phase() {
@@ -389,20 +392,6 @@ public class PlayerController : MonoBehaviour , IEventListener
     public void setCanMove(bool move){
         canMove = move;
     }
-    public void applyMultiplier(skillTreeUpgrade sku){
-        if(sku.getId() == 1){ // for example, apply multiplier on health
-
-        }
-        else if(sku.getId() == 1){ // for example, apply multiplier on the dash speed
-
-        }
-        else if(sku.getId() == 1){ // for example, apply multiplier on the dash cooldown
-
-        }
-        else if(sku.getId() == 1){ // for example, apply multiplier on overall speed
-
-        }
-    }
     // ===================== DEBUGGING =====================
     // void OnDrawGizmos() {
     //     Handles.DrawWireDisc(transform.position, Vector3.forward, attackRange);
@@ -412,7 +401,7 @@ public class PlayerController : MonoBehaviour , IEventListener
     //     }
     // }
 
-    // ===================== SKILL TREE UPGRADES =================================
+    // ===================== SKILL TREE UPGRADES   ========= POWER UPS BOOSTS =================================
     public void IncreaseAttackDamage(float percentIncrease) {
         attackDamage *= percentIncrease;
     }
@@ -420,9 +409,8 @@ public class PlayerController : MonoBehaviour , IEventListener
     public void ReduceAttackDelay(float percentDecrease) {
         damageTickDelay /= percentDecrease;
     }
-
-    public void ReducePhaseCooldown(float percentDecrease) {
-        phaseCooldown /= percentDecrease;
+    public void IncreaseDefenceBoost(float value){
+        defenceBoost *= value;
     }
 
     public void IncreaseNumTargets(int numTargets) {
@@ -430,9 +418,18 @@ public class PlayerController : MonoBehaviour , IEventListener
     }
     public void IncreaseMaxHealthByValue(float increase) {
         maxHealth+=increase;
+        healthManager.totalHP = maxHealth;
+        currentHealth = Math.Min(currentHealth,maxHealth);
+        healthManager.setHP(currentHealth,true);
     }
     public void IncreaseMaxHealthByPercentage(float increase) {
+       
         healthMultiplier*=increase;
+        maxHealth = maxHealth*healthMultiplier;
+        healthManager.totalHP = maxHealth;
+        currentHealth = Math.Min(currentHealth,maxHealth);
+        healthManager.setHP(currentHealth,true);
+        
     }
 
     public void IncreaseCritChance(float percentIncrease) {
@@ -443,17 +440,53 @@ public class PlayerController : MonoBehaviour , IEventListener
         else critChance *= percentIncrease;
     }
 
+    public void IncreaseSpeedMultiplier(float value){
+        speedMultiplier*= value;
+    }
+    public void ReducePhaseDuration(float value){
+        phaseDuration/=value;
+    }
+    public void ReducePhaseCooldown(float percentDecrease) {
+        phaseCooldown /= percentDecrease;
+    }
+
+    
+    
+    
+
     public void AddFreeze() {
 
     }
 
+/// <summary>
+/// subscribing to the events in this class must be done by this method
+/// </summary>
     public void subscribe()
     {
         EventManager.OnPlayerTakeDamage += TakeDamage;
-    }
+        EventManager.OnCriticalHitBoost += IncreaseCritChance;
+        EventManager.OnAttackBoost += IncreaseAttackDamage;
+        EventManager.OnSpeedBoost += IncreaseSpeedMultiplier;
+        EventManager.OnIncreaseMaxHealth += IncreaseMaxHealthByPercentage;
+        EventManager.OnDefenceBoost += IncreaseDefenceBoost;
+        EventManager.OnPhaseCooldownBoost += ReducePhaseCooldown;
+        EventManager.OnPhaseDurationBoost += ReducePhaseDuration;
 
+     
+    }
+/// <summary>
+/// unsubscribing to the events in this class must be done by this method
+/// </summary>
     public void unsubscribe()
     {
         EventManager.OnPlayerTakeDamage -= TakeDamage;
+        EventManager.OnCriticalHitBoost -= IncreaseCritChance;
+        EventManager.OnAttackBoost -= IncreaseAttackDamage;
+        EventManager.OnSpeedBoost -= IncreaseSpeedMultiplier;
+        EventManager.OnIncreaseMaxHealth -= IncreaseMaxHealthByPercentage;
+        EventManager.OnDefenceBoost -= IncreaseDefenceBoost;
+        EventManager.OnPhaseCooldownBoost -= ReducePhaseCooldown;
+        EventManager.OnPhaseDurationBoost -= ReducePhaseDuration;
+
     }
 }

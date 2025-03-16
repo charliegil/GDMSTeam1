@@ -3,17 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+/// <summary>
+/// Collectable : a class that defines objects that can be collected by the player, automatically or not
+/// </summary>
 public class Collectable : MonoBehaviour
 {
     // this script is for identifying objects that can be collected. It defines how you can collect them
   
     [SerializeField] private float collectRadius;
     [SerializeField] private bool CollectAutomatically = false;
-    [SerializeField] private KeyCode keyToObtain = KeyCode.E; // specifies which key must be pressed in order to collect that item
+    /// <summary>
+    /// // specifies which key must be pressed in order to collect that item
+    /// </summary>
+    [SerializeField] private KeyCode keyToObtain = KeyCode.E; 
 
+    [SerializeField] private float value;
+/// <summary>
+/// specifies how much time the boost is gonna last. not used for Life and skillPoint
+/// </summary>
+    [SerializeField] private float duration;
 
+    public static float durationMultiplier =1;
+
+    public static float effectMultiplier = 1;
+
+    [SerializeField] private CollectableType type;
     [SerializeField] private float movementDuration= 0.5f;
-
 
     private CircleCollider2D CollectableCollider;
     private Renderer CollectableRenderer;
@@ -86,7 +101,7 @@ public class Collectable : MonoBehaviour
     private RaycastHit2D[] castRayAndGetCollider(Vector2 direction){
         
         Debug.DrawRay(transform.position, direction);
-        //Ray ray = new Ray(transform.position,direction);      
+          
         RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position,direction,collectRadius, Physics2D.DefaultRaycastLayers);
         Array.Sort(hits, (x, y) => x.distance.CompareTo(y.distance));
         return hits;
@@ -113,11 +128,61 @@ public class Collectable : MonoBehaviour
 
 
 
-    protected virtual void OnPlayerCollect(GameObject Player){
+    protected void OnPlayerCollect(GameObject Player){
+        
         Debug.Log("the collectible has reached the player");
+        
+        if (type == CollectableType. Life){
+            EventManager.PlayerTakeDamage(-value*effectMultiplier);
+
+        }
+        else if (type == CollectableType.SkillPoint){
+            EventManager.SkillPointAcquired((int)value); 
+        }
+        else if (type == CollectableType.AttackBoost){
+            EventManager.DurationBoostStarted(duration * durationMultiplier,type);
+            ApplyTemporaryBoost(EventManager.AttackBoost);
+        }
+        else if (type == CollectableType.DefenceBoost){
+            ApplyTemporaryBoost(EventManager.DefenceBoost);
+            EventManager.DurationBoostStarted(duration * durationMultiplier,type);
+        }
+        
+        else if (type == CollectableType.CritiqualHit){ 
+            ApplyTemporaryBoost(EventManager.CriticalHitBoost);
+            EventManager.DurationBoostStarted(duration * durationMultiplier,type);
+        }
+        else if (type == CollectableType.SpeedBoost){ 
+            ApplyTemporaryBoost(EventManager.SpeedBoost);
+            EventManager.DurationBoostStarted(duration * durationMultiplier,type);
+        }
+        else if (type == CollectableType.Invicible){ 
+            ApplyTemporaryBoost(EventManager.SpeedBoost); // must change to invincible
+            EventManager.DurationBoostStarted(duration * durationMultiplier,type);
+        }
+
     }
 
-}
+        private IEnumerator ApplyTemporaryBoost(Action<float> EventToCall){
+            float time = duration * durationMultiplier;
+            float val = value *effectMultiplier;
+            EventToCall(val);
+            yield return new WaitForSeconds(time);
+            EventToCall(1/val);
+        }
+    }
+
+    public enum CollectableType {
+        Life,
+        AttackBoost,
+        DefenceBoost,
+        SkillPoint,
+        CritiqualHit,
+        SpeedBoost,
+        Invicible
+    }
+
+
     
 
     

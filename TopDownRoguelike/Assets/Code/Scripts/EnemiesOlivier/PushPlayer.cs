@@ -40,9 +40,7 @@ public class PushPlayer : MonoBehaviour
             }
     }
 
-    private IEnumerator handlePush(GameObject Player){  // still with bug. move the pull call into the on trigger enter. Then also
-     // make a while loop to constantly adjust the velocity direction because the player can move 
-     // also make a parameter that enables the player to escape the velocity by dashing
+    private IEnumerator handlePush(GameObject Player){ 
         
         Vector2 direction = Player.transform.position - transform.position;
        

@@ -4,7 +4,7 @@ public class AnimatorHandler : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     [SerializeField] private Animator animator;
-    [SerializeField] private Rigidbody2D body; //to see
+    [SerializeField] private Rigidbody2D body; 
     private void Start()
     {
         

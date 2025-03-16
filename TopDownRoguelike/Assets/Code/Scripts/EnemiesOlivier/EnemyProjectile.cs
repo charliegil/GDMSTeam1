@@ -44,9 +44,7 @@ public class EnemyProjectile : MonoBehaviour
         {
             Debug.Log(other.tag);
             Debug.Log("Hit Something");
-            // Damage player here
-
-            // Get point of collision
+     
             Vector3 pointOfContact = GetComponent<Collider2D>().ClosestPoint(other.transform.position);
 
             GameObject damageZone = Instantiate(damageZonePrefab, pointOfContact, Quaternion.identity);
