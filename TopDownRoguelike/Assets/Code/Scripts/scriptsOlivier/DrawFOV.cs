@@ -8,7 +8,7 @@ public class DrawFOV : MonoBehaviour{
 
     
     public void drawLines(int range , int angle){
-        // Start of the FOV renderer
+        
         float lineWidth = 0.08f;
         
         
@@ -21,7 +21,7 @@ public class DrawFOV : MonoBehaviour{
         FOVLines.sortingOrder = 4;
 
         Vector3 start = transform.position;
-        start = Vector3.zero; // Set the start point to be the local position (relative to the GameObject)
+        start = Vector3.zero; 
 
         Vector3 dir1 = RotateVector(Vector3.right, angle/2);
         Vector3 dir2 = RotateVector(Vector3.right, -angle/2);
@@ -59,7 +59,7 @@ public class DrawFOV : MonoBehaviour{
         Vector3[] arcPoints = new Vector3[resolution];
         for(int i = 0; i < resolution; i++){
             angle += step;
-            if(startAngle > endAngle)Debug.Log("there is a problem with circle generation");
+            //if(startAngle > endAngle)Debug.Log("there is a problem with circle generation");
             arcPoints[i] = center + viewDistance * RotateVector((pointA - center), angle); 
         }
 

@@ -1,0 +1,43 @@
+value,rarity,description,type
+2.5,1,"Your strength has been amplified by the ancestors. Attack damage increased",Attack
+-1,3,"The guardians of the land bless your armor. Defence increased",Defence
+1.0,1,"Through meditation, you have unlocked the way to greater vitality. Maximum health increased",Health
+-1,2,"The monks have taught you the secrets of swift movement. Phase cooldown reduced",PhaseCooldown
+3.5,3,"The spirits guide your movements. Phase duration extended",PhaseDuration
+-1,3,"The dragon's breath fills your veins. Critical hit chance increased",CritiqualHit
+1.5,1,"The wind whispers in your ear. Speed increased",Speed
+-1,2,"As you defeat enemies, their energy enhances your own. Drop rate increased",DropRate
+4.5,2,"The sacred power of the jade statue amplifies your abilities. Power-up effect multiplier increased",PowerUpEffectMultiplier
+-1,1,"The monks chant in unison, empowering your power-ups. Power-up duration multiplier increased",PowerUpDurationtMultiplier
+7.0,3,"The celestial dragon bestows upon you a new weapon, said to be wielded by the gods",WeaponUnlocked
+-1,2,"Your inner strength awakens. Attack damage increased",Attack
+2.0,1,"The emperor’s protection envelops you. Defence increased",Defence
+-1,3,"The essence of the ancient trees flows within you. Maximum health increased",Health
+5.0,4,"The wind shifts, and your phase cooldown decreases",PhaseCooldown
+3.0,2,"A blessing from the spirits lengthens your phase duration",PhaseDuration
+-1,2,"The red lotus blooms, filling you with energy. Critical hit chance increased",CritiqualHit
+1.8,1,"The speed of the hawk is now yours. Speed increased",Speed
+-1,1,"The fallen enemies leave behind their essence. Drop rate increased",DropRate
+4.0,2,"The power of the phoenix enhances your power-ups. Power-up effect multiplier increased",PowerUpEffectMultiplier
+-1,3,"Your journey has unlocked the weapon of the hidden warriors",WeaponUnlocked
+6.0,3,"The sword of the ancient hero grants you power. Weapon unlocked",WeaponUnlocked
+2.7,2,"A divine force strengthens your attack. Attack damage increased",Attack
+-1,2,"A guardian spirit fortifies your defense. Defence increased",Defence
+1.2,1,"Through the sacred waters, your health has improved. Maximum health increased",Health
+-1,1,"The gods have smiled upon you. Phase cooldown reduced",PhaseCooldown
+3.2,3,"The stars guide your path. Phase duration increased",PhaseDuration
+-1,4,"The dragon’s fury courses through you. Critical hit chance increased",CritiqualHit
+2.1,1,"The crane’s flight grants you unparalleled speed. Speed increased",Speed
+-1,1,"The celestial beings bless your journey. Drop rate increased",DropRate
+4.3,3,"The sacred relic enhances the power of your power-ups. Power-up effect multiplier increased",PowerUpEffectMultiplier
+-1,2,"The essence of the immortals extends your power-up duration. Power-up duration multiplier increased",PowerUpDurationtMultiplier
+7.5,4,"You have unlocked the legendary sword of the great emperors",WeaponUnlocked
+-5.0,2,"You lose 5 unity of health, but your speed is increased by 10%",Speed
+-1,2,"Your health regeneration is increased by 1 unit per second",Health
+-1,3,"When you have less than 30% HP remaining, all your attacks are critical hits",CritiqualHit
+-1,3,"When each wave starts, you get back to full health",Health
+
+let the price be a random value based on the rarity
+
+
+

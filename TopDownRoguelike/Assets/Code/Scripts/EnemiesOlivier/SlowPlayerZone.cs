@@ -64,7 +64,7 @@ public class SlowPlayerZone : MonoBehaviour
     // the conditions for the reload time to embark are these:
     // only if the object has pulled for x amount of time
     private void OnTriggerExit2D(Collider2D obj)
-    { // issue with this
+    { 
         if(!(obj.name.Contains("Player") || obj.tag.Contains("Player") ) || isWallBetweenPlayer(obj)) return; 
         Debug.Log("the player has left the pull zone");
         StopSlowZone();
@@ -91,8 +91,7 @@ public class SlowPlayerZone : MonoBehaviour
         }
         TimeInDamageZone+=Time.deltaTime;
         
-        // end of the damage handler
-        // next, handle the pull player par
+
     }
     
     
@@ -116,6 +115,7 @@ public class SlowPlayerZone : MonoBehaviour
     }
     private void takeDamage(){
         Debug.Log("spent some time in damage zone, taking damage");
+        EventManager.PlayerTakeDamage(damagePerTick);
     }
 
 }

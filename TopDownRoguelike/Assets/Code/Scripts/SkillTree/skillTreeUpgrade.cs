@@ -3,13 +3,11 @@ using System;
 
 public class skillTreeUpgrade
 {
-    // feel free to change this class, as well the the upgrade type.
-    // just dont change the bool bought and the return values of the methods that handle buy/sell
     private string description;
 
-    private float value;
+    public float value;
 
-    private upgradeType type;
+    public upgradeType type;
 
     private bool bought = false;
 
@@ -32,6 +30,19 @@ public class skillTreeUpgrade
         description = $"Upgrade {price}"; 
    
         type = (upgradeType)random.Next(0, Enum.GetValues(typeof(upgradeType)).Length);
+    }
+    public skillTreeUpgrade(int rarity , int value, String description , String Stype){
+        
+        this.rarity = rarity;
+        this.value = value;
+        price = UnityEngine.Random.Range(rarity, rarity+1);
+        type = (upgradeType)Enum.Parse(typeof(upgradeType), Stype);
+
+        if(value == -1){
+            this.value = UnityEngine.Random.Range(0.05f*((float)rarity), 0.09f*((float)rarity));
+        }
+        string[] desc = description.Split(':'); // used for inserting the value
+        this.description = desc[0] + value + desc[1];
     }
   
     public int doUpgrade(int skillPoints){ 
@@ -57,16 +68,25 @@ public enum upgradeType{
     Attack,
     Defence,
     /// <summary>
-    /// increase Maximum Health by a parameter
+    /// increase Maximum Health by a percentage
     /// </summary>
     Health,
-    Dash,
+    PhaseCooldown,
+    PhaseDuration,
     CritiqualHit,
     Speed,
     /// <summary>
     /// influences the drop rate of power ups of the enemies when they die
     /// </summary>
     DropRate,
+    /// <summary>
+    /// influences the effect multiplier of the powers up that the enemies drop when they die
+    /// </summary>
+    PowerUpEffectMultiplier,
+    /// <summary>
+    /// influences the duration multiplier of the powers up that the enemies drop when they die
+    /// </summary>
+    PowerUpDurationtMultiplier,
     /// <summary>
     /// For all skill tree upgrades that unlocks a new attack
     /// </summary>

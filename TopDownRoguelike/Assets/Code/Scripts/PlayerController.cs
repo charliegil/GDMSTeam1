@@ -52,6 +52,9 @@ public class PlayerController : MonoBehaviour , IEventListener
     private float DashVelocity; // will remain constant
     private float Dashduration; // will remain constant
 
+    // ===================== DEFENCE =====================
+    private float defenceBoost = 1; 
+
     // ===================== ATTACKING =====================
     // [SerializeField]
     // private GameObject _bulletPrefab;
@@ -75,6 +78,7 @@ public class PlayerController : MonoBehaviour , IEventListener
     private float healthMultiplier;
 
     public HealthManager healthManager;
+    
 
     // ===================== DEBUG & TESTING =====================
 
@@ -246,7 +250,7 @@ public class PlayerController : MonoBehaviour , IEventListener
     public void TakeDamage(float damage) {
     
         //healthText.SetText(health.ToString());
-
+        damage*= defenceBoost;         
         currentHealth -= damage;
         currentHealth = Math.Min(currentHealth,maxHealth);
         if(currentHealth < 0 ) OnDeath();
@@ -405,9 +409,8 @@ public class PlayerController : MonoBehaviour , IEventListener
     public void ReduceAttackDelay(float percentDecrease) {
         damageTickDelay /= percentDecrease;
     }
-
-    public void ReducePhaseCooldown(float percentDecrease) {
-        phaseCooldown /= percentDecrease;
+    public void IncreaseDefenceBoost(float value){
+        defenceBoost *= value;
     }
 
     public void IncreaseNumTargets(int numTargets) {
@@ -415,9 +418,18 @@ public class PlayerController : MonoBehaviour , IEventListener
     }
     public void IncreaseMaxHealthByValue(float increase) {
         maxHealth+=increase;
+        healthManager.totalHP = maxHealth;
+        currentHealth = Math.Min(currentHealth,maxHealth);
+        healthManager.setHP(currentHealth,true);
     }
     public void IncreaseMaxHealthByPercentage(float increase) {
+       
         healthMultiplier*=increase;
+        maxHealth = maxHealth*healthMultiplier;
+        healthManager.totalHP = maxHealth;
+        currentHealth = Math.Min(currentHealth,maxHealth);
+        healthManager.setHP(currentHealth,true);
+        
     }
 
     public void IncreaseCritChance(float percentIncrease) {
@@ -431,15 +443,14 @@ public class PlayerController : MonoBehaviour , IEventListener
     public void IncreaseSpeedMultiplier(float value){
         speedMultiplier*= value;
     }
-    public void IncreasePhaseDuration(float value){
-        phaseDuration*=value;
+    public void ReducePhaseDuration(float value){
+        phaseDuration/=value;
     }
-    public void LowerPhaseCooldown(float value){
-        phaseCooldown*=value;
+    public void ReducePhaseCooldown(float percentDecrease) {
+        phaseCooldown /= percentDecrease;
     }
-    public void LowerDashCooldown(float value){
-        DashCooldown*=value;
-    }
+
+    
     
     
 
@@ -456,6 +467,11 @@ public class PlayerController : MonoBehaviour , IEventListener
         EventManager.OnCriticalHitBoost += IncreaseCritChance;
         EventManager.OnAttackBoost += IncreaseAttackDamage;
         EventManager.OnSpeedBoost += IncreaseSpeedMultiplier;
+        EventManager.OnIncreaseMaxHealth += IncreaseMaxHealthByPercentage;
+        EventManager.OnDefenceBoost += IncreaseDefenceBoost;
+        EventManager.OnPhaseCooldownBoost += ReducePhaseCooldown;
+        EventManager.OnPhaseDurationBoost += ReducePhaseDuration;
+
      
     }
 /// <summary>
@@ -467,5 +483,10 @@ public class PlayerController : MonoBehaviour , IEventListener
         EventManager.OnCriticalHitBoost -= IncreaseCritChance;
         EventManager.OnAttackBoost -= IncreaseAttackDamage;
         EventManager.OnSpeedBoost -= IncreaseSpeedMultiplier;
+        EventManager.OnIncreaseMaxHealth -= IncreaseMaxHealthByPercentage;
+        EventManager.OnDefenceBoost -= IncreaseDefenceBoost;
+        EventManager.OnPhaseCooldownBoost -= ReducePhaseCooldown;
+        EventManager.OnPhaseDurationBoost -= ReducePhaseDuration;
+
     }
 }

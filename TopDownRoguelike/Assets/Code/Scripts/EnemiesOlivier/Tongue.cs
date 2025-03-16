@@ -20,7 +20,7 @@ public class Tongue : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        //BoxCollider.size = parent.transform.localScale/2;
+        
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

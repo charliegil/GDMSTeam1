@@ -1,0 +1,6 @@
+value,price,rarity,description,type
+1.1, 1,0, "Increase attack damage by : %", Attack
+
+
+Attack,Defence,Health,PhaseCooldown,PhaseDuration,CritiqualHit,Speed,DropRate,PowerUpEffectMultiplier,PowerUpDurationtMultiplier,WeaponUnlocked
+   

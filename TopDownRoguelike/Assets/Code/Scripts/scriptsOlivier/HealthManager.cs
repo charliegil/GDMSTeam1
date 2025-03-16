@@ -40,9 +40,9 @@ public class HealthManager : MonoBehaviour
             //sliderChange.value = currentHP;
         }
 
-        if (currentHP <= 0) {
+        /*if (currentHP <= 0) {
             SceneManager.LoadScene("EndDeat");
-        }
+        }*/
     }
 
 
@@ -53,12 +53,11 @@ public class HealthManager : MonoBehaviour
         if (animation)
         {
             // Stop any existing coroutine before starting a new one
-            if (currentLerpCoroutine != null)
-            {
+            if (currentLerpCoroutine != null){
                 StopCoroutine(currentLerpCoroutine);
             }
 
-            // Start the new coroutine and store the reference
+            
             currentLerpCoroutine = StartCoroutine(LerpHealthBar(HealthBar.value, hp / totalHP));
         }
         else

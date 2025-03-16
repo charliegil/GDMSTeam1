@@ -104,7 +104,7 @@ using UnityEngine;
             // will also change the appearance of the gameObject
             // to know if need to change the apppearance, check if the method undoUpgrade returned same amount as skillPoints
         }
-        public bool canBeRefund(){ // problem with the way the logic behind if you can buy something or not
+        public bool canBeRefund(){ 
             for(int i = 0; i< Children.Count; i++){
                 if (Children[i].canBeBought() == false) return false;
             }

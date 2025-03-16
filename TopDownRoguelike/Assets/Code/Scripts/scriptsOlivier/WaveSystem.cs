@@ -59,7 +59,7 @@ public class WaveSystem : MonoBehaviour
 
         GenerateEnemies();
         enemiesLeft = enemiesToSpawn.Count;
-        if(enemylist.Count == 0) return;
+        if(enemiesLeft == 0) return;
         StartCoroutine(SpawnEnemies());
         waveValue*= waveMultiplier;
         currentWaveUIText.text = "Current Wave: " + currentWave;

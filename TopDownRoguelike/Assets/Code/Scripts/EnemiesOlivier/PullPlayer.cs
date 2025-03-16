@@ -3,9 +3,7 @@ using UnityEngine;
 
 public class PullPlayer : MonoBehaviour
 {
-    // next step : first, make the skill tree implementation
-    // then, make the ennemy that shoots random zones in patrol mode, and targets the player in alert more.
-    // but before all of that, make a basic enemy that shoots at the ennemy
+    
 
     // maybe instead of applying velocity, do a acceleration
 
@@ -63,7 +61,7 @@ public class PullPlayer : MonoBehaviour
         PullRenderer.sprite  = spritePull;
         PullRenderer.color = colorPullZone;
 
-        PullRenderer.drawMode = SpriteDrawMode.Sliced; // Options: Simple, Sliced, Tiled
+        PullRenderer.drawMode = SpriteDrawMode.Sliced; 
         PullRenderer.size = new Vector2(2*pullRadius,2* pullRadius);
 
         if(lifetime!= -1) Destroy(gameObject, lifetime);
@@ -107,8 +105,7 @@ public class PullPlayer : MonoBehaviour
 
     
     }
-    // the conditions for the reload time to embark are these:
-    // only if the object has pulled for x amount of time
+  
     private void OnTriggerExit2D(Collider2D obj)
     { // issue with this
         if(!(obj.name.Contains("Player") || obj.tag.Contains("Player") ) || isWallBetweenPlayer(obj)) return; 
@@ -188,7 +185,7 @@ public class PullPlayer : MonoBehaviour
         return hits;
     }
     private void takeDamage(){
-        Debug.Log("spent some time in damage zone, taking damage");
+        EventManager.PlayerTakeDamage(damagePerTick);
     }
 
 }
