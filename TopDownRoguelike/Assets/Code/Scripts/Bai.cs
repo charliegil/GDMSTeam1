@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Bai : Core
 {
-    public Transform target;
+    //public Transform target;
     //public PatrolState patrol;
     //public BaiState3 state3;
     //public BaiState2 state2;
@@ -12,8 +12,8 @@ public class Bai : Core
     [SerializeField] private int hp;
 
    
-    private float detectionRange = 4f;
-    [SerializeField] float returnRange = 5f;
+    //private float detectionRange = 4f;
+    //[SerializeField] float returnRange = 5f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -61,8 +61,9 @@ public class Bai : Core
         }
     }
     bool CloseEnough(Vector2 targetPos){
-        Debug.Log("bai close");
+       
         float playerDistance = Vector2.Distance(body.position, targetPos);
+         Debug.Log("bai close detection Range"+detectionRange+"playerDistance "+playerDistance);
         return playerDistance <= detectionRange;
     }
     void FixedUpdate()

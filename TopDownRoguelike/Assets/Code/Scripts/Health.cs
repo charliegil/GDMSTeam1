@@ -24,7 +24,7 @@ public class Health : MonoBehaviour
     void Update()
     {
         if (currentHealth <= 0) {
-         
+            EventManager.EnemyDied();
             if (ScoreManager.Instance != null) {
                 ScoreManager.Instance.AddScore(1);
             }

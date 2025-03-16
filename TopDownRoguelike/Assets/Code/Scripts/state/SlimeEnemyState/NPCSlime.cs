@@ -16,13 +16,13 @@ public class NPCSlime : Core
     private void Start()
     {
         base.Start();
-        if(showFOV){
-            DrawFOV lines = FOVLines.GetComponent<DrawFOV>();
-            if (lines == null) lines = FOVLines.AddComponent<DrawFOV>();
+        // if(showFOV){
+        //     DrawFOV lines = FOVLines.GetComponent<DrawFOV>();
+        //     if (lines == null) lines = FOVLines.AddComponent<DrawFOV>();
         
-            FOV = 90;
-            lines.drawLines(detectionRange , FOV);
-        }
+        //     FOV = 90;
+        //     lines.drawLines(detectionRange , FOV);
+        // }
         
         Debug.Log("NPC Start() is running...");
         machine = new StateMachine(); // Ensure `machine` exists

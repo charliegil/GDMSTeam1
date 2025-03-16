@@ -24,7 +24,7 @@ public abstract class Core : MonoBehaviour
      // his starting position
 
     [SerializeField] protected int FOV = 360;
-    [SerializeField] protected bool showFOV = true;
+    //[SerializeField] protected bool showFOV = true;
 
     private Vector3 StartPosition;
 
@@ -39,9 +39,9 @@ public abstract class Core : MonoBehaviour
 
     }
     private void LateUpdate(){
-        if(showFOV){ 
-            FOVLines.transform.rotation = body.transform.rotation;  
-        }   
+        // if(showFOV){ 
+        //     FOVLines.transform.rotation = body.transform.rotation;  
+        // }   
     }
     protected void Set(State newState, bool forceReset = false)
     {

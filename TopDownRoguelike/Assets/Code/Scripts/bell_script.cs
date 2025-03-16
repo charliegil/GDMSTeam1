@@ -22,8 +22,8 @@ public class bell_script : MonoBehaviour
         //Debug.Log("chain collision "+collision.gameObject.tag);
         if(collision.gameObject.tag=="Player"){
             Debug.Log("bell collision IS INN"+collision.gameObject.tag);
-            
-            player_script.dmgPlayer(10);
+            EventManager.PlayerTakeDamage(10);
+            //player_script.dmgPlayer(10);
         }else{
             Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
             Debug.Log("Chain ignored enemy collision");

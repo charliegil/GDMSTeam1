@@ -43,6 +43,7 @@ public class HealthManager : MonoBehaviour
         /*if (currentHP <= 0) {
             SceneManager.LoadScene("EndDeat");
         }*/
+
     }
 
 
