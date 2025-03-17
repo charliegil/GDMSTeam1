@@ -334,7 +334,16 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Devour_0: -8423176191396414805
+      Devour_1: 5600488258171349445
+      Devour_2: 3542136371523087290
+      Devour_3: 2343777053529066314
+      Devour_4: -910187116409789199
+      Devour_5: -8803542769464450623
+      Devour_6: -7305260161359798879
+      Devour_7: -8911338042253249595
+      Devour_8: 4585927073228491428
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
