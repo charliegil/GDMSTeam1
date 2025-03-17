@@ -1,34 +1,28 @@
 fileFormatVersion: 2
-guid: 241c993ebf3e4cb4686e80e9635c6744
+guid: 7f7ae2a00bf910c47942af3e7fc7292b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8423176191396414805
-    second: Devour_0
+      213: -1274967292748549190
+    second: running_0
   - first:
-      213: 5600488258171349445
-    second: Devour_1
+      213: -825706690200963642
+    second: running_1
   - first:
-      213: 3542136371523087290
-    second: Devour_2
+      213: -3341573891944662379
+    second: running_2
   - first:
-      213: 2343777053529066314
-    second: Devour_3
+      213: 5720687236895615129
+    second: running_3
   - first:
-      213: -910187116409789199
-    second: Devour_4
+      213: 3627768386180016180
+    second: running_4
   - first:
-      213: -8803542769464450623
-    second: Devour_5
+      213: 1049788093197670058
+    second: running_5
   - first:
-      213: -7305260161359798879
-    second: Devour_6
-  - first:
-      213: -8911338042253249595
-    second: Devour_7
-  - first:
-      213: 4585927073228491428
-    second: Devour_8
+      213: -293817529664326686
+    second: running_6
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -124,13 +118,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Devour_0
+      name: running_0
       rect:
         serializedVersion: 2
-        x: 10
-        y: 218
-        width: 29
-        height: 29
+        x: 29
+        y: 412
+        width: 108
+        height: 33
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -139,20 +133,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: baaf94fb1edda1b80800000000000000
-      internalID: -8423176191396414805
+      spriteID: ab33b7790086e4ee0800000000000000
+      internalID: -1274967292748549190
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Devour_1
+      name: running_1
       rect:
         serializedVersion: 2
-        x: 31
-        y: 154
-        width: 131
-        height: 79
+        x: 150
+        y: 322
+        width: 187
+        height: 145
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -161,20 +155,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5c9ac0de56ee8bd40800000000000000
-      internalID: 5600488258171349445
+      spriteID: 6c578e9d3208a84f0800000000000000
+      internalID: -825706690200963642
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Devour_2
+      name: running_2
       rect:
         serializedVersion: 2
-        x: 219
-        y: 217
-        width: 30
-        height: 30
+        x: 360
+        y: 397
+        width: 92
+        height: 93
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -183,20 +177,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: abbef9a4342382130800000000000000
-      internalID: 3542136371523087290
+      spriteID: 59a3bebef3850a1d0800000000000000
+      internalID: -3341573891944662379
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Devour_3
+      name: running_3
       rect:
         serializedVersion: 2
-        x: 187
-        y: 193
-        width: 25
-        height: 24
+        x: 0
+        y: 352
+        width: 107
+        height: 33
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -205,20 +199,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a4bcf44ffc4c68020800000000000000
-      internalID: 2343777053529066314
+      spriteID: 99826428bb6f36f40800000000000000
+      internalID: 5720687236895615129
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Devour_4
+      name: running_4
       rect:
         serializedVersion: 2
-        x: 6
-        y: 135
-        width: 12
-        height: 30
+        x: 195
+        y: 22
+        width: 317
+        height: 378
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -227,20 +221,42 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1f4e147d3ad5e53f0800000000000000
-      internalID: -910187116409789199
+      spriteID: 438e6a1602c685230800000000000000
+      internalID: 3627768386180016180
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Devour_5
+      name: running_5
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 292
+        width: 108
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa65b7075b8919e00800000000000000
+      internalID: 1049788093197670058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: running_6
       rect:
         serializedVersion: 2
         x: 15
-        y: 14
-        width: 234
-        height: 159
+        y: 22
+        width: 206
+        height: 213
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -249,83 +265,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1c1ec1d8e7883d580800000000000000
-      internalID: -8803542769464450623
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Devour_6
-      rect:
-        serializedVersion: 2
-        x: 75
-        y: 75
-        width: 107
-        height: 106
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1ad165296908e9a90800000000000000
-      internalID: -7305260161359798879
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Devour_7
-      rect:
-        serializedVersion: 2
-        x: 10
-        y: 8
-        width: 29
-        height: 29
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5c3f11ec341945480800000000000000
-      internalID: -8911338042253249595
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Devour_8
-      rect:
-        serializedVersion: 2
-        x: 219
-        y: 8
-        width: 30
-        height: 30
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 4aa81a5306c74af30800000000000000
-      internalID: 4585927073228491428
+      spriteID: 2e3339373862cebf0800000000000000
+      internalID: -293817529664326686
       vertices: []
       indices: 
       edges: []
       weights: []
     outline:
-    - - {x: -128, y: -128}
-      - {x: 128, y: -128}
-      - {x: 128, y: 128}
-      - {x: -128, y: 128}
+    - - {x: -256, y: -256}
+      - {x: 256, y: -256}
+      - {x: 256, y: 256}
+      - {x: -256, y: 256}
     customData: 
     physicsShape: []
     bones: []
@@ -339,15 +289,13 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Devour_0: -8423176191396414805
-      Devour_1: 5600488258171349445
-      Devour_2: 3542136371523087290
-      Devour_3: 2343777053529066314
-      Devour_4: -910187116409789199
-      Devour_5: -8803542769464450623
-      Devour_6: -7305260161359798879
-      Devour_7: -8911338042253249595
-      Devour_8: 4585927073228491428
+      running_0: -1274967292748549190
+      running_1: -825706690200963642
+      running_2: -3341573891944662379
+      running_3: 5720687236895615129
+      running_4: 3627768386180016180
+      running_5: 1049788093197670058
+      running_6: -293817529664326686
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

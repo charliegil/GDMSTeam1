@@ -28,12 +28,6 @@ protected static GameObject player;
 protected float timer;
 
     public abstract void Attack();
-    public void TakeDamage(float damage){
-        animator.SetTrigger("takeDamage");
-        CurrentHp-=damage;
-
-        if(CurrentHp <= 0) OnDeath();
-    }
 
     public void Start()
     {
@@ -43,18 +37,8 @@ protected float timer;
 
     public abstract void move();
 
-    public void OnDeath(){
-        EventManager.EnemyDied();
-        //EventManager.SpawnCollectible(transform.position);
-        Destroy(gameObject);
 
-        // spawn objects that player can pick up
-    }
-    // public void takeDamage()
-    // {
-    //     CurrentHp-=damage;
-    //     throw new NotImplementedException();
-    // }
+ 
 
     void OnDisable()
     {

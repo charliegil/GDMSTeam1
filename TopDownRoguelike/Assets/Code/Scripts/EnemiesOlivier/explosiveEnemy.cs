@@ -18,7 +18,7 @@ public class explosiveEnemy : BaseEnemy
     public override void Attack()
     {
         Instantiate(DamageZonePrefab, transform.position, Quaternion.identity);
-        OnDeath();
+        GetComponent<Health>().OnDeath();
         
     }
 

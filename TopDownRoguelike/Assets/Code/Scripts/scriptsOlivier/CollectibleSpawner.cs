@@ -8,7 +8,9 @@ public class CollectibleSpawner : MonoBehaviour , IEventListener
     /// </summary>
     public PowerUp [] PowerUps;
 
-    [SerializeField] [Range(0f, 1f)] public static float DropRate = 0.5f;
+    [SerializeField] [Range(0f, 1f)] private float EditorDropRate = 1; // Unity does not serialize static fields
+
+    [Range(0f, 1f)] public static float DropRate = 1.0f; 
 
     
     
@@ -16,15 +18,18 @@ public class CollectibleSpawner : MonoBehaviour , IEventListener
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
-     subscribe();   
+        DropRate = EditorDropRate;
+        subscribe();   
     }
 
     void spawnRandomItem(Vector2 position){
+        float randomValue = UnityEngine.Random.value;
+        if(randomValue >  DropRate) return;
         Instantiate(GetRandomPowerUp(),position,Quaternion.Euler(0,0,0));
     }
     public GameObject GetRandomPowerUp(){
         float randomValue = UnityEngine.Random.value; // Value between 0 and 1
+        
         float cumulative = 0f;
 
         foreach (var entry in PowerUps)

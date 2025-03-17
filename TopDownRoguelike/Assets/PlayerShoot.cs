@@ -8,12 +8,18 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField]
     private float _bulletSpeed;
     [SerializeField]
-    private Transform _gunOffset;
+    private int _gunOffset;
     private bool _fireContinuously;
     [SerializeField]
     private float _timeBtwShots;
     private float _lastFireTime;
    private bool _fireSingle;
+
+   private PlayerController playerController;
+
+   void Start(){
+        playerController = GetComponent<PlayerController>();
+   }
     void Update()
     {
         _fireContinuously = Input.GetKey(KeyCode.Mouse0);
@@ -36,12 +42,13 @@ public class PlayerShoot : MonoBehaviour
         Vector2 direction = (mousePosition - transform.position).normalized;
 
         // Instantiate bullet at player's position
-        GameObject bullet = Instantiate(_bulletPrefab, transform.position, Quaternion.identity);
-
+        GameObject bullet = Instantiate(_bulletPrefab, transform.position+ (Vector3)(_gunOffset*direction), Quaternion.identity);
+    
+        bullet.GetComponent<Bullet>().damage*= (playerController.getAttackMultiplier()*playerController.IsAttackCritiqual());
         // Rotate bullet to face the mouse direction
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         bullet.transform.rotation = Quaternion.Euler(0f, 0f, angle);
-
+        
         // Apply velocity in the calculated direction
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.linearVelocity = direction * _bulletSpeed;

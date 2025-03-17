@@ -52,7 +52,7 @@ public class Collectable : MonoBehaviour
         }
        CollectableCollider.radius = collectRadius;
        CollectableCollider.isTrigger = true;
-       CollectableRenderer.material.color = Color.green;
+       //CollectableRenderer.material.color = Color.green;
     }
 
 
@@ -63,7 +63,7 @@ public class Collectable : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D obj){
         if( obj.tag.Contains("Player") || obj.name.Contains("Player")) {    
-            CollectableRenderer.material.color = Color.green;
+            //CollectableRenderer.material.color = Color.green;
         }
     }
     private void OnTriggerStay2D(Collider2D obj){
@@ -75,7 +75,7 @@ public class Collectable : MonoBehaviour
                 handleCollect(obj.gameObject);
             }  
             if(WallBetweenPlayer) CollectableRenderer.material.color = Color.green;
-            else CollectableRenderer.material.color = Color.red;
+            //else CollectableRenderer.material.color = Color.red;
         }
 
 
@@ -85,7 +85,7 @@ public class Collectable : MonoBehaviour
             if(CollectAutomatically || Input.GetKey(keyToObtain)){
                 handleCollect(obj.gameObject);
             }
-            CollectableRenderer.material.color = Color.red;
+            //CollectableRenderer.material.color = Color.red;
         }
     }
     public bool isWallBetweenPlayer(Collider2D obj ){
@@ -123,53 +123,72 @@ public class Collectable : MonoBehaviour
         }
         OnPlayerCollect(Player);
         transform.position = Player.transform.position;
-        Destroy(gameObject);
+        
     }
 
 
 
     protected void OnPlayerCollect(GameObject Player){
-        
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        if (sr) sr.enabled = false; 
         Debug.Log("the collectible has reached the player");
         
-        if (type == CollectableType. Life){
+        if (type == CollectableType.Life){
             EventManager.PlayerTakeDamage(-value*effectMultiplier);
 
         }
         else if (type == CollectableType.SkillPoint){
             EventManager.SkillPointAcquired((int)value); 
+            Destroy(gameObject);
         }
         else if (type == CollectableType.AttackBoost){
             EventManager.DurationBoostStarted(duration * durationMultiplier,type);
-            ApplyTemporaryBoost(EventManager.AttackBoost);
+            StartCoroutine(ApplyTemporaryBoost(EventManager.AttackBoost));
         }
         else if (type == CollectableType.DefenceBoost){
-            ApplyTemporaryBoost(EventManager.DefenceBoost);
+            StartCoroutine(ApplyTemporaryBoost(EventManager.DefenceBoost));
             EventManager.DurationBoostStarted(duration * durationMultiplier,type);
         }
-        
-        else if (type == CollectableType.CritiqualHit){ 
-            ApplyTemporaryBoost(EventManager.CriticalHitBoost);
+        else if (type == CollectableType.CritiqualHit){
+            StartCoroutine(ApplyTemporaryBoost(EventManager.CriticalHitBoost));
             EventManager.DurationBoostStarted(duration * durationMultiplier,type);
         }
-        else if (type == CollectableType.SpeedBoost){ 
-            ApplyTemporaryBoost(EventManager.SpeedBoost);
+        else if (type == CollectableType.SpeedBoost){
+            StartCoroutine(ApplyTemporaryBoost(EventManager.SpeedBoost));
             EventManager.DurationBoostStarted(duration * durationMultiplier,type);
         }
         else if (type == CollectableType.Invicible){ 
-            ApplyTemporaryBoost(EventManager.SpeedBoost); // must change to invincible
+            StartCoroutine(applyInvicibility());
             EventManager.DurationBoostStarted(duration * durationMultiplier,type);
         }
-
     }
 
         private IEnumerator ApplyTemporaryBoost(Action<float> EventToCall){
+            
             float time = duration * durationMultiplier;
             float val = value *effectMultiplier;
             EventToCall(val);
             yield return new WaitForSeconds(time);
-            EventToCall(1/val);
+            EventToCall((1/val));
+            Destroy(gameObject);
         }
+
+        private IEnumerator applyInvicibility(){
+           
+            float time = duration * durationMultiplier;
+            
+            while(time> 0){
+                PlayerController.Invincible = true;  
+                time-=0.1f;
+                yield return new WaitForSeconds(0.1f);
+            }
+            Debug.Log("Invincible Ended");
+            PlayerController.Invincible = false;  
+            Destroy(gameObject);
+
+        }
+
+        
     }
 
     public enum CollectableType {

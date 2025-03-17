@@ -3,13 +3,19 @@ using UnityEngine.UI;
 using System.Collections;
 using TMPro;
 using System.Collections.Generic;
+using UnityEngine.UIElements;
+using System.ComponentModel.Design;
+using Unity.VisualScripting;
 
-public class WaveSystem : MonoBehaviour
+public class WaveSystem : MonoBehaviour , IEventListener
 {
     private int currentWave = 0;
-    public int waveValue = 1;
+    public float waveValue = 5;
 
-    public int waveMultiplier;
+    public float waveMultiplier =1.2f; 
+
+    public static bool gainFullHealthOnEnd = false;
+    public static int skillPointsOnEnd = 0;
 
     public int waveDuration;
 
@@ -17,11 +23,12 @@ public class WaveSystem : MonoBehaviour
 
     private int enemiesLeft;
 
+
     public List<Enemy> enemylist = new List<Enemy>();
 
     public List<GameObject> spawnLocation = new List<GameObject>();
 
-    public List<GameObject> enemiesToSpawn = new List<GameObject>();
+    private List<GameObject> enemiesToSpawn = new List<GameObject>();
 
     public TextMeshProUGUI currentWaveUIText;
 
@@ -29,16 +36,15 @@ public class WaveSystem : MonoBehaviour
     private int minValue;
     public GameObject hei_boss;
     public GameObject bai_boss;
-    private bool spawnBoss = true;
+    public bool spawnBoss = true;
 
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    private void Start()
-    {
-    minValue = GetMinValue();
+    private void Start(){
+        minValue = GetMinValue();
        GenerateWave();
-       EventManager.OnEnemyDied += EnemyDied;
+       
     
     }
 
@@ -46,16 +52,8 @@ public class WaveSystem : MonoBehaviour
     private void Update()
     {
        //Debug.Log("how many enemy: " + enemiesLeft);
-       Debug.Log("current Wave"+currentWave);
-        if(currentWave == 3 && spawnBoss){
-            Debug.Log("you spawn heibai");
-            hei_boss.SetActive(true);
-            bai_boss.SetActive(true);
-            //int randomSpawnPoint = Random.Range(0, spawnLocation.Count);
-            //Instantiate(hei_boss, spawnLocation[randomSpawnPoint].transform.position, Quaternion.identity);
-            //Instantiate(bai_boss, spawnLocation[randomSpawnPoint].transform.position, Quaternion.identity);
-            spawnBoss = false;
-        }
+       //Debug.Log("current Wave"+currentWave);
+        
         
     }
 
@@ -68,6 +66,13 @@ public class WaveSystem : MonoBehaviour
     }
 
     public void GenerateWave(){
+        if(currentWave == 3 && spawnBoss){
+            Debug.Log("you spawn heibai");
+            hei_boss.SetActive(true);
+            bai_boss.SetActive(true);
+            spawnBoss = false;
+        }
+
         Debug.Log("generate wave current number enemies"+enemiesLeft);
         GenerateEnemies();
         enemiesLeft = enemiesToSpawn.Count;
@@ -76,7 +81,7 @@ public class WaveSystem : MonoBehaviour
         waveValue = waveValue + currentWave*waveMultiplier;
         waveValue*= waveMultiplier;
         currentWave++;
-        currentWaveUIText.text = "Current Wave: " + currentWave;
+        currentWaveUIText.text = "Wave: " + currentWave;
     }
 
     
@@ -113,29 +118,43 @@ public class WaveSystem : MonoBehaviour
     }
     public void GenerateEnemies(){
         Debug.Log("Generating Enemies...");
-        int valueToSpend = waveValue;
+        int valueToSpend = (int)waveValue;
         List<GameObject> generatedEnemies = new List<GameObject>();
         while(valueToSpend>0){
-            Debug.Log("you should add an enemy");
+            //Debug.Log("you should add an enemy");
             int randomEnemy = Random.Range(0,enemylist.Count);
             if(valueToSpend-enemylist[randomEnemy].value>=0){
                 generatedEnemies.Add(enemylist[randomEnemy].enemyPrefab);
                 valueToSpend-=enemylist[randomEnemy].value;//randomEnemy;
-                Debug.Log("Added enemy: " + enemylist[randomEnemy].enemyPrefab.name + ", Remaining Value: " + valueToSpend);
+                //Debug.Log("Added enemy: " + enemylist[randomEnemy].enemyPrefab.name + ", Remaining Value: " + valueToSpend);
             }
             else if(valueToSpend < minValue) break;
         }
         enemiesToSpawn.Clear();
         enemiesToSpawn = generatedEnemies;
-        Debug.Log("Enemies generated: " + enemiesToSpawn.Count);
+        //Debug.Log("Enemies generated: " + enemiesToSpawn.Count);
     }
 
     public void OnWaveComplete(){
+        if(gainFullHealthOnEnd) EventManager.PlayerTakeDamage(-1000);
+        if(skillPointsOnEnd !=0) EventManager.SkillPointAcquired(skillPointsOnEnd);
         GenerateWave();
+
     }
 
 
-    
+    public void subscribe()
+    {
+        EventManager.OnEnemyDied += EnemyDied;
+    }
+
+    public void unsubscribe()
+    {
+        EventManager.OnEnemyDied -= EnemyDied;
+    }
+    public void OnDisable(){
+        unsubscribe();
+    }
 }
 [System.Serializable]
 public class Enemy{

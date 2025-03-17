@@ -90,7 +90,19 @@ public enum upgradeType{
     /// <summary>
     /// For all skill tree upgrades that unlocks a new attack
     /// </summary>
-    WeaponUnlocked
+    WeaponUnlocked,
+
+    // ========= CUSTOM UPGRADES HERE =========
+    /// <summary>
+    /// upgrade that will make you full health when you finish a wave
+    /// </summary>
+    fullHealthAtWaveEnd,
+    SkillPointAtWaveEnd,
+    allCritiqualHitBelowCertainHp,
+    InstantKillBelowCertainHp,
+
+
+
 }
 
 

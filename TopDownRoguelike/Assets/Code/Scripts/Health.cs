@@ -6,7 +6,12 @@ public class Health : MonoBehaviour
 {
     [SerializeField] private float currentHealth = 100f;
     [SerializeField] private float Totalhealth = 0;
-    [SerializeField] private HealthManager UIHealth;
+
+    [SerializeField] private int enemyValue = 1;
+
+
+    [SerializeField] Animator animator;
+ 
 
     public GameObject damagePopupPrefab;
 
@@ -19,29 +24,41 @@ public class Health : MonoBehaviour
     //         Destroy(gameObject);
     //     }
     // }
+    void Start()
+    {
+        Totalhealth = currentHealth;
+    }
 
-    
     void Update()
     {
-        if (currentHealth <= 0) {
-            EventManager.EnemyDied();
-            if (ScoreManager.Instance != null) {
-                ScoreManager.Instance.AddScore(1);
-            }
-            Destroy(gameObject);
-        }
+        
     }
 
     public void TakeDamage(float damage) {
         currentHealth -= damage;
         Debug.Log(currentHealth);
-
+        animator.SetTrigger("takeDamage");
+        
+        if(gameObject.name.Contains("Ranged")){
+            Debug.Log("i am a ranged enemy");
+            gameObject.GetComponent<RangedEnemy>().isRetreating = true;
+        }
         if (damagePopupPrefab != null) {
-
+            
             GameObject popup = Instantiate(damagePopupPrefab, transform.position + new Vector3(0,1,0), Quaternion.identity);
             DamagePopup damagePopup = popup.GetComponent<DamagePopup>();
             damagePopup.Setup(damage);
         }
+        if(currentHealth<=0) OnDeath();
+    }
+    public void OnDeath(){
+        
+        EventManager.EnemyDied();
+        if (ScoreManager.Instance != null) {
+            ScoreManager.Instance.AddScore(enemyValue);
+        }
+        EventManager.SpawnCollectible(transform.position);
+        Destroy(gameObject);
     }
     
     public void TakeDamageOverTime(float damage, float time, float step) {
@@ -55,7 +72,7 @@ public class Health : MonoBehaviour
         float stepDmg = damage / time;
         if (step == 0)
         {
-            UIHealth.addHP(damage * time, true);
+            
             yield return null;
             time = -1;
         }
@@ -63,7 +80,7 @@ public class Health : MonoBehaviour
         {
             TakeDamage(step);
             time -= step;
-            UIHealth.addHP(stepDmg, false);
+            
             yield return new WaitForSeconds(step);
         }
     }
