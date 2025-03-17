@@ -110,7 +110,20 @@ public class SkillTreeHandler : MonoBehaviour , IEventListener
             case upgradeType.WeaponUnlocked:
                 Debug.Log("You have got a new weapon");
                 break;
+            case upgradeType.fullHealthAtWaveEnd:
+                WaveSystem.gainFullHealthOnEnd = true;
+                break;
+            case upgradeType.SkillPointAtWaveEnd:
+                WaveSystem.skillPointsOnEnd = (int)value;
+                break;
+            case upgradeType.allCritiqualHitBelowCertainHp:
+                PlayerController.allCritiqualHits = (int)value;
+                break;
 
+            case upgradeType.InstantKillBelowCertainHp:
+                PlayerController.InstantKillHP = (int)value;
+                break;
+                
             default:
                 Debug.LogWarning("not recognized upgrade type: " + type);
                 break; 

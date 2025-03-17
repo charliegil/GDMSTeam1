@@ -33,7 +33,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.1632345, y: -23.984953, z: 0.31042874}
-  m_LocalScale: {x: 2.27, y: 2.27, z: 2.27}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -198,7 +198,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -212,7 +212,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 0.69, y: 1.75}
   m_EdgeRadius: 0
 --- !u!70 &2546637632796897259
 CapsuleCollider2D:
@@ -265,5 +265,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 75
   Totalhealth: 0
-  UIHealth: {fileID: 0}
+  enemyValue: 1
+  animator: {fileID: 5636063512297748938}
   damagePopupPrefab: {fileID: 2708312710599233367, guid: 468f99c83ade09e448be9ba40c4b8bfa, type: 3}

@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour , IEventListener
 {
@@ -19,7 +20,7 @@ public class PlayerController : MonoBehaviour , IEventListener
 
     // ===================== UI =====================
 
-    public Slider SliderPhaseCooldown;
+    public UnityEngine.UI.Slider SliderPhaseCooldown;
    
     public GameObject LoseScreen;
  
@@ -55,6 +56,8 @@ public class PlayerController : MonoBehaviour , IEventListener
     // ===================== DEFENCE =====================
     private float defenceBoost = 1; 
 
+    public static bool Invincible =  false;
+
     // ===================== ATTACKING =====================
     // [SerializeField]
     // private GameObject _bulletPrefab;
@@ -67,10 +70,23 @@ public class PlayerController : MonoBehaviour , IEventListener
     private GameObject targetEnemy;
     private Coroutine attackCoroutine;
 
+    public float attackMultiplier = 1f;
     public float attackDamage = 10f;
     public float damageTickDelay = 0.5f;
-    public float critChance = 0f;
     public int numTargets = 1;
+
+// ===================== CRITIQUAL =====================
+    [Range(0f, 1f)] public float critChance = 0.04f; // starting value
+
+    /// <summary>
+    /// below this amount of hp, all attacks are critiqual attacks
+    /// </summary>
+    public static int allCritiqualHits = 0;
+
+    public static int InstantKillHP = 0;
+
+    public float critiqualHitFactor = 2;
+    
 
     // ===================== Health =====================
     public float maxHealth;
@@ -249,19 +265,50 @@ public class PlayerController : MonoBehaviour , IEventListener
     }
     public void TakeDamage(float damage) {
     
-        //healthText.SetText(health.ToString());
-        damage*= defenceBoost;         
-        currentHealth -= damage;
-        currentHealth = Math.Min(currentHealth,maxHealth);
-        if(currentHealth < 0 ) OnDeath();
+       
         Debug.Log("health: " + currentHealth);
         if(damage > 0){
+            damage*= defenceBoost;
+            
+           
+            if(Invincible) {
+                Debug.Log("the player is invincible now");
+                return;}
+            
+            currentHealth -= damage;
             animator.SetTrigger("takingDamage");
+            if(currentHealth <= 0 ) OnDeath();
+        }
+        else{
+            currentHealth -= damage;
+            currentHealth = Math.Min(currentHealth,maxHealth);
         }
         //healthManager.addHP(-damage,true);
         healthManager.setHP(currentHealth,true);
         
     }
+    
+
+/// <summary>
+/// tells if the attack is a critiqual attack
+/// </summary>
+/// <returns>the multiplier of the attack (critiqual multiplier)</returns>
+    public float IsAttackCritiqual(){
+            
+    /// <summary>
+    /// below this amount of hp, all attacks are critiqual attacks
+    /// </summary>
+        if(currentHealth <= InstantKillHP) return 100; // some sort of last chance, when below 1hp, all attacks are instant kills
+        if(currentHealth<=allCritiqualHits) return critiqualHitFactor;
+        float random = UnityEngine.Random.Range(0, 1);
+        if(random <= critChance) return critiqualHitFactor;
+        return 1;
+    }
+    public float getAttackMultiplier(){
+        return attackMultiplier;
+    }
+
+
     public void OnDeath(){
         Debug.Log("im dead");
         LoseScreen.SetActive(true);
@@ -317,7 +364,7 @@ public class PlayerController : MonoBehaviour , IEventListener
 
         while (true) {
             if (targetEnemy != null && targetEnemy.gameObject != null) {
-                targetEnemy.GetComponent<BaseEnemy>().TakeDamage(attackDamage);
+                targetEnemy.GetComponent<Health>().TakeDamage(attackDamage*attackMultiplier);
 
                 // Play damage tick sound
                 AudioManager.Instance.Play("Damage Tick");
@@ -403,13 +450,15 @@ public class PlayerController : MonoBehaviour , IEventListener
 
     // ===================== SKILL TREE UPGRADES   ========= POWER UPS BOOSTS =================================
     public void IncreaseAttackDamage(float percentIncrease) {
-        attackDamage *= percentIncrease;
+        Debug.Log("the attack multiplier is getting increased from : " + percentIncrease);
+        attackMultiplier *= percentIncrease;
     }
 
     public void ReduceAttackDelay(float percentDecrease) {
         damageTickDelay /= percentDecrease;
     }
     public void IncreaseDefenceBoost(float value){
+        Debug.Log("the defence multiplier is getting increased from : " + value);
         defenceBoost *= value;
     }
 
@@ -441,6 +490,7 @@ public class PlayerController : MonoBehaviour , IEventListener
     }
 
     public void IncreaseSpeedMultiplier(float value){
+        Debug.Log("the speed multiplier is getting increased from : " + value);
         speedMultiplier*= value;
     }
     public void ReducePhaseDuration(float value){

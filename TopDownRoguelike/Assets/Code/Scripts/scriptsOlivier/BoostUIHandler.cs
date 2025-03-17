@@ -50,13 +50,17 @@ public class BoostUIHandler : MonoBehaviour, IEventListener {
             }
             else{
                 StopCoroutine(UIBoosts[index].coroutine);
+                positionsOccupied[UIBoosts[index].currentPosition] = false;
+                UIBoosts[index].currentPosition = -1;
                 UIBoosts[index].coroutine = StartCoroutine(makeCounterEnumerator(duration,index));
+
             }
             
         }
     }
     public IEnumerator makeCounterEnumerator(float duration, int index){
         int position = getFirstOpenPosition();
+        UIBoosts[index].currentPosition = position;
         positionsOccupied[position] = true;
         UIBoosts[index].rectTransform.transform.position = positions[position];
         numBoostActive++;
@@ -113,5 +117,8 @@ public class UIBoost {
     [HideInInspector] public RectTransform rectTransform = null;
     [HideInInspector] public Coroutine coroutine = null;
     [HideInInspector] public float timeLeft = -1;
+
+    [HideInInspector] public int currentPosition= -1;
+
 
 }

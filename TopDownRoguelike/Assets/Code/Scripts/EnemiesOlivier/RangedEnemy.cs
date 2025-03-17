@@ -17,7 +17,7 @@ public class RangedEnemy : BaseEnemy
     [SerializeField] private float approachingRange = 10;
 
 
-    private bool isRetreating = false;
+    public bool isRetreating = false;
 
     private Vector2 destination;
 
@@ -103,16 +103,6 @@ public class RangedEnemy : BaseEnemy
         return getDirectionToPlayer().magnitude < approachingRange;
     }
     
-    
-
-    public void TakeDamage(int damage)
-    {
-        base.TakeDamage(damage);
-        isRetreating = true;
-
-    }
-
- 
     
     public override void Attack()
     {
