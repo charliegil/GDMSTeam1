@@ -10,6 +10,8 @@ public class NPCDefault : Core
 
     public AttackState attack;
 
+    public Material material;
+
 
     // will need to attach the start position, as well as attach the line Renderer for the slime patrol
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -20,7 +22,7 @@ public class NPCDefault : Core
         if (FOVLines == null) FOVLines = gameObject.AddComponent<DrawFOV>();
         
         FOV = 90;
-        FOVLines.drawLines(detectionRange , FOV);
+        FOVLines.drawLines(detectionRange , FOV, material);
         
         
         Debug.Log("NPC Start() is running...");

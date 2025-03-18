@@ -13,12 +13,15 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField]
     private float _timeBtwShots;
     private float _lastFireTime;
-   private bool _fireSingle;
+    private bool _fireSingle;
+
+    private GameObject bulletParent;
 
    private PlayerController playerController;
 
    void Start(){
         playerController = GetComponent<PlayerController>();
+        bulletParent = new GameObject("bullets");
    }
     void Update()
     {
@@ -52,6 +55,8 @@ public class PlayerShoot : MonoBehaviour
         // Apply velocity in the calculated direction
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.linearVelocity = direction * _bulletSpeed;
+
+        bullet.transform.SetParent(bulletParent.transform);
         // GameObject bullet = Instantiate(_bulletPrefab, _gunOffset.position, transform.rotation);
         // Rigidbody2D rigidbody = bullet.GetComponent<Rigidbody2D>();
         // rigidbody.linearVelocity = _bulletSpeed * transform.up;

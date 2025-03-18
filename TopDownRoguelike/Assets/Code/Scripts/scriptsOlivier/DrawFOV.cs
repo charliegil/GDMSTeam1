@@ -7,7 +7,7 @@ public class DrawFOV : MonoBehaviour{
 
 
     
-    public void drawLines(int range , int angle){
+    public void drawLines(int range , int angle,Material material){
         
         float lineWidth = 0.08f;
         
@@ -18,7 +18,8 @@ public class DrawFOV : MonoBehaviour{
         FOVLines.endWidth = lineWidth;
         FOVLines.useWorldSpace = false;
         FOVLines.sortingLayerName = "Default";  
-        FOVLines.sortingOrder = 4;
+        FOVLines.sortingOrder = 3;
+        FOVLines.material = material;
 
         Vector3 start = transform.position;
         start = Vector3.zero; 

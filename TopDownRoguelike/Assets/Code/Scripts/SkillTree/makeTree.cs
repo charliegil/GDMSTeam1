@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
+using Unity.VisualScripting;
 
 public class makeTree : MonoBehaviour
 {
@@ -13,13 +14,13 @@ public class makeTree : MonoBehaviour
     public int probabilityZeroChildren = 50;
     public bool enableCoolerTrees = true;
 
-    public int spaceBetweenNodesX = 3;
-    public int spaceBetweenNodesY= 2;
+    public float spaceBetweenNodesX = 3;
+    public float spaceBetweenNodesY= 2;
 
-    public int initialPositionRootX = 0;
-    public int initialPositionRootY = 0;
+    public float initialPositionRootX = 0;
+    public float initialPositionRootY = 0;
 
-    public int lineWidth = 0;
+    public float lineWidth = 0;
 
     public Sprite lineSprite;
 
@@ -35,11 +36,18 @@ public class makeTree : MonoBehaviour
 
     public GameObject textAttributes;
 
+    private List<skillTreeUpgrade> possibleUpgrades;
+
 
     // solution: each node has a fixed length that his Children can take. the length is determined by most left and most right. 
 
     private void Start()
     {
+        possibleUpgrades = UpgradesReader.readValues();
+        foreach (skillTreeUpgrade upgrade in possibleUpgrades ){
+            Debug.Log(upgrade.ToString());
+            
+        }
         skillNode.SpriteLocked = SpriteLocked;
         skillNode.SpriteUnlocked = SpriteUnlocked;
         skillNode.textAttributes = textAttributes;
@@ -48,8 +56,31 @@ public class makeTree : MonoBehaviour
         treeNode root = setTree();
         printTree(root);
         TreeHelpers.CalculateNodePositions(root);
-        DrawTree(root);
+        DrawTree(root,0);
 
+    }
+
+    private skillTreeUpgrade getRandomUpgrade(int rarity){
+       
+        rarity = Math.Clamp(rarity,1, 5);
+        
+        if(possibleUpgrades.Count == 0) return new skillTreeUpgrade(rarity);
+        
+        List<skillTreeUpgrade> list = new List<skillTreeUpgrade>(possibleUpgrades);
+        
+        int index = UnityEngine.Random.Range(0,list.Count);
+        skillTreeUpgrade current = list[index];
+        
+        
+        while (list.Count > 0){
+            index = UnityEngine.Random.Range(0, list.Count);
+            current = list[index];
+            if (Math.Abs(current.getRarity() - rarity) <= 1) break;
+        
+            list.RemoveAt(index);
+        }
+        possibleUpgrades.Remove(current);
+        return current;
     }
 
 
@@ -106,30 +137,35 @@ public class makeTree : MonoBehaviour
             printTree(node.Children[i]);
         }
     }
-    public void DrawTree(treeNode root) {
+    public void DrawTree(treeNode root, int depth) {
         GameObject nodeObject = new GameObject("node");
         
         Vector2 positionNode =new Vector2(-spaceBetweenNodesX*(float)root.X, -spaceBetweenNodesY*(float)root.Y)+ new Vector2(initialPositionRootX, initialPositionRootY);
         
         nodeObject.AddComponent<Image>();
         //nodeObject.GetComponent<Image>().sprite = SpriteLocked;
-        root.setUpgrade(new skillTreeUpgrade());
+        root.setUpgrade(getRandomUpgrade(depth));
+
         skillNode SkillNode = nodeObject.AddComponent<skillNode>();
         SkillNode.setTreeNode(root);
         
         
         RectTransform rectTransform = nodeObject.GetComponent<RectTransform>();
+        rectTransform.anchorMin = new Vector2(0, 1);
+        rectTransform.anchorMax = new Vector2(0, 1);
         rectTransform.sizeDelta = new Vector2(NodeSize, NodeSize);  
+        //nodeObject.transform.localScale = new Vector2(NodeSize, NodeSize);  
         rectTransform.anchoredPosition = positionNode;
     
         // dont forget to add a specific skillTreeUpgrade to the root/node
         foreach (treeNode child in root.Children) {
             Vector2 positionChild = new Vector2(-spaceBetweenNodesX*(float)child.X , -spaceBetweenNodesY*(float)child.Y) + new Vector2(initialPositionRootX, initialPositionRootY);
             CreateEdge(positionNode,positionChild);
-            DrawTree(child);
+            DrawTree(child,depth+1);
         }
         nodeObject.transform.SetParent(panel.transform,true);
     }
+
 
     private void CreateEdge(Vector2 start, Vector2 end) {
         
@@ -146,9 +182,11 @@ public class makeTree : MonoBehaviour
         rectTransform.anchoredPosition = (start + end) / 2;
         
         rectTransform.rotation = Quaternion.Euler(0, 0, -angle);
+        rectTransform.anchorMin = new Vector2(0, 1);
+        rectTransform.anchorMax = new Vector2(0, 1);
         
-        rectTransform.sizeDelta = new Vector2(distance, lineWidth);
         
+        lineRenderer.transform.localScale = new Vector2(distance/100, lineWidth);
         lineRenderer.sprite = lineSprite;
         
        

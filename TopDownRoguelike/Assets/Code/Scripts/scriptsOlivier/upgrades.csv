@@ -1,6 +1,12 @@
-value,price,rarity,description,type
-1.1, 1,0, "Increase attack damage by : %", Attack
 
 
-Attack,Defence,Health,PhaseCooldown,PhaseDuration,CritiqualHit,Speed,DropRate,PowerUpEffectMultiplier,PowerUpDurationtMultiplier,WeaponUnlocked
-   
+/*-5.0,2,"You lose 5 unity of health, but your speed is increased by 10%",Speed
+-1,2,"Your health regeneration is increased by 1 unit per second",Health
+-1,3,"When you have less than 30% HP remaining, all your attacks are critical hits",CritiqualHit
+-1,3,"When each wave starts, you get back to full health",Health
+-1,3,"When each wave ends, you get : skill points",SkillPoint
+When you are at full health at the start of a wave, your attack speed increases for the first 10 seconds of combat.
+ "When your HP is below 1, all your attacks become instant kills for X seconds"
+
+
+let the price be a random value based on the rarity   
