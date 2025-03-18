@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: be0f1aa3c48b9c4498998e241ed64bd6
+guid: 6b237f0dcfe03ab4496bcb6be057ca06
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2657827131537215927
-    second: red-dragon-icon-1_0
+      213: -7651804434958071199
+    second: IMG_4048_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: red-dragon-icon-1_0
+      name: IMG_4048_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 256
-        height: 256
+        x: 224
+        y: 454
+        width: 717
+        height: 442
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7b1dba1c1bf72e420800000000000000
-      internalID: 2657827131537215927
+      spriteID: 16ac09b48645fc590800000000000000
+      internalID: -7651804434958071199
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      red-dragon-icon-1_0: 2657827131537215927
+      IMG_4048_0: -7651804434958071199
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
