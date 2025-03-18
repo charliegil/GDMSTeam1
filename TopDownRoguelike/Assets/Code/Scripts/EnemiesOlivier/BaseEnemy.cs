@@ -17,7 +17,7 @@ protected float currentSpeed = 0;
 [SerializeField] protected float attackRange = 10;
 [SerializeField] protected float maxSpeed = 10;
 [SerializeField] protected float acceleration = 1;
-[SerializeField] protected Animator animator;
+
 [SerializeField] protected Rigidbody2D body;
 
 [Range (0,360f)] [SerializeField] protected int FOV; // the FOV of the enemy. If the player is not in the FOV of the enemy, the enemy cannot see him. need to implement with pathfinding

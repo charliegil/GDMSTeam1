@@ -14,36 +14,53 @@ public class skillTreeUpgrade
     private int price;
     private int rarity;
 
-   public skillTreeUpgrade(string desc , float val , upgradeType typ , int prix , int id ){
-    description = desc;
-    value = val;
-    type = typ;
-    price = prix;
-   }
-
-   public skillTreeUpgrade()
-    {
-        System.Random random = new System.Random();
-
-        price = random.Next(1,5); 
-        value = random.Next(1, 10) * 0.5f; 
-        description = $"Upgrade {price}"; 
    
-        type = (upgradeType)random.Next(0, Enum.GetValues(typeof(upgradeType)).Length);
+
+    public skillTreeUpgrade(): this(UnityEngine.Random.Range(1, 4))
+    {}
+
+    public skillTreeUpgrade(int rarity){
+        this.rarity = rarity;
+        this.value = UnityEngine.Random.Range(0.05f*((float)rarity), 0.09f*((float)rarity));
+        price = UnityEngine.Random.Range(rarity, rarity+1);
+        
+        type = (upgradeType)UnityEngine.Random.Range(0, 10);
+        
+        description = $"Upgrade of type {type.ToString()} with value {value}"; 
     }
-    public skillTreeUpgrade(int rarity , int value, String description , String Stype){
+    public skillTreeUpgrade(int rarity , float value, String description , upgradeType Stype){
         
         this.rarity = rarity;
+        if(rarity == -1){
+            this.rarity = UnityEngine.Random.Range(1, 4);
+        }
         this.value = value;
         price = UnityEngine.Random.Range(rarity, rarity+1);
-        type = (upgradeType)Enum.Parse(typeof(upgradeType), Stype);
+        if(Stype == upgradeType.Random){
+            type = (upgradeType)UnityEngine.Random.Range(0, 10);
+        }
+        else{
+           type =  Stype;
+        }
 
         if(value == -1){
             this.value = UnityEngine.Random.Range(0.05f*((float)rarity), 0.09f*((float)rarity));
         }
-        string[] desc = description.Split(':'); // used for inserting the value
-        this.description = desc[0] + value + desc[1];
+        if(description.Contains(":")){
+            string[] desc = description.Split(':'); // used for inserting the value
+            this.description = desc[0] + value + desc[1];
+        }
+        else if(Stype == upgradeType.Random){
+            description = $"Upgrade of type {type.ToString()} with value {value}"; 
+        }
+        else{
+            this.description = description;
+        }
     }
+
+
+
+
   
     public int doUpgrade(int skillPoints){ 
         if (skillPoints < price || bought) return  skillPoints; // if you dont have enough skill points to buy that upgrade
@@ -56,11 +73,12 @@ public class skillTreeUpgrade
         return skillPoints+price;
     }
     public override string ToString(){
-        return description + " price: " + price + " modififer: " + value;
+        return description + "," + price + "," + value+","+rarity;
     }
     public bool Isbought(){
         return bought;
     }
+    public int getRarity(){return rarity;}
   
 }
 
@@ -70,9 +88,9 @@ public enum upgradeType{
     /// <summary>
     /// increase Maximum Health by a percentage
     /// </summary>
-    Health,
     PhaseCooldown,
     PhaseDuration,
+    Health,
     CritiqualHit,
     Speed,
     /// <summary>
@@ -100,6 +118,8 @@ public enum upgradeType{
     SkillPointAtWaveEnd,
     allCritiqualHitBelowCertainHp,
     InstantKillBelowCertainHp,
+
+    Random,
 
 
 

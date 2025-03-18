@@ -31,6 +31,8 @@ public class CloseEnemy : BaseEnemy
 
 
     public float RateOfChangeDirection = 2f; // Time before changing direction
+
+    public Material lineMaterial;
     
 
     public GameObject tongue;
@@ -72,7 +74,8 @@ public class CloseEnemy : BaseEnemy
         PlayerCollider = player.GetComponent<Collider2D>();
         
         tongue.transform.localScale =new Vector3(1, radiusCircularAttack,0); // return it to normal
-        gameObject.AddComponent<DrawFOV>().drawLines(viewDistance,FOV);
+
+        gameObject.AddComponent<DrawFOV>().drawLines(viewDistance,FOV,lineMaterial);
         
         tongueRenderer.enabled = false;
         tongue.SetActive(false);
