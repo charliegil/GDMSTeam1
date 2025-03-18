@@ -198,32 +198,32 @@ public class PlayerController : MonoBehaviour , IEventListener
 
     // TODO clean up code
     private void Attack() {
-       // Debug.Log("you click attack playerControl");
-        // if (attackInput > 0) {
-        //     if (targetEnemy == null) {
+    //    Debug.Log("you click attack playerControl");
+    //     if (attackInput > 0) {
+    //         if (targetEnemy == null) {
 
-        //         GameObject closestEnemy = GetClosestEnemy();
-        //         if (closestEnemy != null && Vector3.Distance(transform.position, closestEnemy.transform.position) <= attackRange) {
-        //             targetEnemy = closestEnemy;  // Modify to find closest enemy in range
-        //             EnergyBeam beam = GameObject.FindFirstObjectByType<EnergyBeam>();
-        //             beam.SetTarget(targetEnemy.transform);
-        //         }
-        //     }
+    //             GameObject closestEnemy = GetClosestEnemy();
+    //             if (closestEnemy != null && Vector3.Distance(transform.position, closestEnemy.transform.position) <= attackRange) {
+    //                 targetEnemy = closestEnemy;  // Modify to find closest enemy in range
+    //                 EnergyBeam beam = GameObject.FindFirstObjectByType<EnergyBeam>();
+    //                 beam.SetTarget(targetEnemy.transform);
+    //             }
+    //         }
 
-        //     if (targetEnemy != null && attackCoroutine == null) {
-        //         attackCoroutine = StartCoroutine(DamageOverTime());
-        //     }
-        // } 
+    //         if (targetEnemy != null && attackCoroutine == null) {
+    //             attackCoroutine = StartCoroutine(DamageOverTime());
+    //         }
+    //     } 
         
-        // // Attack button released
-        // else if (attackCoroutine != null) {
-        //     CancelAttack();
-        // }
+    //     // Attack button released
+    //     else if (attackCoroutine != null) {
+    //         CancelAttack();
+    //     }
 
-        // // Moved too far from enemy
-        // if (targetEnemy != null && Vector3.Distance(transform.position, targetEnemy.transform.position) > attackRange && attackCoroutine != null) {
-        //     CancelAttack();
-        // }
+    //     // Moved too far from enemy
+    //     if (targetEnemy != null && Vector3.Distance(transform.position, targetEnemy.transform.position) > attackRange && attackCoroutine != null) {
+    //         CancelAttack();
+    //     }
     }
 
     private void CancelAttack() {

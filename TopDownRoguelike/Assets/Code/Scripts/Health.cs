@@ -1,6 +1,7 @@
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Health : MonoBehaviour
 {
@@ -44,10 +45,11 @@ public class Health : MonoBehaviour
             gameObject.GetComponent<RangedEnemy>().isRetreating = true;
         }
         if (damagePopupPrefab != null) {
-            
-            GameObject popup = Instantiate(damagePopupPrefab, transform.position + new Vector3(0,1,0), Quaternion.identity);
-            DamagePopup damagePopup = popup.GetComponent<DamagePopup>();
-            damagePopup.Setup(damage);
+            GameObject popup = Instantiate(damagePopupPrefab, transform.position , Quaternion.identity) as GameObject;//+ new Vector3(0,1,0)
+            popup.transform.GetChild(0).GetComponent<TextMesh>().text = ""+damage;
+            popup.transform.GetChild(0).GetComponent<MeshRenderer>().sortingOrder = 10;
+            //DamagePopup damagePopup = popup.GetComponent<DamagePopup>();
+            //damagePopup.Setup(damage);
         }
         if(currentHealth<=0) OnDeath();
     }

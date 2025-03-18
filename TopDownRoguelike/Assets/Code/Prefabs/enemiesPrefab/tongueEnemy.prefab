@@ -51,10 +51,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentHealth: 100
-  Totalhealth: 0
+  Totalhealth: 10
   enemyValue: 1
   animator: {fileID: 4671697816956284708}
-  damagePopupPrefab: {fileID: 2708312710599233367, guid: 468f99c83ade09e448be9ba40c4b8bfa, type: 3}
+  damagePopupPrefab: {fileID: 18462240691209356, guid: a8e2580e148f33c439cfc965461e67be, type: 3}
 --- !u!114 &3121624165747418784
 MonoBehaviour:
   m_ObjectHideFlags: 0

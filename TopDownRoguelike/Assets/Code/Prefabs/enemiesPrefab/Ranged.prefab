@@ -269,7 +269,8 @@ MonoBehaviour:
   Totalhealth: 0
   enemyValue: 1
   animator: {fileID: 5636063512297748938}
-  damagePopupPrefab: {fileID: 2708312710599233367, guid: 468f99c83ade09e448be9ba40c4b8bfa, type: 3}
+
+  damagePopupPrefab: {fileID: 18462240691209356, guid: a8e2580e148f33c439cfc965461e67be, type: 3}
 --- !u!1 &7291485362655509080
 GameObject:
   m_ObjectHideFlags: 0
@@ -357,3 +358,5 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+  
+

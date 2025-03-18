@@ -221,7 +221,7 @@ MonoBehaviour:
   Totalhealth: 0
   enemyValue: 1
   animator: {fileID: 8930256167911764117}
-  damagePopupPrefab: {fileID: 2708312710599233367, guid: 468f99c83ade09e448be9ba40c4b8bfa, type: 3}
+   damagePopupPrefab: {fileID: 18462240691209356, guid: a8e2580e148f33c439cfc965461e67be, type: 3}
 --- !u!61 &6522559204830429920
 BoxCollider2D:
   m_ObjectHideFlags: 0
