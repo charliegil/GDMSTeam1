@@ -53,14 +53,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHP: 5
   CurrentHp: 0
-  damage: 8
-  attackRange: 20
   maxSpeed: 5
   acceleration: 0.1
-  animator: {fileID: 5636063512297748938}
+  damage: 8
+  attackRange: 20
   body: {fileID: 4904795967464446774}
   FOV: 0
-  viewDistance: 30
+  viewDistance: 70
   projectilePrefab: {fileID: 5272891131574521910, guid: f435db1cd67f7e741aa337324b82274e, type: 3}
   numberOfProjectiles: 1000
   timeBetweenProjectile: 1
@@ -269,7 +268,6 @@ MonoBehaviour:
   Totalhealth: 0
   enemyValue: 1
   animator: {fileID: 5636063512297748938}
-
   damagePopupPrefab: {fileID: 18462240691209356, guid: a8e2580e148f33c439cfc965461e67be, type: 3}
 --- !u!1 &7291485362655509080
 GameObject:
@@ -358,5 +356,3 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
-  
-

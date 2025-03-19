@@ -15,7 +15,7 @@ public class EnemyProjectile : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
-        Debug.Log("Hello from projectile");
+        
         StartPosition = transform.position;
     }
 
@@ -39,7 +39,7 @@ public class EnemyProjectile : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         
-        Debug.Log("Collision");
+        //Debug.Log("Collision");
         if (!other.CompareTag("Enemy"))
         {
             Debug.Log(other.tag);

@@ -12,16 +12,13 @@ using NUnit.Framework;
 
 public class CloseEnemy : BaseEnemy
 {
-    [SerializeField] private float maxHp = 100;
-    //[SerializeField] private int damage = 5;
+    
     public float radiusCircularAttack;
 
     public float frontAttackRange;
     public float trackingSpeed; // the rotation speed of the enemy
 
     public float attackReload = 1;  // the time between each attack
-
-    public float reactionTime = 0;
 
     public float movingSpeed = 1; // the speed when he sees you
 
@@ -42,7 +39,7 @@ public class CloseEnemy : BaseEnemy
 
     public GameObject enemySprite;
 
-    private CircleCollider2D attackCollider; // t
+    private CircleCollider2D attackCollider;
     private Collider2D PlayerCollider;
     
   
@@ -88,7 +85,7 @@ public class CloseEnemy : BaseEnemy
     {
         transform.rotation = Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z);
         enemySprite.transform.localRotation  = Quaternion.Euler(0,0,-transform.rotation.eulerAngles.z);
-        if(IsAttacking || IsPlayerInAttackRange() || getDirectionToPlayer().magnitude < radiusCircularAttack*(2/3)) {
+        if(/*IsAttacking ||*/ IsPlayerInAttackRange() || getDirectionToPlayer().magnitude < radiusCircularAttack*(2/3)) {
             body.linearVelocity = new Vector2(0,0);
             return;
         }
@@ -98,7 +95,7 @@ public class CloseEnemy : BaseEnemy
 
     private void LateUpdate()
     {
-        if(IsAttacking) return;
+        //if(IsAttacking) return;
         
         if (IsPlayerInlineOfSight()){
             Vector2 direction = (player.transform.position - transform.position).normalized;

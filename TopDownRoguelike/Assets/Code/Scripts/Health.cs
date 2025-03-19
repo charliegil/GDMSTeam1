@@ -37,7 +37,7 @@ public class Health : MonoBehaviour
 
     public void TakeDamage(float damage) {
         currentHealth -= damage;
-        Debug.Log(currentHealth);
+        //Debug.Log(currentHealth);
         animator.SetTrigger("takeDamage");
         
         if(gameObject.name.Contains("Ranged")){

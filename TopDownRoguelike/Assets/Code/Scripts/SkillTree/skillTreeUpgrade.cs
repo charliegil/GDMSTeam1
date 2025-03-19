@@ -21,7 +21,7 @@ public class skillTreeUpgrade
 
     public skillTreeUpgrade(int rarity){
         this.rarity = rarity;
-        this.value = UnityEngine.Random.Range(0.05f*((float)rarity), 0.09f*((float)rarity));
+        this.value = 1f+ UnityEngine.Random.Range(0.05f*rarity, 0.095f*rarity);
         price = UnityEngine.Random.Range(rarity, rarity+1);
         
         type = (upgradeType)UnityEngine.Random.Range(0, 10);
@@ -34,7 +34,6 @@ public class skillTreeUpgrade
         if(rarity == -1){
             this.rarity = UnityEngine.Random.Range(1, 4);
         }
-        this.value = value;
         price = UnityEngine.Random.Range(rarity, rarity+1);
         if(Stype == upgradeType.Random){
             type = (upgradeType)UnityEngine.Random.Range(0, 10);
@@ -43,8 +42,9 @@ public class skillTreeUpgrade
            type =  Stype;
         }
 
+        this.value = value;
         if(value == -1){
-            this.value = UnityEngine.Random.Range(0.05f*((float)rarity), 0.09f*((float)rarity));
+            this.value = 1f+ UnityEngine.Random.Range(0.05f*rarity, 0.095f*rarity);
         }
         if(description.Contains(":")){
             string[] desc = description.Split(':'); // used for inserting the value
@@ -73,7 +73,7 @@ public class skillTreeUpgrade
         return skillPoints+price;
     }
     public override string ToString(){
-        return description + "," + price + "," + value+","+rarity;
+        return description + ";" + price + ";" +value.ToString("F2") +";"+rarity;
     }
     public bool Isbought(){
         return bought;

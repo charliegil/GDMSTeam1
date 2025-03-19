@@ -13,11 +13,12 @@ public class Collectable : MonoBehaviour
     [SerializeField] private float collectRadius;
     [SerializeField] private bool CollectAutomatically = false;
     /// <summary>
-    /// // specifies which key must be pressed in order to collect that item
+    /// specifies which key must be pressed in order to collect that item
     /// </summary>
+    [Tooltip("Specifies which key must be pressed in order to collect that item")]
     [SerializeField] private KeyCode keyToObtain = KeyCode.E; 
 
-    [SerializeField] private float value;
+    [Tooltip("This is the multiplier of the boost")] [SerializeField] private float value;
 /// <summary>
 /// specifies how much time the boost is gonna last. not used for Life and skillPoint
 /// </summary>
@@ -131,7 +132,7 @@ public class Collectable : MonoBehaviour
     protected void OnPlayerCollect(GameObject Player){
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
         if (sr) sr.enabled = false; 
-        Debug.Log("the collectible has reached the player");
+        //Debug.Log("the collectible has reached the player");
         
         if (type == CollectableType.Life){
             EventManager.PlayerTakeDamage(-value*effectMultiplier);

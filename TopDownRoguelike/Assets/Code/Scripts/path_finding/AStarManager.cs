@@ -62,6 +62,8 @@ public class AStarManager : MonoBehaviour
         }
         return foundNode;
     }
+
+    [System.Obsolete]
     public Node FindFurthestNode(Vector2 position){
         Node foundNode = null;
         float maxDistance = 0;
@@ -74,6 +76,8 @@ public class AStarManager : MonoBehaviour
         }
         return foundNode;
     }
+
+    [System.Obsolete]
     public Node[] NodesInScene(){
         return FindObjectsOfType<Node>();
     }

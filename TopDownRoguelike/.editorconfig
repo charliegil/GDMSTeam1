@@ -2,9 +2,4 @@
 
 # Default severity for all analyzer diagnostics
 
-# IDE0058: Expression value is never used
-dotnet_diagnostic.IDE0058.severity = none
-
-# IDE1006: Naming Styles
-dotnet_diagnostic.IDE1006.severity = none
 

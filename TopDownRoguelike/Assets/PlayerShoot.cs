@@ -47,14 +47,14 @@ public class PlayerShoot : MonoBehaviour
         // Instantiate bullet at player's position
         GameObject bullet = Instantiate(_bulletPrefab, transform.position+ (Vector3)(_gunOffset*direction), Quaternion.identity);
     
-        bullet.GetComponent<Bullet>().damage*= (playerController.getAttackMultiplier()*playerController.IsAttackCritiqual());
+        bullet.GetComponent<Bullet>().damage*= playerController.getAttackMultiplier()*playerController.IsAttackCritiqual();
         // Rotate bullet to face the mouse direction
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         bullet.transform.rotation = Quaternion.Euler(0f, 0f, angle);
         
         // Apply velocity in the calculated direction
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-        rb.linearVelocity = direction * _bulletSpeed;
+        rb.linearVelocity = direction * _bulletSpeed + playerController.GetComponent<Rigidbody2D>().linearVelocity* 0.3f; // Get player's velocity
 
         bullet.transform.SetParent(bulletParent.transform);
         // GameObject bullet = Instantiate(_bulletPrefab, _gunOffset.position, transform.rotation);

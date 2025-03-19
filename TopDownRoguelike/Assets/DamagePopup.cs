@@ -9,7 +9,7 @@ public class DamagePopup : MonoBehaviour
 
     public void Setup(float damageAmount)
     {
-        damageText.text = damageAmount.ToString();
+        damageText.text = damageAmount.ToString("F2");
         textColor = damageText.color; 
     }
 

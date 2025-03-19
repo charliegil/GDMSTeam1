@@ -13,7 +13,13 @@ public class skillNode : MonoBehaviour , IPointerEnterHandler, IPointerExitHandl
 
     private SpriteRenderer spriteRenderer;
 
-    public static GameObject textAttributes;
+    public static GameObject InfoPanel;
+
+    private TextMeshProUGUI descriptionText;
+
+    private TextMeshProUGUI priceText;
+
+    private TextMeshProUGUI valueText;
 
     
 
@@ -24,10 +30,9 @@ public class skillNode : MonoBehaviour , IPointerEnterHandler, IPointerExitHandl
         if (spriteRenderer == null) spriteRenderer = gameObject.AddComponent<Image>();
         spriteRenderer.sprite = SpriteLocked;
 
-        
-       
-
-
+        descriptionText = InfoPanel.transform.Find("Desc").GetComponent<TextMeshProUGUI>();
+        priceText = InfoPanel.transform.Find("Price").GetComponent<TextMeshProUGUI>();
+        valueText = InfoPanel.transform.Find("Value").GetComponent<TextMeshProUGUI>();
         
     }
     public void setTreeNode(treeNode tree){
@@ -63,18 +68,25 @@ public class skillNode : MonoBehaviour , IPointerEnterHandler, IPointerExitHandl
     
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log("on mouse over");
+        //Debug.Log("on mouse over");
+        string upgradeDesc = node.GetUpgrade().ToString();
+        string[] split = upgradeDesc.Split(';');   
 
-        textAttributes.GetComponent<TextMeshProUGUI>().text = node.GetUpgrade().ToString();
+        descriptionText.text = split[0];
+        priceText.text = "Price: " + split[1];
+        valueText.text = "Boost: " + split[2];
+        //return description + ";" + price + ";" + value+";"+rarity; // to string method in skilltreeUpgrade
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        Debug.Log(textAttributes == null ? "textAttributes is NULL!" : "textAttributes exists: " + textAttributes.name);
-        Debug.Log(textAttributes?.GetComponent<TextMeshProUGUI>() == null ? "TextMeshPro component is MISSING!" : "TextMeshPro found.");
+        Debug.Log(descriptionText == null ? "textAttributes is NULL!" : "textAttributes exists: " + descriptionText.name);
+        Debug.Log(descriptionText == null ? "TextMeshPro component is MISSING!" : "TextMeshPro found.");
          Debug.Log("on mouse dxit");
 
-        textAttributes.GetComponent<TextMeshProUGUI>().text = "Hover to see attributes";
+        descriptionText.text = "Hover to see attributes";
+        priceText.text = "Price:";
+        valueText.text = "Value:";
     }
     public void OnPointerClick(PointerEventData eventData)
     {

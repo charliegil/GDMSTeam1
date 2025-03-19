@@ -19,13 +19,14 @@ public class PlayerController : MonoBehaviour , IEventListener
 
 
     // ===================== UI =====================
-
+    [Header("UI elements")]
     public UnityEngine.UI.Slider SliderPhaseCooldown;
    
     public GameObject LoseScreen;
  
 
     // ===================== MOVEMENT =====================
+    
     [SerializeField] private float moveSpeed = 5f;
     private Vector2 movementDirection;
     private Vector2 currentMovement;
@@ -38,6 +39,7 @@ public class PlayerController : MonoBehaviour , IEventListener
 
     private Vector2 pointerInput;
     // ===================== PHASING =====================
+    [Header("Phase Settings")]
     [SerializeField] private float phaseDuration = 1f;
     [SerializeField] private float phaseFactor = 2f;
     [SerializeField] private float phaseCooldown = 5f;
@@ -65,17 +67,19 @@ public class PlayerController : MonoBehaviour , IEventListener
     // private float _bulletSpeed;
 
     // private bool _fireContinuously;
-    [SerializeField] private float attackRange = 3f;
     private float attackInput;
     private GameObject targetEnemy;
     private Coroutine attackCoroutine;
 
+    [Header("Attack Settings")]
+    [SerializeField] private float attackRange = 3f;
     public float attackMultiplier = 1f;
     public float attackDamage = 10f;
     public float damageTickDelay = 0.5f;
     public int numTargets = 1;
 
 // ===================== CRITIQUAL =====================
+    [Header("critiqual hits Settings")]
     [Range(0f, 1f)] public float critChance = 0.04f; // starting value
 
     /// <summary>
@@ -91,7 +95,6 @@ public class PlayerController : MonoBehaviour , IEventListener
     // ===================== Health =====================
     public float maxHealth;
     private float currentHealth;
-    private float healthMultiplier;
 
     public HealthManager healthManager;
     
@@ -143,8 +146,8 @@ public class PlayerController : MonoBehaviour , IEventListener
     // ===================== INPUT HANDLING =====================
     private void OnMove(InputAction.CallbackContext context) {
         movementDirection = context.ReadValue<Vector2>();
-        animator.SetFloat("moveX", movementDirection.x);
-        animator.SetFloat("moveY", movementDirection.y);
+        //animator.SetFloat("moveX", movementDirection.x);
+        //animator.SetFloat("moveY", movementDirection.y);
     }
 
     private void OnPhase(InputAction.CallbackContext context) {
@@ -173,6 +176,8 @@ public class PlayerController : MonoBehaviour , IEventListener
             SliderPhaseCooldown.value = (phaseCooldown-phaseTimer)/phaseCooldown;
             phaseTimer-= Time.deltaTime;
         }
+        float currentSpeed = rb.linearVelocity.magnitude;
+        animator.SetFloat("speed" , currentSpeed);
     }
     // private void FireBullet(){
     //     GameObject bullet = Instantiate(_bulletPrefab, transform.position, transform.rotation);
@@ -300,8 +305,10 @@ public class PlayerController : MonoBehaviour , IEventListener
     /// </summary>
         if(currentHealth <= InstantKillHP) return 100; // some sort of last chance, when below 1hp, all attacks are instant kills
         if(currentHealth<=allCritiqualHits) return critiqualHitFactor;
-        float random = UnityEngine.Random.Range(0, 1);
+        float random = UnityEngine.Random.Range(0f, 1f);
+        Debug.Log(random );
         if(random <= critChance) return critiqualHitFactor;
+        Debug.Log("no attack mutliplier");
         return 1;
     }
     public float getAttackMultiplier(){
@@ -328,7 +335,7 @@ public class PlayerController : MonoBehaviour , IEventListener
         float alpha = 0.5f;
         spriteRenderer.color = new Color(oldColor.r, oldColor.g, oldColor.b, alpha);
         
-        animator.gameObject.transform.rotation = Quaternion.Euler(0,20,0);
+        spriteRenderer.gameObject.transform.rotation = Quaternion.Euler(0,20,0);
 
         // Increase movement speed
         currentSpeed = moveSpeed * phaseFactor;
@@ -349,7 +356,7 @@ public class PlayerController : MonoBehaviour , IEventListener
         
 
         // Return player to normal state
-        animator.gameObject.transform.rotation = Quaternion.Euler(0,0,0);
+        spriteRenderer.gameObject.transform.rotation = Quaternion.Euler(0,0,0);
         spriteRenderer.color = oldColor;
         currentSpeed = moveSpeed;
 
@@ -471,14 +478,13 @@ public class PlayerController : MonoBehaviour , IEventListener
         currentHealth = Math.Min(currentHealth,maxHealth);
         healthManager.setHP(currentHealth,true);
     }
+
     public void IncreaseMaxHealthByPercentage(float increase) {
        
-        healthMultiplier*=increase;
-        maxHealth = maxHealth*healthMultiplier;
+        maxHealth*=increase;
         healthManager.totalHP = maxHealth;
         currentHealth = Math.Min(currentHealth,maxHealth);
         healthManager.setHP(currentHealth,true);
-        
     }
 
     public void IncreaseCritChance(float percentIncrease) {
@@ -539,4 +545,5 @@ public class PlayerController : MonoBehaviour , IEventListener
         EventManager.OnPhaseDurationBoost -= ReducePhaseDuration;
 
     }
+    
 }
