@@ -53,7 +53,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHP: 5
   CurrentHp: 0
-  maxSpeed: 8
+  maxSpeed: 10
   acceleration: 0.3
   damage: 8
   attackRange: 35
