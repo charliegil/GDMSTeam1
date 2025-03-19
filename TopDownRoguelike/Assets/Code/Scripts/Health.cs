@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -16,6 +17,8 @@ public class Health : MonoBehaviour
 
     public GameObject damagePopupPrefab;
 
+    private static PlayerController playerController;
+
     // will need to integrate the UI health bar with This
 
     // // Update is called once per frame
@@ -28,6 +31,7 @@ public class Health : MonoBehaviour
     void Start()
     {
         Totalhealth = currentHealth;
+        if(playerController==null) playerController = GameObject.Find("Player")?.GetComponent<PlayerController>();
     }
 
     void Update()
@@ -36,6 +40,10 @@ public class Health : MonoBehaviour
     }
 
     public void TakeDamage(float damage) {
+    
+        float attackMultiplier = playerController.getAttackMultiplier();
+        float critiqual = playerController.IsAttackCritiqual();
+        damage =  (damage*critiqual*attackMultiplier);
         currentHealth -= damage;
         //Debug.Log(currentHealth);
         animator.SetTrigger("takeDamage");
@@ -45,10 +53,13 @@ public class Health : MonoBehaviour
             gameObject.GetComponent<RangedEnemy>().isRetreating = true;
         }
         if (damagePopupPrefab != null) {
+
             GameObject popup = Instantiate(damagePopupPrefab, transform.position , Quaternion.identity) as GameObject;//+ new Vector3(0,1,0)
             popup.transform.GetChild(0).GetComponent<TextMesh>().text = ""+damage;
             popup.transform.GetChild(0).GetComponent<MeshRenderer>().sortingOrder = 10;
+            if(!IsOne(critiqual)) popup.transform.GetChild(0).GetComponent<TextMesh>().color = Color.red;
             //DamagePopup damagePopup = popup.GetComponent<DamagePopup>();
+
             //damagePopup.Setup(damage);
         }
         if(currentHealth<=0) OnDeath();
@@ -62,11 +73,10 @@ public class Health : MonoBehaviour
         EventManager.SpawnCollectible(transform.position);
         Destroy(gameObject);
     }
-    
-    public void TakeDamageOverTime(float damage, float time, float step) {
-    
-        
+    bool IsOne(float value){
+    return Math.Abs(value - 1f) < 0.0001f; // Tolerance for floating-point precision errors
     }
+    
     
     private IEnumerator TakePoisonDamage(float damage, float time, float step)
     {   

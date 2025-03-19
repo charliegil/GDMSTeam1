@@ -273,7 +273,7 @@ public class PlayerController : MonoBehaviour , IEventListener
        
         Debug.Log("health: " + currentHealth);
         if(damage > 0){
-            damage*= defenceBoost;
+            damage/= defenceBoost;
             
            
             if(Invincible) {

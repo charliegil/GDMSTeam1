@@ -26,6 +26,12 @@ public class MainMenu : MonoBehaviour
     {
 
     }
+
+    public void credits(){
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Credits");
+    }
+
+
     public void goMenu()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");

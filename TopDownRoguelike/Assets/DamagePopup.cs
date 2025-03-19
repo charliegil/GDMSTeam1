@@ -7,6 +7,8 @@ public class DamagePopup : MonoBehaviour
     private float disappearTimer = 1f;  
     private Color textColor;
 
+    [SerializeField] PlayerController playerController;
+
     public void Setup(float damageAmount)
     {
         damageText.text = damageAmount.ToString("F2");
