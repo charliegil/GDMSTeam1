@@ -265,6 +265,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentHealth: 75
+  deathParticles: {fileID: 2832167548909918162, guid: 1b61d08785ca28044a6ae3e21eee117e, type: 3}
   Totalhealth: 0
   enemyValue: 1
   animator: {fileID: 5636063512297748938}

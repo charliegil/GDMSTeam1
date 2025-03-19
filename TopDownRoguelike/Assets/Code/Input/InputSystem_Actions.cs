@@ -116,6 +116,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Attack1"",
+                    ""type"": ""Button"",
+                    ""id"": ""7436e156-15da-44f5-9823-35cd98b3b2e1"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -523,6 +532,17 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""PointerPosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f3bdc061-c53c-4be0-841b-6197d3a2892b"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack1"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1120,6 +1140,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_Next = m_Player.FindAction("Next", throwIfNotFound: true);
         m_Player_Phase = m_Player.FindAction("Phase", throwIfNotFound: true);
         m_Player_PointerPosition = m_Player.FindAction("PointerPosition", throwIfNotFound: true);
+        m_Player_Attack1 = m_Player.FindAction("Attack1", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1209,6 +1230,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Next;
     private readonly InputAction m_Player_Phase;
     private readonly InputAction m_Player_PointerPosition;
+    private readonly InputAction m_Player_Attack1;
     public struct PlayerActions
     {
         private @InputSystem_Actions m_Wrapper;
@@ -1223,6 +1245,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         public InputAction @Next => m_Wrapper.m_Player_Next;
         public InputAction @Phase => m_Wrapper.m_Player_Phase;
         public InputAction @PointerPosition => m_Wrapper.m_Player_PointerPosition;
+        public InputAction @Attack1 => m_Wrapper.m_Player_Attack1;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1262,6 +1285,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @PointerPosition.started += instance.OnPointerPosition;
             @PointerPosition.performed += instance.OnPointerPosition;
             @PointerPosition.canceled += instance.OnPointerPosition;
+            @Attack1.started += instance.OnAttack1;
+            @Attack1.performed += instance.OnAttack1;
+            @Attack1.canceled += instance.OnAttack1;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1296,6 +1322,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @PointerPosition.started -= instance.OnPointerPosition;
             @PointerPosition.performed -= instance.OnPointerPosition;
             @PointerPosition.canceled -= instance.OnPointerPosition;
+            @Attack1.started -= instance.OnAttack1;
+            @Attack1.performed -= instance.OnAttack1;
+            @Attack1.canceled -= instance.OnAttack1;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1488,6 +1517,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         void OnNext(InputAction.CallbackContext context);
         void OnPhase(InputAction.CallbackContext context);
         void OnPointerPosition(InputAction.CallbackContext context);
+        void OnAttack1(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
