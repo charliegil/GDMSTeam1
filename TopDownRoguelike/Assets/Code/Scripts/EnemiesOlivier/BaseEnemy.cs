@@ -7,16 +7,19 @@ using System.Collections.Generic;
 
 public abstract class BaseEnemy : MonoBehaviour , IEventListener
 {
-
+[Header("Health Settings")]
 [SerializeField] protected float maxHP =100;
 [SerializeField] protected float CurrentHp;
 
+[Header("Movement Settings")]
+[SerializeField] protected float maxSpeed = 10;
 protected float currentSpeed = 0;
+[SerializeField] protected float acceleration = 1;
+
+[Header("Damage Settings")]
 [SerializeField] protected int damage;
 
 [SerializeField] protected float attackRange = 10;
-[SerializeField] protected float maxSpeed = 10;
-[SerializeField] protected float acceleration = 1;
 
 [SerializeField] protected Rigidbody2D body;
 
@@ -103,6 +106,6 @@ protected float timer;
 
     public void unsubscribe()
     {
-        Debug.Log("enemy died");
+        //Debug.Log("enemy died");
     }
 }

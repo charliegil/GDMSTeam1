@@ -24,7 +24,7 @@ public class BoostUIHandler : MonoBehaviour, IEventListener {
         
         for(int i = 0;i<positions.Length;i++){
             UIBoosts[i].rectTransform = UIBoosts[i].UI.GetComponent<RectTransform>();
-            positions[i] = UIBoosts[i].rectTransform.transform.position;
+            positions[i] = UIBoosts[i].rectTransform.anchoredPosition ;
         }
         
         
@@ -62,7 +62,7 @@ public class BoostUIHandler : MonoBehaviour, IEventListener {
         int position = getFirstOpenPosition();
         UIBoosts[index].currentPosition = position;
         positionsOccupied[position] = true;
-        UIBoosts[index].rectTransform.transform.position = positions[position];
+        UIBoosts[index].rectTransform.anchoredPosition  = positions[position];
         numBoostActive++;
         UIBoosts[index].UI.SetActive(true);
         float roundedValue;

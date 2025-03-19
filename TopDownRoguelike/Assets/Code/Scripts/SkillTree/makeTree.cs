@@ -34,7 +34,7 @@ public class makeTree : MonoBehaviour
     public Sprite SpriteLocked;
     public Sprite SpriteUnlocked;
 
-    public GameObject textAttributes;
+    public GameObject InfoPanel;
 
     private List<skillTreeUpgrade> possibleUpgrades;
 
@@ -45,12 +45,12 @@ public class makeTree : MonoBehaviour
     {
         possibleUpgrades = UpgradesReader.readValues();
         foreach (skillTreeUpgrade upgrade in possibleUpgrades ){
-            Debug.Log(upgrade.ToString());
+            //Debug.Log(upgrade.ToString());
             
         }
         skillNode.SpriteLocked = SpriteLocked;
         skillNode.SpriteUnlocked = SpriteUnlocked;
-        skillNode.textAttributes = textAttributes;
+        skillNode.InfoPanel = InfoPanel;
 
         if(enableCoolerTrees) minNumOfChildren = Math.Max(minNumOfChildren, 1);
         treeNode root = setTree();

@@ -128,13 +128,10 @@ public class SkillTreeHandler : MonoBehaviour , IEventListener
                 Debug.LogWarning("not recognized upgrade type: " + type);
                 break; 
         }   
-
-
-
-
-    
     }
-    
+
+
+
 
     public void subscribe()
     {
@@ -150,6 +147,9 @@ public class SkillTreeHandler : MonoBehaviour , IEventListener
         EventManager.OnSkillPointAcquired -= HandleSkillPointAcquired;
     }
 
-    
+    void OnDisable()
+    {
+      unsubscribe();
+    }
 
 }

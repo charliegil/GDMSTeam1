@@ -69,20 +69,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHP: 0
   CurrentHp: 0
-  damage: 10
-  attackRange: 5
   maxSpeed: 10
   acceleration: 1
-  animator: {fileID: 0}
+  damage: 10
+  attackRange: 5
   body: {fileID: 1743344865510732532}
   FOV: 40
-  viewDistance: 25
-  maxHp: 100
+  viewDistance: 40
   radiusCircularAttack: 10
   frontAttackRange: 20
   trackingSpeed: 0.05
   attackReload: 2
-  reactionTime: 2
   movingSpeed: 5
   findSpeed: 5
   attackDuration: 1
