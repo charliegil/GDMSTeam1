@@ -77,6 +77,7 @@ public class Health : MonoBehaviour
     }
     bool IsOne(float value){
     return Math.Abs(value - 1f) < 0.0001f; // Tolerance for floating-point precision errors
+    }
     private void SpawnDeathInstance(){
        deathParticlesInstance = Instantiate(deathParticles, transform.position, Quaternion.identity);
     }
