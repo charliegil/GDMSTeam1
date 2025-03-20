@@ -118,7 +118,11 @@ public enum upgradeType{
     SkillPointAtWaveEnd,
     allCritiqualHitBelowCertainHp,
     InstantKillBelowCertainHp,
-
+    // ============ Upgrades about the beam here
+    BeamAttackCooldown,
+    BeamAttackDuration,
+    BeamTickRate,
+    BeamDamageIncrease,
     Random,
 
 

@@ -23,7 +23,7 @@ public class EnemyProjectile : MonoBehaviour
     private void Update()
     {
         if((transform.position - StartPosition).magnitude > range){
-            Debug.Log("the projectile has reached its range. transforming into a damage zone now");
+            //Debug.Log("the projectile has reached its range. transforming into a damage zone now");
             Destroy(gameObject);
             GameObject damageZone = Instantiate(damageZonePrefab, transform.position, Quaternion.identity);
         }
@@ -42,8 +42,8 @@ public class EnemyProjectile : MonoBehaviour
         //Debug.Log("Collision");
         if (!other.CompareTag("Enemy"))
         {
-            Debug.Log(other.tag);
-            Debug.Log("Hit Something");
+            //Debug.Log(other.tag);
+            //Debug.Log("Hit Something");
      
             Vector3 pointOfContact = GetComponent<Collider2D>().ClosestPoint(other.transform.position);
 

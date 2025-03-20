@@ -48,10 +48,7 @@ public class Health : MonoBehaviour
         //Debug.Log(currentHealth);
         animator.SetTrigger("takeDamage");
         
-        if(gameObject.name.Contains("Ranged")){
-            Debug.Log("i am a ranged enemy");
-            gameObject.GetComponent<RangedEnemy>().isRetreating = true;
-        }
+        
         if (damagePopupPrefab != null) {
 
             GameObject popup = Instantiate(damagePopupPrefab, transform.position , Quaternion.identity) as GameObject;//+ new Vector3(0,1,0)

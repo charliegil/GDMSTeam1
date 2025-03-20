@@ -1,0 +1,98 @@
+The spirit of the dragon strengthens your body, increasing maximum health.;Health  
+Your strikes carry the precision of a master calligrapher, increasing critical hit chance.;CritiqualHit  
+The wind guides your steps like a dancing crane, boosting movement speed.;Speed  
+Your body hardens like jade, reducing incoming damage.;Defence  
+The ferocity of the tiger empowers your attacks, increasing damage dealt.;Attack  
+The wisdom of the sages grants you faster phase cooldowns.;PhaseCooldown  
+The flow of yin and yang stabilizes, extending your phase duration.;PhaseDuration  
+The generosity of the heavens blesses you, increasing power-up drop rates.;DropRate  
+The essence of the phoenix strengthens all power-ups, amplifying their effects.;PowerUpEffectMultiplier  
+The patience of the turtle extends power-up duration, making them last longer.;PowerUpDurationtMultiplier  
+The qi of the ancients flows through you, increasing your health reserves.;Health  
+The bite of the serpent sharpens your attacks, increasing critical hit chance.;CritiqualHit  
+The speed of the white tiger courses through your veins, making you faster.;Speed  
+Your skin hardens like dragon scales, increasing your defense.;Defence  
+The power of the celestial lion roars in your strikes, increasing attack strength.;Attack  
+The whispers of old masters guide you, shortening your phase cooldown.;PhaseCooldown  
+The harmony of the lotus extends your phase duration, allowing for longer action time.;PhaseDuration  
+Fallen enemies now leave behind greater offerings, increasing power-up drop rates.;DropRate  
+Your connection to the spirit world amplifies all power-ups' effects.;PowerUpEffectMultiplier  
+The steady breath of a monk prolongs the duration of power-ups.;PowerUpDurationtMultiplier  
+The resilience of the mountain increases your maximum health.;Health  
+The clarity of the moon grants you sharper strikes, boosting critical hits.;CritiqualHit  
+The swiftness of the red fox blesses you, increasing movement speed.;Speed  
+Your body is as unyielding as steel, enhancing your defense.;Defence  
+The wrath of the war god fuels your attacks, increasing damage.;Attack  
+The blessings of the celestial dragon shorten your phase cooldown.;PhaseCooldown  
+The energy of the mystic koi lengthens your phase duration.;PhaseDuration  
+The mercy of the Bodhisattva increases the frequency of power-up drops.;DropRate  
+The chi of the white crane empowers all power-ups, strengthening their effects.;PowerUpEffectMultiplier  
+The tranquility of the flowing river extends the duration of power-ups.;PowerUpDurationtMultiplier  
+The sacred turtle shell shields you, increasing your defense.;Defence  
+The force of the monsoon empowers your blows, increasing attack strength.;Attack  
+The spirits of the ancestors guide your movements, increasing speed.;Speed  
+The protection of the jade emperor blesses you, increasing your maximum health.;Health  
+The unseen forces of fate make power-ups drop more frequently.;DropRate  
+The might of the ox grants you resilience, improving your defense.;Defence  
+The blessing of the qilin enhances all power-up effects, making them stronger.;PowerUpEffectMultiplier  
+The balance of yin and yang stabilizes your energy, prolonging power-up duration.;PowerUpDurationtMultiplier  
+The cunning of the monkey god sharpens your reflexes, increasing speed.;Speed  
+Your hands move like falling cherry blossoms, increasing critical hit chance.;CritiqualHit  
+The grace of the celestial deer increases your health.;Health  
+The strikes of your blade are guided by the stars, increasing attack power.;Attack  
+The essence of the golden lotus speeds your recovery, reducing phase cooldown.;PhaseCooldown  
+The patience of the old masters steadies your breath, lengthening phase duration.;PhaseDuration  
+The generosity of the immortals increases the drop rate of power-ups.;DropRate  
+The force of the storm tiger empowers your power-ups, making them more effective.;PowerUpEffectMultiplier  
+The blessing of the moon rabbit lengthens the duration of power-ups.;PowerUpDurationtMultiplier  
+The courage of the crimson dragon strengthens your body, increasing health.;Health  
+The precision of the jade spear enhances your critical hits.;CritiqualHit  
+The fury of the celestial horse fuels your attacks, increasing attack power.;Attack  
+The wisdom of the mystic sage guides you, improving your defense.;Defence  
+The speed of the flowing river quickens your step, increasing speed.;Speed  
+The protection of the guardian lion shields you from harm, increasing defense.;Defence  
+Your strikes carry the force of a thousand storms, increasing attack damage.;Attack  
+The celestial winds lift you, making you lighter on your feet.;Speed  
+The teachings of the old masters enhance your ability to evade danger.;Defence  
+A surge of divine energy strengthens your spirit, increasing health.;Health  
+Your weapons resonate with the power of ancient spirits, improving critical hits.;CritiqualHit  
+A radiant aura surrounds you, reducing the cooldown of your phase abilities.;PhaseCooldown  
+Time slows when you shift, extending the duration of your phase state.;PhaseDuration  
+The spirits of fallen warriors bestow their energy, increasing power-up drops.;DropRate  
+The energy of the dragon pearl amplifies the effects of power-ups.;PowerUpEffectMultiplier  
+A golden glow lingers on your body, making power-ups last longer.;PowerUpDurationtMultiplier  
+The iron will of the legendary generals makes you unbreakable.;Defence  
+The fangs of the celestial wolf sharpen your attacks, boosting damage.;Attack  
+The breath of the heavens quickens your movements, increasing speed.;Speed  
+The ancient texts reveal their secrets to you, refining your technique.;CritiqualHit  
+The dragon’s blessing strengthens your soul, granting greater health.;Health  
+A warrior’s discipline fortifies your mind, lowering phase cooldown.;PhaseCooldown  
+The timeless flow of the great river extends your phase duration.;PhaseDuration  
+Your name is whispered in legends, causing enemies to drop more power-ups.;DropRate  
+The divine essence of jade enhances all power-ups you collect.;PowerUpEffectMultiplier  
+The will of the ancestors lengthens the effects of power-ups.;PowerUpDurationtMultiplier  
+Your heart beats in rhythm with the cosmos, improving attack power.;Attack  
+The balance of the five elements strengthens your resilience.;Defence  
+The fire of the vermillion bird burns within you, increasing speed.;Speed  
+The call of the white crane guides your strikes, increasing critical hits.;CritiqualHit  
+The immovable strength of the earth dragon increases your health.;Health  
+A shifting mist surrounds you, making your phase cooldown shorter.;PhaseCooldown  
+Time bends to your will, extending your presence in the phase state.;PhaseDuration  
+The generosity of the fortune gods fills the battlefield with power-ups.;DropRate  
+A celestial sigil glows on your body, amplifying power-up effects.;PowerUpEffectMultiplier  
+A lingering divine energy slows the fading of power-ups.;PowerUpDurationtMultiplier  
+Your strikes carry the wisdom of generations, increasing attack power.;Attack  
+Your spirit is as unyielding as jade, increasing your defense.;Defence  
+The tides of destiny push you forward, increasing movement speed.;Speed  
+Your attacks carry the fury of the storm, improving critical hits.;CritiqualHit  
+The heavenly gate opens within you, strengthening your life force.;Health  
+The fleeting step of the fox god reduces your phase cooldown.;PhaseCooldown  
+A ghostly presence lingers as you move, prolonging phase duration.;PhaseDuration  
+The moon goddess grants her favor, increasing the drop rate of power-ups.;DropRate  
+The celestial order strengthens all power-ups, making them more potent.;PowerUpEffectMultiplier  
+The silent wisdom of the mountain monk extends power-up duration.;PowerUpDurationtMultiplier  
+Your battle spirit ignites like a dragon’s breath, increasing attack power.;Attack  
+The steadfast nature of the bamboo forest enhances your defense.;Defence  
+The flowing energy of the koi fish increases your speed.;Speed  
+The precision of the jade arrow sharpens your strikes, boosting critical hits.;CritiqualHit  
+The eternal breath of the heavens fills your lungs, increasing health.;Health  

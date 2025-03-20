@@ -166,7 +166,7 @@ public class CloseEnemy : BaseEnemy
             StartCoroutine(CircularAttack());
         }
         else if (IsPlayerInlineOfSight()){
-            Debug.Log("doing front attack");
+            //Debug.Log("doing front attack");
             IsAttacking = true;
             StartCoroutine(FrontAttack());
         }
