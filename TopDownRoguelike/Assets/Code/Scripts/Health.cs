@@ -7,6 +7,8 @@ using UnityEngine.UIElements;
 public class Health : MonoBehaviour
 {
     [SerializeField] private float currentHealth = 100f;
+    [SerializeField] private ParticleSystem deathParticles;
+    private ParticleSystem deathParticlesInstance;
     [SerializeField] private float Totalhealth = 0;
 
     [SerializeField] private int enemyValue = 1;
@@ -62,7 +64,7 @@ public class Health : MonoBehaviour
         if(currentHealth<=0) OnDeath();
     }
     public void OnDeath(){
-        
+        SpawnDeathInstance();
         EventManager.EnemyDied();
         if (ScoreManager.Instance != null) {
             ScoreManager.Instance.AddScore(enemyValue);
@@ -72,6 +74,13 @@ public class Health : MonoBehaviour
     }
     bool IsOne(float value){
     return Math.Abs(value - 1f) < 0.0001f; // Tolerance for floating-point precision errors
+    }
+    private void SpawnDeathInstance(){
+       deathParticlesInstance = Instantiate(deathParticles, transform.position, Quaternion.identity);
+    }
+    public void TakeDamageOverTime(float damage, float time, float step) {
+    
+        
     }
     
     
