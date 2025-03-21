@@ -61,7 +61,7 @@ public class PlayerShoot : MonoBehaviour
         // Rigidbody2D rigidbody = bullet.GetComponent<Rigidbody2D>();
         // rigidbody.linearVelocity = _bulletSpeed * transform.up;
     }
-    // if(InputValue.isPressed){
+    // if(InputValue.isPressed){ //
     //     _fireSingle = true;
     // }
     // private void OnFire(InputValue inputValue){
