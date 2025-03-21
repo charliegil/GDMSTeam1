@@ -29,7 +29,7 @@ public class explosiveEnemy : BaseEnemy
     }
     public void followPlayer(){
         destination = getDirectionToPlayer();
-        body.linearVelocity = destination * currentSpeed;
+        body.linearVelocity = destination.normalized * currentSpeed;
     
     }
     public void straightMovement(){
@@ -37,7 +37,7 @@ public class explosiveEnemy : BaseEnemy
             destination = getDirectionToPlayer();
             hasChoosenDirection = true;
         }
-        body.linearVelocity = destination * currentSpeed;
+        body.linearVelocity = destination.normalized * currentSpeed;
     }
 
 
