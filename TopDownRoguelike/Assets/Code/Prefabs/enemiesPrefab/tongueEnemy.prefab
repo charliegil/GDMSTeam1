@@ -82,7 +82,7 @@ MonoBehaviour:
   attackReload: 2
   movingSpeed: 5
   findSpeed: 5
-  attackDuration: 1
+  attackDuration: 0.8
   RateOfChangeDirection: 2
   lineMaterial: {fileID: 2100000, guid: 5a9ac127c4d9f28449e31b850be7b00b, type: 2}
   tongue: {fileID: 8780588160096253109}

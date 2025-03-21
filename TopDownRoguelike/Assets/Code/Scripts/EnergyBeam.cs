@@ -4,7 +4,7 @@ using System.Collections.Generic;
 [RequireComponent(typeof(LineRenderer))] 
 public class EnergyBeam : MonoBehaviour
 {
-    public Transform target; // Locked-on enemy
+    [HideInInspector] public Transform target; // Locked-on enemy
     public int pointCount = 20; // More points for smoother curves
     public float waveAmplitude = 0.5f; // Strength of beam distortion
     public float waveFrequency = 5f; // Speed of wave oscillation
