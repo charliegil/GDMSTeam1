@@ -123,7 +123,18 @@ public class SkillTreeHandler : MonoBehaviour , IEventListener
             case upgradeType.InstantKillBelowCertainHp:
                 PlayerController.InstantKillHP = (int)value;
                 break;
-                
+            case upgradeType.BeamAttackCooldown:
+                EventManager.BeamAttackCooldown(value);
+                break;
+            case upgradeType.BeamAttackDuration:
+                EventManager.BeamAttackDuration(value);
+                break;
+            case upgradeType.BeamDamageIncrease:
+                EventManager.BeamAttackDamage(value);
+                break;
+            case upgradeType.BeamTickRate:
+                EventManager.BeamDamageTickDelay(value);
+                break;
             default:
                 Debug.LogWarning("not recognized upgrade type: " + type);
                 break; 

@@ -13,46 +13,34 @@ using NUnit.Framework;
 public class CloseEnemy : BaseEnemy
 {
     
+    [Header("Attack Settings")]
+    public float attackReload = 1f;  // Time between each attack
+    public float attackDuration = 0.2f; // Duration of the attack
     public float radiusCircularAttack;
-
     public float frontAttackRange;
-    public float trackingSpeed; // the rotation speed of the enemy
-
-    public float attackReload = 1;  // the time between each attack
-
-    public float movingSpeed = 1; // the speed when he sees you
-
-    public float findSpeed  =1; // the speed when he doesnt see you
-
-    public float attackDuration = 0.2f; // the duration of the attack
-
-
-    public float RateOfChangeDirection = 2f; // Time before changing direction
-
-    public Material lineMaterial;
+    public bool rotateWhileAttacking;
+    public bool moveWhileAttacking;
     
+    private bool IsAttacking = false; 
+    private float TimeBeforeAttack; 
 
+    [Header("Movement Settings")]
+    public float movingSpeed = 1f; // Speed when enemy sees the player
+    public float findSpeed = 1f; // Speed when enemy doesn’t see the player
+    public float trackingSpeed; // Rotation speed of the enemy
+    public float RateOfChangeDirection = 2f; // Time before changing direction
+    
+    private bool isChasing = false; 
+    private Vector2 randomMovement = new Vector2(0, 0);
+
+    [Header("Unity items")]
+    public Material lineMaterial;
     public GameObject tongue;
     public SpriteRenderer tongueRenderer;
-    
-    private Sprite tongueSprite; 
-
+    private Sprite tongueSprite;
     public GameObject enemySprite;
-
     private CircleCollider2D attackCollider;
     private Collider2D PlayerCollider;
-    
-  
-    private Vector2 randomMovement = new Vector2( 0,0);
-    
-    
-    private bool IsAttacking = false; //beause of the coroutines
-    private float TimeBeforeAttack; 
-    
-    
-    
-
-    private bool isChasing =false;
     
 
 
@@ -72,7 +60,7 @@ public class CloseEnemy : BaseEnemy
         
         tongue.transform.localScale =new Vector3(1, radiusCircularAttack,0); // return it to normal
 
-        gameObject.AddComponent<DrawFOV>().drawLines(viewDistance,FOV,lineMaterial);
+        //gameObject.AddComponent<DrawFOV>().drawLines(viewDistance,FOV,lineMaterial);
         
         tongueRenderer.enabled = false;
         tongue.SetActive(false);
@@ -85,7 +73,7 @@ public class CloseEnemy : BaseEnemy
     {
         transform.rotation = Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z);
         enemySprite.transform.localRotation  = Quaternion.Euler(0,0,-transform.rotation.eulerAngles.z);
-        if(/*IsAttacking ||*/ IsPlayerInAttackRange() || getDirectionToPlayer().magnitude < radiusCircularAttack*(2/3)) {
+        if((IsAttacking && !moveWhileAttacking) || IsPlayerInAttackRange() || getDirectionToPlayer().magnitude < radiusCircularAttack*(2/3)) {
             body.linearVelocity = new Vector2(0,0);
             return;
         }
@@ -95,7 +83,7 @@ public class CloseEnemy : BaseEnemy
 
     private void LateUpdate()
     {
-        //if(IsAttacking) return;
+        if(IsAttacking && !rotateWhileAttacking) return;
         
         if (IsPlayerInlineOfSight()){
             Vector2 direction = (player.transform.position - transform.position).normalized;
@@ -166,7 +154,7 @@ public class CloseEnemy : BaseEnemy
             StartCoroutine(CircularAttack());
         }
         else if (IsPlayerInlineOfSight()){
-            Debug.Log("doing front attack");
+            //Debug.Log("doing front attack");
             IsAttacking = true;
             StartCoroutine(FrontAttack());
         }
@@ -241,6 +229,8 @@ public class CloseEnemy : BaseEnemy
     private void OnTriggerStay2D(Collider2D collision) // when enemy sees the player and in line of sight, instantly attack. if was already in 
     // line of sight, there is a counter that will be counted
     {
+         if(!collision.gameObject.CompareTag("Player")) return;
+       
         if(IsAttacking) return;
         
         if(TimeBeforeAttack <= 0 ){

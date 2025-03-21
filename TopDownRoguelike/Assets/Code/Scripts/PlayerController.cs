@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour , IEventListener
     private Rigidbody2D rb;
     [SerializeField] private Animator animator;
     [SerializeField] private SpriteRenderer spriteRenderer;
-    private PlayerAttackLineRenderer lineRenderer;
+    
 
 
     // ===================== UI =====================
@@ -72,11 +72,9 @@ public class PlayerController : MonoBehaviour , IEventListener
     private Coroutine attackCoroutine;
 
     [Header("Attack Settings")]
-    [SerializeField] private float attackRange = 3f;
+   
     public float attackMultiplier = 1f;
-    public float attackDamage = 10f;
-    public float damageTickDelay = 0.5f;
-    public int numTargets = 1;
+    
 
 // ===================== CRITIQUAL =====================
     [Header("critiqual hits Settings")]
@@ -93,6 +91,7 @@ public class PlayerController : MonoBehaviour , IEventListener
     
 
     // ===================== Health =====================
+     [Header("Healths Settings")]
     public float maxHealth;
     private float currentHealth;
 
@@ -109,10 +108,7 @@ public class PlayerController : MonoBehaviour , IEventListener
         //spriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         currentSpeed = moveSpeed;
-        lineRenderer = gameObject.transform.GetChild(0).GetComponent<PlayerAttackLineRenderer>();
-        if (lineRenderer != null) {
-            Debug.Log("Found line renderer");
-        }
+        
         healthManager.totalHP = maxHealth;
         healthManager.currentHP = maxHealth;
         currentHealth = maxHealth;
@@ -161,16 +157,13 @@ public class PlayerController : MonoBehaviour , IEventListener
 
     // ===================== GAMEPLAY LOGIC =====================
     private void Update() {
-        //pointerInput = GetPointerInput();
+
         AdjustPlayerDirection();
         if (phaseInput > 0 && !isPhasing && phaseTimer<=0 ) {
             StartCoroutine(Phase());
-        } else {
+        } 
+        else {
             Move();
-            // if(_fireContinuously){
-            // FireBullet();
-            // }
-            Attack();
         }
         if(!isPhasing){
             SliderPhaseCooldown.value = (phaseCooldown-phaseTimer)/phaseCooldown;
@@ -178,18 +171,9 @@ public class PlayerController : MonoBehaviour , IEventListener
         }
         float currentSpeed = rb.linearVelocity.magnitude;
         animator.SetFloat("speed" , currentSpeed);
+
     }
-    // private void FireBullet(){
-    //     GameObject bullet = Instantiate(_bulletPrefab, transform.position, transform.rotation);
-    //     Rigidbody2D rigidbody = bullet.GetComponent<Rigidbody2D>();
-    //     rigidbody.linearVelocity = _bulletSpeed * transform.up;
-    // }
-    // private Vector2 GetPointerInput(){
-    //     // Vector2 mousePos = pointerPosition.action.ReadValue<Vector2>();
-    //     // mousePos.z = Camera.main.nearClipPlane;
-    //     // return Camera.main.ScreenToWorldPoint(mousePos);
-        
-    // }
+
 
     private void Move() {
         currentMovement = movementDirection * currentSpeed * speedMultiplier;
@@ -202,43 +186,16 @@ public class PlayerController : MonoBehaviour , IEventListener
     }
 
     // TODO clean up code
-    private void Attack() {
-    //    Debug.Log("you click attack playerControl");
-    //     if (attackInput > 0) {
-    //         if (targetEnemy == null) {
+    
+   
+    
 
-    //             GameObject closestEnemy = GetClosestEnemy();
-    //             if (closestEnemy != null && Vector3.Distance(transform.position, closestEnemy.transform.position) <= attackRange) {
-    //                 targetEnemy = closestEnemy;  // Modify to find closest enemy in range
-    //                 EnergyBeam beam = GameObject.FindFirstObjectByType<EnergyBeam>();
-    //                 beam.SetTarget(targetEnemy.transform);
-    //             }
-    //         }
 
-    //         if (targetEnemy != null && attackCoroutine == null) {
-    //             attackCoroutine = StartCoroutine(DamageOverTime());
-    //         }
-    //     } 
-        
-    //     // Attack button released
-    //     else if (attackCoroutine != null) {
-    //         CancelAttack();
-    //     }
+    
 
-    //     // Moved too far from enemy
-    //     if (targetEnemy != null && Vector3.Distance(transform.position, targetEnemy.transform.position) > attackRange && attackCoroutine != null) {
-    //         CancelAttack();
-    //     }
-    }
-
-    private void CancelAttack() {
-        StopCoroutine(attackCoroutine);
-        attackCoroutine = null;
-        targetEnemy = null;
-        EnergyBeam beam = GameObject.FindFirstObjectByType<EnergyBeam>();
-        beam.SetTarget(null);
-    }
-
+/// <summary>
+/// flips the sprite to account for his movement
+/// </summary>
     private void AdjustPlayerDirection() {
         spriteRenderer.flipX = movementDirection.x < 0;
     }
@@ -271,7 +228,7 @@ public class PlayerController : MonoBehaviour , IEventListener
     public void TakeDamage(float damage) {
     
        
-        Debug.Log("health: " + currentHealth);
+        //Debug.Log("health: " + currentHealth);
         if(damage > 0){
             damage/= defenceBoost;
             
@@ -306,9 +263,9 @@ public class PlayerController : MonoBehaviour , IEventListener
         if(currentHealth <= InstantKillHP) return 100; // some sort of last chance, when below 1hp, all attacks are instant kills
         if(currentHealth<=allCritiqualHits) return critiqualHitFactor;
         float random = UnityEngine.Random.Range(0f, 1f);
-        Debug.Log(random );
+        //Debug.Log(random );
         if(random <= critChance) return critiqualHitFactor;
-        Debug.Log("no attack mutliplier");
+        //Debug.Log("no attack mutliplier");
         return 1;
     }
     public float getAttackMultiplier(){
@@ -366,22 +323,7 @@ public class PlayerController : MonoBehaviour , IEventListener
         isPhasing = false;
     }
 
-    private IEnumerator DamageOverTime() {
-        // TODO potentially make player unable to attack while phasing
-
-        while (true) {
-            if (targetEnemy != null && targetEnemy.gameObject != null) {
-                targetEnemy.GetComponent<Health>().TakeDamage(attackDamage*attackMultiplier);
-
-                // Play damage tick sound
-                AudioManager.Instance.Play("Damage Tick");
-            } else {
-                yield break;
-            }
-
-            yield return new WaitForSeconds(damageTickDelay);
-        }
-    }
+    
 
     public void setExternalVelocity(Vector2 vec){
         externalVelocity = vec;
@@ -461,17 +403,13 @@ public class PlayerController : MonoBehaviour , IEventListener
         attackMultiplier *= percentIncrease;
     }
 
-    public void ReduceAttackDelay(float percentDecrease) {
-        damageTickDelay /= percentDecrease;
-    }
+    
     public void IncreaseDefenceBoost(float value){
         Debug.Log("the defence multiplier is getting increased from : " + value);
         defenceBoost *= value;
     }
 
-    public void IncreaseNumTargets(int numTargets) {
-        this.numTargets = numTargets;
-    }
+    
     public void IncreaseMaxHealthByValue(float increase) {
         maxHealth+=increase;
         healthManager.totalHP = maxHealth;

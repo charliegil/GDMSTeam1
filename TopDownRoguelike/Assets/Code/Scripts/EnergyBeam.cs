@@ -1,10 +1,10 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-[RequireComponent(typeof(LineRenderer))]
+[RequireComponent(typeof(LineRenderer))] 
 public class EnergyBeam : MonoBehaviour
 {
-    public Transform target; // Locked-on enemy
+    [HideInInspector] public Transform target; // Locked-on enemy
     public int pointCount = 20; // More points for smoother curves
     public float waveAmplitude = 0.5f; // Strength of beam distortion
     public float waveFrequency = 5f; // Speed of wave oscillation
@@ -14,13 +14,24 @@ public class EnergyBeam : MonoBehaviour
     private LineRenderer lineRenderer;
     private List<Vector3> points = new List<Vector3>();
 
+    
+    private void Awake() {
+        if (!TryGetComponent(out LineRenderer _)) {
+            gameObject.AddComponent<LineRenderer>();
+        }
+        lineRenderer = GetComponent<LineRenderer>();
+    }
     private void Start()
     {
-        lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = pointCount;
         lineRenderer.material = beamMaterial;
         lineRenderer.startWidth = beamWidth;
         lineRenderer.endWidth = beamWidth;
+
+        lineRenderer.positionCount = 2;
+        lineRenderer.enabled = false;
+        //lineRenderer.useWorldSpace = false;
+        lineRenderer.sortingOrder = 3;
     }
 
     private void Update()

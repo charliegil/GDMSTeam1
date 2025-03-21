@@ -95,7 +95,7 @@ public class WaveSystem : MonoBehaviour , IEventListener
         List<GameObject> list = new List<GameObject>(enemiesToSpawn); 
         while(list.Count> 0 ){
             int randomSpawnPoint = Random.Range(0, spawnLocation.Count);
-            GameObject enemy = Instantiate(enemiesToSpawn[0], spawnLocation[randomSpawnPoint].transform.position, Quaternion.identity);
+            GameObject enemy = Instantiate(list[0], spawnLocation[randomSpawnPoint].transform.position, Quaternion.identity);
            
             list.RemoveAt(0);
             yield return new WaitForSeconds(1);
@@ -116,18 +116,22 @@ public class WaveSystem : MonoBehaviour , IEventListener
     }
     public void GenerateEnemies(){
         Debug.Log("Generating Enemies...");
-        int valueToSpend = (int)waveValue;
+
         List<GameObject> generatedEnemies = new List<GameObject>();
+        int valueToSpend = (int)waveValue;
+        
+        
         while(valueToSpend>0){
-            //Debug.Log("you should add an enemy");
-            int randomEnemy = Random.Range(0,enemylist.Count);
-            if(valueToSpend-enemylist[randomEnemy].value>=0){
-                generatedEnemies.Add(enemylist[randomEnemy].enemyPrefab);
-                valueToSpend-=enemylist[randomEnemy].value;//randomEnemy;
-                //Debug.Log("Added enemy: " + enemylist[randomEnemy].enemyPrefab.name + ", Remaining Value: " + valueToSpend);
+            int selectedEnemy = Random.Range(0,enemylist.Count);
+            
+            if(valueToSpend- enemylist[selectedEnemy].value >= 0){
+                generatedEnemies.Add(enemylist[selectedEnemy].enemyPrefab);
+                valueToSpend-=enemylist[selectedEnemy].value;
             }
-            else if(valueToSpend < minValue) break;
+            
+            if(valueToSpend < minValue) break;
         }
+
         enemiesToSpawn.Clear();
         enemiesToSpawn = generatedEnemies;
         //Debug.Log("Enemies generated: " + enemiesToSpawn.Count);

@@ -4,7 +4,7 @@ using TMPro;
 public class DamagePopup : MonoBehaviour
 {
     public TextMeshProUGUI damageText;
-    private float disappearTimer = 1f;  
+    public float disappearTimer = 1f;  
     private Color textColor;
 
     [SerializeField] PlayerController playerController;
