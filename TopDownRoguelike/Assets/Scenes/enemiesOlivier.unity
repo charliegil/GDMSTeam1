@@ -1780,7 +1780,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &617123588
 Transform:
   m_ObjectHideFlags: 0
@@ -27493,16 +27493,16 @@ MonoBehaviour:
   - powerUp: {fileID: 8541597942317861887, guid: 269a1503d5ffcd2419ae68e2ce18a3a0, type: 3}
     probability: 0
   - powerUp: {fileID: 6274779891261166392, guid: 31ab13823eba42d41953d72311a772ec, type: 3}
-    probability: 0.5
+    probability: 0
   - powerUp: {fileID: 6274779891261166392, guid: ad90cb1ab066aca4dbe69b5fc8dfdb1a, type: 3}
-    probability: 0.2
+    probability: 0
   - powerUp: {fileID: 6274779891261166392, guid: 41c59007ad8f1534da4d8d279434af08, type: 3}
     probability: 0
   - powerUp: {fileID: 6274779891261166392, guid: 3b995f59b7b125b48b1c77898b007510, type: 3}
-    probability: 0.5
+    probability: 0
   - powerUp: {fileID: 6274779891261166392, guid: 145a0af13fbc75743b50b9a1ef21bdf0, type: 3}
     probability: 0
-  EditorDropRate: 0.5
+  EditorDropRate: 0.8
 --- !u!1001 &1133462424
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28515,11 +28515,11 @@ MonoBehaviour:
   attackDamage: 5
   damageTickDelay: 1
   attackCooldown: 5
-  numberOfHits: 50
+  numberOfHits: 20
   attackRange: 50
   numTargets: 1
   attackAutomatically: 0
-  SliderCooldown: {fileID: 0}
+  SliderCooldown: {fileID: 7176148028398359955}
 --- !u!114 &1347089296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28537,7 +28537,7 @@ MonoBehaviour:
   waveAmplitude: 0.5
   waveFrequency: 5
   beamWidth: 0.2
-  beamMaterial: {fileID: 2100000, guid: 7bd4456412bfd4dd49387f4e3ea43c36, type: 2}
+  beamMaterial: {fileID: 2100000, guid: f9603b6a80cb86d4baa723a480d0930e, type: 2}
 --- !u!120 &1347089297
 LineRenderer:
   serializedVersion: 2
@@ -28909,15 +28909,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8bc3134c86e3314db0d8c59dce16073, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waveValue: 5
+  waveValue: 7
   waveMultiplier: 1.3
   enemylist:
   - enemyPrefab: {fileID: 1204319565315017930, guid: 0ffb80c087b9ba4428d426892ef05487, type: 3}
-    value: 2
+    value: 100
   - enemyPrefab: {fileID: 1483645111768782505, guid: 1df100b674044754d8a707b9818ccc85, type: 3}
-    value: 50
+    value: 2
   - enemyPrefab: {fileID: 3869671721269029456, guid: bf32a9b6938d2b741b93473d6d25b6ca, type: 3}
-    value: 50
+    value: 1
   spawnLocation:
   - {fileID: 558818520}
   - {fileID: 2031862586}
@@ -66686,6 +66686,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: speed
       objectReference: {fileID: 0}
+    - target: {fileID: 306200606515277019, guid: b5424d15a662bc24e9d241a433dadae4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8995664456641600106, guid: b5424d15a662bc24e9d241a433dadae4, type: 3}
       propertyPath: m_LocalPosition.x
       value: -11.31738
@@ -67013,7 +67017,7 @@ RectTransform:
   m_GameObject: {fileID: 3547862801375486606}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_LocalScale: {x: 0.44, y: 0.44, z: 0.44}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2938115499788385501}
@@ -67022,7 +67026,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 257, y: 36}
+  m_AnchoredPosition: {x: 449, y: 36}
   m_SizeDelta: {x: 325, y: 55.25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &6331547232481664052
@@ -67297,7 +67301,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.07734423, g: 0.44161916, b: 0.8037735, a: 1}
+  m_Color: {r: 0.8039216, g: 0.625722, b: 0.078431346, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
