@@ -52,7 +52,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 100
   deathParticles: {fileID: 2832167548909918162, guid: 1b61d08785ca28044a6ae3e21eee117e, type: 3}
-  Totalhealth: 10
+  isTargeted: 0
   enemyValue: 1
   animator: {fileID: 4671697816956284708}
   damagePopupPrefab: {fileID: 18462240691209356, guid: a8e2580e148f33c439cfc965461e67be, type: 3}
@@ -68,8 +68,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6d84589d76990b45be2ac3019ac896c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 0
-  CurrentHp: 0
   maxSpeed: 10
   acceleration: 1
   damage: 10
@@ -77,13 +75,15 @@ MonoBehaviour:
   body: {fileID: 1743344865510732532}
   FOV: 40
   viewDistance: 40
+  attackReload: 2
+  attackDuration: 0.8
   radiusCircularAttack: 10
   frontAttackRange: 20
-  trackingSpeed: 0.05
-  attackReload: 2
+  rotateWhileAttacking: 0
+  moveWhileAttacking: 0
   movingSpeed: 5
   findSpeed: 5
-  attackDuration: 0.8
+  trackingSpeed: 0.05
   RateOfChangeDirection: 2
   lineMaterial: {fileID: 2100000, guid: 5a9ac127c4d9f28449e31b850be7b00b, type: 2}
   tongue: {fileID: 8780588160096253109}
@@ -410,7 +410,7 @@ GameObject:
   - component: {fileID: 8412994230917609879}
   m_Layer: 3
   m_Name: tongue
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -29,7 +29,7 @@ public class SkillTreeHandler : MonoBehaviour , IEventListener
             
         if(original != skillPoints){
             upgradesOwned.Add(skillnode.getNode().GetUpgrade());
-            GetComponent<AudioSource>().Play();
+            AudioManager.instance.PlaySound("skillBought");
             Debug.Log("you bought" + skillnode);
             skillPointsText.text = "skill points "+skillPoints;
             applyUpgrade(skillnode.getNode().GetUpgrade(),false);

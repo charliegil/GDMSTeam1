@@ -95,4 +95,76 @@ Your battle spirit ignites like a dragon’s breath, increasing attack power.;At
 The steadfast nature of the bamboo forest enhances your defense.;Defence  
 The flowing energy of the koi fish increases your speed.;Speed  
 The precision of the jade arrow sharpens your strikes, boosting critical hits.;CritiqualHit  
-The eternal breath of the heavens fills your lungs, increasing health.;Health  
+The eternal breath of the heavens fills your lungs, increasing health.;health
+Full health is restored at the end of each wave, blessing you with renewed strength.;fullHealthAtWaveEnd  
+Skill points accumulate at the end of each wave, empowering your abilities.;SkillPointAtWaveEnd  
+When your health falls below a certain threshold, your critical hit chance dramatically increases.;allCritiqualHitBelowCertainHp  
+A surge of energy flows through you when health is low, granting the ability to instantly kill foes.;InstantKillBelowCertainHp  
+Your beam's energy recovers quicker, allowing for more frequent attacks.;BeamAttackCooldown  
+The power of the dragon's breath extends the duration of your beam attack, hitting longer.;BeamAttackDuration  
+Each tick of your beam attack inflicts more damage, as the power increases with every pulse.;BeamTickRate  
+The celestial energy amplifies your beam, increasing its damage significantly.;BeamDamageIncrease  
+At the end of a wave, the strength of your qi is replenished, restoring full health.;fullHealthAtWaveEnd  
+As you conquer waves, your knowledge deepens, rewarding you with extra skill points.;SkillPointAtWaveEnd  
+Your critical strikes become more devastating when your health drops below a certain level.;allCritiqualHitBelowCertainHp  
+The great warriors of old have imbued you with the power to instantly slay enemies at low health.;InstantKillBelowCertainHp  
+The beam attacks now strike faster, powered by the essence of the thunder god.;BeamAttackCooldown  
+When your beam is unleashed, it lasts longer, striking with the fury of a thousand storms.;BeamAttackDuration  
+Each pulse of your beam hits with greater force, tearing through enemies in its path.;BeamTickRate  
+Your beam gathers the strength of the mountain, dealing increased damage with each strike.;BeamDamageIncrease  
+A healer's blessing fills your body with vitality at the end of every wave, restoring your full health.;fullHealthAtWaveEnd  
+The flow of the moon's energy brings you skill points at the conclusion of each wave.;SkillPointAtWaveEnd  
+Critical hits become more frequent when your health dips below a set amount, invoking the power of the red phoenix.;allCritiqualHitBelowCertainHp  
+When you are near death, a divine burst of power grants you an instant kill ability.;InstantKillBelowCertainHp  
+With each passing wave, your beam attacks grow stronger, reducing cooldown and increasing frequency.;BeamAttackCooldown  
+The beam continues to rage on for a longer period, reflecting the fury of the fire god.;BeamAttackDuration  
+The power surges with each tick of your beam, making each strike deadlier.;BeamTickRate  
+The great force of the celestial dragon amplifies your beam's power, raising its damage potential.;BeamDamageIncrease  
+At the wave's conclusion, your wounds are healed completely, rejuvenating your body.;fullHealthAtWaveEnd  
+Skill points come to you like a gift from the heavens at the end of each wave.;SkillPointAtWaveEnd  
+Foes fall before you when your health is low, as your critical hit chance becomes unstoppable.;allCritiqualHitBelowCertainHp  
+A shadowy power takes hold when your health is low, granting an instant kill on enemies.;InstantKillBelowCertainHp  
+The duration of your beam attack increases, harnessing the energy of the eternal sun.;BeamAttackDuration  
+Your beam pulses with increasing intensity, striking multiple times with each use.;BeamTickRate  
+With every passing second, your beam’s damage grows stronger, consuming your foes in a blaze of power.;BeamDamageIncrease  
+Your body regenerates fully at the end of each wave, a gift from the gods of healing.;fullHealthAtWaveEnd  
+Skill points flow like water after each wave, allowing you to enhance your abilities.;SkillPointAtWaveEnd  
+Critical hits become deadlier once your health dips below a certain threshold, fueled by ancient power.;allCritiqualHitBelowCertainHp  
+When danger looms and your health is low, a burst of energy grants you the ability to instantly slay your enemies.;InstantKillBelowCertainHp  
+Your beam’s cooldown is reduced, unleashing energy like the rapid flow of the Yangtze River.;BeamAttackCooldown  
+The power of the heavens extends your beam’s duration, allowing it to strike longer.;BeamAttackDuration  
+Each beam tick sends waves of destruction, as if a thousand warriors are striking at once.;BeamTickRate  
+The fury of the immortal phoenix strengthens your beam’s damage, devastating all in its path.;BeamDamageIncrease  
+At the end of each wave, your vitality is restored to its peak, a gift of the ancient guardians.;fullHealthAtWaveEnd  
+With every wave, skill points are granted, reflecting the growing wisdom within.;SkillPointAtWaveEnd  
+Critical hits become more likely when your health is below a certain level, empowered by the spirits.;allCritiqualHitBelowCertainHp  
+A surge of divine power allows you to instantly eliminate any enemy when your health is dangerously low.;InstantKillBelowCertainHp  
+The power within your beam grows, reducing cooldown and allowing quicker strikes.;BeamAttackCooldown  
+The beam lingers longer, striking down your foes with the unrelenting force of a dragon's breath.;BeamAttackDuration  
+Each tick of your beam reverberates with the strength of the great mountain, dealing more damage.;BeamTickRate  
+The celestial energies increase your beam’s potency, making it strike with overwhelming force.;BeamDamageIncrease  
+At the end of every wave, your strength is fully restored, like the rebirth of the phoenix.;fullHealthAtWaveEnd  
+Skill points arrive with the conclusion of each wave, gifting you with more power.;SkillPointAtWaveEnd  
+Critical hits become lethal when your health dips low, striking with the precision of a master swordsman.;allCritiqualHitBelowCertainHp  
+A surge of ancient power grants you the ability to instantly kill enemies when your health is low.;InstantKillBelowCertainHp  
+Your beam’s cooldown is reduced as if energized by the lightning gods, allowing more rapid attacks.;BeamAttackCooldown  
+The beam continues to strike with unyielding force, drawing from the power of the eternal flame.;BeamAttackDuration  
+Each pulse of your beam damages foes more, empowered by the will of the immortals.;BeamTickRate  
+The strength of the tiger amplifies your beam, increasing its damage to new heights.;BeamDamageIncrease  
+At the end of every battle, your health is fully restored, as if the gods themselves have healed you.;fullHealthAtWaveEnd  
+Skill points are granted at the end of each wave, reflecting your growing mastery.;SkillPointAtWaveEnd  
+Critical hits become deadlier when your health reaches a dangerous level, invoking the strength of the great beast.;allCritiqualHitBelowCertainHp  
+At your lowest, the power to instantly slay enemies surges, as the spirits of warriors past awaken.;InstantKillBelowCertainHp  
+The beam attack cooldown is reduced, striking faster with the power of the thunder gods.;BeamAttackCooldown  
+The beam's duration is extended, as if the heavens have granted you endless energy.;BeamAttackDuration  
+With every tick of your beam, its damage grows, devastating all in its path.;BeamTickRate  
+The celestial dragon strengthens your beam, increasing its destructive power.;BeamDamageIncrease  
+At the conclusion of each wave, your health is restored fully, as if blessed by the divine forces.;fullHealthAtWaveEnd  
+Skill points are granted with each wave’s end, offering the wisdom of the ages.;SkillPointAtWaveEnd  
+When your health is low, your critical strikes become unstoppable, as if guided by the spirits of the warriors.;allCritiqualHitBelowCertainHp  
+A sudden surge of strength allows you to instantly eliminate enemies when your health falls too low.;InstantKillBelowCertainHp  
+Your beam attack recovers faster, striking with the speed of the wind.;BeamAttackCooldown  
+The beam lasts longer, allowing you to channel the power of the great dragon.;BeamAttackDuration  
+Each tick of your beam grows deadlier, as the energy pulses through you.;BeamTickRate  
+Your beam’s damage is enhanced by the divine forces, bringing devastation to all who stand in its way.;BeamDamageIncrease  
+

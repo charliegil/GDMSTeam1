@@ -10,15 +10,15 @@ GameObject:
   m_Component:
   - component: {fileID: 2898702787198773020}
   - component: {fileID: 1164769086569781315}
+  - component: {fileID: 8642414131343421290}
   - component: {fileID: 6345547693154022427}
   - component: {fileID: 8930256167911764117}
   - component: {fileID: 3956305920542637038}
   - component: {fileID: 4019284121756328378}
-  - component: {fileID: 8642414131343421290}
   - component: {fileID: 6522559204830429920}
   m_Layer: 3
   m_Name: exploEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -51,8 +51,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c88275604c5e97479db1eda89d6452a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 100
-  CurrentHp: 0
   maxSpeed: 25
   acceleration: 3
   damage: 0
@@ -63,6 +61,23 @@ MonoBehaviour:
   usePathFinding: 1
   MaxAliveTime: 8
   DamageZonePrefab: {fileID: 5178940424677874266, guid: 7d6d5ded3878fa044bc36e0b49f6bcf9, type: 3}
+--- !u!114 &8642414131343421290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1204319565315017930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8898022347ea147b483cf0844e8fc6a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth: 20
+  deathParticles: {fileID: 2832167548909918162, guid: 1b61d08785ca28044a6ae3e21eee117e, type: 3}
+  enemyValue: 1
+  animator: {fileID: 8930256167911764117}
+  damagePopupPrefab: {fileID: 18462240691209356, guid: a8e2580e148f33c439cfc965461e67be, type: 3}
 --- !u!50 &6345547693154022427
 Rigidbody2D:
   serializedVersion: 5
@@ -204,24 +219,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0.071443796, y: 0}
   m_Size: {x: 1.1690631, y: 2.21}
   m_Direction: 0
---- !u!114 &8642414131343421290
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1204319565315017930}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8898022347ea147b483cf0844e8fc6a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentHealth: 50
-  deathParticles: {fileID: 2832167548909918162, guid: 1b61d08785ca28044a6ae3e21eee117e, type: 3}
-  Totalhealth: 0
-  enemyValue: 1
-  animator: {fileID: 8930256167911764117}
-  damagePopupPrefab: {fileID: 18462240691209356, guid: a8e2580e148f33c439cfc965461e67be, type: 3}
 --- !u!61 &6522559204830429920
 BoxCollider2D:
   m_ObjectHideFlags: 0

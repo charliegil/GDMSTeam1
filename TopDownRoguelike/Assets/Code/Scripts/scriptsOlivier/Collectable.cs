@@ -133,7 +133,7 @@ public class Collectable : MonoBehaviour
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
         if (sr) sr.enabled = false; 
         //Debug.Log("the collectible has reached the player");
-        
+        AudioManager.instance.PlaySound("Collect");
         if (type == CollectableType.Life){
             EventManager.PlayerTakeDamage(-value*effectMultiplier);
 
@@ -183,7 +183,7 @@ public class Collectable : MonoBehaviour
                 time-=0.1f;
                 yield return new WaitForSeconds(0.1f);
             }
-            Debug.Log("Invincible Ended");
+            //Debug.Log("Invincible Ended");
             PlayerController.Invincible = false;  
             Destroy(gameObject);
 

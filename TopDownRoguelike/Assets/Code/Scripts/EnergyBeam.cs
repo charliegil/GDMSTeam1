@@ -11,6 +11,7 @@ public class EnergyBeam : MonoBehaviour
     public float beamWidth = 0.2f; // Thickness of beam
     public Material beamMaterial; // Glowing material
 
+
     private LineRenderer lineRenderer;
     private List<Vector3> points = new List<Vector3>();
 
@@ -32,6 +33,8 @@ public class EnergyBeam : MonoBehaviour
         lineRenderer.enabled = false;
         //lineRenderer.useWorldSpace = false;
         lineRenderer.sortingOrder = 3;
+
+        
     }
 
     private void Update()

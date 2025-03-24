@@ -55,7 +55,7 @@ public class PlayerShoot : MonoBehaviour
         // Apply velocity in the calculated direction
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.linearVelocity = direction * _bulletSpeed + playerController.GetComponent<Rigidbody2D>().linearVelocity* 0.3f; // Get player's velocity
-
+        AudioManager.instance.PlaySound("Fire");
         bullet.transform.SetParent(bulletParent.transform);
         // GameObject bullet = Instantiate(_bulletPrefab, _gunOffset.position, transform.rotation);
         // Rigidbody2D rigidbody = bullet.GetComponent<Rigidbody2D>();

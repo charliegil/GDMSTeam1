@@ -115,7 +115,7 @@ public class WaveSystem : MonoBehaviour , IEventListener
         }
     }
     public void GenerateEnemies(){
-        Debug.Log("Generating Enemies...");
+        //Debug.Log("Generating Enemies...");
 
         List<GameObject> generatedEnemies = new List<GameObject>();
         int valueToSpend = (int)waveValue;
