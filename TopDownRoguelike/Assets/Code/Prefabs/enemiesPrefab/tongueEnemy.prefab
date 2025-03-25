@@ -78,13 +78,15 @@ MonoBehaviour:
   body: {fileID: 1743344865510732532}
   FOV: 40
   viewDistance: 40
+  attackReload: 2
+  attackDuration: 0.8
   radiusCircularAttack: 10
   frontAttackRange: 20
-  trackingSpeed: 0.05
-  attackReload: 2
+  rotateWhileAttacking: 0
+  moveWhileAttacking: 0
   movingSpeed: 5
   findSpeed: 5
-  attackDuration: 0.8
+  trackingSpeed: 0.05
   RateOfChangeDirection: 2
   lineMaterial: {fileID: 2100000, guid: 5a9ac127c4d9f28449e31b850be7b00b, type: 2}
   tongue: {fileID: 8780588160096253109}
@@ -290,7 +292,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 4
   m_Sprite: {fileID: 5158404753353345565, guid: a8fb7c2179622b64aae8865698966a50, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
