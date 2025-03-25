@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1743344865510732532}
   - component: {fileID: 1510760450973696571}
   - component: {fileID: 3139042331184052983}
+  - component: {fileID: 616011671110272665}
   m_Layer: 3
   m_Name: tongueEnemy
   m_TagString: Enemy
@@ -150,8 +151,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.3333373, y: -0.38235855}
-  m_Size: {x: 4, y: 7.019696}
+  m_Offset: {x: -0.17728251, y: -0.0891645}
+  m_Size: {x: 1.9854741, y: 2.3664236}
   m_Direction: 0
 --- !u!61 &3139042331184052983
 BoxCollider2D:
@@ -187,7 +188,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.32, y: -0.5}
+  m_Offset: {x: -0.13084304, y: -0.03183508}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -197,8 +198,21 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 2.95, y: 5.68}
+  m_Size: {x: 2.004213, y: 2.4170365}
   m_EdgeRadius: 0
+--- !u!114 &616011671110272665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3869671721269029456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d07da220b3388cb458be4c26c61d4605, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 4671697816956284708}
 --- !u!1 &4490305551562685709
 GameObject:
   m_ObjectHideFlags: 0
@@ -227,7 +241,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4724734998971588591}
@@ -277,7 +291,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: 6029a09d70e8643128d75ba9e4c91c7e, type: 3}
+  m_Sprite: {fileID: 5158404753353345565, guid: a8fb7c2179622b64aae8865698966a50, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -298,7 +312,7 @@ Animator:
   m_GameObject: {fileID: 4490305551562685709}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 6537d83e6b0f2514a9247232e9c10901, type: 2}
+  m_Controller: {fileID: 9100000, guid: af0ceb1ac89115844a091e8b4383a245, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -505,23 +519,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3975248836083830647, guid: 87cf3f87649cc204fa7d54a3734faca9, type: 3}
       propertyPath: m_LocalScale.x
-      value: 16.250002
+      value: 3.2
       objectReference: {fileID: 0}
     - target: {fileID: 3975248836083830647, guid: 87cf3f87649cc204fa7d54a3734faca9, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2.5
+      value: 0.49230766
       objectReference: {fileID: 0}
     - target: {fileID: 3975248836083830647, guid: 87cf3f87649cc204fa7d54a3734faca9, type: 3}
       propertyPath: m_LocalScale.z
-      value: 2.5
+      value: 0.49230766
       objectReference: {fileID: 0}
     - target: {fileID: 3975248836083830647, guid: 87cf3f87649cc204fa7d54a3734faca9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.37500006
+      value: -0.2
       objectReference: {fileID: 0}
     - target: {fileID: 3975248836083830647, guid: 87cf3f87649cc204fa7d54a3734faca9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -9.075001
+      value: -1.25
       objectReference: {fileID: 0}
     - target: {fileID: 3975248836083830647, guid: 87cf3f87649cc204fa7d54a3734faca9, type: 3}
       propertyPath: m_LocalPosition.z
@@ -554,6 +568,10 @@ PrefabInstance:
     - target: {fileID: 3975248836083830647, guid: 87cf3f87649cc204fa7d54a3734faca9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3975248836083830647, guid: 87cf3f87649cc204fa7d54a3734faca9, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8767513155965665008, guid: 87cf3f87649cc204fa7d54a3734faca9, type: 3}
       propertyPath: m_Name

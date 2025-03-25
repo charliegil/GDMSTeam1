@@ -30,12 +30,14 @@ public class PlayerShoot : MonoBehaviour
             float timeSinceLastFire = Time.time - _lastFireTime;
             if(timeSinceLastFire >= _timeBtwShots){
                 FireBullet();
+                FireBullet();
                 _lastFireTime = Time.time;
                 //_fireSingle = false;
             }
         }
         
     }
+    
     private void FireBullet(){
          // Get the mouse position in world coordinates
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -46,7 +48,10 @@ public class PlayerShoot : MonoBehaviour
 
         // Instantiate bullet at player's position
         GameObject bullet = Instantiate(_bulletPrefab, transform.position+ (Vector3)(_gunOffset*direction), Quaternion.identity);
-    
+
+        directionBullet(bullet, direction);
+    }
+    private void directionBullet(GameObject bullet, Vector2 direction){
         //bullet.GetComponent<Bullet>().damage*= playerController.getAttackMultiplier()*playerController.IsAttackCritiqual();
         // Rotate bullet to face the mouse direction
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
@@ -57,9 +62,7 @@ public class PlayerShoot : MonoBehaviour
         rb.linearVelocity = direction * _bulletSpeed + playerController.GetComponent<Rigidbody2D>().linearVelocity* 0.3f; // Get player's velocity
 
         bullet.transform.SetParent(bulletParent.transform);
-        // GameObject bullet = Instantiate(_bulletPrefab, _gunOffset.position, transform.rotation);
-        // Rigidbody2D rigidbody = bullet.GetComponent<Rigidbody2D>();
-        // rigidbody.linearVelocity = _bulletSpeed * transform.up;
+
     }
     // if(InputValue.isPressed){
     //     _fireSingle = true;

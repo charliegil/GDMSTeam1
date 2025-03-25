@@ -143,6 +143,7 @@ public class CloseEnemy : BaseEnemy
 
 
     private void followPlayer(){
+        
         body.linearVelocity= transform.right*movingSpeed;
         isChasing = true;
     }

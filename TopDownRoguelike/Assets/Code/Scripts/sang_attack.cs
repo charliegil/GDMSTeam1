@@ -20,6 +20,7 @@ public class sang_attack : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         if(other.gameObject.tag=="Player"){
+            Debug.Log("white hit player ");
             EventManager.PlayerTakeDamage(5);
         }
     }
