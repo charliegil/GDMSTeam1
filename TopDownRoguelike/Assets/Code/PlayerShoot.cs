@@ -64,7 +64,7 @@ public class PlayerShoot : MonoBehaviour
         bullet.transform.SetParent(bulletParent.transform);
 
     }
-    // if(InputValue.isPressed){
+    // if(InputValue.isPressed){ //
     //     _fireSingle = true;
     // }
     // private void OnFire(InputValue inputValue){
