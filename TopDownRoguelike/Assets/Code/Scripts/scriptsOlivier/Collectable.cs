@@ -53,7 +53,13 @@ public class Collectable : MonoBehaviour
         }
        CollectableCollider.radius = collectRadius;
        CollectableCollider.isTrigger = true;
-       //CollectableRenderer.material.color = Color.green;
+       
+        if(type == CollectableType.GreenFarm){
+            foreach (SpriteRenderer sr in GetComponentsInChildren<SpriteRenderer>()){
+            sr.enabled = true;
+        }
+        }
+
     }
 
 
@@ -130,8 +136,10 @@ public class Collectable : MonoBehaviour
 
 
     protected void OnPlayerCollect(GameObject Player){
-        SpriteRenderer sr = GetComponent<SpriteRenderer>();
-        if (sr) sr.enabled = false; 
+        
+        foreach (SpriteRenderer sr in GetComponentsInChildren<SpriteRenderer>()){
+            sr.enabled = false;
+        }
         //Debug.Log("the collectible has reached the player");
         AudioManager.instance.PlaySound("Collect");
         if (type == CollectableType.Life){
@@ -162,6 +170,18 @@ public class Collectable : MonoBehaviour
             StartCoroutine(applyInvicibility());
             EventManager.DurationBoostStarted(duration * durationMultiplier,type);
         }
+        else if (type == CollectableType.GreenFarm){ 
+
+            value = 8f;
+            StartCoroutine(ApplyTemporaryBoost(EventManager.AttackBoost));
+            StartCoroutine(ApplyTemporaryBoost(EventManager.DefenceBoost));
+            EventManager.DurationBoostStarted(duration * durationMultiplier,CollectableType.AttackBoost);
+            EventManager.DurationBoostStarted(duration * durationMultiplier,CollectableType.DefenceBoost);
+            ScoreManager.Instance.AddScore(50);
+            EventManager.PlayerTakeDamage(-1000);
+            EventManager.SkillPointAcquired((int)20); 
+        }
+        
     }
 
         private IEnumerator ApplyTemporaryBoost(Action<float> EventToCall){
@@ -170,7 +190,7 @@ public class Collectable : MonoBehaviour
             float val = value *effectMultiplier;
             EventToCall(val);
             yield return new WaitForSeconds(time);
-            EventToCall((1/val));
+            EventToCall(1f/val);
             Destroy(gameObject);
         }
 
@@ -199,7 +219,8 @@ public class Collectable : MonoBehaviour
         SkillPoint,
         CritiqualHit,
         SpeedBoost,
-        Invicible
+        Invicible,
+        GreenFarm
     }
 
 

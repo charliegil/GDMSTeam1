@@ -4,7 +4,8 @@ using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
-using UnityEngine.UIElements;
+using TMPro;
+using System.Globalization;
 
 public class PlayerController : MonoBehaviour , IEventListener
 {
@@ -20,9 +21,11 @@ public class PlayerController : MonoBehaviour , IEventListener
 
     // ===================== UI =====================
     [Header("UI elements")]
-    public UnityEngine.UI.Slider SliderPhaseCooldown;
+    public Slider SliderPhaseCooldown;
    
     public GameObject LoseScreen;
+
+    public GameObject statsContainer;
  
 
     // ===================== MOVEMENT =====================
@@ -334,6 +337,26 @@ public class PlayerController : MonoBehaviour , IEventListener
     }
 
     public Vector2 getExternalVelocity(){return externalVelocity;}
+
+
+    public void showStats(){
+        statsContainer.SetActive(true);
+        string stats = "";
+        stats += (critChance).ToString("F2") + "<";
+        stats += critiqualHitFactor.ToString("F1") + "<";
+        stats += phaseDuration.ToString("F2") + " s<";
+        stats += phaseCooldown.ToString("F2") + " s<";
+        stats += (attackMultiplier).ToString("F2") + "<";
+        stats += (defenceBoost).ToString("F2");
+        string[] statList = stats.Split("<");
+        int i=0;
+        foreach (TextMeshProUGUI txt in statsContainer.GetComponentsInChildren<TextMeshProUGUI>(false)){
+            if(i==statList.Length) break;
+            
+            txt.text = ":  " + statList[i];
+            i++;
+        }
+    }
 
     
     

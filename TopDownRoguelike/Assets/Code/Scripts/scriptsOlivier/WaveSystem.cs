@@ -3,7 +3,6 @@ using UnityEngine.UI;
 using System.Collections;
 using TMPro;
 using System.Collections.Generic;
-using UnityEngine.UIElements;
 using System.ComponentModel.Design;
 using Unity.VisualScripting;
 
@@ -17,7 +16,7 @@ public class WaveSystem : MonoBehaviour , IEventListener
     public static bool gainFullHealthOnEnd = false;
     public static int skillPointsOnEnd = 0;
 
-    
+    public int timeBetweenWave = 5;
 
     private float spawnTimer;
 
@@ -31,7 +30,14 @@ public class WaveSystem : MonoBehaviour , IEventListener
     
 
     public TextMeshProUGUI currentWaveUIText;
+    public TextMeshProUGUI waveCompleteUIText;
 
+    private TextMeshProUGUI waveBeginCountdown;
+    private TextMeshProUGUI waveHint;
+
+    public GameObject SkillTreeButtonComponent;
+    private TextMeshProUGUI skillTreeText;
+    private Button skillTreeButton;
 
     private int minValue;
     public GameObject hei_boss;
@@ -45,8 +51,26 @@ public class WaveSystem : MonoBehaviour , IEventListener
         minValue = GetMinValue();
         subscribe();
         GenerateWave();
-       
+        
+        waveBeginCountdown = waveCompleteUIText.transform.Find("Countdown").GetComponent<TextMeshProUGUI>();
+        waveHint = waveCompleteUIText.transform.Find("Hint").GetComponent<TextMeshProUGUI>();
+        
+        SetTextAlpha(waveHint, 0f);
+        SetTextAlpha(waveBeginCountdown, 0f);
+        SetTextAlpha(waveCompleteUIText, 0f);
+        
+        skillTreeButton = SkillTreeButtonComponent.GetComponent<Button>();
+        skillTreeButton.interactable = false;
+        skillTreeText = SkillTreeButtonComponent.GetComponentInChildren<TextMeshProUGUI>(true);
+        SetTextAlpha(skillTreeText,0.5f);
     
+    }
+    private void SetTextAlpha(TextMeshProUGUI textElement, float alpha){
+        if (textElement != null){
+            Color color = textElement.color;
+            color.a = alpha;
+            textElement.color = color;
+        }
     }
 
     // Update is called once per frame
@@ -110,10 +134,10 @@ public class WaveSystem : MonoBehaviour , IEventListener
     {
         enemiesLeft--;
         //Debug.Log("enemies left to kill : " + enemiesLeft);
-        currentWaveUIText.text = "enemies left to kill : " + enemiesLeft + " Wave: " + currentWave;
+        //currentWaveUIText.text = "enemies left to kill : " + enemiesLeft + " Wave: " + currentWave;
         if (enemiesLeft <= 0)
         {
-            OnWaveComplete();
+            StartCoroutine(OnWaveComplete());
         }
     }
     public List<GameObject> GenerateEnemies(){
@@ -138,12 +162,32 @@ public class WaveSystem : MonoBehaviour , IEventListener
         //Debug.Log("Enemies generated: " + enemiesToSpawn.Count);
     }
 
-    public void OnWaveComplete(){
+    private IEnumerator OnWaveComplete(){
         if(gainFullHealthOnEnd) EventManager.PlayerTakeDamage(-1000);
         if(skillPointsOnEnd !=0) EventManager.SkillPointAcquired(skillPointsOnEnd);
+        
+        
+        
+        yield return StartCoroutine(FadeText(0f, 1f, 1f));
+        
+        skillTreeButton.interactable = true;
+        SetTextAlpha(skillTreeText,1f);
+        
+        for(int i=timeBetweenWave; i>0;i--){
+            waveBeginCountdown.text = "Next wave starting in: "+i;
+            yield return new WaitForSeconds(1);
+        } 
+        StartCoroutine(FadeText(1f, 0f, 1f)); 
+        
+        skillTreeButton.interactable = false;
+        SetTextAlpha(skillTreeText,0.5f);
+        
         GenerateWave();
-
+        AudioManager.instance.PlaySound("WaveStart");
+        yield return StartCoroutine(FadeText(1f, 0f, 1f));
+    
     }
+    
 
 
     public void subscribe()
@@ -158,7 +202,31 @@ public class WaveSystem : MonoBehaviour , IEventListener
     public void OnDisable(){
         unsubscribe();
     }
-}
+    
+    
+    
+    
+    private IEnumerator FadeText(float startAlpha, float endAlpha, float duration){
+        float elapsedTime = 0f;
+        Color color = waveCompleteUIText.color;
+
+        while (elapsedTime < duration){
+            elapsedTime += Time.deltaTime;
+            color.a = Mathf.Lerp(startAlpha, endAlpha, elapsedTime / duration);
+            
+            waveCompleteUIText.color = color;
+            waveHint.color = color;
+            waveBeginCountdown.color = color;
+            
+            yield return null;
+        }
+
+        color.a = endAlpha;
+        waveCompleteUIText.color = color;
+        }
+    }
+
+
 [System.Serializable]
 public class Enemy{
     public GameObject enemyPrefab;
