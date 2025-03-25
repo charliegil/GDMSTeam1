@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      invincible_0: -2295598453352507679
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
