@@ -23356,7 +23356,7 @@ MonoBehaviour:
   attackMultiplier: 1
   critChance: 0.1
   critiqualHitFactor: 5
-  maxHealth: 300
+  maxHealth: 1000
   healthManager: {fileID: 865914809}
 --- !u!50 &865914804
 Rigidbody2D:
@@ -28266,7 +28266,7 @@ MonoBehaviour:
   _bulletPrefab: {fileID: 1877081603369642548, guid: f7b4d2a97b98fff42839a8c274bf6555, type: 3}
   _bulletSpeed: 25
   _gunOffset: 2
-  _timeBtwShots: 0.5
+  animator: {fileID: 0}
 --- !u!70 &865914811
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
