@@ -5,15 +5,24 @@ using System.Collections;
 
 public class EffectButton : MonoBehaviour , IPointerEnterHandler, IPointerExitHandler{
     public TextMeshProUGUI textMesh;
-    private Vector3 originalScale;
+    private float originalScale;
     public float scaleMultiplier = 1.3f;
     public float duration = 0.2f;
     private Coroutine scaleCoroutine;
     
    
 
-    public void Start(){
-    originalScale = textMesh.transform.localScale;
+    public void OnEnable(){
+    originalScale = textMesh.fontSize;
+    scaleCoroutine = null;
+    }
+    public void OnDisable(){
+        if(scaleCoroutine != null)StopCoroutine(scaleCoroutine);
+    }
+
+    public void bigger(){
+        if (scaleCoroutine != null) StopCoroutine(scaleCoroutine);
+        scaleCoroutine = StartCoroutine(ScaleText(originalScale * scaleMultiplier));
     }
     
     
@@ -21,7 +30,6 @@ public class EffectButton : MonoBehaviour , IPointerEnterHandler, IPointerExitHa
         Debug.Log("on mouse over");
         if (scaleCoroutine != null) StopCoroutine(scaleCoroutine);
         scaleCoroutine = StartCoroutine(ScaleText(originalScale * scaleMultiplier));
-
     }
 
     public void OnPointerExit(PointerEventData eventData){
@@ -29,17 +37,21 @@ public class EffectButton : MonoBehaviour , IPointerEnterHandler, IPointerExitHa
         if (scaleCoroutine != null) StopCoroutine(scaleCoroutine);
         scaleCoroutine = StartCoroutine(ScaleText(originalScale));
     }
-    private IEnumerator ScaleText(Vector3 targetScale){
+    
+    public IEnumerator ScaleText(float targetScale){
+        Debug.Log(targetScale + " org" + originalScale);
         float time = 0;
-        Vector3 startScale = textMesh.transform.localScale;
+        float startScale = textMesh.fontSize;
 
         while (time < duration){
-            textMesh.transform.localScale = Vector3.Lerp(startScale, targetScale, time / duration);
+            textMesh.fontSize = Mathf.Lerp(originalScale,10,time/duration);
             time += Time.deltaTime;
             yield return null;
         }
+        
+        textMesh.fontSize = targetScale;
+        scaleCoroutine = null;
 
-        textMesh.transform.localScale = targetScale;
     }
 
     

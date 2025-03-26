@@ -60,7 +60,7 @@ public class WaveSystem : MonoBehaviour , IEventListener
         SetTextAlpha(waveCompleteUIText, 0f);
         
         skillTreeButton = SkillTreeButtonComponent.GetComponent<Button>();
-        skillTreeButton.interactable = false;
+        if(!Application.isEditor) skillTreeButton.interactable = false;
         skillTreeText = SkillTreeButtonComponent.GetComponentInChildren<TextMeshProUGUI>(true);
         SetTextAlpha(skillTreeText,0.5f);
     
@@ -170,7 +170,7 @@ public class WaveSystem : MonoBehaviour , IEventListener
         
         yield return StartCoroutine(FadeText(0f, 1f, 1f));
         
-        skillTreeButton.interactable = true;
+        if(!Application.isEditor) skillTreeButton.interactable = true;
         SetTextAlpha(skillTreeText,1f);
         
         for(int i=timeBetweenWave; i>0;i--){
@@ -179,7 +179,7 @@ public class WaveSystem : MonoBehaviour , IEventListener
         } 
         StartCoroutine(FadeText(1f, 0f, 1f)); 
         
-        skillTreeButton.interactable = false;
+        if(!Application.isEditor) skillTreeButton.interactable = false;
         SetTextAlpha(skillTreeText,0.5f);
         
         GenerateWave();

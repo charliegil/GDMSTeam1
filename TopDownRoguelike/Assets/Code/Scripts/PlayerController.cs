@@ -10,12 +10,17 @@ using System.Globalization;
 public class PlayerController : MonoBehaviour , IEventListener
 {
     // ===================== REFERENCES =====================
-    
+    public PlayerController instance;
     private InputActionReference pointerPosition;
     private InputSystem_Actions playerInputActions;
     private Rigidbody2D rb;
     [SerializeField] private Animator animator;
     [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private GameObject maskFreeze;
+
+    private Coroutine freezeCoroutine;
+
+
     
 
 
@@ -97,8 +102,9 @@ public class PlayerController : MonoBehaviour , IEventListener
      [Header("Healths Settings")]
     public float maxHealth;
     private float currentHealth;
-
     public HealthManager healthManager;
+
+    public static bool oneMoreChance = false;
     
 
     // ===================== DEBUG & TESTING =====================
@@ -117,6 +123,7 @@ public class PlayerController : MonoBehaviour , IEventListener
         currentHealth = maxHealth;
 
         gameObject.layer = LayerMask.NameToLayer("Player");
+        instance = this;
 
     }
 
@@ -201,6 +208,7 @@ public class PlayerController : MonoBehaviour , IEventListener
 /// </summary>
     private void AdjustPlayerDirection() {
         spriteRenderer.flipX = movementDirection.x < 0;
+        
     }
 
     // TODO optimize?
@@ -237,11 +245,15 @@ public class PlayerController : MonoBehaviour , IEventListener
             
            
             if(Invincible) {
-                Debug.Log("the player is invincible now");
+                //Debug.Log("the player is invincible now");
                 return;}
             
             currentHealth -= damage;
             animator.SetTrigger("takingDamage");
+            if(oneMoreChance && currentHealth <= 0 ){
+                oneMoreChance = false;
+                currentHealth =maxHealth;
+            }
             if(currentHealth <= 0 ) OnDeath();
         }
         else{
@@ -358,6 +370,31 @@ public class PlayerController : MonoBehaviour , IEventListener
         }
     }
 
+    public void revealFreezeMask(bool reveal){
+        if(freezeCoroutine!= null ) StopCoroutine(freezeCoroutine);
+        if(reveal){
+            freezeCoroutine = StartCoroutine(showFreezeMask(maskFreeze.GetComponent<SpriteRenderer>().color.a,0.1f,0.5f));
+        }
+        else{
+            freezeCoroutine = StartCoroutine(showFreezeMask(maskFreeze.GetComponent<SpriteRenderer>().color.a,0,0.5f));
+        }
+    }
+    public IEnumerator showFreezeMask(float start, float end, float duration){
+        SpriteRenderer renderer = maskFreeze.GetComponent<SpriteRenderer>();
+        Color color = renderer.color;
+        color.a =start; 
+        float time = 0;
+        while(time < duration){
+            color.a =  Mathf.Lerp(start,end,time/duration);
+            renderer.color = color;
+            time+=Time.deltaTime;
+            yield return null;
+        }
+        color.a = end;
+        renderer.color = color;
+        freezeCoroutine = null;
+
+    }
     
     
     
@@ -467,6 +504,16 @@ public class PlayerController : MonoBehaviour , IEventListener
         phaseCooldown /= percentDecrease;
     }
 
+    public void AddMoreTargetBeam(){
+        foreach(BeamAttackHandler beam in GetComponentsInChildren<BeamAttackHandler>(true)){
+            if(!beam.gameObject.activeSelf){
+                beam.gameObject.SetActive(true);
+                break;
+            }
+            
+        }
+    }
+
     
     
     
@@ -488,6 +535,8 @@ public class PlayerController : MonoBehaviour , IEventListener
         EventManager.OnDefenceBoost += IncreaseDefenceBoost;
         EventManager.OnPhaseCooldownBoost += ReducePhaseCooldown;
         EventManager.OnPhaseDurationBoost += ReducePhaseDuration;
+        EventManager.OnRevealFreezeMask += revealFreezeMask;
+        EventManager.OnAddMoreTargets += AddMoreTargetBeam;
 
      
     }
@@ -504,6 +553,8 @@ public class PlayerController : MonoBehaviour , IEventListener
         EventManager.OnDefenceBoost -= IncreaseDefenceBoost;
         EventManager.OnPhaseCooldownBoost -= ReducePhaseCooldown;
         EventManager.OnPhaseDurationBoost -= ReducePhaseDuration;
+        EventManager.OnRevealFreezeMask -= revealFreezeMask;
+        EventManager.OnAddMoreTargets -= AddMoreTargetBeam;
 
     }
     

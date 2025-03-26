@@ -6,6 +6,11 @@ public class TestEvents : MonoBehaviour {
 
     [SerializeField] private List<KeyEvent> keyEvents = new List<KeyEvent>();
 
+    public void Start()
+    {
+        if(!Application.isEditor) gameObject.SetActive(false);
+    }
+
     private void Update()
     {
         foreach (var keyEvent in keyEvents)

@@ -23,7 +23,7 @@ public class SlowPlayerZone : MonoBehaviour
     
     public bool canEscapeWithDash; // if true, the velocity of the worm will have no effect while dashing. need to implement that
     //public newHealth UIHealth;
-    public Sprite sprite;
+
     public Color spriteColor;
     private CircleCollider2D ZoneCollider; // if you are in this collider, you will get pulled towards the center
 
@@ -33,21 +33,16 @@ public class SlowPlayerZone : MonoBehaviour
 
     private float reloadCounter = 0;
 
-    private PlayerController playerController;
+   
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     { 
-        ZoneCollider = gameObject.AddComponent<CircleCollider2D>();
-        ZoneCollider.radius = zoneRadius;
-        ZoneCollider.isTrigger = true;
+        ZoneCollider = gameObject.GetComponent<CircleCollider2D>();
+       
         
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-        /*spriteRenderer.sprite  = sprite;
-        spriteRenderer.color = spriteColor;*/
-
-        spriteRenderer.drawMode = SpriteDrawMode.Sliced; // Options: Simple, Sliced, Tiled
-        spriteRenderer.size = new Vector2(2*zoneRadius,2* zoneRadius);
+        
 
         if(lifetime != -1) Destroy(gameObject, lifetime);
 
@@ -58,7 +53,7 @@ public class SlowPlayerZone : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D obj){
         if(!(obj.name.Contains("Player") || obj.tag.Contains("Player") ) || isWallBetweenPlayer(obj)) return; 
-
+        EventManager.RevealFreezeMask(true);
         EventManager.SpeedBoost(SlowMultiplier);
     }
     // the conditions for the reload time to embark are these:
@@ -74,7 +69,7 @@ public class SlowPlayerZone : MonoBehaviour
     private void StopSlowZone(){ // called when the zone stops pulling the player. for various reasons
         
         reloadCounter = 0; 
-        
+        EventManager.RevealFreezeMask(false);
         EventManager.SpeedBoost(1/SlowMultiplier);
 
     }

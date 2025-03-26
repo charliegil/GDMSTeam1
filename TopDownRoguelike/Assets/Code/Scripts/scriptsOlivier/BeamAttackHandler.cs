@@ -14,7 +14,6 @@ public class BeamAttackHandler : MonoBehaviour , IEventListener {
     [SerializeField] private float attackCooldown;
     [SerializeField] private int numberOfHits = 6;
     [SerializeField] private float attackRange;
-    [SerializeField] public int numTargets = 1;
 
     [Space(10)]
     [Tooltip("When enabled, the player doesnt have to click to attack with the beam. it automatically activates")]
@@ -264,9 +263,7 @@ private void setSliderValue()
     public void ReduceAttackDelay(float percentDecrease) {
         damageTickDelay /= percentDecrease;
     }
-    public void IncreaseNumTargets(float numTargets) {
-        this.numTargets+=(int)numTargets;
-    }
+    
     public void IncreaseNumberOfHits(float addition) {
         numberOfHits+= (int)addition;
         if(SliderCooldown!= null) SliderCooldown.value = numberOfHits;

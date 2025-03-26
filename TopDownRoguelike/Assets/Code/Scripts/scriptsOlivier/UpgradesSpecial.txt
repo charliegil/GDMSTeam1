@@ -1,0 +1,13 @@
+rarity,price,description;type
+4;10;At low health, your strikes become critical, fueled by desperation;AllCritiqualHitBelowCertainHp  
+3;8;The spirits of war grant you wisdom, earning 3 skill points after each wave;SkillPointAtWaveEnd  
+5;6;The gods grant you restoration, fully healing you at the end of each wave;FullHealthAtWaveEnd  
+2;4;The ancient weapon of the heavens is now at your disposal, unlocking the powerful beam;BeamAddTarget 
+3;5;You unlock the power of time, slowing enemies every few seconds;WeaponUnlocked  
+3;5;Your beam now strikes an additional enemy, expanding its reach;BeamAddTarget  
+3;6;Your beam gains the power to hit one more enemy, extending its fury;BeamAddTarget  
+5;15;The gods grant you a second chance, allowing you to be revived once more after falling;Revival  
+
+
+
+

@@ -1,0 +1,54 @@
+description;type
+The tiger’s fury empowers your strikes, increasing damage;Attack  
+The dragon’s wrath surges through you, greatly amplifying attack power;Attack  
+The turtle’s shell strengthens your body, reducing incoming damage;Defence  
+Your skin hardens like tempered steel, greatly increasing defense;Defence  
+Chi energy flows through you, extending your phase ability;PhaseDuration  
+The spirits warp time itself, allowing you to phase even longer;PhaseDuration  
+The phoenix’s fire fortifies your essence, increasing max health;Health  
+The elixir of immortality enhances your vitality, granting more health;Health  
+The crane’s precision sharpens your senses, boosting critical chance;CritiqualHit  
+Thunder strikes through your attacks, massively increasing crit chance;CritiqualHit  
+The wind spirit blesses your steps, making you move faster;Speed  
+You move with the speed of a galloping dragon, greatly increasing movement speed;Speed  
+The river of fortune flows in your favor, increasing enemy drop rates;DropRate  
+Luck shines upon you, making foes drop even more rewards;DropRate  
+Ancient magic enhances power-ups, boosting their effectiveness;PowerUpEffectMultiplier  
+Celestial energy surges within, greatly amplifying power-up effects;PowerUpEffectMultiplier  
+The sands of time slow, extending power-up duration;PowerUpDurationtMultiplier  
+Temporal energy bends to your will, making power-ups last much longer;PowerUpDurationtMultiplier  
+Your beam pulses with divine force, reducing cooldown time;BeamAttackCooldown  
+The gods hasten your attacks, allowing your beam to recharge faster;BeamAttackCooldown  
+Heavenly energy sustains your beam, increasing its duration;BeamAttackDuration  
+The dragon’s breath lingers, making your beam last even longer;BeamAttackDuration  
+Lightning infuses your beam, increasing its hit frequency;BeamTickRate  
+The storm rages through your beam, striking enemies even faster;BeamTickRate  
+The sun’s fury fuels your beam, increasing its damage;BeamDamageIncrease  
+The wrath of the heavens empowers your beam, dealing massive damage;BeamDamageIncrease  
+The lion’s strength amplifies your strikes, making them hit harder;Attack  
+The dragon’s claws sharpen your blows, greatly increasing attack power;Attack  
+The stone golem’s might fortifies you, reducing incoming damage;Defence  
+The wind’s protection surrounds you, greatly enhancing defense;Defence  
+Your chi flows like an unbroken river, extending phase duration;PhaseDuration  
+The moon’s grace elongates your phase, letting you evade danger longer;PhaseDuration  
+The phoenix’s flames renew your vitality, increasing max health;Health  
+The celestial lotus blooms within you, greatly enhancing health;Health  
+The eagle’s precision guides your strikes, increasing your crit chance;CritiqualHit  
+The thunder god’s rage charges your strikes, dramatically boosting crit chance;CritiqualHit  
+The swift crane blesses your movements, enhancing speed;Speed  
+The tiger spirit infuses you with incredible speed, making you faster than ever;Speed  
+The gods smile upon you, increasing the power-up drop rate from enemies;DropRate  
+Fortune blesses you, making enemies drop more power-ups;DropRate  
+Ancient power strengthens power-ups, greatly enhancing their effects;PowerUpEffectMultiplier  
+The essence of the gods amplifies your power-ups, making them far more potent;PowerUpEffectMultiplier  
+The stars align, extending the duration of your power-ups;PowerUpDurationtMultiplier  
+The winds of time extend your power-ups, making them last far longer;PowerUpDurationtMultiplier  
+The celestial beam energizes you, reducing its cooldown;BeamAttackCooldown  
+The dragon’s breath speeds up your beam, allowing it to fire faster;BeamAttackCooldown  
+Heavenly winds empower your beam, increasing its duration;BeamAttackDuration  
+The sun’s blessing sustains your beam, letting it shine longer;BeamAttackDuration  
+Your beam crackles with divine energy, increasing its tick rate;BeamTickRate  
+The storm god’s fury supercharges your beam, increasing its tick rate;BeamTickRate  
+Your beam channels the power of the gods, increasing its damage;BeamDamageIncrease  
+The fury of the heavens intensifies your beam, causing massive destruction;BeamDamageIncrease  
+
