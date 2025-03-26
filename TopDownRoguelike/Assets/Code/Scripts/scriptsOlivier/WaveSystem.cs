@@ -133,8 +133,8 @@ public class WaveSystem : MonoBehaviour , IEventListener
     private void EnemyDied()
     {
         enemiesLeft--;
-        //Debug.Log("enemies left to kill : " + enemiesLeft);
-        //currentWaveUIText.text = "enemies left to kill : " + enemiesLeft + " Wave: " + currentWave;
+        Debug.Log("enemies left to kill : " + enemiesLeft);
+        currentWaveUIText.text = "enemies left to kill : " + enemiesLeft + " Wave: " + currentWave;
         if (enemiesLeft <= 0)
         {
             StartCoroutine(OnWaveComplete());
