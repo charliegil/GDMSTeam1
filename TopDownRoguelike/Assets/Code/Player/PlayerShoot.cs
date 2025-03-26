@@ -11,7 +11,7 @@ public class PlayerShoot : MonoBehaviour
     private int _gunOffset;
     private bool _fireContinuously;
     [SerializeField]
-    private float _timeBtwShots;
+    private static float _timeBtwShots;
     private float _lastFireTime;
     private bool _fireSingle;
     public Animator animator;
@@ -20,7 +20,7 @@ public class PlayerShoot : MonoBehaviour
 
    private PlayerController playerController;
 
-    public void AddSpeedFire(float reduceIntervalGun){
+    public static void AddSpeedFire(float reduceIntervalGun){
         _timeBtwShots-=reduceIntervalGun;
     }
 

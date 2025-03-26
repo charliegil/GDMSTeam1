@@ -25,6 +25,7 @@ Lightning infuses your beam, increasing its hit frequency;BeamTickRate
 The storm rages through your beam, striking enemies even faster;BeamTickRate  
 The sun’s fury fuels your beam, increasing its damage;BeamDamageIncrease  
 The wrath of the heavens empowers your beam, dealing massive damage;BeamDamageIncrease  
+Your ranged attack now hit faster;RangedAttackCooldown 
 The lion’s strength amplifies your strikes, making them hit harder;Attack  
 The dragon’s claws sharpen your blows, greatly increasing attack power;Attack  
 The stone golem’s might fortifies you, reducing incoming damage;Defence  
