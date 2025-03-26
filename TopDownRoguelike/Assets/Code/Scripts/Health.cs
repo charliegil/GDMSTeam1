@@ -16,6 +16,8 @@ public class Health : MonoBehaviour
 
 
     [SerializeField] Animator animator;
+
+    private bool isDead = false;
  
 
     public GameObject damagePopupPrefab;
@@ -62,9 +64,10 @@ public class Health : MonoBehaviour
 
             //damagePopup.Setup(damage);
         }
-        if(currentHealth<=0) OnDeath();
+        if(currentHealth<=0 && !isDead) OnDeath();
     }
     public void OnDeath(){
+        isDead = true;
         SpawnDeathInstance();
         EventManager.EnemyDied();
         if (ScoreManager.Instance != null) {
