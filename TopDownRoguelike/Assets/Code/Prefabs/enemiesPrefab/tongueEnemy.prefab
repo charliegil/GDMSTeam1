@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8898022347ea147b483cf0844e8fc6a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 100
+  currentHealth: 20
   deathParticles: {fileID: 2832167548909918162, guid: 1b61d08785ca28044a6ae3e21eee117e, type: 3}
   isTargeted: 0
   enemyValue: 1

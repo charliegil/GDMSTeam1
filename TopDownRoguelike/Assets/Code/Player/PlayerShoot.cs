@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
+
 
 public class PlayerShoot : MonoBehaviour
 {
@@ -14,10 +14,19 @@ public class PlayerShoot : MonoBehaviour
     private float _timeBtwShots;
     private float _lastFireTime;
     private bool _fireSingle;
+    public Animator animator;
 
     private GameObject bulletParent;
 
    private PlayerController playerController;
+
+    public void AddSpeedFire(float reduceIntervalGun){
+        _timeBtwShots-=reduceIntervalGun;
+    }
+
+    public void AddSpeedBullet(float addBulletSpeed){
+        _bulletSpeed+=addBulletSpeed;
+    }
 
    void Start(){
         playerController = GetComponent<PlayerController>();
@@ -30,7 +39,7 @@ public class PlayerShoot : MonoBehaviour
             float timeSinceLastFire = Time.time - _lastFireTime;
             if(timeSinceLastFire >= _timeBtwShots){
                 FireBullet();
-                FireBullet();
+                animator.SetTrigger("attack");
                 _lastFireTime = Time.time;
                 //_fireSingle = false;
             }
@@ -48,8 +57,11 @@ public class PlayerShoot : MonoBehaviour
 
         // Instantiate bullet at player's position
         GameObject bullet = Instantiate(_bulletPrefab, transform.position+ (Vector3)(_gunOffset*direction), Quaternion.identity);
-
+        GameObject bullet2 = Instantiate(_bulletPrefab, transform.position+ (Vector3)(_gunOffset*direction), Quaternion.identity);
+        GameObject bullet3 = Instantiate(_bulletPrefab, transform.position+ (Vector3)(_gunOffset*direction), Quaternion.identity);
         directionBullet(bullet, direction);
+        directionBullet(bullet2, new Vector2(direction.x+0.2f, direction.y+0.2f));
+        directionBullet(bullet3, new Vector2(direction.x-0.2f, direction.y-0.2f));
     }
     private void directionBullet(GameObject bullet, Vector2 direction){
         //bullet.GetComponent<Bullet>().damage*= playerController.getAttackMultiplier()*playerController.IsAttackCritiqual();
@@ -64,13 +76,5 @@ public class PlayerShoot : MonoBehaviour
         bullet.transform.SetParent(bulletParent.transform);
 
     }
-    // if(InputValue.isPressed){ //
-    //     _fireSingle = true;
-    // }
-    // private void OnFire(InputValue inputValue){
-    //     //Debug.Log("you click e");
-        
-    //     _fireContinuously = inputValue.isPressed;
-
-    // }
+    
 }
