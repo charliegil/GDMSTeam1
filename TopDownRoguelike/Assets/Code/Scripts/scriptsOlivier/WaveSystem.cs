@@ -76,7 +76,7 @@ public class WaveSystem : MonoBehaviour , IEventListener
     // Update is called once per frame
     private void Update()
     {
-       //Debug.Log("how many enemy: " + enemiesLeft);
+       Debug.Log("how many enemy: " + enemiesLeft);
        //Debug.Log("current Wave"+currentWave);
         
         
