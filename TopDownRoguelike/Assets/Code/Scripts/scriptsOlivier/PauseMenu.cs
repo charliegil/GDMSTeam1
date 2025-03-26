@@ -5,6 +5,8 @@ public class PauseMenu : MonoBehaviour
    
     public GameObject PauseUI;
 
+    public GameObject StatsUI;
+
     public GameObject SkillTreeUI;
 
     public GameObject Canva;
@@ -18,6 +20,7 @@ public class PauseMenu : MonoBehaviour
         PauseUI.SetActive(false);
         //Canva.SetActive(false);
         SkillTreeUI.SetActive(false);
+        StatsUI.SetActive(false);
     }
 
     public void pause()
@@ -75,6 +78,10 @@ public class PauseMenu : MonoBehaviour
     {
         Time.timeScale = 1;
         UnityEngine.SceneManagement.SceneManager.LoadScene("enemiesOlivier");
+    }
+
+    public void CloseStatsMenu(){
+        StatsUI.SetActive(false);
     }
     
 }

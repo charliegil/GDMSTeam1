@@ -29,7 +29,7 @@ public class SkillTreeHandler : MonoBehaviour , IEventListener
             
         if(original != skillPoints){
             upgradesOwned.Add(skillnode.getNode().GetUpgrade());
-            GetComponent<AudioSource>().Play();
+            AudioManager.instance.PlaySound("skillBought");
             Debug.Log("you bought" + skillnode);
             skillPointsText.text = "skill points "+skillPoints;
             applyUpgrade(skillnode.getNode().GetUpgrade(),false);
@@ -110,13 +110,13 @@ public class SkillTreeHandler : MonoBehaviour , IEventListener
             case upgradeType.WeaponUnlocked:
                 Debug.Log("You have got a new weapon");
                 break;
-            case upgradeType.fullHealthAtWaveEnd:
+            case upgradeType.FullHealthAtWaveEnd:
                 WaveSystem.gainFullHealthOnEnd = true;
                 break;
             case upgradeType.SkillPointAtWaveEnd:
                 WaveSystem.skillPointsOnEnd = (int)value;
                 break;
-            case upgradeType.allCritiqualHitBelowCertainHp:
+            case upgradeType.AllCritiqualHitBelowCertainHp:
                 PlayerController.allCritiqualHits = (int)value;
                 break;
 
@@ -134,6 +134,12 @@ public class SkillTreeHandler : MonoBehaviour , IEventListener
                 break;
             case upgradeType.BeamTickRate:
                 EventManager.BeamDamageTickDelay(value);
+                break;
+            case upgradeType.BeamAddTarget:
+                EventManager.AddMoreTargets();
+                break;
+            case upgradeType.Revival:
+                PlayerController.oneMoreChance =  true;
                 break;
             default:
                 Debug.LogWarning("not recognized upgrade type: " + type);

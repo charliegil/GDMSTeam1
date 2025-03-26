@@ -1,36 +1,48 @@
-using UnityEngine.Audio;
 using UnityEngine;
+using System.Collections.Generic;
 using System;
+using UnityEngine.InputSystem.Controls;
+using System.Linq;
 
 public class AudioManager : MonoBehaviour
 {
-    public static AudioManager Instance {get; private set;}
-    public Sound[] sounds;
+    public static AudioManager instance;
+    public AudioSource audioSourcePrefab;
+    private List<AudioSource> audioSources = new List<AudioSource>();
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [SerializeField] private List<Sound> sounds  = new List<Sound>();
+
     private void Awake()
     {
-        if (Instance == null) {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        } else {
-            Destroy(gameObject);
+        if (instance == null){ 
+            instance = this;
+            DontDestroyOnLoad(gameObject);    
         }
-
-        foreach (Sound s in sounds) {
-            s.source = gameObject.AddComponent<AudioSource>();
-            s.source.clip = s.clip;
-
-            s.source.volume = s.volume;
-            s.source.pitch = s.pitch;
-        }
+        else Destroy(gameObject);
     }
 
-    public void Play(string name) {
-        Sound s = Array.Find(sounds, sound => sound.name == name);
+    private AudioSource GetAvailableSource()
+    {
+        foreach (AudioSource source in audioSources){
+            if (!source.isPlaying) return source; 
+        }
+        AudioSource Source = Instantiate(audioSourcePrefab, transform);
+        audioSources.Add(Source);
+        return Source;
+    }
 
-        if (s != null) {
-            s.source.Play();
+    public void PlaySound(Sound clip)
+    {
+        AudioSource source = GetAvailableSource();
+        source.volume = clip.volume;
+        source.PlayOneShot(clip.clip);
+    }
+    public void PlaySound(string clipName){
+        Sound clip = sounds.FirstOrDefault(s => s.name.Contains(clipName));
+        if(clip!=null){
+            AudioSource source = GetAvailableSource();
+            source.volume = clip.volume;
+            source.PlayOneShot(clip.clip);
         }
     }
 }

@@ -51,8 +51,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 213f79b468d5a364fa43958ac3e424a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 5
-  CurrentHp: 0
   maxSpeed: 10
   acceleration: 0.3
   damage: 8
@@ -264,9 +262,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8898022347ea147b483cf0844e8fc6a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 75
+  currentHealth: 40
   deathParticles: {fileID: 2832167548909918162, guid: 1b61d08785ca28044a6ae3e21eee117e, type: 3}
-  Totalhealth: 0
+  isTargeted: 0
   enemyValue: 1
   animator: {fileID: 5636063512297748938}
   damagePopupPrefab: {fileID: 18462240691209356, guid: a8e2580e148f33c439cfc965461e67be, type: 3}

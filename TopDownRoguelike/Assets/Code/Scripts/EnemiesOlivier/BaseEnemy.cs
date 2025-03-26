@@ -7,9 +7,8 @@ using System.Collections.Generic;
 
 public abstract class BaseEnemy : MonoBehaviour , IEventListener
 {
-[Header("Health Settings")]
-[SerializeField] protected float maxHP =100;
-[SerializeField] protected float CurrentHp;
+[Header("Health Settings are in the 'Health' component")]
+
 
 [Header("Movement Settings")]
 [SerializeField] protected float maxSpeed = 10;
@@ -35,7 +34,7 @@ protected float timer;
     public void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        CurrentHp = maxHP;
+        
     }
 
     public abstract void move();

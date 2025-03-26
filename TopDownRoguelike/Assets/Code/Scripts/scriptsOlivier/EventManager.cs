@@ -15,6 +15,8 @@ public static class EventManager
     public static event Action<float> OnPlayerTakeDamage;
     public static event Action<float> OnIncreaseMaxHealth;
 
+    public static event Action<bool> OnRevealFreezeMask;
+
     // Enemy State Events
     public static event Action OnEnemyDied;
     public static event Action<int, float> OnEnemyTakeDamage;
@@ -42,6 +44,8 @@ public static class EventManager
     public static event Action<float> OnBeamAttackDuration;
     public static event Action<float> OnBeamAttackDamageIncrease;
 
+    public static event Action OnAddMoreTargets;
+
     private static void TriggerEvent(Action action) => action?.Invoke();
     private static void TriggerEvent<T>(Action<T> action, T param) => action?.Invoke(param);
     private static void TriggerEvent<T1, T2>(Action<T1, T2> action, T1 param1, T2 param2) => action?.Invoke(param1, param2);
@@ -68,6 +72,9 @@ public static class EventManager
     public static void BeamAttackDuration(float value) => TriggerEvent(OnBeamAttackDuration, value);
     public static void BeamAttackDamage(float value) => TriggerEvent(OnBeamAttackDamageIncrease, value);
     public static void BeamDamageTickDelay(float value) => TriggerEvent(OnBeamDamageTickDelay, value);
+    public static void RevealFreezeMask(bool value) => TriggerEvent(OnRevealFreezeMask, value);
+
+    public static void AddMoreTargets() =>  TriggerEvent(OnAddMoreTargets);
 
     
     

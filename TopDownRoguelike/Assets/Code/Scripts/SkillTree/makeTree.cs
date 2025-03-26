@@ -4,50 +4,49 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
 using Unity.VisualScripting;
+using TreeEditor;
 
 public class makeTree : MonoBehaviour
 {
+    [Header("tree settings")]
     public int minNumOfChildren = 0;
     public int maxNumOfChildren = 3;
     public int totalNodes = 20;
-
     public int probabilityZeroChildren = 50;
     public bool enableCoolerTrees = true;
+    public int seed = 1250;
 
-    public float spaceBetweenNodesX = 3;
-    public float spaceBetweenNodesY= 2;
+    [Header("Node spacing settings")]
+    private float spaceBetweenNodesX = 3;
+    private float spaceBetweenNodesY = 2;
 
     public float initialPositionRootX = 0;
     public float initialPositionRootY = 0;
 
     public float lineWidth = 0;
 
-    public Sprite lineSprite;
 
-    
+    [Header("UI settings")]
     public float NodeSize = 0.5f;
-    
+    public Sprite lineSprite;
     public GameObject panel;
-    public int seed = 1250;
-
-    public Sprite circleSprite; 
+    public GameObject InfoPanel;
+    public Color edgeColor;
     public Sprite SpriteLocked;
     public Sprite SpriteUnlocked;
 
-    public GameObject InfoPanel;
+    private List<skillTreeUpgrade> possibleCommonUpgrades;
+    private List<skillTreeUpgrade> possibleSpecialUpgrades;
 
-    private List<skillTreeUpgrade> possibleUpgrades;
 
 
     // solution: each node has a fixed length that his Children can take. the length is determined by most left and most right. 
 
     private void Start()
     {
-        possibleUpgrades = UpgradesReader.readValues();
-        foreach (skillTreeUpgrade upgrade in possibleUpgrades ){
-            //Debug.Log(upgrade.ToString());
-            
-        }
+        possibleCommonUpgrades = UpgradesReader.CreateCommonUpgradesFromFile();
+        possibleSpecialUpgrades = UpgradesReader.CreateSpecialUpgradesFromFile();
+        
         skillNode.SpriteLocked = SpriteLocked;
         skillNode.SpriteUnlocked = SpriteUnlocked;
         skillNode.InfoPanel = InfoPanel;
@@ -56,17 +55,44 @@ public class makeTree : MonoBehaviour
         treeNode root = setTree();
         printTree(root);
         TreeHelpers.CalculateNodePositions(root);
-        DrawTree(root,0);
+        
+        // ============ Make sure the tree is fiting in the image  ==========
+        spaceBetweenNodesY = 31f / (getHeight(root)-1f);
+        spaceBetweenNodesX = 52f / (getWidth(root));
+        Debug.Log("the withs is : "+getWidth(root));
+        float max =  getMaxWidth(root,true)-root.X;
+        float min = root.X - getMaxWidth(root,false);
+        float offset = max-min;
+        initialPositionRootX+=offset*spaceBetweenNodesX/2;
+        // ============= end layout positioning ==========================
+
+
+        //Debug.Log("root pos:"  +root.X + " " + root.Y);
+        DrawTree(root,0,root);
+        // -60
 
     }
 
     private skillTreeUpgrade getRandomUpgrade(int rarity){
-       
+       if(UnityEngine.Random.Range(0,1)==0){
+            skillTreeUpgrade upgrade = getRandomUpgrade(rarity,false);
+            if(upgrade!=null) return upgrade;
+       }
+        return getRandomUpgrade(rarity,true);
+    }
+    
+    private skillTreeUpgrade getRandomUpgrade(int rarity,bool common){
         rarity = Math.Clamp(rarity,1, 5);
+        List<skillTreeUpgrade> lst = possibleSpecialUpgrades;
+        if(common) lst = possibleCommonUpgrades;  
         
-        if(possibleUpgrades.Count == 0) return new skillTreeUpgrade(rarity);
+        List<skillTreeUpgrade> list = new List<skillTreeUpgrade>(possibleSpecialUpgrades);
+        if(common) list = new List<skillTreeUpgrade>(possibleCommonUpgrades);
         
-        List<skillTreeUpgrade> list = new List<skillTreeUpgrade>(possibleUpgrades);
+        if(lst.Count == 0){
+            if(common) return new skillTreeUpgrade(rarity);
+            return null;
+        }
         
         int index = UnityEngine.Random.Range(0,list.Count);
         skillTreeUpgrade current = list[index];
@@ -78,10 +104,13 @@ public class makeTree : MonoBehaviour
             if (Math.Abs(current.getRarity() - rarity) <= 1) break;
         
             list.RemoveAt(index);
+
         }
-        possibleUpgrades.Remove(current);
+        lst.Remove(current);
         return current;
     }
+    
+
 
 
     // Update is called once per frame
@@ -90,6 +119,9 @@ public class makeTree : MonoBehaviour
         Queue<treeNode> queue = new Queue<treeNode>();
         
         System.Random random = new System.Random(seed);
+        if(seed==-1){
+            random = new System.Random();
+        }
         
         treeNode root = new treeNode(null);
         root.value = -1;
@@ -137,17 +169,18 @@ public class makeTree : MonoBehaviour
             printTree(node.Children[i]);
         }
     }
-    public void DrawTree(treeNode root, int depth) {
+    public void DrawTree(treeNode node, int depth,treeNode root) {
         GameObject nodeObject = new GameObject("node");
         
-        Vector2 positionNode =new Vector2(-spaceBetweenNodesX*(float)root.X, -spaceBetweenNodesY*(float)root.Y)+ new Vector2(initialPositionRootX, initialPositionRootY);
+        Vector2 positionNode =new Vector2(-spaceBetweenNodesX*(float)(node.X - root.X), -spaceBetweenNodesY*(float)(node.Y-root.Y))+ new Vector2(initialPositionRootX, initialPositionRootY);
+
         
         nodeObject.AddComponent<Image>();
         //nodeObject.GetComponent<Image>().sprite = SpriteLocked;
-        root.setUpgrade(getRandomUpgrade(depth));
+        node.setUpgrade(getRandomUpgrade(depth));
 
         skillNode SkillNode = nodeObject.AddComponent<skillNode>();
-        SkillNode.setTreeNode(root);
+        SkillNode.setTreeNode(node);
         
         
         RectTransform rectTransform = nodeObject.GetComponent<RectTransform>();
@@ -158,10 +191,10 @@ public class makeTree : MonoBehaviour
         rectTransform.anchoredPosition = positionNode;
     
         // dont forget to add a specific skillTreeUpgrade to the root/node
-        foreach (treeNode child in root.Children) {
-            Vector2 positionChild = new Vector2(-spaceBetweenNodesX*(float)child.X , -spaceBetweenNodesY*(float)child.Y) + new Vector2(initialPositionRootX, initialPositionRootY);
+        foreach (treeNode child in node.Children) {
+            Vector2 positionChild = new Vector2(-spaceBetweenNodesX*(float)(child.X- root.X) , -spaceBetweenNodesY*(float)(child.Y-root.Y)) + new Vector2(initialPositionRootX, initialPositionRootY);
             CreateEdge(positionNode,positionChild);
-            DrawTree(child,depth+1);
+            DrawTree(child,depth+1,root);
         }
         nodeObject.transform.SetParent(panel.transform,true);
     }
@@ -172,12 +205,13 @@ public class makeTree : MonoBehaviour
         GameObject lineObject = new GameObject("line");
 
        
-        Image lineRenderer = lineObject.AddComponent<Image>();
+        Image image = lineObject.AddComponent<Image>();
+        image.color = edgeColor;
 
         float distance = Vector2.Distance(start, end);
         float angle = Vector2.SignedAngle((end-start).normalized, new Vector2(1, 0));
         
-        RectTransform rectTransform = lineRenderer.GetComponent<RectTransform>();
+        RectTransform rectTransform = image.GetComponent<RectTransform>();
         
         rectTransform.anchoredPosition = (start + end) / 2;
         
@@ -186,35 +220,37 @@ public class makeTree : MonoBehaviour
         rectTransform.anchorMax = new Vector2(0, 1);
         
         
-        lineRenderer.transform.localScale = new Vector2(distance/100, lineWidth);
-        lineRenderer.sprite = lineSprite;
+        image.transform.localScale = new Vector2(distance/100, lineWidth);
+        image.sprite = lineSprite;
         
        
-        lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
+        image.material = new Material(Shader.Find("Sprites/Default"));
         lineObject.transform.SetParent(panel.transform,true);
        
     }
-    private void CreateEdge2(Vector2 start, Vector2 end) {
+    private float getHeight(treeNode node){
+        float max = 0;
+        
+        foreach (treeNode child in node.Children){
+            max = Mathf.Max(max, getHeight(child));
+        }
+        return 1+max;
+    }
+    private float getWidth(treeNode node){
+        return getMaxWidth(node,true) - getMaxWidth(node,false);
+    }
+    private float getMaxWidth(treeNode node, bool maximum){
+        float max = node.X;
+        foreach (treeNode child in node.Children){
+            if (maximum) max = MathF.Max(max, getMaxWidth(child,maximum));
+            else max = MathF.Min(max, getMaxWidth(child,maximum));
+        }
+        return max;
+    }
     
-    GameObject lineObject = new GameObject("Line");
-
     
-    SpriteRenderer lineRenderer = lineObject.AddComponent<SpriteRenderer>();
-    lineRenderer.sprite = lineSprite;
-
     
-    Vector2 midpoint = (start + end) / 2;
-    float distance = Vector2.Distance(start, end);
-    float angle = Vector2.SignedAngle((end - start).normalized, Vector2.right);
 
-   
-    lineObject.transform.position = start;  // Set world-space position
-    lineObject.transform.rotation = Quaternion.Euler(0, 0, angle); // Rotate correctly
-    lineObject.transform.localScale = new Vector3(1, 1, 1); // Scale properly
-
-   
-    lineObject.transform.parent = panel.transform; 
-}
 
     
 

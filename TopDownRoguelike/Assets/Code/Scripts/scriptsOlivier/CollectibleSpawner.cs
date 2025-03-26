@@ -19,7 +19,8 @@ public class CollectibleSpawner : MonoBehaviour , IEventListener
     void Start()
     {
         DropRate = EditorDropRate;
-        subscribe();   
+        subscribe(); 
+        fixProbability();  
     }
 
     void spawnRandomItem(Vector2 position){
@@ -32,10 +33,7 @@ public class CollectibleSpawner : MonoBehaviour , IEventListener
         
         float cumulative = 0f;
 
-        foreach (var entry in PowerUps)
-        {
-            if(entry.probability ==0) entry.probability = 1/PowerUps.Length; 
-            
+        foreach (var entry in PowerUps){
             cumulative += entry.probability;
             
             if (randomValue <= cumulative) return entry.powerUp;
@@ -43,6 +41,12 @@ public class CollectibleSpawner : MonoBehaviour , IEventListener
         }
 
         return null;
+    }
+    void fixProbability(){
+        foreach (var entry in PowerUps){
+            if(float.Equals(entry.probability,0f)) entry.probability = 1f/PowerUps.Length; 
+            
+        }
     }
 
     /*void spawnSpecificItem(Vector2 position){

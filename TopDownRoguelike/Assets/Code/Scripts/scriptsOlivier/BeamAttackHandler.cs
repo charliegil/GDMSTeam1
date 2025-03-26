@@ -14,12 +14,21 @@ public class BeamAttackHandler : MonoBehaviour , IEventListener {
     [SerializeField] private float attackCooldown;
     [SerializeField] private int numberOfHits = 6;
     [SerializeField] private float attackRange;
-    [SerializeField] public int numTargets = 1;
 
     [Space(10)]
     [Tooltip("When enabled, the player doesnt have to click to attack with the beam. it automatically activates")]
     [SerializeField] private bool attackAutomatically = true;
     [SerializeField] private Slider SliderCooldown;
+
+/*
+Will need to refactor this code. will have one of these for each beam. in the main script, will have a List of these
+components and will call set target to this one. 
+while the attack is on, will try to find enemies to assign a target on. will loop over the beams to see if they need to be stopped.
+
+
+*/
+
+
 
 
     private Coroutine attackCoroutine;
@@ -144,30 +153,46 @@ public class BeamAttackHandler : MonoBehaviour , IEventListener {
             
     }
     private GameObject GetClosestEnemy() {
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        GameObject closest = null;
-        float minDistance = Mathf.Infinity;
+    GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+    GameObject closest = null;
+    GameObject closestTargeted = null;
+    float minDistance = Mathf.Infinity;
+    float minDistanceTargeted = Mathf.Infinity;
 
-        for (int i = 0; i < enemies.Length; i++) {
-            float distanceToCurrent = Vector3.Distance(transform.position, enemies[i].transform.position);
+    for (int i = 0; i < enemies.Length; i++) {
+        float distanceToCurrent = Vector3.Distance(transform.position, enemies[i].transform.position);
 
-            if (distanceToCurrent < minDistance) {
-                closest = enemies[i];
-                minDistance = distanceToCurrent;
-            }
+        Debug.Log(enemies[i]);
+        bool isTargeted = enemies[i].GetComponent<Health>().isTargeted;
+        
+       
+        if (!isTargeted && distanceToCurrent < minDistance) {
+            closest = enemies[i];
+            minDistance = distanceToCurrent;
         }
-
-        return closest;
+        
+        else if (isTargeted &&  distanceToCurrent < minDistanceTargeted) {
+            closestTargeted = enemies[i];
+            minDistanceTargeted = distanceToCurrent;
+        }
     }
+
+    return closest;
+    //return closest != null ? closest : closestTargeted;
+}
+
 
 
     private IEnumerator DamageOverTime() {
         // TODO potentially make player unable to attack while phasing
         bool first = true;// ensure the first hit takes some seconds before landing (spam issue)
+        targetEnemy = GetClosestEnemy();
+        if(targetEnemy!= null) beam.SetTarget(targetEnemy.transform);     
+        targetEnemy.GetComponent<Health>().isTargeted = true;
         while (targetEnemy != null && targetEnemy.gameObject != null && numberOfHitsLeft>0 && canAttack) {
             if (!first) {
                 targetEnemy.GetComponent<Health>().TakeDamage(attackDamage);
-                
+                targetEnemy.GetComponent<Health>().isTargeted = true;
                 numberOfHitsLeft--;;
                 if(numberOfHitsLeft<0){
                     canAttack = false;
@@ -176,7 +201,11 @@ public class BeamAttackHandler : MonoBehaviour , IEventListener {
                 numberOfHitsLeft = Mathf.Clamp(numberOfHitsLeft,0,numberOfHits);
                 
                 targetSliderValue = numberOfHitsLeft;
-                yield return new WaitForSeconds(damageTickDelay);     
+                yield return new WaitForSeconds(damageTickDelay);
+                
+                if(targetEnemy!= null) targetEnemy.GetComponent<Health>().isTargeted = false;
+                targetEnemy = GetClosestEnemy();
+                if(targetEnemy!= null) beam.SetTarget(targetEnemy.transform);     
             }
             else{
                 first = false;
@@ -188,7 +217,9 @@ public class BeamAttackHandler : MonoBehaviour , IEventListener {
     private void CancelAttack() {
         if(attackCoroutine != null) StopCoroutine(attackCoroutine);
         attackCoroutine = null;
+        if(targetEnemy!= null) targetEnemy.GetComponent<Health>().isTargeted = false;
         targetEnemy = null;
+
         beam.SetTarget(null);
         
     }
@@ -232,9 +263,7 @@ private void setSliderValue()
     public void ReduceAttackDelay(float percentDecrease) {
         damageTickDelay /= percentDecrease;
     }
-    public void IncreaseNumTargets(float numTargets) {
-        this.numTargets+=(int)numTargets;
-    }
+    
     public void IncreaseNumberOfHits(float addition) {
         numberOfHits+= (int)addition;
         if(SliderCooldown!= null) SliderCooldown.value = numberOfHits;

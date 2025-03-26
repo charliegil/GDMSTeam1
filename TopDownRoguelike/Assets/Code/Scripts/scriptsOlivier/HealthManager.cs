@@ -65,7 +65,7 @@ public class HealthManager : MonoBehaviour
         {
             HealthBar.value =  hp / totalHP;
         }
-        Val.text = (int)hp + "/" + totalHP;
+        Val.text = (int)hp + "/" + (int)totalHP;
     }
     public void onValueChange(){
         float value = sliderChange.value;

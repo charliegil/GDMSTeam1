@@ -9,8 +9,9 @@ public class Health : MonoBehaviour
     [SerializeField] private float currentHealth = 100f;
     [SerializeField] private ParticleSystem deathParticles;
     private ParticleSystem deathParticlesInstance;
-    [SerializeField] private float Totalhealth = 0;
-
+ 
+    [HideInInspector] public bool isTargeted = false;
+    
     [SerializeField] private int enemyValue = 1;
 
 
@@ -32,7 +33,6 @@ public class Health : MonoBehaviour
     // }
     void Start()
     {
-        Totalhealth = currentHealth;
         if(playerController==null) playerController = GameObject.Find("Player")?.GetComponent<PlayerController>();
     }
 
@@ -47,6 +47,7 @@ public class Health : MonoBehaviour
         float critiqual = playerController.IsAttackCritiqual();
         damage =  (damage*critiqual*attackMultiplier);
         currentHealth -= damage;
+        AudioManager.instance.PlaySound("EnemyHurt");
         //Debug.Log(currentHealth);
         animator.SetTrigger("takeDamage");
         

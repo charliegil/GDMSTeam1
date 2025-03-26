@@ -19,43 +19,56 @@ public class skillTreeUpgrade
     public skillTreeUpgrade(): this(UnityEngine.Random.Range(1, 4))
     {}
 
-    public skillTreeUpgrade(int rarity){
+/// <summary>
+/// For special upgrades that are not common
+/// </summary>
+    public skillTreeUpgrade(int rarity ,int price, string description , upgradeType type){
         this.rarity = rarity;
-        this.value = 1f+ UnityEngine.Random.Range(0.05f*rarity, 0.095f*rarity);
-        price = UnityEngine.Random.Range(rarity, rarity+1);
+        this.price = price;
+        this.value = getValueFromUpgrade(type);
+        this.type = type;
+        this.description = description;
+
+    }
+/// <summary>
+/// For upgrades that are common
+/// </summary>
+    public skillTreeUpgrade(string description, upgradeType type){
+        this.description = description;
+        if(this.type == upgradeType.Random) type = getRandomUpgrade();
+        rarity = getRandomRarity();
+        price = getPriceFromRarity();
+        value = 1f + getValueFromRarity();
+        if(rarity == 5){
+            rarity = UnityEngine.Random.Range(5, 8);
+            price =  getPriceFromRarity();
+            value = 1f + getValueFromRarity();
+            rarity = 5;
+        }
+    }
+
+    public skillTreeUpgrade(int rarity){ // for common upgrades
+        this.rarity = rarity;
+        this.value = 1f+ getValueFromRarity();
+        price = getPriceFromRarity();
         
-        type = (upgradeType)UnityEngine.Random.Range(0, 10);
+        type = getRandomUpgrade();
         
         description = $"Upgrade of type {type.ToString()} with value {value}"; 
     }
-    public skillTreeUpgrade(int rarity , float value, String description , upgradeType Stype){
-        
-        this.rarity = rarity;
-        if(rarity == -1){
-            this.rarity = UnityEngine.Random.Range(1, 4);
-        }
-        price = UnityEngine.Random.Range(rarity, rarity+1);
-        if(Stype == upgradeType.Random){
-            type = (upgradeType)UnityEngine.Random.Range(0, 10);
-        }
-        else{
-           type =  Stype;
-        }
+    
 
-        this.value = value;
-        if(value == -1){
-            this.value = 1f+ UnityEngine.Random.Range(0.05f*rarity, 0.095f*rarity);
-        }
-        if(description.Contains(":")){
-            string[] desc = description.Split(':'); // used for inserting the value
-            this.description = desc[0] + value + desc[1];
-        }
-        else if(Stype == upgradeType.Random){
-            description = $"Upgrade of type {type.ToString()} with value {value}"; 
-        }
-        else{
-            this.description = description;
-        }
+    private float getValueFromRarity(){
+        return UnityEngine.Random.Range(0.08f*rarity, 0.12f*rarity);
+    }
+    private upgradeType getRandomUpgrade(){
+         return (upgradeType)UnityEngine.Random.Range(0, 13);
+    }
+    private int getPriceFromRarity(){
+        return UnityEngine.Random.Range(rarity, rarity+1);
+    }
+    private int getRandomRarity(){
+        return  UnityEngine.Random.Range(1, 6);
     }
 
 
@@ -79,6 +92,27 @@ public class skillTreeUpgrade
         return bought;
     }
     public int getRarity(){return rarity;}
+
+    private float getValueFromUpgrade(upgradeType typeUpgrade){
+        
+        switch (typeUpgrade)
+    {
+        case upgradeType.FullHealthAtWaveEnd:
+            return 1f;
+            
+        case upgradeType.SkillPointAtWaveEnd:
+            return 3f;
+           
+        case upgradeType.AllCritiqualHitBelowCertainHp:
+            return 10f;
+           
+        case upgradeType.InstantKillBelowCertainHp:
+            return 3f;    
+    }
+    return getValueFromRarity(); 
+    }
+
+
   
 }
 
@@ -105,6 +139,13 @@ public enum upgradeType{
     /// influences the duration multiplier of the powers up that the enemies drop when they die
     /// </summary>
     PowerUpDurationtMultiplier,
+    // ============ Upgrades about the beam here
+    BeamAttackCooldown,
+    BeamAttackDuration,
+    BeamTickRate,
+    BeamDamageIncrease,
+
+    BeamAddTarget,
     /// <summary>
     /// For all skill tree upgrades that unlocks a new attack
     /// </summary>
@@ -114,15 +155,11 @@ public enum upgradeType{
     /// <summary>
     /// upgrade that will make you full health when you finish a wave
     /// </summary>
-    fullHealthAtWaveEnd,
+    FullHealthAtWaveEnd,
     SkillPointAtWaveEnd,
-    allCritiqualHitBelowCertainHp,
+    AllCritiqualHitBelowCertainHp,
     InstantKillBelowCertainHp,
-    // ============ Upgrades about the beam here
-    BeamAttackCooldown,
-    BeamAttackDuration,
-    BeamTickRate,
-    BeamDamageIncrease,
+    Revival,
     Random,
 
 
