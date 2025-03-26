@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using System.Collections;
 
 public class skillTreeUpgrade
 {
@@ -108,6 +109,12 @@ public class skillTreeUpgrade
            
         case upgradeType.InstantKillBelowCertainHp:
             return 3f;   
+        case upgradeType.RangedAttackCooldown:
+            return 0.1f;
+        case upgradeType.RangedAttackSpeed:
+            return 2f;
+        case upgradeType.RangedAttackDmg:
+            return 5f;
     }
     return getValueFromRarity(); 
     }
@@ -166,6 +173,8 @@ public enum upgradeType{
     // ============ Upgrades about the ranged attack here
     RangedAttackCooldown,
     RangedAttackSpeed,
+    RangedAttackAdd,
+    RangedAttackDmg,
 
 
 }
