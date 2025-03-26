@@ -51,4 +51,3 @@ Your beam crackles with divine energy, increasing its tick rate;BeamTickRate
 The storm god’s fury supercharges your beam, increasing its tick rate;BeamTickRate  
 Your beam channels the power of the gods, increasing its damage;BeamDamageIncrease  
 The fury of the heavens intensifies your beam, causing massive destruction;BeamDamageIncrease  
-

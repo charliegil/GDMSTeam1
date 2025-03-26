@@ -36,9 +36,15 @@ public class skillTreeUpgrade
     public skillTreeUpgrade(string description, upgradeType type){
         this.description = description;
         if(this.type == upgradeType.Random) type = getRandomUpgrade();
-        this.rarity = getRandomRarity();
-        this.price = getPriceFromRarity();
-        this.value = getValueFromRarity();
+        rarity = getRandomRarity();
+        price = getPriceFromRarity();
+        value = 1f + getValueFromRarity();
+        if(rarity == 5){
+            rarity = UnityEngine.Random.Range(5, 8);
+            price =  getPriceFromRarity();
+            value = 1f + getValueFromRarity();
+            rarity = 5;
+        }
     }
 
     public skillTreeUpgrade(int rarity){ // for common upgrades

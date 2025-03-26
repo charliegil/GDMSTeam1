@@ -5,22 +5,24 @@ using UnityEngine;
 
 public class UpgradesReader{
     public static List<skillTreeUpgrade> CreateCommonUpgradesFromFile(){
-        string path = Application.dataPath + "/Code/Scripts/scriptsOlivier/UpgradesCommon.txt";
         List<skillTreeUpgrade> upgrades = new List<skillTreeUpgrade>();
-        if (File.Exists(path)){
-            string[] lines = File.ReadAllLines(path);
+        TextAsset textAsset = Resources.Load<TextAsset>("UpgradesCommon");
+        
+        if (textAsset != null){
+            string[] lines = textAsset.text.Split('\n'); // Split by new line
+        
             foreach (string line in lines){
-                
+                Debug.Log(line);
                 if(line.Equals(lines[0])) continue;
                 
-                if(line.Equals("")) break;
+                if(line.Trim().Equals("")) break;
                 string[] values = line.Split(';');
                 // first field is description, second field is type
                 
                 string description = values[0];
                 upgradeType type;
                 if (Enum.TryParse(values[1], out upgradeType upgrade)){
-                    //Debug.Log("Parsed successfully: " + upgrade);
+                 
                     type = upgrade;
                 }
                 else{
@@ -31,18 +33,24 @@ public class UpgradesReader{
             }
         }
         else{
-            Debug.LogError("File not found: " + path);
+            Debug.LogError("text file not found");
         }
         return upgrades;
     }
     public static List<skillTreeUpgrade> CreateSpecialUpgradesFromFile(){
-        string path = Application.dataPath + "/Code/Scripts/scriptsOlivier/UpgradesSpecial.txt";
+        
+        
+        
         List<skillTreeUpgrade> upgrades = new List<skillTreeUpgrade>();
-        if (File.Exists(path)){
-            string[] lines = File.ReadAllLines(path);
+        TextAsset textAsset = Resources.Load<TextAsset>("UpgradesSpecial");
+        
+        if (textAsset != null){
+            string[] lines = textAsset.text.Split('\n'); // Split by new line
+            
             foreach (string line in lines){
+                Debug.Log(line);
                 if(line.Equals(lines[0])) continue;
-                if(line.Equals("")) break;
+                if(line.Trim().Equals("")) break;
                 string[] values = line.Split(';');
                 // rarity,price,description,type
                 int rarity = 2;
@@ -65,7 +73,7 @@ public class UpgradesReader{
             }
         }
         else{
-            Debug.LogError("File not found: " + path);
+            Debug.LogError("text file not found");
         }
         return upgrades;
     }

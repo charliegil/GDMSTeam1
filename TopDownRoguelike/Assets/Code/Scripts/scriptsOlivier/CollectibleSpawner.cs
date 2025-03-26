@@ -45,7 +45,7 @@ public class CollectibleSpawner : MonoBehaviour , IEventListener
     void fixProbability(){
         foreach (var entry in PowerUps){
             if(float.Equals(entry.probability,0f)) entry.probability = 1f/PowerUps.Length; 
-            Debug.Log("should not be 0: " + entry.probability);
+            
         }
     }
 

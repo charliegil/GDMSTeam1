@@ -292,7 +292,8 @@ public class PlayerController : MonoBehaviour , IEventListener
         Debug.Log("im dead");
         LoseScreen.SetActive(true);
         EventManager.PlayerDied();
-        //Time.timeScale = 0;
+        AudioManager.instance.PlaySound("PlayerDeath");
+        if(!Application.isEditor) Time.timeScale = 0;
 
     }
     

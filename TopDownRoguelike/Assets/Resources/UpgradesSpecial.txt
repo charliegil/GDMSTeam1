@@ -7,7 +7,3 @@ rarity,price,description;type
 3;5;Your beam now strikes an additional enemy, expanding its reach;BeamAddTarget  
 3;6;Your beam gains the power to hit one more enemy, extending its fury;BeamAddTarget  
 5;15;The gods grant you a second chance, allowing you to be revived once more after falling;Revival  
-
-
-
-

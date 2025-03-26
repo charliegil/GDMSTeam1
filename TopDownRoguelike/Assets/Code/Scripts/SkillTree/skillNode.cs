@@ -86,7 +86,7 @@ public class skillNode : MonoBehaviour , IPointerEnterHandler, IPointerExitHandl
 
         descriptionText.text = "Hover to see attributes";
         priceText.text = "Price:";
-        valueText.text = "Value:";
+        valueText.text = "Boost:";
     }
     public void OnPointerClick(PointerEventData eventData)
     {
