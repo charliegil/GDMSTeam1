@@ -107,7 +107,7 @@ public class skillTreeUpgrade
             return 10f;
            
         case upgradeType.InstantKillBelowCertainHp:
-            return 3f;    
+            return 3f;   
     }
     return getValueFromRarity(); 
     }
@@ -139,6 +139,7 @@ public enum upgradeType{
     /// influences the duration multiplier of the powers up that the enemies drop when they die
     /// </summary>
     PowerUpDurationtMultiplier,
+    
     // ============ Upgrades about the beam here
     BeamAttackCooldown,
     BeamAttackDuration,
@@ -162,6 +163,9 @@ public enum upgradeType{
     Revival,
     Random,
 
+    // ============ Upgrades about the ranged attack here
+    RangedAttackCooldown,
+    RangedAttackSpeed,
 
 
 }

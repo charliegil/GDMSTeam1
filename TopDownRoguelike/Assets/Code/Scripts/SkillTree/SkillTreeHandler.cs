@@ -123,6 +123,9 @@ public class SkillTreeHandler : MonoBehaviour , IEventListener
             case upgradeType.InstantKillBelowCertainHp:
                 PlayerController.InstantKillHP = (int)value;
                 break;
+            case upgradeType.RangedAttackCooldown:
+                PlayerShoot.AddSpeedFire(value);
+                break;
             case upgradeType.BeamAttackCooldown:
                 EventManager.BeamAttackCooldown(value);
                 break;

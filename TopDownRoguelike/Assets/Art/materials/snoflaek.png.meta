@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      snoflaek_0: -87631955656826990
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
