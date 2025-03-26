@@ -76,7 +76,7 @@ public class WaveSystem : MonoBehaviour , IEventListener
     // Update is called once per frame
     private void Update()
     {
-       //Debug.Log("how many enemy: " + enemiesLeft);
+       Debug.Log("how many enemy: " + enemiesLeft);
        //Debug.Log("current Wave"+currentWave);
         
         
@@ -133,8 +133,8 @@ public class WaveSystem : MonoBehaviour , IEventListener
     private void EnemyDied()
     {
         enemiesLeft--;
-        //Debug.Log("enemies left to kill : " + enemiesLeft);
-        //currentWaveUIText.text = "enemies left to kill : " + enemiesLeft + " Wave: " + currentWave;
+        Debug.Log("enemies left to kill : " + enemiesLeft);
+        currentWaveUIText.text = "enemies left to kill : " + enemiesLeft + " Wave: " + currentWave;
         if (enemiesLeft <= 0)
         {
             StartCoroutine(OnWaveComplete());
