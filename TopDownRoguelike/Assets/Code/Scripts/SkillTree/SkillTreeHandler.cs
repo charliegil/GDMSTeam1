@@ -141,6 +141,7 @@ public class SkillTreeHandler : MonoBehaviour , IEventListener
             case upgradeType.Revival:
                 PlayerController.oneMoreChance =  true;
                 break;
+            
             default:
                 Debug.LogWarning("not recognized upgrade type: " + type);
                 break; 
