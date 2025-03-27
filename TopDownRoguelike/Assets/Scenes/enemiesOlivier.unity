@@ -1264,8 +1264,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textMesh: {fileID: 792176655}
-  scaleMultiplier: 5
-  duration: 0.5
+  scaleMultiplier: 1.1
+  duration: 0.1
 --- !u!114 &224227309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1715,10 +1715,10 @@ RectTransform:
   - {fileID: 1909195395}
   - {fileID: 6167837055745261461}
   - {fileID: 1451057606}
-  - {fileID: 80454222}
   - {fileID: 363039131}
   - {fileID: 1974252204}
   - {fileID: 2172602863446553258}
+  - {fileID: 80454222}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1934,10 +1934,10 @@ MonoBehaviour:
   initialPositionRootY: 17
   lineWidth: 0.005
   NodeSize: 3.5
-  lineSprite: {fileID: 7482667652216324306, guid: 6483d8e3f85fe4e078270ce65dbaffde, type: 3}
+  lineSprite: {fileID: 104340574343216024, guid: fdaaf102e49998842aee6a4e71601459, type: 3}
   panel: {fileID: 1974252203}
   InfoPanel: {fileID: 373047097}
-  edgeColor: {r: 0.6377357, g: 0.62449974, b: 0.62449974, a: 1}
+  edgeColor: {r: 1, g: 1, b: 1, a: 1}
   SpriteLocked: {fileID: -162039004593993079, guid: 50d54d4f9ca01104cb167faa2f32c77a, type: 3}
   SpriteUnlocked: {fileID: -1818097775005303466, guid: 08de95bfa2d3a2143a1b657650093b8c, type: 3}
 --- !u!4 &280165805
@@ -2019,7 +2019,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &320672551
 Transform:
   m_ObjectHideFlags: 0
@@ -2070,7 +2070,7 @@ MonoBehaviour:
   pointCount: 20
   waveAmplitude: 0.5
   waveFrequency: 5
-  beamWidth: 0.2
+  beamWidth: 1
   beamMaterial: {fileID: 2100000, guid: f9603b6a80cb86d4baa723a480d0930e, type: 2}
 --- !u!120 &320672554
 LineRenderer:

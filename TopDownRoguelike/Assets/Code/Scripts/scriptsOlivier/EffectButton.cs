@@ -41,7 +41,7 @@ public class EffectButton : MonoBehaviour , IPointerEnterHandler, IPointerExitHa
 
         while (time < duration){
             textMesh.gameObject.transform.localScale = Vector3.Lerp(startScale, targetScale, time / duration);
-            time += Time.deltaTime;
+            time += Time.unscaledDeltaTime;
             yield return null;
         }
         
