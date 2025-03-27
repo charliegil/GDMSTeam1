@@ -8,3 +8,7 @@ rarity,price,description;type
 2;4;Through extensive training, you manage to shoot faster;RangedAttackCooldown
 2;5;The winds hasten your strikes, reducing ranged attack cooldown;RangedAttackCooldown
 5;15;The gods grant you a second chance, allowing you to be revived once more after falling;Revival  
+3;6; You meet a ermit that teaches you the way. Your ranged attack shoots one more bullet;RangedNumberProjectile
+3;6; You find a scroll that contains an ancient technique. Your ranged attack shoots one more bullet;RangedNumberProjectile
+3;6; The gods grant you an extra projectile per shoot.;RangedNumberProjectile
+3;6; you gain the ability to shoot an extra projectile per shoot through extreme meditation.;RangedNumberProjectile

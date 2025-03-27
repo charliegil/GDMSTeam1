@@ -11,17 +11,20 @@ public class PlayerShoot : MonoBehaviour
     private int _gunOffset;
     private bool _fireContinuously;
     
-    [Range(0f, 2f)] public float timeBetweenShoot = 0.5f;
-    public static float _timeBtwShots = 0.5f;
+    [Range(0f, 2f)] public float timeBetweenShoot = 0.7f;
+    public static float _timeBtwShots = 0.7f;
 
     private bool _fireSingle;
     public Animator animator;
 
     private GameObject bulletParent;
 
-   private PlayerController playerController;
+    private PlayerController playerController;
 
-   private float timer;
+    public int angleBetweenBullets = 8;
+    private float timer;
+
+    public static int numPojectile =0;
 
     public static void ReduceTimeBetweenShots(float reduceIntervalGun){
         _timeBtwShots-=reduceIntervalGun;
@@ -65,6 +68,17 @@ public class PlayerShoot : MonoBehaviour
         // Instantiate bullet at player's position
         GameObject bullet = Instantiate(_bulletPrefab, transform.position+ (Vector3)(_gunOffset*direction), Quaternion.identity);
         directionBullet(bullet, direction);
+        int change = 1;
+        for(int i=1; i<=numPojectile;i++){
+            
+            GameObject bullet2 = Instantiate(_bulletPrefab, transform.position+ (Vector3)(_gunOffset*direction), Quaternion.identity);
+            int sign = i % 2 == 0 ? -1 : 1;
+            float angleOffset = change*angleBetweenBullets * sign;
+            if(sign == -1) change++;
+
+            Vector2 newDirection = RotateVector(new Vector2(direction.x, direction.y),angleOffset);
+            directionBullet(bullet2,newDirection);
+        }
         /*GameObject bullet2 = Instantiate(_bulletPrefab, transform.position+ (Vector3)(_gunOffset*direction), Quaternion.identity);
         GameObject bullet3 = Instantiate(_bulletPrefab, transform.position+ (Vector3)(_gunOffset*direction), Quaternion.identity);
         directionBullet(bullet2, new Vector2(direction.x+0.2f, direction.y+0.2f));
@@ -82,6 +96,12 @@ public class PlayerShoot : MonoBehaviour
         AudioManager.instance.PlaySound("Fire");
         bullet.transform.SetParent(bulletParent.transform);
 
+    }
+    Vector2 RotateVector(Vector2 v, float angle){
+    float rad = angle * Mathf.Deg2Rad;
+    float cos = Mathf.Cos(rad);
+    float sin = Mathf.Sin(rad);
+    return new Vector2(v.x * cos - v.y * sin, v.x * sin + v.y * cos);
     }
     
 }
