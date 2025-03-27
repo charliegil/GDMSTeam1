@@ -1,6 +1,9 @@
 using UnityEngine;
 using System;
+using UnityEditor.U2D.Aseprite;
+using System.Collections.Generic;
 using System.Collections;
+
 
 public class skillTreeUpgrade
 {
@@ -36,21 +39,22 @@ public class skillTreeUpgrade
 /// </summary>
     public skillTreeUpgrade(string description, upgradeType type){
         this.description = description;
+        this.type = type;
         if(this.type == upgradeType.Random) type = getRandomUpgrade();
         rarity = getRandomRarity();
         price = getPriceFromRarity();
-        value = 1f + getValueFromRarity();
+        value = getValueFromUpgrade(type);
         if(rarity == 5){
             rarity = UnityEngine.Random.Range(5, 8);
             price =  getPriceFromRarity();
-            value = 1f + getValueFromRarity();
+            value = getValueFromUpgrade(type);
             rarity = 5;
         }
     }
 
     public skillTreeUpgrade(int rarity){ // for common upgrades
         this.rarity = rarity;
-        this.value = 1f+ getValueFromRarity();
+        this.value = getValueFromUpgrade(type);
         price = getPriceFromRarity();
         
         type = getRandomUpgrade();
@@ -66,7 +70,7 @@ public class skillTreeUpgrade
          return (upgradeType)UnityEngine.Random.Range(0, 13);
     }
     private int getPriceFromRarity(){
-        return UnityEngine.Random.Range(rarity, rarity+1);
+        return UnityEngine.Random.Range(rarity*2, 1+rarity*2);
     }
     private int getRandomRarity(){
         return  UnityEngine.Random.Range(1, 6);
@@ -87,7 +91,10 @@ public class skillTreeUpgrade
         return skillPoints+price;
     }
     public override string ToString(){
-        return description + ";" + price + ";" +value.ToString("F2") +";"+rarity;
+        Debug.Log(type);
+        string typeDescription = type.toString();
+        if(UpgradeToCategory.ContainsKey(type)) typeDescription= UpgradeToCategory[type];
+        return description + ";" + price + ";" +value.ToString("F2") +";"+rarity + ";" + typeDescription;
     }
     public bool Isbought(){
         return bought;
@@ -110,15 +117,67 @@ public class skillTreeUpgrade
         case upgradeType.InstantKillBelowCertainHp:
             return 3f;   
         case upgradeType.RangedAttackCooldown:
-            return 0.1f;
+            return 0.05f * rarity;
+        
+        case upgradeType.Health:
+            return 1f + UnityEngine.Random.Range(0.02f*rarity, 0.06f*rarity);
+        
+        case upgradeType.PowerUpDurationtMultiplier:
+            return 1f + UnityEngine.Random.Range(0.03f*rarity, 0.8f*rarity);
+        
+        case upgradeType.PowerUpEffectMultiplier:
+            return 1f + + UnityEngine.Random.Range(0.05f*rarity, 0.1f*rarity);
+        case upgradeType.Revival:
+            return 1f;
+        case upgradeType.BeamAddTarget:
+            return 1f;
+        case upgradeType.DropRate:
+            return 1f  + UnityEngine.Random.Range(0.01f*rarity, 0.02f*rarity);
+        case upgradeType.RangedNumberProjectile:
+            return 1f;
         case upgradeType.RangedAttackSpeed:
             return 2f;
         case upgradeType.RangedAttackDmg:
             return 5f;
-    }
-    return getValueFromRarity(); 
-    }
 
+    }
+    return 1f + getValueFromRarity(); 
+    }
+    public static readonly Dictionary<upgradeType, string> UpgradeToCategory = new Dictionary<upgradeType, string>
+    {
+        { upgradeType.Attack, "Attack" },
+        { upgradeType.Defence, "Defense" },
+        { upgradeType.PhaseCooldown, "Phase cooldown" },
+        { upgradeType.PhaseDuration, "Phase duration" },
+        { upgradeType.Health, "max health" },
+        { upgradeType.CritiqualHit, "critiqual hit" },
+        { upgradeType.Speed, "speed" },
+        { upgradeType.DropRate, "Boost drop rate" },
+        { upgradeType.PowerUpEffectMultiplier, "Boost effect" },
+        { upgradeType.PowerUpDurationtMultiplier, "Boost duration" },
+        
+        
+        { upgradeType.BeamAttackCooldown, "Beam" },
+        { upgradeType.BeamAttackDuration, "Beam" },
+        { upgradeType.BeamTickRate, "Beam" },
+        { upgradeType.BeamDamageIncrease, "Beam" },
+        { upgradeType.BeamAddTarget, "Beam" },
+
+
+        { upgradeType.WeaponUnlocked, "Weapon" },
+
+       
+        { upgradeType.FullHealthAtWaveEnd, "Wave" },
+        { upgradeType.SkillPointAtWaveEnd, "Wave" },
+        { upgradeType.AllCritiqualHitBelowCertainHp, "Critiqual hits" },
+        { upgradeType.InstantKillBelowCertainHp, "Lethality" },
+        { upgradeType.Revival, "Survival" },
+        { upgradeType.Random, "random" },
+
+        { upgradeType.RangedAttackCooldown, "Ranged attack cooldown" },
+        { upgradeType.RangedAttackSpeed, "Ranged" },
+        { upgradeType.RangedNumberProjectile , "Ranged"}
+    };
 
   
 }
@@ -173,11 +232,14 @@ public enum upgradeType{
     // ============ Upgrades about the ranged attack here
     RangedAttackCooldown,
     RangedAttackSpeed,
+    
+    RangedNumberProjectile
+    
     RangedAttackAdd,
-    RangedAttackDmg,
-
-
+    RangedAttackDmg
 }
+
+
 
 
 

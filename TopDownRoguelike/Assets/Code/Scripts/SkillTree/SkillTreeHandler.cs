@@ -13,7 +13,7 @@ public class SkillTreeHandler : MonoBehaviour , IEventListener
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
-        skillPointsText.text = "skill points "+skillPoints;
+        skillPointsText.text = ""+skillPoints;
         subscribe();
     }
 
@@ -30,15 +30,15 @@ public class SkillTreeHandler : MonoBehaviour , IEventListener
         if(original != skillPoints){
             upgradesOwned.Add(skillnode.getNode().GetUpgrade());
             AudioManager.instance.PlaySound("skillBought");
-            Debug.Log("you bought" + skillnode);
-            skillPointsText.text = "skill points "+skillPoints;
+            //Debug.Log("you bought" + skillnode);
+            skillPointsText.text = ""+skillPoints;
             applyUpgrade(skillnode.getNode().GetUpgrade(),false);
             
         }
     }
     private void HandleSkillPointAcquired(int value){
         skillPoints+=value;
-        skillPointsText.text = "skill points "+skillPoints;
+        skillPointsText.text = ""+skillPoints;
     }
 
     private void HandleSkillSell(skillNode skillnode){
@@ -50,13 +50,13 @@ public class SkillTreeHandler : MonoBehaviour , IEventListener
         if(original != skillPoints){ // the upgrade was already purchased
             upgradesOwned.Remove(skillnode.getNode().GetUpgrade());
             Debug.Log("you sold" + skillnode.getNode());
-            skillPointsText.text = "skill points "+skillPoints;
+            skillPointsText.text = ""+skillPoints;
             applyUpgrade(skillnode.getNode().GetUpgrade(),true);
         }
     }
 
 /// <summary>
-/// apply the upgrade to reflect on the game experience
+/// apply the upgrade to reflect on the game experience.
 /// </summary>
 /// <param name="upgrade"></param>
 /// <param name="undo"> specifies if you have to apply(false) or undo(true) the upgrade</param>
@@ -68,7 +68,7 @@ public class SkillTreeHandler : MonoBehaviour , IEventListener
             value = 1/value;
         }
         
-      
+        Debug.Log(type.ToString());
         switch (type)
         {
             case upgradeType.Attack:
@@ -80,6 +80,7 @@ public class SkillTreeHandler : MonoBehaviour , IEventListener
                 break;
 
             case upgradeType.Health:
+                Debug.Log("enhancing health");
                 EventManager.IncreaseMaxHealth(value);
                 break;
 
@@ -96,7 +97,7 @@ public class SkillTreeHandler : MonoBehaviour , IEventListener
                 break;
 
             case upgradeType.DropRate:
-                CollectibleSpawner.DropRate *= value;
+                CollectibleSpawner.DropRate = Mathf.Min(1,CollectibleSpawner.DropRate+value);
                 break;
 
             case upgradeType.PowerUpEffectMultiplier:
@@ -124,7 +125,7 @@ public class SkillTreeHandler : MonoBehaviour , IEventListener
                 PlayerController.InstantKillHP = (int)value;
                 break;
             case upgradeType.RangedAttackCooldown:
-                PlayerShoot.AddSpeedFire(value);
+                PlayerShoot.ReduceTimeBetweenShots(value);
                 break;
             case upgradeType.RangedAttackSpeed:
                 PlayerShoot.AddSpeedBullet(value);
@@ -152,6 +153,10 @@ public class SkillTreeHandler : MonoBehaviour , IEventListener
                 break;
             case upgradeType.Revival:
                 PlayerController.oneMoreChance =  true;
+                break;
+
+            case upgradeType.RangedNumberProjectile:
+                PlayerShoot.numPojectile++;
                 break;
                 
             

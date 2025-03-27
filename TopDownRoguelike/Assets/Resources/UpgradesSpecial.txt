@@ -1,13 +1,18 @@
 rarity,price,description;type
-4;10;At low health, your strikes become critical, fueled by desperation;AllCritiqualHitBelowCertainHp  
+4;10;At low health(10), all your strikes become critical, fueled by desperation;AllCritiqualHitBelowCertainHp  
 3;8;The spirits of war grant you wisdom, earning 3 skill points after each wave;SkillPointAtWaveEnd  
 5;6;The gods grant you restoration, fully healing you at the end of each wave;FullHealthAtWaveEnd  
 2;4;The ancient weapon of the heavens is now at your disposal, unlocking the powerful beam;BeamAddTarget 
-3;5;You unlock the power of time, slowing enemies every few seconds;WeaponUnlocked  
 3;5;Your beam now strikes an additional enemy, expanding its reach;BeamAddTarget  
 3;6;Your beam gains the power to hit one more enemy, extending its fury;BeamAddTarget
 3;6;Add bullet;AddBullet
 2;4;better bullet speed;RangedAttackSpeed
 2;4;better bullet dmg;RangedAttackDmg
 2;4;Through extensive training, you manage to shoot faster;RangedAttackCooldown
+2;5;The winds hasten your strikes, reducing ranged attack cooldown;RangedAttackCooldown
+5;15;The gods grant you a second chance, allowing you to be revived once more after falling;Revival  
+3;6; You meet a ermit that teaches you the way. Your ranged attack shoots one more bullet;RangedNumberProjectile
+3;6; You find a scroll that contains an ancient technique. Your ranged attack shoots one more bullet;RangedNumberProjectile
+3;6; The gods grant you an extra projectile per shoot.;RangedNumberProjectile
+3;6; you gain the ability to shoot an extra projectile per shoot through extreme meditation.;RangedNumberProjectile
 5;15;The gods grant you a second chance, allowing you to be revived once more after falling;Revival  

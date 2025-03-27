@@ -57,7 +57,7 @@ MonoBehaviour:
   attackRange: 35
   body: {fileID: 4904795967464446774}
   FOV: 0
-  viewDistance: 100
+  viewDistance: 300
   projectilePrefab: {fileID: 5272891131574521910, guid: f435db1cd67f7e741aa337324b82274e, type: 3}
   numberOfProjectiles: 1000
   timeBetweenProjectile: 1

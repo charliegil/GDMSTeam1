@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class skillNode : MonoBehaviour , IPointerEnterHandler, IPointerExitHandler,  IPointerClickHandler
 {
@@ -16,10 +17,9 @@ public class skillNode : MonoBehaviour , IPointerEnterHandler, IPointerExitHandl
     public static GameObject InfoPanel;
 
     private TextMeshProUGUI descriptionText;
-
     private TextMeshProUGUI priceText;
-
     private TextMeshProUGUI valueText;
+    private TextMeshProUGUI categoryText;
 
     
 
@@ -33,17 +33,18 @@ public class skillNode : MonoBehaviour , IPointerEnterHandler, IPointerExitHandl
         descriptionText = InfoPanel.transform.Find("Desc").GetComponent<TextMeshProUGUI>();
         priceText = InfoPanel.transform.Find("Price").GetComponent<TextMeshProUGUI>();
         valueText = InfoPanel.transform.Find("Value").GetComponent<TextMeshProUGUI>();
+        categoryText = InfoPanel.transform.Find("Category").GetComponent<TextMeshProUGUI>();
         
     }
     public void setTreeNode(treeNode tree){
         node = tree;
     }
 
-    // is the method and script responsible to change the appearance of the gameObject
+    // this is the method and script responsible to change the appearance of the gameObject
     public int buySkill(int skillPoints){
         int points = node.buyUpgrade(skillPoints);
-        Debug.Log("is node null" + (node ==null));
-        Debug.Log("is renderer null" + (spriteRenderer ==null));
+        //Debug.Log("is node null" + (node ==null));
+        //Debug.Log("is renderer null" + (spriteRenderer ==null));
        
 
         if (skillPoints != points ) gameObject.GetComponent<Image>().sprite = SpriteUnlocked;
@@ -52,8 +53,7 @@ public class skillNode : MonoBehaviour , IPointerEnterHandler, IPointerExitHandl
     public int sellSkill(int skillPoints){
         //spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         int points = node.sellUpgrade(skillPoints); 
-        Debug.Log("is node null" + (node ==null));
-        Debug.Log("is renderer null" + (spriteRenderer ==null));
+        
         
         
         if (skillPoints != points ) gameObject.GetComponent<Image>().sprite = SpriteLocked;
@@ -75,30 +75,26 @@ public class skillNode : MonoBehaviour , IPointerEnterHandler, IPointerExitHandl
         descriptionText.text = split[0];
         priceText.text = "Price: " + split[1];
         valueText.text = "Boost: " + split[2];
+        
+        categoryText.text = split[4];
         //return description + ";" + price + ";" + value+";"+rarity; // to string method in skilltreeUpgrade
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        Debug.Log(descriptionText == null ? "textAttributes is NULL!" : "textAttributes exists: " + descriptionText.name);
-        Debug.Log(descriptionText == null ? "TextMeshPro component is MISSING!" : "TextMeshPro found.");
-         Debug.Log("on mouse dxit");
-
         descriptionText.text = "Hover to see attributes";
         priceText.text = "Price:";
         valueText.text = "Boost:";
+        categoryText.text = "Category";
     }
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Right){
+        /*if (eventData.button == PointerEventData.InputButton.Right){
             EventManager.SellSkill(this);
-        }
-        else{
-            EventManager.BuySkill(this);
-        }
-        
-
+        }*/
+        EventManager.BuySkill(this);
     }
+    
     
 
 }

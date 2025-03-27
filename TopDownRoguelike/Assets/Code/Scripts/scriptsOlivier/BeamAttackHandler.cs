@@ -162,7 +162,7 @@ while the attack is on, will try to find enemies to assign a target on. will loo
     for (int i = 0; i < enemies.Length; i++) {
         float distanceToCurrent = Vector3.Distance(transform.position, enemies[i].transform.position);
 
-        Debug.Log(enemies[i]);
+        //Debug.Log(enemies[i]);
         bool isTargeted = enemies[i].GetComponent<Health>().isTargeted;
         
        

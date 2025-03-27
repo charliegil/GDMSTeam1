@@ -17,10 +17,10 @@ public class PauseMenu : MonoBehaviour
 
     public void Start()
     {
-        PauseUI.SetActive(false);
+        //PauseUI.SetActive(false);
         //Canva.SetActive(false);
-        SkillTreeUI.SetActive(false);
-        StatsUI.SetActive(false);
+        //SkillTreeUI.SetActive(false);
+        //StatsUI.SetActive(false);
     }
 
     public void pause()
