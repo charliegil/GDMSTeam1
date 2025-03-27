@@ -2,7 +2,6 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using System.Collections.Generic;
 
 public class skillNode : MonoBehaviour , IPointerEnterHandler, IPointerExitHandler,  IPointerClickHandler
 {

@@ -8,7 +8,7 @@ public class Hei : Core
     public HeiState1 state1;
     public ChaseState chase;
     private int maxHp = 100;
-    [SerializeField] private int hp;
+    //[SerializeField] private int hp;
 
    
     //private float detectionRange = 4f;
@@ -16,7 +16,7 @@ public class Hei : Core
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        hp = maxHp;
+        //hp = maxHp;
         machine = new StateMachine(); // Ensure `machine` exists
         SetupInstances();
         

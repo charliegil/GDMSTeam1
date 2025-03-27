@@ -1,7 +1,5 @@
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.EventSystems;
 using TMPro;
 
 public class SkillTreeHandler : MonoBehaviour , IEventListener

@@ -1,9 +1,5 @@
 using UnityEngine;
-using System;
-using UnityEditor.U2D.Aseprite;
 using System.Collections.Generic;
-using System.Collections;
-
 
 public class skillTreeUpgrade
 {
@@ -92,7 +88,7 @@ public class skillTreeUpgrade
     }
     public override string ToString(){
         Debug.Log(type);
-        string typeDescription = type.toString();
+        string typeDescription = type.ToString();
         if(UpgradeToCategory.ContainsKey(type)) typeDescription= UpgradeToCategory[type];
         return description + ";" + price + ";" +value.ToString("F2") +";"+rarity + ";" + typeDescription;
     }
@@ -233,7 +229,7 @@ public enum upgradeType{
     RangedAttackCooldown,
     RangedAttackSpeed,
     
-    RangedNumberProjectile
+    RangedNumberProjectile,
     
     RangedAttackAdd,
     RangedAttackDmg

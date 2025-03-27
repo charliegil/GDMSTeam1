@@ -1,10 +1,7 @@
 using UnityEngine;
 using System;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine.UI;
-using Unity.VisualScripting;
-using TreeEditor;
 
 public class makeTree : MonoBehaviour
 {
