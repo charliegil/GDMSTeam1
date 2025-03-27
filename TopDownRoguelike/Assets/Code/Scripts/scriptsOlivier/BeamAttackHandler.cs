@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -272,6 +270,6 @@ private void setSliderValue()
         attackCooldown/=value;
     }
     public void IncreaseAttackDamage(float value){
-        attackDamage+=value;
+        attackDamage*=value;
     }
 }

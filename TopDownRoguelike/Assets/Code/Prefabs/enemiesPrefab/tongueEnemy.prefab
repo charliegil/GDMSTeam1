@@ -74,7 +74,7 @@ MonoBehaviour:
   damage: 10
   attackRange: 5
   body: {fileID: 1743344865510732532}
-  FOV: 40
+  FOV: 180
   viewDistance: 300
   attackReload: 2
   attackDuration: 0.8

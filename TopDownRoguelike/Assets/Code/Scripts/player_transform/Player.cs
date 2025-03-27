@@ -4,7 +4,7 @@ public abstract class Player : MonoBehaviour, IControllable
 {
     public static Player ActivePlayer{get;private set;}
     public static int playerHp = 10;
-    [SerializeField] protected int hp;
+    
     [SerializeField] protected int attackDmg;
 
     

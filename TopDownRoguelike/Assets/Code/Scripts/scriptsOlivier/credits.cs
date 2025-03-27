@@ -13,7 +13,8 @@ public class credits : MonoBehaviour
     // Update is called once per frame.
     private void Update()
     {
-        if((cam.transform.position + new Vector3(0,0,10)).magnitude< 23)
+        if(cam== null) cam = Camera.main;
+        if(Mathf.Abs(cam.transform.position.y)> 23) UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
         cam.transform.position+= new Vector3(0,-speed*Time.deltaTime,0);
     }
 }

@@ -6,7 +6,8 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField]
     private GameObject _bulletPrefab;
     [SerializeField]
-    private static float _bulletSpeed = 10;
+    public float  bulletSpeed = 25;
+    private static float _bulletSpeed = 25;
     [SerializeField]
     private int _gunOffset;
     private bool _fireContinuously;
@@ -14,8 +15,6 @@ public class PlayerShoot : MonoBehaviour
     [Range(0f, 2f)] public float timeBetweenShoot = 0.7f;
     public static float _timeBtwShots = 0.7f;
 
-
-    private static float _timeBtwShots = 0.25f;
 
     private bool _fireSingle;
     public Animator animator;
@@ -40,10 +39,11 @@ public class PlayerShoot : MonoBehaviour
         BulletState.AddDamage(dmg);
     }
     public static void AddBullet(){
-        //something add bullet
+        //something add bullet // already done in another upgrade type
     }
 
    void Start(){
+        _bulletSpeed = bulletSpeed;
         playerController = GetComponent<PlayerController>();
         bulletParent = new GameObject("bullets");
         timer =0;
