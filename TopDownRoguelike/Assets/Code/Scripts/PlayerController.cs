@@ -360,11 +360,12 @@ public class PlayerController : MonoBehaviour , IEventListener
         stats += phaseDuration.ToString("F2") + " s<";
         stats += phaseCooldown.ToString("F2") + " s<";
         stats += (attackMultiplier).ToString("F2") + "<";
-        stats += (defenceBoost).ToString("F2");
+        stats += (defenceBoost).ToString("F2")+ "<";
+        stats += ""+BulletState.damage + "<";
         string[] statList = stats.Split("<");
         int i=0;
         foreach (TextMeshProUGUI txt in statsContainer.GetComponentsInChildren<TextMeshProUGUI>(false)){
-            if(i==statList.Length) break;
+            if(i==statList.Length-1) break;
             
             txt.text = ":  " + statList[i];
             i++;

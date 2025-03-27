@@ -54,8 +54,8 @@ public class makeTree : MonoBehaviour
         TreeHelpers.CalculateNodePositions(root);
         
         // ============ Make sure the tree is fiting in the image  ===========
-        spaceBetweenNodesY = 28f / (getHeight(root)-1f);
-        spaceBetweenNodesX = 46f / (getWidth(root)-1);
+        spaceBetweenNodesY = 28f / (getHeight(root));
+        spaceBetweenNodesX = 40f / (getWidth(root));
         //Debug.Log("the withs is : "+getWidth(root));
         float max =  getMaxWidth(root,true)-root.X;
         float min = root.X - getMaxWidth(root,false);

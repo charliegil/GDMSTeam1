@@ -8,6 +8,8 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
     public AudioSource audioSourcePrefab;
+
+    public AudioSource battleTheme;
     private List<AudioSource> audioSources = new List<AudioSource>();
 
     [SerializeField] private List<Sound> sounds  = new List<Sound>();
@@ -38,6 +40,7 @@ public class AudioManager : MonoBehaviour
         source.PlayOneShot(clip.clip);
     }
     public void PlaySound(string clipName){
+        if(clipName.Equals("PlayerDeath")) battleTheme.mute = true;
         Sound clip = sounds.FirstOrDefault(s => s.name.Contains(clipName));
         if(clip!=null){
             AudioSource source = GetAvailableSource();

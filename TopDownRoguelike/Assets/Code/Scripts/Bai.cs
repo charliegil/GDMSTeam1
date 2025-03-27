@@ -8,7 +8,7 @@ public class Bai : Core
     //public BaiState2 state2;
     public BaiState1 state1;
     public ChaseState chase;
-    private int maxHp = 100;
+    //private int maxHp = 100;
     //[SerializeField] private int hp;
 
    

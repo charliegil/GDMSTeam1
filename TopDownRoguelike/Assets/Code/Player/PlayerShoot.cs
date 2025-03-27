@@ -39,7 +39,7 @@ public class PlayerShoot : MonoBehaviour
         BulletState.AddDamage(dmg);
     }
     public static void AddBullet(){
-        //something add bullet
+        //something add bullet // already done in another upgrade type
     }
 
    void Start(){

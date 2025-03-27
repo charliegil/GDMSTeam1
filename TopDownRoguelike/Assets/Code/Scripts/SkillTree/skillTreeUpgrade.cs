@@ -66,7 +66,8 @@ public class skillTreeUpgrade
          return (upgradeType)UnityEngine.Random.Range(0, 13);
     }
     private int getPriceFromRarity(){
-        return UnityEngine.Random.Range(rarity*2, 1+rarity*2);
+        int adding = rarity/2;
+        return UnityEngine.Random.Range(rarity+adding, 1+rarity+ adding);
     }
     private int getRandomRarity(){
         return  UnityEngine.Random.Range(1, 6);
@@ -108,7 +109,7 @@ public class skillTreeUpgrade
             return 3f;
            
         case upgradeType.AllCritiqualHitBelowCertainHp:
-            return 10f;
+            return 30f;
            
         case upgradeType.InstantKillBelowCertainHp:
             return 3f;   
@@ -128,13 +129,14 @@ public class skillTreeUpgrade
         case upgradeType.BeamAddTarget:
             return 1f;
         case upgradeType.DropRate:
-            return 1f  + UnityEngine.Random.Range(0.01f*rarity, 0.02f*rarity);
+            return UnityEngine.Random.Range(0.01f*rarity, 0.02f*rarity);
         case upgradeType.RangedNumberProjectile:
             return 1f;
         case upgradeType.RangedAttackSpeed:
             return 2f;
         case upgradeType.RangedAttackDmg:
             return 5f;
+        
 
     }
     return 1f + getValueFromRarity(); 

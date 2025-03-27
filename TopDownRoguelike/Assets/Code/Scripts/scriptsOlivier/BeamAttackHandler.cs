@@ -270,6 +270,6 @@ private void setSliderValue()
         attackCooldown/=value;
     }
     public void IncreaseAttackDamage(float value){
-        attackDamage+=value;
+        attackDamage*=value;
     }
 }
