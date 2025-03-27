@@ -30,7 +30,7 @@ public class SkillTreeHandler : MonoBehaviour , IEventListener
         if(original != skillPoints){
             upgradesOwned.Add(skillnode.getNode().GetUpgrade());
             AudioManager.instance.PlaySound("skillBought");
-            Debug.Log("you bought" + skillnode);
+            //Debug.Log("you bought" + skillnode);
             skillPointsText.text = "skill points "+skillPoints;
             applyUpgrade(skillnode.getNode().GetUpgrade(),false);
             
@@ -68,7 +68,7 @@ public class SkillTreeHandler : MonoBehaviour , IEventListener
             value = 1/value;
         }
         
-      
+        Debug.Log(type.ToString());
         switch (type)
         {
             case upgradeType.Attack:
@@ -80,6 +80,7 @@ public class SkillTreeHandler : MonoBehaviour , IEventListener
                 break;
 
             case upgradeType.Health:
+                Debug.Log("enhancing health");
                 EventManager.IncreaseMaxHealth(value);
                 break;
 
@@ -96,7 +97,7 @@ public class SkillTreeHandler : MonoBehaviour , IEventListener
                 break;
 
             case upgradeType.DropRate:
-                CollectibleSpawner.DropRate *= value;
+                CollectibleSpawner.DropRate = Mathf.Min(1,CollectibleSpawner.DropRate+value);
                 break;
 
             case upgradeType.PowerUpEffectMultiplier:
@@ -124,7 +125,7 @@ public class SkillTreeHandler : MonoBehaviour , IEventListener
                 PlayerController.InstantKillHP = (int)value;
                 break;
             case upgradeType.RangedAttackCooldown:
-                PlayerShoot.AddSpeedFire(value);
+                PlayerShoot.ReduceTimeBetweenShots(value);
                 break;
             case upgradeType.BeamAttackCooldown:
                 EventManager.BeamAttackCooldown(value);

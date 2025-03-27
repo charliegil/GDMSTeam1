@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 
 public class UpgradesReader{
@@ -12,7 +11,7 @@ public class UpgradesReader{
             string[] lines = textAsset.text.Split('\n'); // Split by new line
         
             foreach (string line in lines){
-                Debug.Log(line);
+                
                 if(line.Equals(lines[0])) continue;
                 
                 if(line.Trim().Equals("")) break;
@@ -21,13 +20,14 @@ public class UpgradesReader{
                 
                 string description = values[0];
                 upgradeType type;
-                if (Enum.TryParse(values[1], out upgradeType upgrade)){
+                if (Enum.TryParse(values[1].Trim(),true, out upgradeType upgrade)){
                  
                     type = upgrade;
+                    //Debug.Log(type.ToString());
                 }
                 else{
                     type = upgradeType.Random;
-                    //Debug.LogError("Invalid enum value " + values[3] );
+                    Debug.LogError("Invalid enum value " + values[3] );
                 }
                 upgrades.Add(new skillTreeUpgrade(description,type));
             }
@@ -48,7 +48,7 @@ public class UpgradesReader{
             string[] lines = textAsset.text.Split('\n'); // Split by new line
             
             foreach (string line in lines){
-                Debug.Log(line);
+                //Debug.Log(line);
                 if(line.Equals(lines[0])) continue;
                 if(line.Trim().Equals("")) break;
                 string[] values = line.Split(';');
@@ -66,7 +66,7 @@ public class UpgradesReader{
                 string description = values[2];
                 
                 upgradeType type = upgradeType.Random;
-                if (Enum.TryParse(values[3], out upgradeType upgrade)){
+                if (Enum.TryParse(values[3].Trim(),true, out upgradeType upgrade)){
                     type = upgrade;
                 }
                 upgrades.Add(new skillTreeUpgrade(rarity,price,description,type));

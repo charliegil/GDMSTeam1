@@ -77,12 +77,10 @@ public class WaveSystem : MonoBehaviour , IEventListener
     private void Update()
     {
 
-       Debug.Log("how many enemy: " + enemiesLeft);
+       
         //currentWaveUIText.text = "enemies left to kill : " + enemiesLeft + " Wave: " + currentWave;
 
-       //Debug.Log("how many enemy: " + enemiesLeft);
-
-       //Debug.Log("current Wave"+currentWave);
+      
         
         
     }
@@ -138,7 +136,7 @@ public class WaveSystem : MonoBehaviour , IEventListener
     private void EnemyDied()
     {
         enemiesLeft--;
-        Debug.Log("enemies left to kill : " + enemiesLeft);
+        //Debug.Log("enemies left to kill : " + enemiesLeft);
         //currentWaveUIText.text = "enemies left to kill : " + enemiesLeft + " Wave: " + currentWave;
         if (enemiesLeft <= 0)
         {

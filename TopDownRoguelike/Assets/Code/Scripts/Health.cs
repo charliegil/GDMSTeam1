@@ -77,7 +77,7 @@ public class Health : MonoBehaviour
         Destroy(gameObject);
     }
     bool IsOne(float value){
-    return Math.Abs(value - 1f) < 0.0001f; // Tolerance for floating-point precision errors
+    return Math.Abs(value - 1f) < 0.0001f;
     }
     private void SpawnDeathInstance(){
        deathParticlesInstance = Instantiate(deathParticles, transform.position, Quaternion.identity);
@@ -88,23 +88,6 @@ public class Health : MonoBehaviour
     }
     
     
-    private IEnumerator TakePoisonDamage(float damage, float time, float step)
-    {   
-        // deals y damage for x time, with taking damage every z step in seconds
-        float stepDmg = damage / time;
-        if (step == 0)
-        {
-            
-            yield return null;
-            time = -1;
-        }
-        while (time > 0)
-        {
-            TakeDamage(step);
-            time -= step;
-            
-            yield return new WaitForSeconds(step);
-        }
-    }
+    
 }
 

@@ -23,19 +23,19 @@ public class EffectButton : MonoBehaviour , IPointerEnterHandler, IPointerExitHa
     
     
     public void OnPointerEnter(PointerEventData eventData){
-        Debug.Log("on mouse over");
+        //Debug.Log("on mouse over");
         if (scaleCoroutine != null) StopCoroutine(scaleCoroutine);
         scaleCoroutine = StartCoroutine(ScaleText(originalScale * scaleMultiplier));
 
     }
 
     public void OnPointerExit(PointerEventData eventData){
-        Debug.Log("exit");
+        //Debug.Log("exit");
         if (scaleCoroutine != null) StopCoroutine(scaleCoroutine);
         scaleCoroutine = StartCoroutine(ScaleText(originalScale));
     }
     public IEnumerator ScaleText(Vector3 targetScale){
-        Debug.Log(targetScale + " org" + originalScale);
+        //Debug.Log(targetScale + " org" + originalScale);
         float time = 0;
         Vector3 startScale = textMesh.transform.localScale;
 

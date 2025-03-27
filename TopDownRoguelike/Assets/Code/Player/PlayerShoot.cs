@@ -10,9 +10,10 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField]
     private int _gunOffset;
     private bool _fireContinuously;
-    [SerializeField]
-    private static float _timeBtwShots;
-    private float _lastFireTime;
+    
+    [Range(0f, 2f)] public float timeBetweenShoot = 0.5f;
+    public static float _timeBtwShots = 0.5f;
+
     private bool _fireSingle;
     public Animator animator;
 
@@ -20,7 +21,9 @@ public class PlayerShoot : MonoBehaviour
 
    private PlayerController playerController;
 
-    public static void AddSpeedFire(float reduceIntervalGun){
+   private float timer;
+
+    public static void ReduceTimeBetweenShots(float reduceIntervalGun){
         _timeBtwShots-=reduceIntervalGun;
     }
 
@@ -31,19 +34,23 @@ public class PlayerShoot : MonoBehaviour
    void Start(){
         playerController = GetComponent<PlayerController>();
         bulletParent = new GameObject("bullets");
+        timer =0;
+        _timeBtwShots = timeBetweenShoot;
+        
    }
     void Update()
     {
+        //Debug.Log("time between shoots: "+_timeBtwShots);
         _fireContinuously = Input.GetKey(KeyCode.Mouse0);
         if(_fireContinuously){ //|| _fireSingle){
-            float timeSinceLastFire = Time.time - _lastFireTime;
-            if(timeSinceLastFire >= _timeBtwShots){
+            if(timer <= 0){  
                 FireBullet();
-                animator.SetTrigger("attack");
-                _lastFireTime = Time.time;
+                timer = _timeBtwShots;
+                //animator.SetTrigger("attack");
                 //_fireSingle = false;
             }
         }
+        timer-=Time.deltaTime;
         
     }
     
@@ -57,11 +64,11 @@ public class PlayerShoot : MonoBehaviour
 
         // Instantiate bullet at player's position
         GameObject bullet = Instantiate(_bulletPrefab, transform.position+ (Vector3)(_gunOffset*direction), Quaternion.identity);
-        GameObject bullet2 = Instantiate(_bulletPrefab, transform.position+ (Vector3)(_gunOffset*direction), Quaternion.identity);
-        GameObject bullet3 = Instantiate(_bulletPrefab, transform.position+ (Vector3)(_gunOffset*direction), Quaternion.identity);
         directionBullet(bullet, direction);
+        /*GameObject bullet2 = Instantiate(_bulletPrefab, transform.position+ (Vector3)(_gunOffset*direction), Quaternion.identity);
+        GameObject bullet3 = Instantiate(_bulletPrefab, transform.position+ (Vector3)(_gunOffset*direction), Quaternion.identity);
         directionBullet(bullet2, new Vector2(direction.x+0.2f, direction.y+0.2f));
-        directionBullet(bullet3, new Vector2(direction.x-0.2f, direction.y-0.2f));
+        directionBullet(bullet3, new Vector2(direction.x-0.2f, direction.y-0.2f));*/
     }
     private void directionBullet(GameObject bullet, Vector2 direction){
         //bullet.GetComponent<Bullet>().damage*= playerController.getAttackMultiplier()*playerController.IsAttackCritiqual();

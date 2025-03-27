@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using UnityEditor.U2D.Aseprite;
 
 public class skillTreeUpgrade
 {
@@ -35,21 +36,22 @@ public class skillTreeUpgrade
 /// </summary>
     public skillTreeUpgrade(string description, upgradeType type){
         this.description = description;
+        this.type = type;
         if(this.type == upgradeType.Random) type = getRandomUpgrade();
         rarity = getRandomRarity();
         price = getPriceFromRarity();
-        value = 1f + getValueFromRarity();
+        value = getValueFromUpgrade(type);
         if(rarity == 5){
             rarity = UnityEngine.Random.Range(5, 8);
             price =  getPriceFromRarity();
-            value = 1f + getValueFromRarity();
+            value = getValueFromUpgrade(type);
             rarity = 5;
         }
     }
 
     public skillTreeUpgrade(int rarity){ // for common upgrades
         this.rarity = rarity;
-        this.value = 1f+ getValueFromRarity();
+        this.value = getValueFromUpgrade(type);
         price = getPriceFromRarity();
         
         type = getRandomUpgrade();
@@ -108,8 +110,25 @@ public class skillTreeUpgrade
            
         case upgradeType.InstantKillBelowCertainHp:
             return 3f;   
+        case upgradeType.RangedAttackCooldown:
+            return 0.05f * rarity;
+        
+        case upgradeType.Health:
+            return 1f + UnityEngine.Random.Range(0.02f*rarity, 0.06f*rarity);
+        
+        case upgradeType.PowerUpDurationtMultiplier:
+            return 1f + UnityEngine.Random.Range(0.03f*rarity, 0.8f*rarity);
+        
+        case upgradeType.PowerUpEffectMultiplier:
+            return 1f + + UnityEngine.Random.Range(0.05f*rarity, 0.1f*rarity);
+        case upgradeType.Revival:
+            return 1f;
+        case upgradeType.BeamAddTarget:
+            return 1f;
+        case upgradeType.DropRate:
+            return 1f  + UnityEngine.Random.Range(0.01f*rarity, 0.02f*rarity);
     }
-    return getValueFromRarity(); 
+    return 1f + getValueFromRarity(); 
     }
 
 

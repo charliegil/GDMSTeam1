@@ -58,7 +58,7 @@ MonoBehaviour:
   attackRange: 2
   body: {fileID: 6345547693154022427}
   FOV: 360
-  viewDistance: 50
+  viewDistance: 300
   usePathFinding: 1
   MaxAliveTime: 8
   DamageZonePrefab: {fileID: 5178940424677874266, guid: 7d6d5ded3878fa044bc36e0b49f6bcf9, type: 3}

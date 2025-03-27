@@ -42,8 +42,8 @@ public class skillNode : MonoBehaviour , IPointerEnterHandler, IPointerExitHandl
     // is the method and script responsible to change the appearance of the gameObject
     public int buySkill(int skillPoints){
         int points = node.buyUpgrade(skillPoints);
-        Debug.Log("is node null" + (node ==null));
-        Debug.Log("is renderer null" + (spriteRenderer ==null));
+        //Debug.Log("is node null" + (node ==null));
+        //Debug.Log("is renderer null" + (spriteRenderer ==null));
        
 
         if (skillPoints != points ) gameObject.GetComponent<Image>().sprite = SpriteUnlocked;
@@ -80,9 +80,8 @@ public class skillNode : MonoBehaviour , IPointerEnterHandler, IPointerExitHandl
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        Debug.Log(descriptionText == null ? "textAttributes is NULL!" : "textAttributes exists: " + descriptionText.name);
-        Debug.Log(descriptionText == null ? "TextMeshPro component is MISSING!" : "TextMeshPro found.");
-         Debug.Log("on mouse dxit");
+        
+         
 
         descriptionText.text = "Hover to see attributes";
         priceText.text = "Price:";
@@ -90,14 +89,10 @@ public class skillNode : MonoBehaviour , IPointerEnterHandler, IPointerExitHandl
     }
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Right){
+        /*if (eventData.button == PointerEventData.InputButton.Right){
             EventManager.SellSkill(this);
-        }
-        else{
-            EventManager.BuySkill(this);
-        }
-        
-
+        }*/
+        EventManager.BuySkill(this);
     }
     
 

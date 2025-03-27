@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 2840959522184855588}
   - component: {fileID: 4457581033383207786}
   - component: {fileID: 3121624165747418784}
+  - component: {fileID: 616011671110272665}
   - component: {fileID: 1743344865510732532}
   - component: {fileID: 1510760450973696571}
   - component: {fileID: 3139042331184052983}
-  - component: {fileID: 616011671110272665}
   m_Layer: 3
   m_Name: tongueEnemy
   m_TagString: Enemy
@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8898022347ea147b483cf0844e8fc6a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 20
+  currentHealth: 40
   deathParticles: {fileID: 2832167548909918162, guid: 1b61d08785ca28044a6ae3e21eee117e, type: 3}
   isTargeted: 0
   enemyValue: 1
@@ -69,27 +69,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6d84589d76990b45be2ac3019ac896c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 10
-  acceleration: 1
+  maxSpeed: 13
+  acceleration: 1.5
   damage: 10
   attackRange: 5
   body: {fileID: 1743344865510732532}
   FOV: 40
-  viewDistance: 40
+  viewDistance: 300
   attackReload: 2
   attackDuration: 0.8
   radiusCircularAttack: 10
   frontAttackRange: 20
   rotateWhileAttacking: 0
-  moveWhileAttacking: 0
-  movingSpeed: 5
-  findSpeed: 5
+  moveWhileAttacking: 1
+  movingSpeed: 8
+  findSpeed: 8
   trackingSpeed: 0.05
   RateOfChangeDirection: 2
   lineMaterial: {fileID: 2100000, guid: 5a9ac127c4d9f28449e31b850be7b00b, type: 2}
   tongue: {fileID: 8780588160096253109}
   tongueRenderer: {fileID: 4244936413889423027}
   enemySprite: {fileID: 4490305551562685709}
+--- !u!114 &616011671110272665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3869671721269029456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d07da220b3388cb458be4c26c61d4605, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 4671697816956284708}
 --- !u!50 &1743344865510732532
 Rigidbody2D:
   serializedVersion: 5
@@ -200,19 +213,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2.004213, y: 2.4170365}
   m_EdgeRadius: 0
---- !u!114 &616011671110272665
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3869671721269029456}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d07da220b3388cb458be4c26c61d4605, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  anim: {fileID: 4671697816956284708}
 --- !u!1 &4490305551562685709
 GameObject:
   m_ObjectHideFlags: 0

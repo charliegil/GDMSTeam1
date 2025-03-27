@@ -460,13 +460,13 @@ public class PlayerController : MonoBehaviour , IEventListener
 
     // ===================== SKILL TREE UPGRADES   ========= POWER UPS BOOSTS =================================
     public void IncreaseAttackDamage(float percentIncrease) {
-        Debug.Log("the attack multiplier is getting increased from : " + percentIncrease);
+        //Debug.Log("the attack multiplier is getting increased from : " + percentIncrease);
         attackMultiplier *= percentIncrease;
     }
 
     
     public void IncreaseDefenceBoost(float value){
-        Debug.Log("the defence multiplier is getting increased from : " + value);
+        //Debug.Log("the defence multiplier is getting increased from : " + value);
         defenceBoost *= value;
     }
 
@@ -479,11 +479,12 @@ public class PlayerController : MonoBehaviour , IEventListener
     }
 
     public void IncreaseMaxHealthByPercentage(float increase) {
-       
+       Debug.Log("you increase your total health==========================");
         maxHealth*=increase;
         healthManager.totalHP = maxHealth;
         currentHealth = Math.Min(currentHealth,maxHealth);
         healthManager.setHP(currentHealth,true);
+        TakeDamage(0);
     }
 
     public void IncreaseCritChance(float percentIncrease) {
