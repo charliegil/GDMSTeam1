@@ -6,13 +6,16 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField]
     private GameObject _bulletPrefab;
     [SerializeField]
-    private float _bulletSpeed;
+    private static float _bulletSpeed = 10;
     [SerializeField]
     private int _gunOffset;
     private bool _fireContinuously;
     
     [Range(0f, 2f)] public float timeBetweenShoot = 0.7f;
     public static float _timeBtwShots = 0.7f;
+
+
+    private static float _timeBtwShots = 0.25f;
 
     private bool _fireSingle;
     public Animator animator;
@@ -30,8 +33,14 @@ public class PlayerShoot : MonoBehaviour
         _timeBtwShots-=reduceIntervalGun;
     }
 
-    public void AddSpeedBullet(float addBulletSpeed){
+    public static void AddSpeedBullet(float addBulletSpeed){
         _bulletSpeed+=addBulletSpeed;
+    }
+    public static void AddDamage(int dmg){
+        BulletState.AddDamage(dmg);
+    }
+    public static void AddBullet(){
+        //something add bullet
     }
 
    void Start(){
@@ -66,6 +75,7 @@ public class PlayerShoot : MonoBehaviour
         Vector2 direction = (mousePosition - transform.position).normalized;
 
         // Instantiate bullet at player's position
+
         GameObject bullet = Instantiate(_bulletPrefab, transform.position+ (Vector3)(_gunOffset*direction), Quaternion.identity);
         directionBullet(bullet, direction);
         int change = 1;
@@ -79,10 +89,7 @@ public class PlayerShoot : MonoBehaviour
             Vector2 newDirection = RotateVector(new Vector2(direction.x, direction.y),angleOffset);
             directionBullet(bullet2,newDirection);
         }
-        /*GameObject bullet2 = Instantiate(_bulletPrefab, transform.position+ (Vector3)(_gunOffset*direction), Quaternion.identity);
-        GameObject bullet3 = Instantiate(_bulletPrefab, transform.position+ (Vector3)(_gunOffset*direction), Quaternion.identity);
-        directionBullet(bullet2, new Vector2(direction.x+0.2f, direction.y+0.2f));
-        directionBullet(bullet3, new Vector2(direction.x-0.2f, direction.y-0.2f));*/
+
     }
     private void directionBullet(GameObject bullet, Vector2 direction){
         //bullet.GetComponent<Bullet>().damage*= playerController.getAttackMultiplier()*playerController.IsAttackCritiqual();

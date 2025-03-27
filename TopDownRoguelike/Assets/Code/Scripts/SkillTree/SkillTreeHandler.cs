@@ -127,6 +127,15 @@ public class SkillTreeHandler : MonoBehaviour , IEventListener
             case upgradeType.RangedAttackCooldown:
                 PlayerShoot.ReduceTimeBetweenShots(value);
                 break;
+            case upgradeType.RangedAttackSpeed:
+                PlayerShoot.AddSpeedBullet(value);
+                break;
+            case upgradeType.RangedAttackAdd:
+                PlayerShoot.AddBullet();
+                break;
+            case upgradeType.RangedAttackDmg:
+                PlayerShoot.AddDamage((int) value);
+                break;
             case upgradeType.BeamAttackCooldown:
                 EventManager.BeamAttackCooldown(value);
                 break;
@@ -145,9 +154,11 @@ public class SkillTreeHandler : MonoBehaviour , IEventListener
             case upgradeType.Revival:
                 PlayerController.oneMoreChance =  true;
                 break;
+
             case upgradeType.RangedNumberProjectile:
                 PlayerShoot.numPojectile++;
                 break;
+                
             
             default:
                 Debug.LogWarning("not recognized upgrade type: " + type);

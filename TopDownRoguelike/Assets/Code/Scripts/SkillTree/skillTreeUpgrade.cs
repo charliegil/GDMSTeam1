@@ -2,6 +2,8 @@ using UnityEngine;
 using System;
 using UnityEditor.U2D.Aseprite;
 using System.Collections.Generic;
+using System.Collections;
+
 
 public class skillTreeUpgrade
 {
@@ -90,7 +92,9 @@ public class skillTreeUpgrade
     }
     public override string ToString(){
         Debug.Log(type);
-        return description + ";" + price + ";" +value.ToString("F2") +";"+rarity + ";" + UpgradeToCategory[type];
+        string typeDescription = type.toString();
+        if(UpgradeToCategory.ContainsKey(type)) typeDescription= UpgradeToCategory[type];
+        return description + ";" + price + ";" +value.ToString("F2") +";"+rarity + ";" + typeDescription;
     }
     public bool Isbought(){
         return bought;
@@ -131,6 +135,11 @@ public class skillTreeUpgrade
             return 1f  + UnityEngine.Random.Range(0.01f*rarity, 0.02f*rarity);
         case upgradeType.RangedNumberProjectile:
             return 1f;
+        case upgradeType.RangedAttackSpeed:
+            return 2f;
+        case upgradeType.RangedAttackDmg:
+            return 5f;
+
     }
     return 1f + getValueFromRarity(); 
     }
@@ -225,8 +234,11 @@ public enum upgradeType{
     RangedAttackSpeed,
     
     RangedNumberProjectile
-    }
     
+    RangedAttackAdd,
+    RangedAttackDmg
+}
+
 
 
 

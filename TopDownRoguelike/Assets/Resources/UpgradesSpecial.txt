@@ -5,6 +5,9 @@ rarity,price,description;type
 2;4;The ancient weapon of the heavens is now at your disposal, unlocking the powerful beam;BeamAddTarget 
 3;5;Your beam now strikes an additional enemy, expanding its reach;BeamAddTarget  
 3;6;Your beam gains the power to hit one more enemy, extending its fury;BeamAddTarget
+3;6;Add bullet;AddBullet
+2;4;better bullet speed;RangedAttackSpeed
+2;4;better bullet dmg;RangedAttackDmg
 2;4;Through extensive training, you manage to shoot faster;RangedAttackCooldown
 2;5;The winds hasten your strikes, reducing ranged attack cooldown;RangedAttackCooldown
 5;15;The gods grant you a second chance, allowing you to be revived once more after falling;Revival  
@@ -12,3 +15,4 @@ rarity,price,description;type
 3;6; You find a scroll that contains an ancient technique. Your ranged attack shoots one more bullet;RangedNumberProjectile
 3;6; The gods grant you an extra projectile per shoot.;RangedNumberProjectile
 3;6; you gain the ability to shoot an extra projectile per shoot through extreme meditation.;RangedNumberProjectile
+5;15;The gods grant you a second chance, allowing you to be revived once more after falling;Revival  
