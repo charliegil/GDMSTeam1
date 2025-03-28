@@ -14,6 +14,7 @@ public class enemy_anim_script : MonoBehaviour
         direction = (player.transform.position - transform.position).normalized;
         anim.SetFloat("x", direction.x);
         anim.SetFloat("y", direction.y);
+        //GetComponent<SpriteRenderer>().flipX = true;
         
     }
 }

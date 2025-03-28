@@ -2479,7 +2479,7 @@ MonoBehaviour:
   sounds:
   - name: Fire
     clip: {fileID: 8300000, guid: 33bfdce1f02b8174bb2c5937902efde1, type: 3}
-    volume: 0.04
+    volume: 0.31
     pitch: 0.1
   - name: FireAlt
     clip: {fileID: 8300000, guid: f2dc8331bf3a4f5468369c9a8a568673, type: 3}
@@ -217384,6 +217384,18 @@ PrefabInstance:
       value: exploEnemy
       objectReference: {fileID: 0}
     - target: {fileID: 2898702787198773020, guid: 0ffb80c087b9ba4428d426892ef05487, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2898702787198773020, guid: 0ffb80c087b9ba4428d426892ef05487, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2898702787198773020, guid: 0ffb80c087b9ba4428d426892ef05487, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2898702787198773020, guid: 0ffb80c087b9ba4428d426892ef05487, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.713235
       objectReference: {fileID: 0}
@@ -217423,6 +217435,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3956305920542637038, guid: 0ffb80c087b9ba4428d426892ef05487, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 3115554682324735115, guid: cbdaec3ed2e17b7499f8c3be60d81ea3, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

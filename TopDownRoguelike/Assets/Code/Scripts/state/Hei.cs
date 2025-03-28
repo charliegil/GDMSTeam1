@@ -17,16 +17,9 @@ public class Hei : Core
     void Start()
     {
         //hp = maxHp;
+        target = GameObject.FindWithTag("Player").transform;
         machine = new StateMachine(); // Ensure `machine` exists
         SetupInstances();
-        
-        // if (patrol == null)
-        // {
-        //     Debug.LogError("Patrol state is NULL in NPC!");
-        //     return;
-        // }
-        //patrol.SetCore(core);
-        //Set(patrol);
         Set(chase);
     }
 
@@ -68,6 +61,7 @@ public class Hei : Core
             state.DoBranch();
         }
     }
+    
     bool CloseEnough(Vector2 targetPos){
         Debug.Log("hei close");
         float playerDistance = Vector2.Distance(body.position, targetPos);

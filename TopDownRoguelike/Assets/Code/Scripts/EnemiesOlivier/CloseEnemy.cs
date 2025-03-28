@@ -131,8 +131,10 @@ public class CloseEnemy : BaseEnemy
     private IEnumerator FrontAttack()
     {
         float duration = attackDuration;
-        float speedRate = 2 * frontAttackRange / duration;
-        tongue.transform.localScale = new Vector3(1, 0, 0);
+
+        float speedRate = 2 * frontAttackRange / duration; 
+        tongue.transform.localScale = new Vector3(0.7f, 0, 0); 
+
         tongueRenderer.enabled = true;
         tongue.SetActive(true);
         bool reachEnd = false;
@@ -154,7 +156,11 @@ public class CloseEnemy : BaseEnemy
         TimeBeforeAttack = attackReload;
         IsAttacking = false;
         tongueRenderer.enabled = false;
-        tongue.transform.localScale = new Vector3(1, radiusCircularAttack, 0);
+
+        
+
+        tongue.transform.localScale =new Vector3(0.7f, radiusCircularAttack,0); // return it to normal
+
     }
 
     private IEnumerator CircularAttack()
