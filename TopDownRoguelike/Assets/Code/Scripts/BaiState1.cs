@@ -13,7 +13,7 @@ public class BaiState1 : State
         //animator.Play("Patrol");
     }
     void SpawnEnemy(){
-        
+        animator.SetTrigger("attack");
         GameObject current = Instantiate(sang, player_transform.position, Quaternion.identity);
         if(prev!=null){
             Destroy(prev);

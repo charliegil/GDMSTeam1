@@ -171,7 +171,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: -0.388938, y: -0.01746273}
-  m_ConnectedAnchor: {x: 0.4510626, y: -0.017462688}
+  m_ConnectedAnchor: {x: 0.45106232, y: -0.017462688}
   m_UseConnectedAnchor: 1
   m_UseMotor: 0
   m_Motor:
@@ -207,6 +207,7 @@ GameObject:
   - component: {fileID: 2676237526086949942}
   - component: {fileID: 1948054064860570046}
   - component: {fileID: 8170103810474123798}
+  - component: {fileID: 9064817842253348029}
   m_Layer: 3
   m_Name: HeiWuchang
   m_TagString: Untagged
@@ -258,7 +259,6 @@ MonoBehaviour:
   state2: {fileID: 7757363517484308983}
   state1: {fileID: 3870403907004540155}
   chase: {fileID: 6048273401897493022}
-  hp: 0
 --- !u!50 &3705767846457349977
 Rigidbody2D:
   serializedVersion: 5
@@ -320,7 +320,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.11622244, y: -0.040994167}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -330,7 +330,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.8948456, y: 0.91801167}
   m_EdgeRadius: 0
 --- !u!114 &1948054064860570046
 MonoBehaviour:
@@ -344,9 +344,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8898022347ea147b483cf0844e8fc6a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 300
-  Totalhealth: 0
-  UIHealth: {fileID: 0}
+  baseHealth: 20
+  milestone: 7
+  scaleFactor: 1.2
+  increasePerWave: 2
+  isTargeted: 0
+  enemyValue: 1
+  animator: {fileID: 0}
+  deathParticles: {fileID: 2832167548909918162, guid: 1b61d08785ca28044a6ae3e21eee117e, type: 3}
   damagePopupPrefab: {fileID: 2708312710599233367, guid: 468f99c83ade09e448be9ba40c4b8bfa, type: 3}
 --- !u!70 &8170103810474123798
 CapsuleCollider2D:
@@ -382,9 +387,24 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.18530405, y: -0.21425748}
-  m_Size: {x: 0.662143, y: 1.8454518}
+  m_Offset: {x: -0.11274545, y: -0.25325483}
+  m_Size: {x: 0.64542997, y: 1.8900203}
   m_Direction: 0
+--- !u!114 &9064817842253348029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 472624574039343883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cef4c940411e7c546a470642f46df471, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 808187860613463170}
+  flipR: 1
+  spriteRenderer: {fileID: 8866435132902360611}
 --- !u!1 &1414170058227443601
 GameObject:
   m_ObjectHideFlags: 0
@@ -431,7 +451,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  startPos: {fileID: 0}
   anim: {fileID: 0}
   speed: 400
   nextWaypointDistance: 3
@@ -889,7 +908,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7af86d9a1880adf45a14fbee89a520d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chainSpeed: 0
+  chainSpeed: 20
 --- !u!1 &3528298931095963961
 GameObject:
   m_ObjectHideFlags: 0
@@ -1160,7 +1179,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 5218823490559287709, guid: 2c51814ae8ea4c943bc81a7ab2c3f3d0, type: 3}
+  m_Sprite: {fileID: -5240866651875899914, guid: ce90806e704b5ea49871d8849a8d04c3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1181,7 +1200,7 @@ Animator:
   m_GameObject: {fileID: 3833154593984386562}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5a6eb67d7bf7f93438aee8e79c8f791b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1501,7 +1520,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: -0.5, y: 0}
-  m_ConnectedAnchor: {x: 0.34399912, y: 0}
+  m_ConnectedAnchor: {x: 0.34399942, y: 0}
   m_UseConnectedAnchor: 1
   m_UseMotor: 0
   m_Motor:
@@ -2211,7 +2230,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: -0.388938, y: -0.01746273}
-  m_ConnectedAnchor: {x: 0.4570631, y: -0.017462688}
+  m_ConnectedAnchor: {x: 0.4570622, y: -0.017462688}
   m_UseConnectedAnchor: 1
   m_UseMotor: 0
   m_Motor:

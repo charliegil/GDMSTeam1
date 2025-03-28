@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: tile_diamond_brown
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: -8688672826288603140, guid: 2ceec40a77210244d9f16ee2d1a7aa45, type: 3}
+  m_Sprite: {fileID: 6301309163266223981, guid: 83130b91b1268db42b11dc48271f8230, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1

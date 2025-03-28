@@ -2,18 +2,9 @@ using UnityEngine;
 
 public class Bai : Core
 {
-    //public Transform target;
-    //public PatrolState patrol;
-    //public BaiState3 state3;
-    //public BaiState2 state2;
     public BaiState1 state1;
     public ChaseState chase;
-    //private int maxHp = 100;
-    //[SerializeField] private int hp;
-
-   
-    //private float detectionRange = 4f;
-    //[SerializeField] float returnRange = 5f;
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -27,6 +18,9 @@ public class Bai : Core
     // Update is called once per frame
     void Update()
     {
+        //float currentSpeed = rb.linearVelocity.magnitude;
+        //animator.SetFloat("speed" , currentSpeed);
+
         // Debug.Log("current state hei: "+machine.state);
 
         if(CloseEnough(target.position)){

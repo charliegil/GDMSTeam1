@@ -3,6 +3,7 @@ using UnityEngine;
 public class RangedEnemy : BaseEnemy
 {
     public GameObject projectilePrefab;
+    private Animator anim;
 
 /// <summary>
 /// the total projectiles to lauch. -1 means its infinite
@@ -40,6 +41,7 @@ public class RangedEnemy : BaseEnemy
     private void Start()
     {
         base.Start();
+        anim = GetComponent<Animator>();
         // Find player
         
         //PerformAttack();
@@ -107,7 +109,7 @@ public class RangedEnemy : BaseEnemy
     
     public override void Attack()
     {
-        
+        anim.SetTrigger("attack");
         Shoot();
     }
 
