@@ -24,7 +24,8 @@ public class MainMenu : MonoBehaviour
     }
     public void settings()
     {
-
+        Time.timeScale = 1;
+        UnityEngine.SceneManagement.SceneManager.LoadScene("OptionsScene");
     }
 
     public void credits(){

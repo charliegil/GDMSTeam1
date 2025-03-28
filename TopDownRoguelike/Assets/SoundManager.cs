@@ -1,39 +1,68 @@
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.UI;
-using System;
 
 public class SoundManager : MonoBehaviour
 {
-    [SerializeField] Slider volumeSlider;
+    [SerializeField] private Slider volumeSlider;
 
-    // Start is called before the first frame update
-    void Start()
+    private static SoundManager instance;
+    private const string VolumeKey = "musicVolume";
+
+    void Awake()
     {
-        if (PlayerPrefs.HasKey("musicVolune")) {
-            PlayerPrefs.SetFloat("musicVolume", 1);
-            Load();
-        }
 
-        else {
-        Load();
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject); 
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
         }
     }
 
-    public void ChangeVolume() {
+    void Start() {
+    PlayerPrefs.DeleteKey(VolumeKey);
+
+    volumeSlider.value = 0.5f;  // Ensure slider starts at 50%
+    
+    if (!PlayerPrefs.HasKey(VolumeKey))
+    {
+        PlayerPrefs.SetFloat(VolumeKey, 0.5f);
+        PlayerPrefs.Save(); // Immediately write the default to disk
+    }
+    Load();
+}
+
+
+    public void ChangeVolume()
+    {
         AudioListener.volume = volumeSlider.value;
+        Save();
     }
 
     private void Load()
     {
-        volumeSlider.value = PlayerPrefs.GetFloat("musicVolume");
+        float volumeValue = PlayerPrefs.GetFloat(VolumeKey);
+        AudioListener.volume = volumeValue;
+
+        if (volumeSlider != null)
+        {
+            volumeSlider.value = volumeValue;
+        }
     }
 
-    private void Save() {
-        PlayerPrefs.SetFloat("musicVolume", volumeSlider.value);
+    private void Save()
+    {
+        PlayerPrefs.SetFloat(VolumeKey, volumeSlider.value);
     }
 
+    void OnEnable()
+{
+    volumeSlider = GameObject.Find("YourSliderGameObjectName").GetComponent<Slider>();
+    Load(); 
+}
 
 }
