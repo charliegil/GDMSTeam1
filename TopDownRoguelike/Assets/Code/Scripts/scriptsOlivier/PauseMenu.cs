@@ -11,6 +11,9 @@ public class PauseMenu : MonoBehaviour
 
     public GameObject Canva;
 
+    public Texture2D cursorMenus;
+    public Texture2D cursorInGame;
+
     [SerializeField] private KeyCode keyToPause = KeyCode.M;
 
     private bool isPausing;
@@ -21,7 +24,10 @@ public class PauseMenu : MonoBehaviour
         //Canva.SetActive(false);
         //SkillTreeUI.SetActive(false);
         //StatsUI.SetActive(false);
+        Cursor.SetCursor(cursorInGame,Vector2.zero, CursorMode.Auto);
+        
     }
+    
 
     public void pause()
     {
@@ -32,8 +38,10 @@ public class PauseMenu : MonoBehaviour
             isPausing = false;
             Time.timeScale = 1;
             Debug.Log("resuming");
+            //Cursor.SetCursor(cursorInGame,Vector2.zero, CursorMode.Auto);
        }
        else{
+        Cursor.SetCursor(cursorMenus,Vector2.zero, CursorMode.Auto);
         Debug.Log("pausing");
         PauseUI.SetActive(true);
         SkillTreeUI.SetActive(false);
@@ -62,6 +70,7 @@ public class PauseMenu : MonoBehaviour
     }
     public void goMenu()
     {
+        
         UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
     }
     public void showSkillTree(){

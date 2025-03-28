@@ -7,15 +7,15 @@ public class makeTree : MonoBehaviour
 {
     [Header("tree settings")]
     public int minNumOfChildren = 0;
-    public int maxNumOfChildren = 3;
-    public int totalNodes = 20;
+    public int maxNumOfChildren = 5;
+    public int totalNodes = 10;
     public int probabilityZeroChildren = 50;
     public bool enableCoolerTrees = true;
     public int seed = 1250;
 
     [Header("Node spacing settings")]
-    private float spaceBetweenNodesX = 3;
-    private float spaceBetweenNodesY = 2;
+    private float spaceBetweenNodesX = 1;
+    private float spaceBetweenNodesY = 1;
 
     public float initialPositionRootX = 0;
     public float initialPositionRootY = 0;
