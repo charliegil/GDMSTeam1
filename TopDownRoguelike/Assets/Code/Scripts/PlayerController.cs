@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour , IEventListener
     [SerializeField] private GameObject maskFreeze;
 
     private Coroutine freezeCoroutine;
+    private Coroutine redOverlayCoroutine;
 
 
     
@@ -31,10 +32,17 @@ public class PlayerController : MonoBehaviour , IEventListener
     public GameObject LoseScreen;
 
     public GameObject statsContainer;
+
+    public Image lowHealthOverlay;
+
+    [Header("Red Overlay Settings")]
+
+    [Range(0f, 1f)] [SerializeField] private float showRedOverlayPercentage;
+    [SerializeField] private float durationShowOverlay;
  
 
     // ===================== MOVEMENT =====================
-    
+    [Header("move Settings")]
     [SerializeField] private float moveSpeed = 5f;
     private Vector2 movementDirection;
     private Vector2 currentMovement;
@@ -248,7 +256,7 @@ public class PlayerController : MonoBehaviour , IEventListener
     }
     public void TakeDamage(float damage) {
     
-       
+       float startHealth = currentHealth;
         //Debug.Log("health: " + currentHealth);
         if(damage > 0){
             
@@ -256,9 +264,7 @@ public class PlayerController : MonoBehaviour , IEventListener
             damage/= defenceBoost;
             
            
-            if(Invincible) {
-                //Debug.Log("the player is invincible now");
-                return;}
+            if(Invincible) return;
             
             currentHealth -= damage;
             animator.SetTrigger("takingDamage");
@@ -275,15 +281,30 @@ public class PlayerController : MonoBehaviour , IEventListener
         //healthManager.addHP(-damage,true);
         healthManager.setHP(currentHealth,true);
         
+        float healthPercentage = currentHealth / maxHealth;
+        float targetAlpha = 0f;
+
+        if (healthPercentage <= showRedOverlayPercentage) {
+            targetAlpha = Mathf.Clamp01(0.7f-healthPercentage/showRedOverlayPercentage); 
+        }
+
+        if (redOverlayCoroutine != null) StopCoroutine(redOverlayCoroutine);
+        redOverlayCoroutine = StartCoroutine(ShowRedOverlay(targetAlpha, durationShowOverlay));
+
+        
     }
+
+
     private float scaleDamageByWave(float damage){
         if(!scaleDamageOverWave) return 1;
         int wave = WaveSystem.getCurrentWaveNumber()-1;
         float exp = wave / damageIncrease.x;
         float value = Mathf.Pow(damageIncrease.x , exp);
-        Debug.Log("we are scaling the damage by : "  + value);
+        //Debug.Log("we are scaling the damage by : "  + value);
         return damage * value;
     }
+
+
     
 
 /// <summary>
@@ -309,6 +330,9 @@ public class PlayerController : MonoBehaviour , IEventListener
 
 
     public void OnDeath(){
+        Color color = lowHealthOverlay.color;
+        color.a = 0;
+        lowHealthOverlay.color = color;
         Debug.Log("im dead");
         LoseScreen.SetActive(true);
         EventManager.PlayerDied();
@@ -383,10 +407,12 @@ public class PlayerController : MonoBehaviour , IEventListener
         stats += (attackMultiplier).ToString("F2") + "<";
         stats += (defenceBoost).ToString("F2")+ "<";
         stats += ""+BulletState.damage + "<";
+        stats += ""+PlayerShoot._timeBtwShots+"s<";
+        stats += ""+(CollectibleSpawner.DropRate*100) + "%";
         string[] statList = stats.Split("<");
         int i=0;
-        foreach (TextMeshProUGUI txt in statsContainer.GetComponentsInChildren<TextMeshProUGUI>(false)){
-            if(i==statList.Length-1) break;
+        foreach (TextMeshProUGUI txt in statsContainer.transform.Find("ValuesText").GetComponentsInChildren<TextMeshProUGUI>(false)){
+            if(i==statList.Length) break;
             
             txt.text = ":  " + statList[i];
             i++;
@@ -440,6 +466,24 @@ public class PlayerController : MonoBehaviour , IEventListener
 
             addExternalVelocity(-direction);
             canMove = before;
+    }
+    private IEnumerator ShowRedOverlay(float endAlpha, float duration){
+        
+        float elapsedTime = 0f;
+        float startAlpha = lowHealthOverlay.color.a; 
+        Color color = lowHealthOverlay.color;
+
+        while (elapsedTime < duration){
+            elapsedTime += Time.deltaTime;
+            color.a = Mathf.Lerp(startAlpha, endAlpha, elapsedTime / duration);
+            
+            lowHealthOverlay.color = color;
+
+            yield return null;
+        }
+        color.a = endAlpha;
+        lowHealthOverlay.color = color;
+        redOverlayCoroutine = null;
     }
     
     

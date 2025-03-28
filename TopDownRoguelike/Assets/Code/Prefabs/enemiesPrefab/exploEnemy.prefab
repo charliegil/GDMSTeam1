@@ -53,7 +53,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scaleStatsByWave: 1
-  maxSpeed: 25
+  maxSpeed: 20
   acceleration: 3
   attackRange: 2
   body: {fileID: 6345547693154022427}

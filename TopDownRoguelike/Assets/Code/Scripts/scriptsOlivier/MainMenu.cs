@@ -4,11 +4,17 @@ public class MainMenu : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created.
     
+    public Texture2D cursorMenus;
 
+    public void Start()
+    {
+        Cursor.SetCursor(cursorMenus,Vector2.zero, CursorMode.Auto);
+    }
     public void play()
     {
         Time.timeScale = 1;
         UnityEngine.SceneManagement.SceneManager.LoadScene("EnemiesOlivier");
+        
     }
     public void load()
     {
