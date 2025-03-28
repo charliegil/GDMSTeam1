@@ -9,6 +9,7 @@ public class BaiState1 : State
     public override void Enter()
     {
         InvokeRepeating("SpawnEnemy", 2.0f, 2f);
+        player_transform = GameObject.FindWithTag("Player").transform;
         //animator.Play("Patrol");
     }
     void SpawnEnemy(){

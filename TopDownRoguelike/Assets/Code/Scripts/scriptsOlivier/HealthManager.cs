@@ -9,7 +9,7 @@ public class HealthManager : MonoBehaviour
     public float regenerationPerSecond= 0;
     [HideInInspector] public float totalHP =100;
 
-    [HideInInspector] public float currentHP = 100;
+    public float currentHP = 100;
 
     public bool regenerate = false;
 

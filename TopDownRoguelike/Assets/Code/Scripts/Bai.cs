@@ -20,7 +20,7 @@ public class Bai : Core
         //hp = maxHp;
         machine = new StateMachine(); // Ensure `machine` exists
         SetupInstances();
-        
+        target = GameObject.FindWithTag("Player").transform;
         Set(chase);
     }
 

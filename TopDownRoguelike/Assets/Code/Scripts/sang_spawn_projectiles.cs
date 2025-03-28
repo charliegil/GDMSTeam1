@@ -19,7 +19,7 @@ public class sang_spawn_projectiles : MonoBehaviour
         startPoint = stick.transform.position;
         radius = 5f;
         moveSpeed = 10f;
-        SpawnProjectiles(numberOfProjectiles, 0);
+        //SpawnProjectiles(numberOfProjectiles, 0);
         //SpawnProjectiles(numberOfProjectiles, 10);
     }
 
@@ -29,7 +29,7 @@ public class sang_spawn_projectiles : MonoBehaviour
         startPoint = stick.transform.position;
     }
     public void SpawnProj(){
-        SpawnProjectiles(numberOfProjectiles, 0);
+        SpawnProjectiles(numberOfProjectiles, 10);
     }
 
     public void SpawnProjectiles(int numberOfProjectiles, float offset){

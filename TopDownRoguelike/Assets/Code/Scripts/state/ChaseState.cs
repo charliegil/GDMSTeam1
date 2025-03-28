@@ -3,7 +3,7 @@ using Pathfinding;
 public class ChaseState : State
 {
     public Transform target;
-    public GameObject startPos;
+    private Vector3 startPos;
     public AnimationClip anim;
     public float speed = 400f;
     public float nextWaypointDistance = 3f;
@@ -24,6 +24,8 @@ public class ChaseState : State
     public override void Enter() //only once
     {
         seeker = GetComponent<Seeker>();
+        startPos = transform.position;
+        target = GameObject.FindWithTag("Player").transform;
         InvokeRepeating("UpdatePath",0f, .2f);
         //transform.position = startPos;
         //animator.Play(anim.name);
@@ -31,7 +33,7 @@ public class ChaseState : State
     public override void Do() //update
     {
         if(returnPos){
-            float playerDistance = Vector2.Distance(body.position, startPos.transform.position);
+            float playerDistance = Vector2.Distance(body.position, startPos);
             //Debug.Log("the player distance to start point"+playerDistance+" with current pos "+body.position+" startPos: "+startPos.transform.position);
             //Debug.Log("the returnPos"+returnPos);
             if(playerDistance<=0.7){
@@ -67,7 +69,7 @@ public class ChaseState : State
         }else if(!CloseEnough(target.position) && !returnPos){
             returnPos = true;
             if(seeker.IsDone())
-            seeker.StartPath(body.position, startPos.transform.position, OnPathComplete);
+            seeker.StartPath(body.position, startPos, OnPathComplete);
         }
         
     }
@@ -99,7 +101,7 @@ public class ChaseState : State
         
         
             Vector2 direction = ((Vector2) path.vectorPath[currentWaypoint] - body.position).normalized;
-            float distanceToTarget = Vector2.Distance(body.position, startPos.transform.position);
+            float distanceToTarget = Vector2.Distance(body.position, startPos);
             // Reduce speed when approaching home
             float dynamicSpeed = speed * Mathf.Clamp(distanceToTarget / 2f, 0.3f, 1f);
 
