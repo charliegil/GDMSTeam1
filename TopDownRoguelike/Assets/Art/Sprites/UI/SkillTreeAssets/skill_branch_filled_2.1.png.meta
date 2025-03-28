@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 141dfa12f4462f4429dbda0daff318cf
+guid: ac93e006466d8b04eb248d6ca4019f6a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -9156706942202216716
-    second: soul-vessel_0
+      213: 7396322629221171938
+    second: skill_branch_filled_2.1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: soul-vessel_0
+      name: skill_branch_filled_2.1_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 512
-        height: 512
+        y: 16
+        width: 300
+        height: 268
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4fefea5ec87dce080800000000000000
-      internalID: -9156706942202216716
+      spriteID: 2e249ee6e3405a660800000000000000
+      internalID: 7396322629221171938
       vertices: []
       indices: 
       edges: []
@@ -134,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      soul-vessel_0: -9156706942202216716
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

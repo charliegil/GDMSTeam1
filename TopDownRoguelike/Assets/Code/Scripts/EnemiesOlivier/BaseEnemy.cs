@@ -7,6 +7,7 @@ public abstract class BaseEnemy : MonoBehaviour , IEventListener
 {
 [Header("Health Settings are in the 'Health' component")]
 
+[SerializeField] protected bool scaleStatsByWave;
 
 [Header("Movement Settings")]
 [SerializeField] protected float maxSpeed = 10;
@@ -14,7 +15,6 @@ protected float currentSpeed = 0;
 [SerializeField] protected float acceleration = 1;
 
 [Header("Damage Settings")]
-[SerializeField] protected int damage;
 
 [SerializeField] protected float attackRange = 10;
 
@@ -32,12 +32,13 @@ protected float timer;
     public void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        updateStatsFromCurrentWave();
         
     }
 
     public abstract void move();
 
-
+    public abstract void updateStatsFromCurrentWave();
  
 
     void OnDisable()

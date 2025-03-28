@@ -25,6 +25,7 @@ public class makeTree : MonoBehaviour
 
     [Header("UI settings")]
     public float NodeSize = 0.5f;
+    public float UvRectWidht;
     public Sprite lineSprite;
     public GameObject panel;
     public GameObject InfoPanel;
@@ -35,12 +36,23 @@ public class makeTree : MonoBehaviour
     private List<skillTreeUpgrade> possibleCommonUpgrades;
     private List<skillTreeUpgrade> possibleSpecialUpgrades;
 
+    private GameObject _nodesContainer;
+    private GameObject _linesContainer;
+
+
 
 
     // solution: each node has a fixed length that his Children can take. the length is determined by most left and most right. 
 
     private void Start()
     {
+
+        _linesContainer = new GameObject("linesContainer");
+        _linesContainer.transform.SetParent(panel.transform);
+        _nodesContainer = new GameObject("nodesContainer");
+        _nodesContainer.transform.SetParent(panel.transform);
+
+
         possibleCommonUpgrades = UpgradesReader.CreateCommonUpgradesFromFile();
         possibleSpecialUpgrades = UpgradesReader.CreateSpecialUpgradesFromFile();
         
@@ -54,8 +66,8 @@ public class makeTree : MonoBehaviour
         TreeHelpers.CalculateNodePositions(root);
         
         // ============ Make sure the tree is fiting in the image  ===========
-        spaceBetweenNodesY = 28f / (getHeight(root));
-        spaceBetweenNodesX = 45f / (getWidth(root));
+        spaceBetweenNodesY = 30f / (getHeight(root)-1);
+        spaceBetweenNodesX = 50f / (getWidth(root));
         //Debug.Log("the withs is : "+getWidth(root));
         float max =  getMaxWidth(root,true)-root.X;
         float min = root.X - getMaxWidth(root,false);
@@ -193,7 +205,7 @@ public class makeTree : MonoBehaviour
             CreateEdge(positionNode,positionChild);
             DrawTree(child,depth+1,root);
         }
-        nodeObject.transform.SetParent(panel.transform,true);
+        nodeObject.transform.SetParent(_nodesContainer.transform,true);
     }
 
 
@@ -202,7 +214,7 @@ public class makeTree : MonoBehaviour
         GameObject lineObject = new GameObject("line");
 
        
-        Image image = lineObject.AddComponent<Image>();
+        RawImage image = lineObject.AddComponent<RawImage>();
         image.color = edgeColor;
 
         float distance = Vector2.Distance(start, end);
@@ -218,11 +230,15 @@ public class makeTree : MonoBehaviour
         
         
         image.transform.localScale = new Vector2(distance/100, lineWidth);
-        image.sprite = lineSprite;
+        image.texture = lineSprite.texture;
+        
+        Rect textureRepeat = new Rect(image.uvRect.x, image.uvRect.y,distance/20f *UvRectWidht, image.uvRect.height);
+
+        image.uvRect = textureRepeat;
         
        
         image.material = new Material(Shader.Find("Sprites/Default"));
-        lineObject.transform.SetParent(panel.transform,true);
+        lineObject.transform.SetParent(_linesContainer.transform,true);
        
     }
     private float getHeight(treeNode node){
