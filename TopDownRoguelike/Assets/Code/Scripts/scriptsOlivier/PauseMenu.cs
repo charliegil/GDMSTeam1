@@ -24,7 +24,7 @@ public class PauseMenu : MonoBehaviour
         //Canva.SetActive(false);
         //SkillTreeUI.SetActive(false);
         //StatsUI.SetActive(false);
-        //Cursor.SetCursor(cursorInGame,Vector2.zero, CursorMode.ForceSoftware);
+        Cursor.SetCursor(cursorInGame,Vector2.zero, CursorMode.Auto);
         
     }
     

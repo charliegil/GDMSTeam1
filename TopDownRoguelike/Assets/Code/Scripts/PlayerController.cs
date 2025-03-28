@@ -21,6 +21,8 @@ public class PlayerController : MonoBehaviour , IEventListener
     private Coroutine freezeCoroutine;
     private Coroutine redOverlayCoroutine;
 
+    [SerializeField] private AudioSource hearthBeat;
+
 
     
 
@@ -286,10 +288,20 @@ public class PlayerController : MonoBehaviour , IEventListener
 
         if (healthPercentage <= showRedOverlayPercentage) {
             targetAlpha = Mathf.Clamp01(0.7f-healthPercentage/showRedOverlayPercentage); 
+            float percentage = healthPercentage/showRedOverlayPercentage;
+            hearthBeat.Play();
+            //hearthBeat.mute = false;
+            hearthBeat.volume = 1-percentage;
         }
+        else{
+            hearthBeat.volume = 0;
+        }
+
 
         if (redOverlayCoroutine != null) StopCoroutine(redOverlayCoroutine);
         redOverlayCoroutine = StartCoroutine(ShowRedOverlay(targetAlpha, durationShowOverlay));
+
+
 
         
     }
@@ -336,8 +348,9 @@ public class PlayerController : MonoBehaviour , IEventListener
         Debug.Log("im dead");
         LoseScreen.SetActive(true);
         EventManager.PlayerDied();
-        AudioManager.instance.PlaySound("PlayerDeath");
+    
         if(!Application.isEditor) Time.timeScale = 0;
+        Time.timeScale = 0;
 
     }
     
