@@ -6,20 +6,24 @@ using UnityEngine.UIElements;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] private float currentHealth = 100f;
-    [SerializeField] private ParticleSystem deathParticles;
+    private float currentHealth;
+    [Header("Scale Health based on wave settings")]
+    [SerializeField] private float baseHealth = 20f;
+    [SerializeField] private float milestone = 7;
+    [SerializeField] private float scaleFactor = 1.2f;
+    [SerializeField] private float increasePerWave = 2;
     private ParticleSystem deathParticlesInstance;
  
     [HideInInspector] public bool isTargeted = false;
     
     [SerializeField] private int enemyValue = 1;
 
-
-    [SerializeField] Animator animator;
-
     private bool isDead = false;
  
+    [Header("References")]
+    [SerializeField] Animator animator;
 
+    [SerializeField] private ParticleSystem deathParticles;
     public GameObject damagePopupPrefab;
 
     private static PlayerController playerController;
@@ -36,11 +40,11 @@ public class Health : MonoBehaviour
     void Start()
     {
         if(playerController==null) playerController = GameObject.Find("Player")?.GetComponent<PlayerController>();
+        currentHealth = baseHealth;
     }
 
-    void Update()
-    {
-        
+    void Update(){   
+    
     }
 
     public void TakeDamage(float damage) {
@@ -85,6 +89,11 @@ public class Health : MonoBehaviour
     public void TakeDamageOverTime(float damage, float time, float step) {
     
         
+    }
+
+    public void modifyHealthFromWaveNumber(int waveNumber){
+        currentHealth = baseHealth + (waveNumber * increasePerWave);
+        currentHealth *= Mathf.Pow(scaleFactor , (int)waveNumber/milestone);
     }
     
     

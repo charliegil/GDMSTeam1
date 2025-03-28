@@ -10,7 +10,7 @@ using System.Globalization;
 public class PlayerController : MonoBehaviour , IEventListener
 {
     // ===================== REFERENCES =====================
-    public PlayerController instance;
+    
     private InputActionReference pointerPosition;
     private InputSystem_Actions playerInputActions;
     private Rigidbody2D rb;
@@ -82,6 +82,16 @@ public class PlayerController : MonoBehaviour , IEventListener
     [Header("Attack Settings")]
    
     public float attackMultiplier = 1f;
+
+// ================= Damage scaling over Wave Settings ============
+    [Header("damage Scaling settings")]
+    [SerializeField] private bool scaleDamageOverWave;
+    /// <summary>
+    /// x: damage increase , y : wave interval
+    /// </summary>
+    [Tooltip("Damage increases by x every y waves.")] [SerializeField] Vector2 damageIncrease = new Vector2(1.5f,10);
+
+
     
 
 // ===================== CRITIQUAL =====================
@@ -123,7 +133,7 @@ public class PlayerController : MonoBehaviour , IEventListener
         currentHealth = maxHealth;
 
         gameObject.layer = LayerMask.NameToLayer("Player");
-        instance = this;
+        
 
     }
 
@@ -241,6 +251,8 @@ public class PlayerController : MonoBehaviour , IEventListener
        
         //Debug.Log("health: " + currentHealth);
         if(damage > 0){
+            
+            damage = scaleDamageByWave(damage);
             damage/= defenceBoost;
             
            
@@ -263,6 +275,14 @@ public class PlayerController : MonoBehaviour , IEventListener
         //healthManager.addHP(-damage,true);
         healthManager.setHP(currentHealth,true);
         
+    }
+    private float scaleDamageByWave(float damage){
+        if(!scaleDamageOverWave) return 1;
+        int wave = WaveSystem.getCurrentWaveNumber()-1;
+        float exp = wave / damageIncrease.x;
+        float value = Mathf.Pow(damageIncrease.x , exp);
+        Debug.Log("we are scaling the damage by : "  + value);
+        return damage * value;
     }
     
 
@@ -354,6 +374,7 @@ public class PlayerController : MonoBehaviour , IEventListener
 
     public void showStats(){
         statsContainer.SetActive(true);
+      
         string stats = "";
         stats += (critChance).ToString("F2") + "<";
         stats += critiqualHitFactor.ToString("F1") + "<";

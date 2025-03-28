@@ -28,6 +28,7 @@ public class MainMenu : MonoBehaviour
     }
 
     public void credits(){
+        Time.timeScale = 1;
         UnityEngine.SceneManagement.SceneManager.LoadScene("Credits");
     }
 
@@ -35,6 +36,7 @@ public class MainMenu : MonoBehaviour
     public void goMenu()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+        Time.timeScale = 1;
     }
     public void restart()
     { // sw

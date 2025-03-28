@@ -3,12 +3,10 @@ using UnityEngine.UI;
 using System.Collections;
 using TMPro;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
-using Unity.VisualScripting;
 
 public class WaveSystem : MonoBehaviour , IEventListener
 {
-    private int currentWave = 0;
+    private static int currentWave = 0;
     public float waveValue = 5;
 
     public float waveMultiplier =1.2f; 
@@ -204,6 +202,10 @@ public class WaveSystem : MonoBehaviour , IEventListener
     }
     public void OnDisable(){
         unsubscribe();
+    }
+
+    public static int getCurrentWaveNumber(){
+        return currentWave;
     }
     
     

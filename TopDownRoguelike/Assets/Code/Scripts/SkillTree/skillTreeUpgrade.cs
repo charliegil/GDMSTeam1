@@ -90,8 +90,11 @@ public class skillTreeUpgrade
     public override string ToString(){
         Debug.Log(type);
         string typeDescription = type.ToString();
+        string valueString = value.ToString("F2");
+        if(valueString.EndsWith(".00")) valueString = valueString.Split(".")[0];
+        
         if(UpgradeToCategory.ContainsKey(type)) typeDescription= UpgradeToCategory[type];
-        return description + ";" + price + ";" +value.ToString("F2") +";"+rarity + ";" + typeDescription;
+        return description + ";" + price + ";" + valueString +";"+rarity + ";" + typeDescription;
     }
     public bool Isbought(){
         return bought;

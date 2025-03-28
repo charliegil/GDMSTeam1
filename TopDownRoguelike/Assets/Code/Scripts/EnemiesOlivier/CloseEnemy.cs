@@ -12,17 +12,16 @@ public class CloseEnemy : BaseEnemy
     public float attackDuration = 0.2f; // Duration of the attack
     public float radiusCircularAttack;
     public float frontAttackRange;
-    public bool rotateWhileAttacking;
-    public bool moveWhileAttacking;
     
     private bool IsAttacking = false; 
     private float TimeBeforeAttack; 
 
     [Header("Movement Settings")]
     public float movingSpeed = 1f; // Speed when enemy sees the player
-    public float findSpeed = 1f; // Speed when enemy doesn’t see the player
     public float trackingSpeed; // Rotation speed of the enemy
     public float RateOfChangeDirection = 2f; // Time before changing direction
+    public bool rotateWhileAttacking;
+    public bool moveWhileAttacking;
     
     private bool isChasing = false; 
     private Vector2 randomMovement = new Vector2(0, 0);
@@ -67,7 +66,7 @@ public class CloseEnemy : BaseEnemy
     {
         transform.rotation = Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z);
         enemySprite.transform.localRotation  = Quaternion.Euler(0,0,-transform.rotation.eulerAngles.z);
-        if((IsAttacking && !moveWhileAttacking) || IsPlayerInAttackRange() || getDirectionToPlayer().magnitude < radiusCircularAttack*(2/3)) {
+        if((IsAttacking && !moveWhileAttacking)  || getDirectionToPlayer().magnitude < radiusCircularAttack*(2/3)) {
             body.linearVelocity = new Vector2(0,0);
             return;
         }
@@ -119,7 +118,7 @@ public class CloseEnemy : BaseEnemy
             timer-= Time.deltaTime;
             
             
-            body.linearVelocity= transform.right*findSpeed;
+            body.linearVelocity= transform.right*movingSpeed;
     
     }
 
@@ -263,6 +262,10 @@ public class CloseEnemy : BaseEnemy
         }
     }
 
-   
-    
+    public override void updateStatsFromCurrentWave(){
+        if(!scaleStatsByWave) return;
+        int wave  = WaveSystem.getCurrentWaveNumber();
+        GetComponent<Health>().modifyHealthFromWaveNumber(wave);
+        GetComponentInChildren<Tongue>().damage += wave*3/2;
+    }
 }

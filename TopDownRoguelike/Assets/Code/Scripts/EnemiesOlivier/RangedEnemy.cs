@@ -24,6 +24,8 @@ public class RangedEnemy : BaseEnemy
 
     private bool hasReachedDestination = false;
 
+    
+
 
     private void Shoot() {
         GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
@@ -109,4 +111,9 @@ public class RangedEnemy : BaseEnemy
         Shoot();
     }
 
+    public override void updateStatsFromCurrentWave(){
+        if(!scaleStatsByWave) return;
+        int wave  = WaveSystem.getCurrentWaveNumber();
+        GetComponent<Health>().modifyHealthFromWaveNumber(wave);
+    }
 }

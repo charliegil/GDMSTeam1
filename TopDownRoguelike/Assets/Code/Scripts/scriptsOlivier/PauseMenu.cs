@@ -27,7 +27,7 @@ public class PauseMenu : MonoBehaviour
     {
        if(isPausing){
             PauseUI.SetActive(false);
-            //Canva.SetActive(false);
+            StatsUI.SetActive(false);
             SkillTreeUI.SetActive(false);
             isPausing = false;
             Time.timeScale = 1;
@@ -66,12 +66,12 @@ public class PauseMenu : MonoBehaviour
     }
     public void showSkillTree(){
         SkillTreeUI.SetActive(true);
-        PauseUI.SetActive(false);
+        //PauseUI.SetActive(false);
         Debug.Log("show skill tree");
     }
     public void closeSkillTree(){
         SkillTreeUI.SetActive(false);
-        PauseUI.SetActive(true);
+        //PauseUI.SetActive(true);
         Debug.Log("close skill tree");
     }
     public void restart()
@@ -81,7 +81,9 @@ public class PauseMenu : MonoBehaviour
     }
 
     public void CloseStatsMenu(){
+
         StatsUI.SetActive(false);
+
     }
     
 }
