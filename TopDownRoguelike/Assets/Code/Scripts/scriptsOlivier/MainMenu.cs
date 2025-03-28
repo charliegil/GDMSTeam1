@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class MainMenu : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created.
     
     public Texture2D cursorMenus;
 
@@ -46,7 +45,7 @@ public class MainMenu : MonoBehaviour
         Time.timeScale = 1;
     }
     public void restart()
-    { // sw
+    { 
         UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
     }
     public void showSkillTree(){

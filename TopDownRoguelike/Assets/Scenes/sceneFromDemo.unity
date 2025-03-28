@@ -133,7 +133,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8205303054200216962, guid: b91f7fbdc45c5b942930018690aff750, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -18.4
+      value: -12.63
       objectReference: {fileID: 0}
     - target: {fileID: 8205303054200216962, guid: b91f7fbdc45c5b942930018690aff750, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1288,19 +1288,18 @@ MonoBehaviour:
   totalNodes: 10
   probabilityZeroChildren: 20
   enableCoolerTrees: 0
-  spaceBetweenNodesX: 50
-  spaceBetweenNodesY: 50
+  seed: 44
   initialPositionRootX: 409
   initialPositionRootY: 350
   lineWidth: 5
-  lineSprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   NodeSize: 50
+  UvRectWidht: 0
+  lineSprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   panel: {fileID: 1974252203}
-  seed: 44
-  circleSprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  InfoPanel: {fileID: 0}
+  edgeColor: {r: 0, g: 0, b: 0, a: 0}
   SpriteLocked: {fileID: -162039004593993079, guid: 50d54d4f9ca01104cb167faa2f32c77a, type: 3}
   SpriteUnlocked: {fileID: -1818097775005303466, guid: 08de95bfa2d3a2143a1b657650093b8c, type: 3}
-  InfoPanel: {fileID: 0}
 --- !u!4 &280165805
 Transform:
   m_ObjectHideFlags: 0
@@ -34704,13 +34703,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 255408843}
   spriteRenderer: {fileID: 255408842}
+  maskFreeze: {fileID: 0}
   SliderPhaseCooldown: {fileID: 1909195396}
   LoseScreen: {fileID: 2894237735476831907}
+  statsContainer: {fileID: 0}
+  lowHealthOverlay: {fileID: 0}
+  showRedOverlayPercentage: 0
+  durationShowOverlay: 0
   moveSpeed: 10
   phaseDuration: 1
   phaseFactor: 2
   phaseCooldown: 0.5
   attackMultiplier: 1
+  scaleDamageOverWave: 0
+  damageIncrease: {x: 1.5, y: 10}
   critChance: 0
   critiqualHitFactor: 2
   maxHealth: 10000
@@ -39636,10 +39642,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bulletPrefab: {fileID: 1877081603369642548, guid: f7b4d2a97b98fff42839a8c274bf6555, type: 3}
-  _bulletSpeed: 18
+  bulletSpeed: 25
   _gunOffset: 0
-  _timeBtwShots: 0.25
+  timeBetweenShoot: 0.7
   animator: {fileID: 255408843}
+  angleBetweenBullets: 8
 --- !u!70 &865914811
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -41116,6 +41123,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waveValue: 2
   waveMultiplier: 5
+  timeBetweenWave: 5
   enemylist:
   - enemyPrefab: {fileID: 1204319565315017930, guid: 0ffb80c087b9ba4428d426892ef05487, type: 3}
     value: 5
@@ -41126,6 +41134,8 @@ MonoBehaviour:
   spawnLocation:
   - {fileID: 1477096585}
   currentWaveUIText: {fileID: 1721161180}
+  waveCompleteUIText: {fileID: 0}
+  SkillTreeButtonComponent: {fileID: 0}
   hei_boss: {fileID: 1518161903}
   bai_boss: {fileID: 1466546305}
   spawnBoss: 1
@@ -41591,8 +41601,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PauseUI: {fileID: 80454221}
+  StatsUI: {fileID: 0}
   SkillTreeUI: {fileID: 1974252203}
   Canva: {fileID: 255931283}
+  cursorMenus: {fileID: 0}
+  cursorInGame: {fileID: 0}
   keyToPause: 109
 --- !u!4 &1604017034
 Transform:
@@ -78972,6 +78985,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74f5b5d0cf51e71499d5ed2380961a70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cursorMenus: {fileID: 0}
 --- !u!4 &8440354980383074789 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2840959522184855588, guid: bf32a9b6938d2b741b93473d6d25b6ca, type: 3}

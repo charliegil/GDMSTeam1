@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: fa59040241f856c44b688bd251901763
+guid: fc8024d86c94b0847a5b601aecd56daa
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1531488492049865102
-    second: redOverlay_0
+      213: 9054738671460334722
+    second: skill_branch_filled_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: redOverlay_0
+      name: skill_branch_filled_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 640
-        height: 400
+        y: 65
+        width: 300
+        height: 170
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e891b3a5ba0f04510800000000000000
-      internalID: 1531488492049865102
+      spriteID: 28cb26ef8d4e8ad70800000000000000
+      internalID: 9054738671460334722
       vertices: []
       indices: 
       edges: []
@@ -134,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      redOverlay_0: 1531488492049865102
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
