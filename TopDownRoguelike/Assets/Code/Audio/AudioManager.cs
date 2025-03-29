@@ -21,6 +21,7 @@ public class AudioManager : MonoBehaviour, IEventListener
     {
         if (instance == null){ 
             instance = this;
+            DontDestroyOnLoad(instance);  
             DontDestroyOnLoad(gameObject);    
         }
         else Destroy(gameObject);
