@@ -92,7 +92,7 @@ public class WaveSystem : MonoBehaviour , IEventListener
     }
 
     public void GenerateWave(){
-        if(currentWave % 5 == 0 && spawnBoss && hei_boss != null && bai_boss != null){
+        if(currentWave % 2 == 0 && spawnBoss && hei_boss != null && bai_boss != null){
 
         Debug.Log("currrent wave"+currentWave);
 
