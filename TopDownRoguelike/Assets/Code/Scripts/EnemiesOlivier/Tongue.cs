@@ -8,6 +8,11 @@ public class Tongue : MonoBehaviour
 
   
 
+    private PlayerController playerController;
+
+    private GameObject parent;
+
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
