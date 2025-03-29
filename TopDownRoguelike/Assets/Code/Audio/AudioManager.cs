@@ -34,8 +34,8 @@ public class AudioManager : MonoBehaviour, IEventListener
     private AudioSource GetAvailableSource()
     {
         foreach (AudioSource source in audioSources){
-            DontDestroyOnLoad(source);
-            if (source == null || !source.isPlaying) return source; 
+            
+            if (source != null && !source.isPlaying) return source; 
         }
         AudioSource Source = Instantiate(audioSourcePrefab, transform);
         DontDestroyOnLoad(Source);
