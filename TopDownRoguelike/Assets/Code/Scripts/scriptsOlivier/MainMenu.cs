@@ -32,6 +32,10 @@ public class MainMenu : MonoBehaviour
         Time.timeScale = 1;
         UnityEngine.SceneManagement.SceneManager.LoadScene("OptionsScene");
     }
+    public void tutorial(){
+        Time.timeScale = 1;
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Tutorial");
+    }
 
     public void credits(){
         Time.timeScale = 1;
