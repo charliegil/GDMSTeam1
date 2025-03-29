@@ -17,17 +17,20 @@ public class bell_script : MonoBehaviour
         
         
     }
-    void OnCollisionEnter2D(Collision2D collision)
+    
+    void OnTriggerEnter2D(Collider2D collision)
     {
         //Debug.Log("chain collision "+collision.gameObject.tag);
-        if(collision.gameObject.tag=="Player"){
+        if(collision.gameObject.CompareTag("Player")){
             Debug.Log("bell collision IS INN"+collision.gameObject.tag);
-            EventManager.PlayerTakeDamage(10);
+            EventManager.PlayerTakeDamage(30);
             //player_script.dmgPlayer(10);
-        }else{
-            Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
-            Debug.Log("Chain ignored enemy collision");
+        
         }
+        // }else{
+        //     Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
+        //     Debug.Log("Chain ignored enemy collision");
+        // }
         
     }
     

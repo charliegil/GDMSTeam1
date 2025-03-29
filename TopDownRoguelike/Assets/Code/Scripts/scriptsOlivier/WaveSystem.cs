@@ -40,7 +40,7 @@ public class WaveSystem : MonoBehaviour , IEventListener
     private int minValue;
     public GameObject hei_boss;
     public GameObject bai_boss;
-    public bool spawnBoss = true;
+    private bool spawnBoss = true;
 
 
 
@@ -93,6 +93,9 @@ public class WaveSystem : MonoBehaviour , IEventListener
 
     public void GenerateWave(){
         if(currentWave % 5 == 0 && spawnBoss && hei_boss != null && bai_boss != null){
+
+        Debug.Log("currrent wave"+currentWave);
+
             Debug.Log("you spawn heibai");
             int  random = Random.Range(0,spawnLocation.Count);
 

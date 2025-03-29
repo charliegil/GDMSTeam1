@@ -10,7 +10,7 @@ public class HeiState1 : State
     //public AnimationClip anim;
     public override void Enter()
     {
-        chain_script.setSpeed(-200);
+        chain_script.setSpeed(-300);
         //Set(spawnEnemy, true);
         //animator.Play("Patrol");
     }

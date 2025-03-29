@@ -7,11 +7,11 @@ public class ChaseState : State
     public AnimationClip anim;
     public float speed = 400f;
     public float nextWaypointDistance = 3f;
-    [SerializeField] float detectionRange = 30f;
+    [SerializeField] float detectionRange = 100f;
     
     public Transform enemyGFX;
     
-    private float maxSpeed = 3;
+    private float maxSpeed = 30;
     private Path path;
     private int currentWaypoint = 0;
     private bool reachedEndOfPath = false;
