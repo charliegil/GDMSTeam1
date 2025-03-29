@@ -11,6 +11,11 @@ public class Clicker : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
     }
     
+    public void play2()
+    {
+        Time.timeScale = 1;
+        UnityEngine.SceneManagement.SceneManager.LoadScene("enemiesOlivier");
+    }
     
 }
 
