@@ -53,15 +53,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scaleStatsByWave: 1
-  maxSpeed: 5
+  maxSpeed: 20
   acceleration: 3
-  attackRange: 2
+  attackRange: 3
   body: {fileID: 6345547693154022427}
   FOV: 360
   viewDistance: 300
   explosionParticles: {fileID: 2832167548909918162, guid: 2779b838dc2952d44a6322d47650cafe, type: 3}
   usePathFinding: 1
-  MaxAliveTime: 8
+  MaxAliveTime: 11
 --- !u!114 &8642414131343421290
 MonoBehaviour:
   m_ObjectHideFlags: 0
