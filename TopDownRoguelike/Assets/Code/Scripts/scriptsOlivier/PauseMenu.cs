@@ -32,6 +32,7 @@ public class PauseMenu : MonoBehaviour
     public void pause()
     {
        if(isPausing){
+            AudioManager.instance.EnterMenu(false);
             PauseUI.SetActive(false);
             StatsUI.SetActive(false);
             SkillTreeUI.SetActive(false);
@@ -42,6 +43,7 @@ public class PauseMenu : MonoBehaviour
        }
        else{
         Cursor.SetCursor(cursorMenus,Vector2.zero, CursorMode.Auto);
+        AudioManager.instance.EnterMenu(true);
         Debug.Log("pausing");
         PauseUI.SetActive(true);
         SkillTreeUI.SetActive(false);

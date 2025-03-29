@@ -12,8 +12,13 @@ public class AudioManager : MonoBehaviour, IEventListener
 
     public AudioSource battleTheme;
 
+    public AudioSource BossTheme;
+
     public AudioSource lowHealthSound;
     private List<AudioSource> audioSources = new List<AudioSource>();
+
+    float volumeBoss;
+    float volumeBattle;
 
     [SerializeField] private List<Sound> sounds  = new List<Sound>();
 
@@ -26,6 +31,8 @@ public class AudioManager : MonoBehaviour, IEventListener
         }
         else Destroy(gameObject);
         subscribe();
+        volumeBoss = BossTheme.volume;
+        volumeBattle = battleTheme.volume;
     }
     private void OnDisable()
     {
@@ -67,6 +74,23 @@ public class AudioManager : MonoBehaviour, IEventListener
         StartCoroutine(FadeOutAudio(battleTheme,3,0.2f));
     }
 
+    public void EnterMenu(bool enter){
+        if(enter)battleTheme.volume/=2;
+        else{
+            battleTheme.volume*=2;
+        }
+    }
+    public void ActivateBossTheme(bool activate){
+        if(activate){
+            StartCoroutine(FadeOutAudio(BossTheme,4,0.2f));
+            battleTheme.volume = 0;
+        }
+        else{
+            StartCoroutine(FadeOutAudio(BossTheme,4,0));
+            battleTheme.volume = volumeBattle;
+        }
+    }
+
     public void subscribe()
     {
         EventManager.OnPlayerDied +=OnPlayerDeath;
@@ -87,8 +111,10 @@ public class AudioManager : MonoBehaviour, IEventListener
         yield return null;
     }
 
-    audioSource.Stop();
-    audioSource.volume = startVolume; 
+    //audioSource.Stop();
+    audioSource.volume = endVolume; 
     //audioSource.mute = true;
     }
+
+
 }

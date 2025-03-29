@@ -10,6 +10,8 @@ public class EffectButton : MonoBehaviour , IPointerEnterHandler, IPointerExitHa
     public float scaleMultiplier = 1.3f;
     public float duration = 0.2f;
     private Coroutine scaleCoroutine;
+
+    private AudioSource audioSource;
     
    
 
@@ -53,7 +55,7 @@ public class EffectButton : MonoBehaviour , IPointerEnterHandler, IPointerExitHa
 
     public void OnPointerClick(PointerEventData eventData)
     {
-
+        if(AudioManager.instance == null) return;
         AudioManager.instance.PlaySound("clickButton");
     }
 }
