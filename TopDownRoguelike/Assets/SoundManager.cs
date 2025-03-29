@@ -26,7 +26,10 @@ public class SoundManager : MonoBehaviour
     void Start() {
     PlayerPrefs.DeleteKey(VolumeKey);
 
-    if(volumeSlider != null )volumeSlider.value = 0.5f;  // Ensure slider starts at 50%
+    if(volumeSlider!=null){
+        volumeSlider.value = 0.5f;  // Ensure slider starts at 50%
+    }
+
     
     if (!PlayerPrefs.HasKey(VolumeKey))
     {
@@ -62,8 +65,13 @@ public class SoundManager : MonoBehaviour
 
     void OnEnable()
 {
-    //volumeSlider = GameObject.Find("YourSliderGameObjectName").GetComponent<Slider>();
-    Load(); 
+    
+    if(GameObject.Find("YourSliderGameObjectName")!=null){
+        volumeSlider = GameObject.Find("YourSliderGameObjectName").GetComponent<Slider>();
+        Load(); 
+    }
+    
+
 }
 
 }
