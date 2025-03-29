@@ -31,6 +31,7 @@ public class AudioManager : MonoBehaviour, IEventListener
         }
         else Destroy(gameObject);
         subscribe();
+        
         volumeBoss = BossTheme.volume;
         volumeBattle = battleTheme.volume;
     }
@@ -71,7 +72,7 @@ public class AudioManager : MonoBehaviour, IEventListener
         //battleTheme.mute = true;
         lowHealthSound.mute  =true;
         PlaySound("PlayerDeath");
-        StartCoroutine(FadeOutAudio(battleTheme,3,0.2f));
+        StartCoroutine(FadeOutAudio(battleTheme,3,0));
     }
 
     public void EnterMenu(bool enter){
@@ -80,36 +81,19 @@ public class AudioManager : MonoBehaviour, IEventListener
             battleTheme.volume*=2;
         }
     }
-    // public void ActivateBossTheme(bool activate){
-    //     if(activate){
-    //         Debug.Log("should active BossTheme");
-    //         StartCoroutine(FadeOutAudio(battleTheme,4,0.2f));
-    //         //battleTheme.volume = 0;
-    //         BossTheme.volume = 5f;
-    //         battleTheme.volume = 0f;//volumeBattle;
-    //     }
-    //     else{
-    //         StartCoroutine(FadeOutAudio(BossTheme,4,0));
-    //         Debug.Log("should desactivate BossTheme");
-    //         battleTheme.volume = 5f;
-    //         BossTheme.volume = 0f;
-    //         //battleTheme.volume = volumeBattle;
-    //     }
-    // }
-    public void ActivateBossTheme(bool activate) {
-    if (activate) {
-        Debug.Log("should activate BossTheme");
-
-        StartCoroutine(FadeOutAudio(battleTheme, 4, 0)); // Fade out battle theme
-        if (!BossTheme.isPlaying) BossTheme.Play();      // Ensure boss theme starts
-        StartCoroutine(FadeOutAudio(BossTheme, 4, 0.5f)); // Fade in boss theme
-    } 
-    else {
-        Debug.Log("should deactivate BossTheme");
-
-        StartCoroutine(FadeOutAudio(BossTheme, 4, 0)); // Fade out boss theme
-        if (!battleTheme.isPlaying) battleTheme.Play(); // Ensure battle theme starts
-        StartCoroutine(FadeOutAudio(battleTheme, 4, 0.5f)); // Fade in battle theme
+    public void ActivateBossTheme(bool activate){
+        if(activate){
+            BossTheme.Play();
+            StartCoroutine(FadeOutAudio(BossTheme,4,0.2f));
+            
+            battleTheme.volume = 0;
+            Debug.Log("activate");
+        }
+        else{
+            StartCoroutine(FadeOutAudio(BossTheme,4,0));
+            battleTheme.volume = volumeBattle;
+            Debug.Log("deactivate");
+        }
     }
 }
 
@@ -135,7 +119,7 @@ public class AudioManager : MonoBehaviour, IEventListener
 
     //audioSource.Stop();
     audioSource.volume = endVolume; 
-    //audioSource.mute = true;
+        //audioSource.mute = true;
     }
 
 

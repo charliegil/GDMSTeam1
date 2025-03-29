@@ -25,8 +25,8 @@ public class enemy_anim : MonoBehaviour
         movementDirection = (player.transform.position - transform.position);
         float currentSpeed = body.linearVelocity.magnitude;
         anim.SetFloat("speed" , currentSpeed);
-        Debug.Log("hey should be");
-        Debug.Log("bai movementDirection"+movementDirection);
+        //Debug.Log("hey should be");
+        //Debug.Log("bai movementDirection"+movementDirection);
         if(flipR==true){
             spriteRenderer.flipX = movementDirection.x > 0;
         }else{

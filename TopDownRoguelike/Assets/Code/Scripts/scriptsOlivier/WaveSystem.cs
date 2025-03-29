@@ -114,7 +114,7 @@ public class WaveSystem : MonoBehaviour , IEventListener
 
         }
         else if(currentWave % 5 == 1 && currentWave != 1){
-            AudioManager.instance.ActivateBossTheme(false);
+            //AudioManager.instance.ActivateBossTheme(false);
         }
         
         if(enemiesLeft == 0) return;

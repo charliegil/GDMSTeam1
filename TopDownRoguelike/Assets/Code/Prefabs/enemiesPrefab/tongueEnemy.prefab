@@ -87,7 +87,7 @@ MonoBehaviour:
   trackingSpeed: 0.05
   RateOfChangeDirection: 2
   rotateWhileAttacking: 0
-  moveWhileAttacking: 1
+  moveWhileAttacking: 0
   lineMaterial: {fileID: 2100000, guid: 5a9ac127c4d9f28449e31b850be7b00b, type: 2}
   tongue: {fileID: 8780588160096253109}
   tongueRenderer: {fileID: 4244936413889423027}
@@ -508,7 +508,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BoxCollider: {fileID: 3027478348887225965}
-  damage: 10
+  damage: 5
 --- !u!1001 &8555514053387178136
 PrefabInstance:
   m_ObjectHideFlags: 0

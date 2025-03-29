@@ -247,11 +247,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   body: {fileID: 3705767846457349977}
   animator: {fileID: 808187860613463170}
-  detectionRange: 4
+  detectionRange: 20
   reloadTime: 1
   target: {fileID: 0}
   returnRange: 100
-  ZoneOfOperation: 100
+  ZoneOfOperation: 1000
   attackRange: 100
   FOV: 360
   FOVLines: {fileID: 0}
@@ -454,7 +454,7 @@ MonoBehaviour:
   anim: {fileID: 0}
   speed: 2117
   nextWaypointDistance: 3
-  detectionRange: 100
+  detectionRange: 1000
   enemyGFX: {fileID: 3912121587931959702}
 --- !u!114 &2723510000947845836
 MonoBehaviour:

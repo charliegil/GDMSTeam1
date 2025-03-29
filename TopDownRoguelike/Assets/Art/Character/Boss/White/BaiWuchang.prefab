@@ -49,7 +49,7 @@ MonoBehaviour:
   anim: {fileID: 0}
   speed: 400
   nextWaypointDistance: 3
-  detectionRange: 100
+  detectionRange: 1000
   enemyGFX: {fileID: 3778099591072501371}
 --- !u!114 &6686661552107831988
 MonoBehaviour:
