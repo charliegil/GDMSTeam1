@@ -65,11 +65,13 @@ public class SoundManager : MonoBehaviour
 
     void OnEnable()
 {
+
     
-    if(GameObject.Find("YourSliderGameObjectName")!=null){
-        volumeSlider = GameObject.Find("YourSliderGameObjectName").GetComponent<Slider>();
-        Load(); 
-    }
+        GameObject slide = GameObject.Find("Slider");
+        if(slide != null){
+            volumeSlider = slide.GetComponent<Slider>();
+            Load(); 
+        }
     
 
 }

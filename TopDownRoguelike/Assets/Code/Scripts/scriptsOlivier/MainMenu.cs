@@ -12,7 +12,7 @@ public class MainMenu : MonoBehaviour
     public void play()
     {
         Time.timeScale = 1;
-        UnityEngine.SceneManagement.SceneManager.LoadScene("EnemiesOlivier");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Main_finalVersion");
         
     }
     public void load()
