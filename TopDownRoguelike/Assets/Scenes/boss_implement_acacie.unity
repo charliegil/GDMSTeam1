@@ -279,6 +279,10 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 993185162521554445, guid: 0bf24bbf5d65ebd418401c69d4fa718d, type: 3}
+      propertyPath: detectionRange
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 1123213130171752637, guid: 0bf24bbf5d65ebd418401c69d4fa718d, type: 3}
       propertyPath: m_IsTrigger
       value: 1
@@ -349,7 +353,7 @@ PrefabInstance:
       objectReference: {fileID: 1658738966}
     - target: {fileID: 3833154593984386562, guid: 0bf24bbf5d65ebd418401c69d4fa718d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4142465076717118890, guid: 0bf24bbf5d65ebd418401c69d4fa718d, type: 3}
       propertyPath: m_IsTrigger
@@ -405,7 +409,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6048273401897493022, guid: 0bf24bbf5d65ebd418401c69d4fa718d, type: 3}
       propertyPath: speed
-      value: 1200
+      value: 2117
       objectReference: {fileID: 0}
     - target: {fileID: 6692952198386702825, guid: 0bf24bbf5d65ebd418401c69d4fa718d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1647,7 +1651,6 @@ Transform:
   - {fileID: 619394802}
   - {fileID: 580342307}
   - {fileID: 1573373082}
-  - {fileID: 1280543881}
   - {fileID: 782697316}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2577,6 +2580,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSourcePrefab: {fileID: 1280543880}
   battleTheme: {fileID: 415264770}
+  lowHealthSound: {fileID: 0}
   sounds:
   - name: Fire
     clip: {fileID: 8300000, guid: 33bfdce1f02b8174bb2c5937902efde1, type: 3}
@@ -8143,9 +8147,13 @@ MonoBehaviour:
   animator: {fileID: 255408843}
   spriteRenderer: {fileID: 255408842}
   maskFreeze: {fileID: 145974416}
+  hearthBeat: {fileID: 415264770}
   SliderPhaseCooldown: {fileID: 1909195396}
   LoseScreen: {fileID: 2894237735476831907}
   statsContainer: {fileID: 363039130}
+  lowHealthOverlay: {fileID: 1292631045}
+  showRedOverlayPercentage: 0
+  durationShowOverlay: 0
   moveSpeed: 10
   phaseDuration: 1
   phaseFactor: 2
@@ -8155,7 +8163,7 @@ MonoBehaviour:
   damageIncrease: {x: 1.5, y: 10}
   critChance: 0.05
   critiqualHitFactor: 2
-  maxHealth: 400
+  maxHealth: 10000000
   healthManager: {fileID: 865914809}
 --- !u!50 &865914804
 Rigidbody2D:
@@ -15757,11 +15765,11 @@ Transform:
   m_GameObject: {fileID: 1280543879}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.353072, y: -16.157234, z: 0.31192365}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -2.034014, y: 0.25523537, z: 0.024255875}
+  m_LocalScale: {x: 0.16666667, y: 0.16666667, z: 0.16666667}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 240860386}
+  m_Father: {fileID: 1573373082}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1292631043
 GameObject:
@@ -20119,6 +20127,7 @@ Transform:
   m_Children:
   - {fileID: 2053569073}
   - {fileID: 707683676}
+  - {fileID: 1280543881}
   m_Father: {fileID: 240860386}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1579597155
@@ -20321,6 +20330,8 @@ MonoBehaviour:
   StatsUI: {fileID: 363039130}
   SkillTreeUI: {fileID: 1974252203}
   Canva: {fileID: 255931283}
+  cursorMenus: {fileID: 0}
+  cursorInGame: {fileID: 0}
   keyToPause: 109
 --- !u!4 &1604017034
 Transform:
@@ -212480,6 +212491,7 @@ MonoBehaviour:
   tongue: {fileID: 122704726150939967}
   tongueRenderer: {fileID: 4791845435944425273}
   enemySprite: {fileID: 5060287034790186119}
+  tongueHitCooldown: 1
 --- !u!61 &6050897788552022909
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -213232,6 +213244,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74f5b5d0cf51e71499d5ed2380961a70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cursorMenus: {fileID: 0}
 --- !u!1001 &8535116995044134508
 PrefabInstance:
   m_ObjectHideFlags: 0
