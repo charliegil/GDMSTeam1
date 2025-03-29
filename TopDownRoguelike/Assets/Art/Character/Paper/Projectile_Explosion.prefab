@@ -103,9 +103,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fff287bb9dc2354db411a16c1ecead3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 30
+  speed: 25
   damageZonePrefab: {fileID: 5178940424677874266, guid: 3e5c4a9ee42fa4d4181ed9e58d9a4f9c, type: 3}
-  range: 35
+  range: 30
 --- !u!58 &876094588378361370
 CircleCollider2D:
   m_ObjectHideFlags: 0

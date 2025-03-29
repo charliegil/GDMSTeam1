@@ -14,7 +14,7 @@ public class credits : MonoBehaviour
     private void Update()
     {
         if(cam== null) cam = Camera.main;
-        if(Mathf.Abs(cam.transform.position.y)> 23) UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+        if(Mathf.Abs(cam.transform.position.y)> 21) UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
         cam.transform.position+= new Vector3(0,-speed*Time.deltaTime,0);
     }
 }

@@ -31,6 +31,7 @@ public class AudioManager : MonoBehaviour, IEventListener
         }
         else Destroy(gameObject);
         subscribe();
+        
         volumeBoss = BossTheme.volume;
         volumeBattle = battleTheme.volume;
     }
@@ -71,7 +72,7 @@ public class AudioManager : MonoBehaviour, IEventListener
         //battleTheme.mute = true;
         lowHealthSound.mute  =true;
         PlaySound("PlayerDeath");
-        StartCoroutine(FadeOutAudio(battleTheme,3,0.2f));
+        StartCoroutine(FadeOutAudio(battleTheme,3,0));
     }
 
     public void EnterMenu(bool enter){
@@ -82,12 +83,16 @@ public class AudioManager : MonoBehaviour, IEventListener
     }
     public void ActivateBossTheme(bool activate){
         if(activate){
+            BossTheme.Play();
             StartCoroutine(FadeOutAudio(BossTheme,4,0.2f));
+            
             battleTheme.volume = 0;
+            Debug.Log("activate");
         }
         else{
             StartCoroutine(FadeOutAudio(BossTheme,4,0));
             battleTheme.volume = volumeBattle;
+            Debug.Log("deactivate");
         }
     }
 
@@ -113,7 +118,7 @@ public class AudioManager : MonoBehaviour, IEventListener
 
     //audioSource.Stop();
     audioSource.volume = endVolume; 
-    //audioSource.mute = true;
+        //audioSource.mute = true;
     }
 
 

@@ -88,7 +88,7 @@ public class PauseMenu : MonoBehaviour
     public void restart()
     {
         Time.timeScale = 1;
-        UnityEngine.SceneManagement.SceneManager.LoadScene("enemiesOlivier");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("main_finalVersion");
         
 
     }

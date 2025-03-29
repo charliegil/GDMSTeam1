@@ -287,11 +287,11 @@ public class PlayerController : MonoBehaviour , IEventListener
         float targetAlpha = 0f;
 
         if (healthPercentage <= showRedOverlayPercentage) {
-            targetAlpha = Mathf.Clamp01(0.7f-healthPercentage/showRedOverlayPercentage); 
+            targetAlpha = Mathf.Clamp01(1f-healthPercentage/1.5f*showRedOverlayPercentage); 
             float percentage = healthPercentage/showRedOverlayPercentage;
-            hearthBeat.Play();
+            if(!hearthBeat.isPlaying)hearthBeat.Play();
             //hearthBeat.mute = false;
-            hearthBeat.volume = 1-percentage;
+            hearthBeat.volume = 1-percentage+0.05f;
         }
         else{
             hearthBeat.volume = 0;
