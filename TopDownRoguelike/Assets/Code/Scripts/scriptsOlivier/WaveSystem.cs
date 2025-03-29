@@ -92,11 +92,14 @@ public class WaveSystem : MonoBehaviour , IEventListener
     }
 
     public void GenerateWave(){
-        if(currentWave == 3 && spawnBoss){
+        if(currentWave % 5 == 0 && spawnBoss && hei_boss != null && bai_boss != null){
             Debug.Log("you spawn heibai");
-            hei_boss.SetActive(true);
-            bai_boss.SetActive(true);
-            spawnBoss = false;
+            int  random = Random.Range(0,spawnLocation.Count);
+
+            GameObject heiBoss = Instantiate(hei_boss , spawnLocation[random].transform.position , Quaternion.identity);
+            GameObject BaiBoss = Instantiate(bai_boss , spawnLocation[random].transform.position , Quaternion.identity);
+            
+            
         }
 
         List<GameObject> enemiesToSpawn = GenerateEnemies();
