@@ -88,7 +88,7 @@ public class skillTreeUpgrade
         return skillPoints+price;
     }
     public override string ToString(){
-        Debug.Log(type);
+        
         string typeDescription = type.ToString();
         string valueString = value.ToString("F2");
         if(valueString.EndsWith(".00")) valueString = valueString.Split(".")[0];

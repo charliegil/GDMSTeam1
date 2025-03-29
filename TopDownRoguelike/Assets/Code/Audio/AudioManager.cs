@@ -21,6 +21,7 @@ public class AudioManager : MonoBehaviour, IEventListener
     {
         if (instance == null){ 
             instance = this;
+            DontDestroyOnLoad(instance);  
             DontDestroyOnLoad(gameObject);    
         }
         else Destroy(gameObject);
@@ -34,9 +35,11 @@ public class AudioManager : MonoBehaviour, IEventListener
     private AudioSource GetAvailableSource()
     {
         foreach (AudioSource source in audioSources){
-            if (!source.isPlaying) return source; 
+            
+            if (source != null && !source.isPlaying) return source; 
         }
         AudioSource Source = Instantiate(audioSourcePrefab, transform);
+        DontDestroyOnLoad(Source);
         audioSources.Add(Source);
         return Source;
     }
@@ -61,7 +64,7 @@ public class AudioManager : MonoBehaviour, IEventListener
         //battleTheme.mute = true;
         lowHealthSound.mute  =true;
         PlaySound("PlayerDeath");
-        StartCoroutine(FadeOutAudio(battleTheme,3));
+        StartCoroutine(FadeOutAudio(battleTheme,3,0.2f));
     }
 
     public void subscribe()
@@ -73,14 +76,14 @@ public class AudioManager : MonoBehaviour, IEventListener
     {
         EventManager.OnPlayerDied -= OnPlayerDeath;
     }
-    public IEnumerator FadeOutAudio(AudioSource audioSource, float fadeDuration){
+    public IEnumerator FadeOutAudio(AudioSource audioSource, float fadeDuration , float endVolume){
     float startVolume = audioSource.volume;
     float elapsedTime = 0f;
 
     while (elapsedTime < fadeDuration)
     {
         elapsedTime += Time.unscaledDeltaTime;
-        audioSource.volume = Mathf.Lerp(startVolume, 0f, elapsedTime / fadeDuration);
+        audioSource.volume = Mathf.Lerp(startVolume, endVolume, elapsedTime / fadeDuration);
         yield return null;
     }
 

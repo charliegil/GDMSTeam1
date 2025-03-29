@@ -23,7 +23,7 @@ public class UpgradesReader{
                 if (Enum.TryParse(values[1].Trim(),true, out upgradeType upgrade)){
                  
                     type = upgrade;
-                    Debug.Log(type.ToString());
+                    //Debug.Log(type.ToString());
                 }
                 else{
                     type = upgradeType.Random;

@@ -1,3 +1,4 @@
+
 using UnityEngine;
 
 public class explosiveEnemy : BaseEnemy
@@ -17,6 +18,9 @@ public class explosiveEnemy : BaseEnemy
 
     public override void Attack()
     {
+        if(Vector3.Distance(transform.position,player.transform.position) < attackRange){
+            EventManager.PlayerTakeDamage(20);
+        }
         Instantiate(explosionParticles, transform.position, Quaternion.identity);
         GetComponent<Health>().OnDeath();
     }

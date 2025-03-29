@@ -87,6 +87,8 @@ public class PauseMenu : MonoBehaviour
     {
         Time.timeScale = 1;
         UnityEngine.SceneManagement.SceneManager.LoadScene("enemiesOlivier");
+        
+
     }
 
     public void CloseStatsMenu(){

@@ -2,8 +2,9 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.EventSystems;
 using System.Collections;
+using Unity.VisualScripting;
 
-public class EffectButton : MonoBehaviour , IPointerEnterHandler, IPointerExitHandler{
+public class EffectButton : MonoBehaviour , IPointerEnterHandler, IPointerExitHandler,IPointerClickHandler{
     public TextMeshProUGUI textMesh;
     private Vector3 originalScale;
     public float scaleMultiplier = 1.3f;
@@ -29,6 +30,8 @@ public class EffectButton : MonoBehaviour , IPointerEnterHandler, IPointerExitHa
 
     }
 
+    
+
     public void OnPointerExit(PointerEventData eventData){
         //Debug.Log("exit");
         if (scaleCoroutine != null) StopCoroutine(scaleCoroutine);
@@ -48,6 +51,9 @@ public class EffectButton : MonoBehaviour , IPointerEnterHandler, IPointerExitHa
         textMesh.gameObject.transform.localScale = targetScale;
     }
 
-    
+    public void OnPointerClick(PointerEventData eventData)
+    {
 
+        AudioManager.instance.PlaySound("clickButton");
+    }
 }

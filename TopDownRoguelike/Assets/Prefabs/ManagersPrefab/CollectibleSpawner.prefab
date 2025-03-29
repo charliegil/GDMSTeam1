@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7777713160323592988
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4047789587920242372}
+  - component: {fileID: 3863664798118642709}
+  m_Layer: 0
+  m_Name: CollectibleSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4047789587920242372
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7777713160323592988}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3863664798118642709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7777713160323592988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb7576ec15d4259438f6914c9521cdad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PowerUps:
+  - powerUp: {fileID: 3848892214371904718, guid: 545a49cb2517a804dbb16323052921c6, type: 3}
+    probability: 0.002
+  - powerUp: {fileID: 6390205868285434370, guid: f14fd3afead1bf345ac9c31d30b7de2d, type: 3}
+    probability: 0.1
+  - powerUp: {fileID: 2934940551862052793, guid: ced98fad928fbb743a4bdd8162bf1c05, type: 3}
+    probability: 0.338
+  - powerUp: {fileID: 7816856910692272141, guid: d48553c1f26577f498a5b00ced886660, type: 3}
+    probability: 0.1
+  - powerUp: {fileID: 2641168728453501879, guid: e2582c6f9eea20d42b7b390a71ddbcd2, type: 3}
+    probability: 0.1
+  - powerUp: {fileID: 796802366132712559, guid: a12ea103e5c0fcd4283bc676a0ade236, type: 3}
+    probability: 0.05
+  - powerUp: {fileID: 306200606515277019, guid: b5424d15a662bc24e9d241a433dadae4, type: 3}
+    probability: 0.07
+  - powerUp: {fileID: 7038718250407322809, guid: fd7fbf9499392574ead453630cb19f5d, type: 3}
+    probability: 0.24
+  EditorDropRate: 0.45
