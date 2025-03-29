@@ -2633,7 +2633,7 @@ MonoBehaviour:
   sounds:
   - name: Fire
     clip: {fileID: 8300000, guid: 33bfdce1f02b8174bb2c5937902efde1, type: 3}
-    volume: 0.31
+    volume: 0.313
     pitch: 0.1
   - name: FireAlt
     clip: {fileID: 8300000, guid: f2dc8331bf3a4f5468369c9a8a568673, type: 3}
