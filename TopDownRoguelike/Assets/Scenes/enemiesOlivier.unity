@@ -8136,7 +8136,7 @@ MonoBehaviour:
   damageIncrease: {x: 1.5, y: 10}
   critChance: 0.05
   critiqualHitFactor: 2
-  maxHealth: 400
+  maxHealth: 10000
   healthManager: {fileID: 865914809}
 --- !u!50 &865914804
 Rigidbody2D:
@@ -19244,9 +19244,9 @@ MonoBehaviour:
   timeBetweenWave: 5
   enemylist:
   - enemyPrefab: {fileID: 1204319565315017930, guid: 0ffb80c087b9ba4428d426892ef05487, type: 3}
-    value: 2
+    value: 50
   - enemyPrefab: {fileID: 1483645111768782505, guid: 1df100b674044754d8a707b9818ccc85, type: 3}
-    value: 2
+    value: 50
   - enemyPrefab: {fileID: 3869671721269029456, guid: bf32a9b6938d2b741b93473d6d25b6ca, type: 3}
     value: 2
   spawnLocation:

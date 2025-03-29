@@ -6,6 +6,8 @@ public class Tongue : MonoBehaviour
 
     public int damage;
 
+  
+
     private PlayerController playerController;
 
     private GameObject parent;

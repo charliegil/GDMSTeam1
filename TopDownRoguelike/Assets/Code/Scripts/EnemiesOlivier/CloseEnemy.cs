@@ -27,6 +27,7 @@ public class CloseEnemy : BaseEnemy
     public Material lineMaterial;
     public GameObject tongue;
     public SpriteRenderer tongueRenderer;
+    public  BoxCollider2D tongueCollider;
     private Sprite tongueSprite;
     public GameObject enemySprite;
     private CircleCollider2D attackCollider;
@@ -46,6 +47,7 @@ public class CloseEnemy : BaseEnemy
         PlayerCollider = player.GetComponent<Collider2D>();
         tongue.transform.localScale = new Vector3(1, radiusCircularAttack, 0);
         tongueRenderer.enabled = false;
+        tongueCollider.enabled = false;
         tongue.SetActive(false);
     }
 
@@ -128,13 +130,15 @@ public class CloseEnemy : BaseEnemy
         }
     }
    
-    private IEnumerator FrontAttack()
-    {
+    private IEnumerator FrontAttack(){
+
+
+        
         float duration = attackDuration;
 
         float speedRate = 2 * frontAttackRange / duration; 
         tongue.transform.localScale = new Vector3(0.7f, 0, 0); 
-
+        tongueCollider.enabled = true;
         tongueRenderer.enabled = true;
         tongue.SetActive(true);
         bool reachEnd = false;
@@ -156,6 +160,7 @@ public class CloseEnemy : BaseEnemy
         TimeBeforeAttack = attackReload;
         IsAttacking = false;
         tongueRenderer.enabled = false;
+        tongueCollider.enabled = false;
 
         
 
@@ -167,6 +172,7 @@ public class CloseEnemy : BaseEnemy
     {
         float duration = attackDuration;
         tongueRenderer.enabled = true;
+        tongueCollider.enabled = true;
         tongue.SetActive(true);
         float step = 360f / attackDuration;
         while (duration > 0)
@@ -179,6 +185,7 @@ public class CloseEnemy : BaseEnemy
         TimeBeforeAttack = attackReload;
         IsAttacking = false;
         tongueRenderer.enabled = false;
+        tongueCollider.enabled = false;
         tongue.transform.localRotation = Quaternion.Euler(0, 0, -90);
     }
 
