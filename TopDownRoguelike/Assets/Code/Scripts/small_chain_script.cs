@@ -18,17 +18,18 @@ public class small_chain_script : MonoBehaviour
         
         
     }
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
         //Debug.Log("chain collision "+collision.gameObject.tag);
-        if(collision.gameObject.tag=="Player"){
+        if(collision.gameObject.CompareTag("Player")){
             Debug.Log("chain collision IS INN"+collision.gameObject.tag);
-            EventManager.PlayerTakeDamage(1);
+            EventManager.PlayerTakeDamage(5);
             //player_script.addEffect();
-        }else{
-            Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
-            Debug.Log("Chain ignored enemy collision");
         }
+        // }else{
+        //     Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
+        //     Debug.Log("Chain ignored enemy collision");
+        // }
         
     }
 }

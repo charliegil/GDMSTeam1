@@ -40,7 +40,7 @@ public class WaveSystem : MonoBehaviour , IEventListener
     private int minValue;
     public GameObject hei_boss;
     public GameObject bai_boss;
-    public bool spawnBoss = true;
+    private bool spawnBoss = true;
 
 
 
@@ -92,7 +92,8 @@ public class WaveSystem : MonoBehaviour , IEventListener
     }
 
     public void GenerateWave(){
-        if(currentWave == 3 && spawnBoss){
+        Debug.Log("currrent wave"+currentWave);
+        if(currentWave == 2 && spawnBoss){
             Debug.Log("you spawn heibai");
             hei_boss.SetActive(true);
             bai_boss.SetActive(true);

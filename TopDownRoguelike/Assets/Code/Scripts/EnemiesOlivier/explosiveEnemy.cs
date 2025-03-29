@@ -4,12 +4,12 @@ public class explosiveEnemy : BaseEnemy
 {
 
     
-   
-     public bool usePathFinding = false;
+   [SerializeField] private ParticleSystem explosionParticles;
+    public bool usePathFinding = false;
 
     public float MaxAliveTime = 4;
     
-    public GameObject DamageZonePrefab;  
+   
     private Vector2 destination;
 
     private bool hasChoosenDirection = false;
@@ -17,9 +17,8 @@ public class explosiveEnemy : BaseEnemy
 
     public override void Attack()
     {
-        Instantiate(DamageZonePrefab, transform.position, Quaternion.identity);
+        Instantiate(explosionParticles, transform.position, Quaternion.identity);
         GetComponent<Health>().OnDeath();
-        
     }
 
     public override void move(){
@@ -35,6 +34,7 @@ public class explosiveEnemy : BaseEnemy
     public void straightMovement(){
         if(!hasChoosenDirection) {
             destination = getDirectionToPlayer();
+            
             hasChoosenDirection = true;
         }
         body.linearVelocity = destination.normalized * currentSpeed;

@@ -28,15 +28,7 @@ public class Health : MonoBehaviour
 
     private static PlayerController playerController;
 
-    // will need to integrate the UI health bar with This
-
-    // // Update is called once per frame
-    // void Update()
-    // {
-    //     if (currentHealth <= 0) {
-    //         Destroy(gameObject);
-    //     }
-    // }
+   
     void Start()
     {
         if(playerController==null) playerController = GameObject.Find("Player")?.GetComponent<PlayerController>();
@@ -61,7 +53,7 @@ public class Health : MonoBehaviour
         if (damagePopupPrefab != null) {
 
             GameObject popup = Instantiate(damagePopupPrefab, transform.position , Quaternion.identity) as GameObject;//+ new Vector3(0,1,0)
-            popup.transform.GetChild(0).GetComponent<TextMesh>().text = ""+damage.ToString("F1");
+            popup.transform.GetChild(0).GetComponent<TextMesh>().text = ""+damage.ToString();
             popup.transform.GetChild(0).GetComponent<MeshRenderer>().sortingOrder = 10;
             if(!IsOne(critiqual)) popup.transform.GetChild(0).GetComponent<TextMesh>().color = Color.red;
             //DamagePopup damagePopup = popup.GetComponent<DamagePopup>();
