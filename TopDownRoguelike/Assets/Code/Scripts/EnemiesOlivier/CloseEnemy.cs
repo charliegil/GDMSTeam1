@@ -2,14 +2,11 @@ using UnityEngine;
 using System;
 using System.Collections;
 
-
-
 public class CloseEnemy : BaseEnemy
 {
-    
     [Header("Attack Settings")]
-    public float attackReload = 1f;  // Time between each attack
-    public float attackDuration = 0.2f; // Duration of the attack
+    public float attackReload = 1f;
+    public float attackDuration = 0.2f;
     public float radiusCircularAttack;
     public float frontAttackRange;
     
@@ -17,9 +14,9 @@ public class CloseEnemy : BaseEnemy
     private float TimeBeforeAttack; 
 
     [Header("Movement Settings")]
-    public float movingSpeed = 1f; // Speed when enemy sees the player
-    public float trackingSpeed; // Rotation speed of the enemy
-    public float RateOfChangeDirection = 2f; // Time before changing direction
+    public float movingSpeed = 1f;
+    public float trackingSpeed;
+    public float RateOfChangeDirection = 2f;
     public bool rotateWhileAttacking;
     public bool moveWhileAttacking;
     
@@ -34,9 +31,10 @@ public class CloseEnemy : BaseEnemy
     public GameObject enemySprite;
     private CircleCollider2D attackCollider;
     private Collider2D PlayerCollider;
-    
 
-
+    [Header("Tongue Hit Cooldown")]
+    public float tongueHitCooldown = 1f;
+    private float lastTongueHitTime = -Mathf.Infinity;
 
     private void Start()
     {
@@ -45,227 +43,189 @@ public class CloseEnemy : BaseEnemy
         attackCollider = gameObject.AddComponent<CircleCollider2D>();
         attackCollider.radius = frontAttackRange;
         attackCollider.isTrigger = true;
-        //gameObject.AddComponent<SpriteRenderer>().sprite = tongueSprite; 
-
-        
-        
         PlayerCollider = player.GetComponent<Collider2D>();
-        
-        tongue.transform.localScale =new Vector3(1, radiusCircularAttack,0); // return it to normal
-
-        //gameObject.AddComponent<DrawFOV>().drawLines(viewDistance,FOV,lineMaterial);
-        
+        tongue.transform.localScale = new Vector3(1, radiusCircularAttack, 0);
         tongueRenderer.enabled = false;
         tongue.SetActive(false);
-        
-        
     }
 
-    // Update is called once per frame
     private void Update()
     {
         transform.rotation = Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z);
-        enemySprite.transform.localRotation  = Quaternion.Euler(0,0,-transform.rotation.eulerAngles.z);
-        if((IsAttacking && !moveWhileAttacking)  || getDirectionToPlayer().magnitude < radiusCircularAttack*(2/3)) {
-            body.linearVelocity = new Vector2(0,0);
+        enemySprite.transform.localRotation = Quaternion.Euler(0, 0, -transform.rotation.eulerAngles.z);
+        if ((IsAttacking && !moveWhileAttacking) || getDirectionToPlayer().magnitude < radiusCircularAttack * (2f / 3f))
+        {
+            body.linearVelocity = new Vector2(0, 0);
             return;
         }
-        
         move();
     }
 
     private void LateUpdate()
     {
-        if(IsAttacking && !rotateWhileAttacking) return;
-        
-        if (IsPlayerInlineOfSight()){
+        if (IsAttacking && !rotateWhileAttacking) return;
+        if (IsPlayerInlineOfSight())
+        {
             Vector2 direction = (player.transform.position - transform.position).normalized;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            
-            randomMovement  =direction;
+            randomMovement = direction;
             timer = RateOfChangeDirection;
-
             float newAngle = Mathf.LerpAngle(transform.rotation.eulerAngles.z, angle, trackingSpeed);
-            
             transform.rotation = Quaternion.Euler(0, 0, newAngle);
             enemySprite.transform.localRotation = Quaternion.Euler(0, 0, -transform.rotation.eulerAngles.z);
-
         }
-        else{
-            float angle = Mathf.Atan2(randomMovement.y, randomMovement.x) * Mathf.Rad2Deg; 
-
-            float newAngle = Mathf.LerpAngle(transform.rotation.eulerAngles.z, angle,  trackingSpeed);
-            //Debug.Log(newAngle);
+        else
+        {
+            float angle = Mathf.Atan2(randomMovement.y, randomMovement.x) * Mathf.Rad2Deg;
+            float newAngle = Mathf.LerpAngle(transform.rotation.eulerAngles.z, angle, trackingSpeed);
             transform.rotation = Quaternion.Euler(0, 0, newAngle);
             enemySprite.transform.localRotation = Quaternion.Euler(-transform.rotation.eulerAngles.x, -transform.rotation.eulerAngles.y, -transform.rotation.eulerAngles.z);
-
         }
-
     }
-    private void followLastKnownPosition(){
+
+    private void followLastKnownPosition()
+    {
         isChasing = false;
-        timer = RateOfChangeDirection+3;
+        timer = RateOfChangeDirection + 3;
         randomMovement = (player.transform.position - transform.position).normalized;
     }
 
-    private void dontSeePlayer(){ // called when the enemy doesnt see the player 
-        
-       
-           if (timer<=0){ // need to pick a new direction to go in
-                randomMovement = UnityEngine.Random.insideUnitCircle.normalized;
-                timer = RateOfChangeDirection;  
-            }
-            timer-= Time.deltaTime;
-            
-            
-            body.linearVelocity= transform.right*movingSpeed;
-    
+    private void dontSeePlayer()
+    {
+        if (timer <= 0)
+        {
+            randomMovement = UnityEngine.Random.insideUnitCircle.normalized;
+            timer = RateOfChangeDirection;
+        }
+        timer -= Time.deltaTime;
+        body.linearVelocity = transform.right * movingSpeed;
     }
 
-
-    private void followPlayer(){
-        
-        body.linearVelocity= transform.right*movingSpeed;
+    private void followPlayer()
+    {
+        body.linearVelocity = transform.right * movingSpeed;
         isChasing = true;
     }
 
-    
-
-
-    private float getDistanceToPlayer(){
-        return(transform.position- player.transform.position).magnitude;
+    private float getDistanceToPlayer()
+    {
+        return (transform.position - player.transform.position).magnitude;
     }
 
-
-
-
-    public override void Attack(){
-        if(IsAttacking) return;
+    public override void Attack()
+    {
+        if (IsAttacking) return;
         TimeBeforeAttack = attackReload;
-        if( getDistanceToPlayer() < radiusCircularAttack){
+        if (getDistanceToPlayer() < radiusCircularAttack)
+        {
             IsAttacking = true;
-            //StartCoroutine(FrontAttack());
             StartCoroutine(CircularAttack());
         }
-        else if (IsPlayerInlineOfSight()){
-            //Debug.Log("doing front attack");
+        else if (IsPlayerInlineOfSight())
+        {
             IsAttacking = true;
             StartCoroutine(FrontAttack());
         }
-        
-        
     }
    
-    private IEnumerator FrontAttack(){
-        
-        //tongue.transform.eulerAngles= new Vector3(0,0,-90); 
+    private IEnumerator FrontAttack()
+    {
         float duration = attackDuration;
+
         float speedRate = 2 * frontAttackRange / duration; 
         tongue.transform.localScale = new Vector3(0.7f, 0, 0); 
+
         tongueRenderer.enabled = true;
         tongue.SetActive(true);
         bool reachEnd = false;
-        
-        while(duration > 0){
-            
-            if(reachEnd) tongue.transform.localScale -= new Vector3(0, speedRate * Time.deltaTime, 0);
-            else {tongue.transform.localScale += new Vector3(0, speedRate * Time.deltaTime, 0);}
-            
-            if (tongue.transform.localScale.y >= frontAttackRange){
+        while (duration > 0)
+        {
+            if (reachEnd)
+                tongue.transform.localScale -= new Vector3(0, speedRate * Time.deltaTime, 0);
+            else
+                tongue.transform.localScale += new Vector3(0, speedRate * Time.deltaTime, 0);
+            if (tongue.transform.localScale.y >= frontAttackRange)
+            {
                 reachEnd = true;
-                tongue.transform.localScale = new Vector3(tongue.transform.localScale.x, frontAttackRange, tongue.transform.localScale.z); // Clamp y to frontAttackRange
+                tongue.transform.localScale = new Vector3(tongue.transform.localScale.x, frontAttackRange, tongue.transform.localScale.z);
             }
-
-            if(tongue.transform.localScale.y < 0) break;
-            
+            if (tongue.transform.localScale.y < 0) break;
             duration -= Time.deltaTime;
             yield return null;
-        
         }
-        //tongue.transform.eulerAngles= new Vector3(0,0,-90); 
         TimeBeforeAttack = attackReload;
         IsAttacking = false;
         tongueRenderer.enabled = false;
-        tongue.transform.localScale =new Vector3(0.7f, radiusCircularAttack,0); // return it to normal
-    }
-    private IEnumerator CircularAttack(){
+
         
-        float duration  = attackDuration;
+
+        tongue.transform.localScale =new Vector3(0.7f, radiusCircularAttack,0); // return it to normal
+
+    }
+
+    private IEnumerator CircularAttack()
+    {
+        float duration = attackDuration;
         tongueRenderer.enabled = true;
         tongue.SetActive(true);
         float step = 360f / attackDuration;
-   
-        while(duration > 0){
+        while (duration > 0)
+        {
             float angle = step * Time.deltaTime;
-            tongue.transform.Rotate(new Vector3(0,0,angle));
-            
-
+            tongue.transform.Rotate(new Vector3(0, 0, angle));
             duration -= Time.deltaTime;
-           
             yield return null;
         }
         TimeBeforeAttack = attackReload;
         IsAttacking = false;
         tongueRenderer.enabled = false;
         tongue.transform.localRotation = Quaternion.Euler(0, 0, -90);
-        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(IsAttacking) return;
-        
-        if(!collision.gameObject.CompareTag("Player")) return;
-        
-        //Invoke("Attack", reactionTime); 
-        
+        if (IsAttacking) return;
+        if (!collision.gameObject.CompareTag("Player")) return;
     }
-    private void OnTriggerStay2D(Collider2D collision) // when enemy sees the player and in line of sight, instantly attack. if was already in 
-    // line of sight, there is a counter that will be counted
-    {
-         if(!collision.gameObject.CompareTag("Player")) return;
-       
-        if(IsAttacking) return;
-        
-        if(TimeBeforeAttack <= 0 ){
-            Attack();
 
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (!collision.gameObject.CompareTag("Player")) return;
+        if (IsAttacking) return;
+        if (Time.time - lastTongueHitTime < tongueHitCooldown) return;
+        if (TimeBeforeAttack <= 0)
+        {
+            Attack();
+            lastTongueHitTime = Time.time;
         }
         else TimeBeforeAttack -= Time.deltaTime;
     }
 
-    private RaycastHit2D[] castRayAndGetCollider(Vector2 direction ){
-        
+    private RaycastHit2D[] castRayAndGetCollider(Vector2 direction)
+    {
         Debug.DrawRay(transform.position, direction);
-        //Ray ray = new Ray(transform.position,direction);      
-        RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position,direction, viewDistance, Physics2D.DefaultRaycastLayers);
+        RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, direction, viewDistance, Physics2D.DefaultRaycastLayers);
         Array.Sort(hits, (x, y) => x.distance.CompareTo(y.distance));
         return hits;
     }
 
-
-    
-
     public override void move()
     {
-        if(IsPlayerInlineOfSight()) {
-            
+        if (IsPlayerInlineOfSight())
             followPlayer();
-            //Debug.Log("is in sight");
-        }
-        else{
-            if(isChasing){
+        else
+        {
+            if (isChasing)
                 followLastKnownPosition();
-            }
             dontSeePlayer();
-            //Debug.Log("dont see it");
         }
     }
 
-    public override void updateStatsFromCurrentWave(){
-        if(!scaleStatsByWave) return;
-        int wave  = WaveSystem.getCurrentWaveNumber();
+    public override void updateStatsFromCurrentWave()
+    {
+        if (!scaleStatsByWave) return;
+        int wave = WaveSystem.getCurrentWaveNumber();
         GetComponent<Health>().modifyHealthFromWaveNumber(wave);
-        GetComponentInChildren<Tongue>().damage += wave*3/2;
+        GetComponentInChildren<Tongue>().damage += wave * 3 / 2;
     }
 }

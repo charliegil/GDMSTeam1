@@ -26,7 +26,9 @@ public class CollectibleSpawner : MonoBehaviour , IEventListener
     void spawnRandomItem(Vector2 position){
         float randomValue = UnityEngine.Random.value;
         if(randomValue >  DropRate) return;
-        Instantiate(GetRandomPowerUp(),position,Quaternion.Euler(0,0,0));
+        GameObject powerUp = GetRandomPowerUp();
+        Debug.Log(powerUp.name);
+        Instantiate(powerUp,position,Quaternion.Euler(0,0,0));
     }
     public GameObject GetRandomPowerUp(){
         float randomValue = UnityEngine.Random.value; // Value between 0 and 1
