@@ -15,7 +15,11 @@ public class AudioManager : MonoBehaviour, IEventListener
     public AudioSource BossTheme;
 
     public AudioSource lowHealthSound;
+
+    public Coroutine battleCoroutine = null;
+    public Coroutine BossThemeCoroutine=  null;
     private List<AudioSource> audioSources = new List<AudioSource>();
+    public bool currentThemeSound = true;
 
     float volumeBoss;
     float volumeBattle;
@@ -70,30 +74,38 @@ public class AudioManager : MonoBehaviour, IEventListener
 
     public void OnPlayerDeath(){
         //battleTheme.mute = true;
-        lowHealthSound.mute  =true;
+        lowHealthSound.mute  = true;
         PlaySound("PlayerDeath");
         StartCoroutine(FadeOutAudio(battleTheme,3,0));
+        StartCoroutine(FadeOutAudio(BossTheme,3,0));
+
     }
 
     public void EnterMenu(bool enter){
-        if(enter)battleTheme.volume/=2;
+        if(enter){
+            battleTheme.volume/=2;
+            BossTheme.volume/=2;
+        }
         else{
             battleTheme.volume*=2;
+            BossTheme.volume*=2;
         }
     }
     public void ActivateBossTheme(bool activate){
         if(activate){
             BossTheme.Play();
             StartCoroutine(FadeOutAudio(BossTheme,4,0.2f));
-            
-            battleTheme.volume = 0;
+            currentThemeSound = false;
+            StartCoroutine(FadeOutAudio(battleTheme,4,0));
             Debug.Log("activate");
         }
         else{
             StartCoroutine(FadeOutAudio(BossTheme,4,0));
-            battleTheme.volume = volumeBattle;
+            battleTheme.Play();
+            StartCoroutine(FadeOutAudio(battleTheme,4,0.2f));
             Debug.Log("deactivate");
         }
+        currentThemeSound = !activate;
     }
 
     public void subscribe()

@@ -7,7 +7,7 @@ public class MainMenu : MonoBehaviour
 
     public void Start()
     {
-        Cursor.SetCursor(cursorMenus,Vector2.zero, CursorMode.Auto);
+        //Cursor.SetCursor(cursorMenus,Vector2.zero, CursorMode.Auto);
     }
     public void play()
     {
