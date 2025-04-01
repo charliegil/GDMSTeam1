@@ -107,6 +107,7 @@ public class AudioManager : MonoBehaviour, IEventListener
         }
         currentThemeSound = !activate;
     }
+}
 
     public void subscribe()
     {
