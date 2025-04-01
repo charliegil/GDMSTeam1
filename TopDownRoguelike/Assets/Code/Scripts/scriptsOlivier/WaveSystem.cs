@@ -93,8 +93,12 @@ public class WaveSystem : MonoBehaviour , IEventListener
 
     public void GenerateWave(){
         
+        
+        
+        
         currentWave++;
         currentWaveUIText.text = "Wave: " + currentWave;
+
 
         List<GameObject> enemiesToSpawn = GenerateEnemies();
         enemiesLeft = enemiesToSpawn.Count;
@@ -109,12 +113,12 @@ public class WaveSystem : MonoBehaviour , IEventListener
             GameObject heiBoss = Instantiate(hei_boss , spawnLocation[random].transform.position , Quaternion.identity);
             GameObject BaiBoss = Instantiate(bai_boss , spawnLocation[random].transform.position , Quaternion.identity); 
             enemiesLeft+=2;
-
             AudioManager.instance.ActivateBossTheme(true);
+            
 
         }
         else if(currentWave % 5 == 1 && currentWave != 1){
-            //AudioManager.instance.ActivateBossTheme(false);
+            AudioManager.instance.ActivateBossTheme(false);
         }
         
         if(enemiesLeft == 0) return;
