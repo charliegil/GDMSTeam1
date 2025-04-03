@@ -2,7 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.EventSystems;
 using System.Collections;
-using Unity.VisualScripting;
+
 
 public class EffectButton : MonoBehaviour , IPointerEnterHandler, IPointerExitHandler,IPointerClickHandler{
     public TextMeshProUGUI textMesh;

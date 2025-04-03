@@ -1,4 +1,4 @@
-using TMPro;
+
 using UnityEngine;
 
 public class CollectibleSpawner : MonoBehaviour , IEventListener , IStaticFieldsHandler
