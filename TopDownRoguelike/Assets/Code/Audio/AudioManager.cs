@@ -7,14 +7,21 @@ using System.Collections;
 
 public class AudioManager : MonoBehaviour, IEventListener
 {
+    
+    [Range(0f, 1f)] public float musicVolume= 0.2f;
     public static AudioManager instance;
     public AudioSource audioSourcePrefab;
 
-    public AudioSource battleTheme;
+    public AudioClip battleThemeMusic;
 
-    public AudioSource BossTheme;
+    public AudioClip BossThemeMusic;
 
-    public AudioSource lowHealthSound;
+    public AudioClip lowHealthSoundMusic;
+
+    private AudioSource battleTheme;
+    private AudioSource bossTheme;
+    private AudioSource lowHealthSound;
+
 
     public Coroutine battleCoroutine = null;
     public Coroutine BossThemeCoroutine=  null;
@@ -31,13 +38,41 @@ public class AudioManager : MonoBehaviour, IEventListener
         if (instance == null){ 
             instance = this;
             DontDestroyOnLoad(instance);  
-            DontDestroyOnLoad(gameObject);    
+            DontDestroyOnLoad(gameObject);
+            
+            GameObject battle = new GameObject("BattleTheme");    
+            battle.transform.SetParent(gameObject.transform);
+            battleTheme = battle.AddComponent<AudioSource>();
+            battleTheme.clip = battleThemeMusic;
+            battleTheme.volume = 0;
+            DontDestroyOnLoad(battle);
+           
+            GameObject boss = new GameObject("BossTheme");    
+            boss.transform.SetParent(gameObject.transform);
+            bossTheme = boss.AddComponent<AudioSource>();
+            bossTheme.clip = BossThemeMusic;
+            bossTheme.volume = 0;
+            DontDestroyOnLoad(boss);
+
+            GameObject lowHealth = new GameObject("LowHealthClip");    
+            lowHealth.transform.SetParent(gameObject.transform);
+            lowHealthSound = lowHealth.AddComponent<AudioSource>();
+            lowHealthSound.clip = lowHealthSoundMusic;
+            lowHealthSound.volume = 0;
+            DontDestroyOnLoad(lowHealth);
+
         }
         else Destroy(gameObject);
         subscribe();
         
-        volumeBoss = BossTheme.volume;
-        volumeBattle = battleTheme.volume;
+        battleTheme.loop = true;
+        bossTheme.loop = true;
+        lowHealthSound.loop = true;
+        battleTheme.Play();
+        StartCoroutine(FadeOutAudio(battleTheme,10,musicVolume));
+
+
+        
     }
     private void OnDisable()
     {
@@ -77,37 +112,37 @@ public class AudioManager : MonoBehaviour, IEventListener
         lowHealthSound.mute  = true;
         PlaySound("PlayerDeath");
         StartCoroutine(FadeOutAudio(battleTheme,3,0));
-        StartCoroutine(FadeOutAudio(BossTheme,3,0));
+        StartCoroutine(FadeOutAudio(bossTheme,3,0));
 
     }
 
     public void EnterMenu(bool enter){
         if(enter){
             battleTheme.volume/=2;
-            BossTheme.volume/=2;
+            bossTheme.volume/=2;
         }
         else{
             battleTheme.volume*=2;
-            BossTheme.volume*=2;
+            bossTheme.volume*=2;
         }
     }
     public void ActivateBossTheme(bool activate){
         if(activate){
-            BossTheme.Play();
-            StartCoroutine(FadeOutAudio(BossTheme,4,0.2f));
+            bossTheme.Play();
+            StartCoroutine(FadeOutAudio(bossTheme,4,musicVolume));
             currentThemeSound = false;
             StartCoroutine(FadeOutAudio(battleTheme,4,0));
             Debug.Log("activate");
         }
         else{
-            StartCoroutine(FadeOutAudio(BossTheme,4,0));
+            StartCoroutine(FadeOutAudio(bossTheme,4,0));
             battleTheme.Play();
-            StartCoroutine(FadeOutAudio(battleTheme,4,0.2f));
+            StartCoroutine(FadeOutAudio(battleTheme,4,musicVolume));
             Debug.Log("deactivate");
         }
         currentThemeSound = !activate;
     }
-}
+
 
     public void subscribe()
     {
@@ -118,6 +153,15 @@ public class AudioManager : MonoBehaviour, IEventListener
     {
         EventManager.OnPlayerDied -= OnPlayerDeath;
     }
+
+    public void setLowHealthVolume(float volume){
+        lowHealthSound.volume = volume;
+    }
+    public void playLowHealthSound(){
+        if(!lowHealthSound.isPlaying) lowHealthSound.Play();
+    }
+
+
     public IEnumerator FadeOutAudio(AudioSource audioSource, float fadeDuration , float endVolume){
     float startVolume = audioSource.volume;
     float elapsedTime = 0f;
@@ -133,6 +177,4 @@ public class AudioManager : MonoBehaviour, IEventListener
     audioSource.volume = endVolume; 
         //audioSource.mute = true;
     }
-
-
 }
