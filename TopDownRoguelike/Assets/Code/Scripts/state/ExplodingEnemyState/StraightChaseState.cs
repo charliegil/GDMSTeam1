@@ -1,5 +1,5 @@
 using UnityEngine;
-using Pathfinding;
+
 public class StraightChaseState : State
 {
     public Transform target;

@@ -1,6 +1,6 @@
 #pragma warning disable 618
 using UnityEngine;
-using System.Collections;
+
 using System.Collections.Generic;
 
 namespace Pathfinding.Legacy {

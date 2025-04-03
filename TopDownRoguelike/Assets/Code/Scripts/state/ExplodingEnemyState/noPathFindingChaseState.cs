@@ -1,5 +1,5 @@
 using UnityEngine;
-using Pathfinding;
+
 public class noPathFindingChaseState : State
 {
     public Transform target;

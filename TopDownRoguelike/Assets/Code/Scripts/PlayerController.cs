@@ -3,9 +3,9 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.EventSystems;
+
 using TMPro;
-using System.Globalization;
+
 
 public class PlayerController : MonoBehaviour , IEventListener
 {

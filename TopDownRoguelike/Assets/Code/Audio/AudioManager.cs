@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System;
-using UnityEngine.InputSystem.Controls;
+
 using System.Linq;
 using System.Collections;
 
@@ -107,7 +106,7 @@ public class AudioManager : MonoBehaviour, IEventListener
         }
         currentThemeSound = !activate;
     }
-}
+
 
     public void subscribe()
     {
