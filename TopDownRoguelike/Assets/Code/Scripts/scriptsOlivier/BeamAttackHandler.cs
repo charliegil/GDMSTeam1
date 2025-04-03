@@ -19,10 +19,7 @@ public class BeamAttackHandler : MonoBehaviour , IEventListener {
     [SerializeField] private Slider SliderCooldown;
 
 /*
-Will need to refactor this code. will have one of these for each beam. in the main script, will have a List of these
-components and will call set target to this one. 
-while the attack is on, will try to find enemies to assign a target on. will loop over the beams to see if they need to be stopped.
-
+ to have multiple beams, just add more components of this type as childs of the Player GameObject
 
 */
 

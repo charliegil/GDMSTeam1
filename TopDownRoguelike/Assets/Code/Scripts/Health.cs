@@ -31,6 +31,7 @@ public class Health : MonoBehaviour
    
     void Start()
     {
+
         if(playerController==null) playerController = GameObject.Find("Player")?.GetComponent<PlayerController>();
         currentHealth = baseHealth;
     }
@@ -43,6 +44,7 @@ public class Health : MonoBehaviour
     
         float attackMultiplier = playerController.getAttackMultiplier();
         float critiqual = playerController.IsAttackCritiqual();
+        Debug.Log($"the attack multiplier is {attackMultiplier} and the critiqual damage factor is {critiqual} ");
         damage =  (damage*critiqual*attackMultiplier);
         currentHealth -= damage;
         AudioManager.instance.PlaySound("EnemyHurt");
@@ -53,7 +55,11 @@ public class Health : MonoBehaviour
         if (damagePopupPrefab != null) {
 
             GameObject popup = Instantiate(damagePopupPrefab, transform.position , Quaternion.identity) as GameObject;//+ new Vector3(0,1,0)
-            popup.transform.GetChild(0).GetComponent<TextMesh>().text = ""+damage.ToString();
+            
+            string StringDamage = damage.ToString("F1");
+            if(StringDamage.EndsWith(".0")) StringDamage = StringDamage.Split(".")[0];
+            popup.transform.GetChild(0).GetComponent<TextMesh>().text = ""+StringDamage;
+            
             popup.transform.GetChild(0).GetComponent<MeshRenderer>().sortingOrder = 10;
             if(!IsOne(critiqual)) popup.transform.GetChild(0).GetComponent<TextMesh>().color = Color.red;
             //DamagePopup damagePopup = popup.GetComponent<DamagePopup>();
@@ -86,6 +92,7 @@ public class Health : MonoBehaviour
     public void modifyHealthFromWaveNumber(int waveNumber){
         currentHealth = baseHealth + (waveNumber * increasePerWave);
         currentHealth *= Mathf.Pow(scaleFactor , (int)waveNumber/milestone);
+        Debug.Log("my base health is " + baseHealth + " and my updated health is " + currentHealth + " from wave number "+ waveNumber);
     }
     
     

@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class CollectibleSpawner : MonoBehaviour , IEventListener
+public class CollectibleSpawner : MonoBehaviour , IEventListener , IStaticFieldsHandler
 {
     /// <summary>
     /// the list of prefabs used to spawn random items, that help the player. 
@@ -18,7 +18,7 @@ public class CollectibleSpawner : MonoBehaviour , IEventListener
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        DropRate = EditorDropRate;
+        ResetStaticFields();
         subscribe(); 
         fixProbability();  
     }
@@ -69,7 +69,13 @@ public class CollectibleSpawner : MonoBehaviour , IEventListener
     {
         EventManager.OnSpawnCollectible -= spawnRandomItem;
     }
-    
+
+    public void ResetStaticFields()
+    {
+        DropRate = EditorDropRate;
+        Collectable.effectMultiplier = 1;
+        Collectable.durationMultiplier =1;
+    }
 }
 [System.Serializable]
 public class PowerUp{

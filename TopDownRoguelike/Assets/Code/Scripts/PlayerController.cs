@@ -3,11 +3,9 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.EventSystems;
 using TMPro;
-using System.Globalization;
 
-public class PlayerController : MonoBehaviour , IEventListener
+public class PlayerController : MonoBehaviour , IEventListener , IStaticFieldsHandler
 {
     // ===================== REFERENCES =====================
     
@@ -21,7 +19,6 @@ public class PlayerController : MonoBehaviour , IEventListener
     private Coroutine freezeCoroutine;
     private Coroutine redOverlayCoroutine;
 
-    [SerializeField] private AudioSource hearthBeat;
 
 
     
@@ -51,7 +48,7 @@ public class PlayerController : MonoBehaviour , IEventListener
     private Vector2 externalVelocity = new Vector2(0, 0);
     private float currentSpeed;
 
-   private float speedMultiplier = 1;
+    private float speedMultiplier = 1;
 
     private bool canMove = true;
 
@@ -99,7 +96,8 @@ public class PlayerController : MonoBehaviour , IEventListener
     /// <summary>
     /// x: damage increase , y : wave interval
     /// </summary>
-    [Tooltip("Damage increases by x every y waves.")] [SerializeField] Vector2 damageIncrease = new Vector2(1.5f,10);
+    [Tooltip("Damage from enemiesincreases by x every y waves.")] 
+    [SerializeField] Vector2 damageIncrease = new Vector2(1.5f,10);
 
 
     
@@ -131,6 +129,7 @@ public class PlayerController : MonoBehaviour , IEventListener
 
     // ===================== UNITY CALLBACKS =====================
     public  void Awake() {
+        ResetStaticFields();
         playerInputActions = new InputSystem_Actions();
         //animator = GetComponent<Animator>();
         subscribe();
@@ -287,14 +286,14 @@ public class PlayerController : MonoBehaviour , IEventListener
         float targetAlpha = 0f;
 
         if (healthPercentage <= showRedOverlayPercentage) {
-            targetAlpha = Mathf.Clamp01(1f-healthPercentage/1.5f*showRedOverlayPercentage); 
+            targetAlpha = Mathf.Clamp01(1f-healthPercentage/showRedOverlayPercentage); 
             float percentage = healthPercentage/showRedOverlayPercentage;
-            if(!hearthBeat.isPlaying)hearthBeat.Play();
-            //hearthBeat.mute = false;
-            hearthBeat.volume = 1-percentage+0.05f;
+            AudioManager.instance.playLowHealthSound();
+            AudioManager.instance.setLowHealthVolume(1-percentage);
+            
         }
         else{
-            hearthBeat.volume = 0;
+            AudioManager.instance.setLowHealthVolume(0);
         }
 
 
@@ -310,7 +309,7 @@ public class PlayerController : MonoBehaviour , IEventListener
     private float scaleDamageByWave(float damage){
         if(!scaleDamageOverWave) return 1;
         int wave = WaveSystem.getCurrentWaveNumber()-1;
-        float exp = wave / damageIncrease.x;
+        float exp = wave / damageIncrease.y;
         float value = Mathf.Pow(damageIncrease.x , exp);
         //Debug.Log("we are scaling the damage by : "  + value);
         return damage * value;
@@ -579,7 +578,7 @@ public class PlayerController : MonoBehaviour , IEventListener
         speedMultiplier*= value;
     }
     public void ReducePhaseDuration(float value){
-        phaseDuration/=value;
+        phaseDuration*=value;
     }
     public void ReducePhaseCooldown(float percentDecrease) {
         phaseCooldown /= percentDecrease;
@@ -639,5 +638,13 @@ public class PlayerController : MonoBehaviour , IEventListener
         EventManager.OnAddMoreTargets -= AddMoreTargetBeam;
 
     }
-    
+
+    public void ResetStaticFields()
+    {
+        Invincible = false;
+        allCritiqualHits = 0;
+        InstantKillHP = 0; 
+        oneMoreChance = false;
+        
+    }
 }

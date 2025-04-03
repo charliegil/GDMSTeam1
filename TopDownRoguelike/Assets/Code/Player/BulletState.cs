@@ -11,4 +11,10 @@ public static class BulletState
         size+=moreSize;
     }
 
+    public static void resetState(){
+        damage = 10;
+        size = 1.5f;
+    }
+
+    
 }

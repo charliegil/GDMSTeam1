@@ -42,9 +42,10 @@ public class Collectable : MonoBehaviour
 
     private void Start()
     {
-       CollectableCollider = gameObject.AddComponent<CircleCollider2D>();
+        
+        CollectableCollider = gameObject.AddComponent<CircleCollider2D>();
        
-       CollectableRenderer = gameObject.GetComponent<Renderer>();
+        CollectableRenderer = gameObject.GetComponent<Renderer>();
 
         
         if(CollectableRenderer == null){
@@ -209,8 +210,8 @@ public class Collectable : MonoBehaviour
 
         }
 
-        
-    }
+    
+}
 
     public enum CollectableType {
         Life,

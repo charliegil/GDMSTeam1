@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-public class PlayerShoot : MonoBehaviour
+public class PlayerShoot : MonoBehaviour, IStaticFieldsHandler
 {
     [SerializeField]
     private GameObject _bulletPrefab;
@@ -43,11 +43,11 @@ public class PlayerShoot : MonoBehaviour
     }
 
    void Start(){
-        _bulletSpeed = bulletSpeed;
+        ResetStaticFields();
         playerController = GetComponent<PlayerController>();
         bulletParent = new GameObject("bullets");
         timer =0;
-        _timeBtwShots = timeBetweenShoot;
+ 
         
    }
     void Update()
@@ -110,5 +110,12 @@ public class PlayerShoot : MonoBehaviour
     float sin = Mathf.Sin(rad);
     return new Vector2(v.x * cos - v.y * sin, v.x * sin + v.y * cos);
     }
-    
+
+    public void ResetStaticFields()
+    {
+        _bulletSpeed = bulletSpeed;
+        _timeBtwShots = timeBetweenShoot;
+        numPojectile = 0;
+        BulletState.resetState();
+    }
 }

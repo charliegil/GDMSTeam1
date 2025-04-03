@@ -4,7 +4,7 @@ using System.Collections;
 using TMPro;
 using System.Collections.Generic;
 
-public class WaveSystem : MonoBehaviour , IEventListener
+public class WaveSystem : MonoBehaviour , IEventListener, IStaticFieldsHandler
 {
     private static int currentWave = 0;
     public float waveValue = 5;
@@ -46,10 +46,12 @@ public class WaveSystem : MonoBehaviour , IEventListener
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start(){
+        ResetStaticFields();
         minValue = GetMinValue();
         subscribe();
         GenerateWave();
         
+
         waveBeginCountdown = waveCompleteUIText.transform.Find("Countdown").GetComponent<TextMeshProUGUI>();
         waveHint = waveCompleteUIText.transform.Find("Hint").GetComponent<TextMeshProUGUI>();
         
@@ -245,7 +247,15 @@ public class WaveSystem : MonoBehaviour , IEventListener
         color.a = endAlpha;
         waveCompleteUIText.color = color;
         }
+
+    public void ResetStaticFields()
+    {
+        currentWave = 0;
+
+        gainFullHealthOnEnd = false;
+        skillPointsOnEnd = 0;
     }
+}
 
 
 [System.Serializable]

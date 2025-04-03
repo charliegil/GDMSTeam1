@@ -11,8 +11,14 @@ public class DamagePopup : MonoBehaviour
 
     public void Setup(float damageAmount)
     {
-        damageText.text = damageAmount.ToString("F2");
-        textColor = damageText.color; 
+        string damage = damageAmount.ToString("F1");
+        if(damage.EndsWith(".0")) damage = damage.Split(".")[0];
+
+        damageText.text = damage;
+        
+    }
+    public void setColor(Color color){
+        damageText.color = color;
     }
 
     private void Update()

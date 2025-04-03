@@ -1,6 +1,4 @@
 using UnityEngine;
-using System.Collections.Generic;
-using System.Collections;
 
 public class sang_spawn_projectiles : MonoBehaviour
 {
