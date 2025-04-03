@@ -61,13 +61,27 @@ public class makeTree : MonoBehaviour
         skillNode.InfoPanel = InfoPanel;
 
         if(enableCoolerTrees) minNumOfChildren = Math.Max(minNumOfChildren, 1);
+
         treeNode root = setTree();
-        printTree(root);
         TreeHelpers.CalculateNodePositions(root);
+        float height = getHeight(root);
+        float widht = getWidth(root);
+        int iterations = 0;
+        while(widht > 11 && iterations < 100){
+            root = setTree();
+            TreeHelpers.CalculateNodePositions(root);
+            height = getHeight(root);
+            widht = getWidth(root);
+            iterations++;
+        }
+        Debug.Log($"the widht of the tree is {widht}");
+
+
+        printTree(root);
         
         // ============ Make sure the tree is fiting in the image  ===========
-        spaceBetweenNodesY = 30f / (getHeight(root)-1);
-        spaceBetweenNodesX = 50f / (getWidth(root));
+        spaceBetweenNodesY = 30f / (height-1);
+        spaceBetweenNodesX = 50f / (widht);
         //Debug.Log("the withs is : "+getWidth(root));
         float max =  getMaxWidth(root,true)-root.X;
         float min = root.X - getMaxWidth(root,false);
