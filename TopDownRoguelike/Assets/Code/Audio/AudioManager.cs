@@ -17,15 +17,19 @@ public class AudioManager : MonoBehaviour, IEventListener
 
     public AudioClip lowHealthSoundMusic;
 
+    public AudioClip MainMenuThemeMusic;
+
     private AudioSource battleTheme;
     private AudioSource bossTheme;
+    
+    private AudioSource MainMenuTheme;
     private AudioSource lowHealthSound;
 
 
     public Coroutine battleCoroutine = null;
     public Coroutine BossThemeCoroutine=  null;
     private List<AudioSource> audioSources = new List<AudioSource>();
-    public bool currentThemeSound = true;
+
 
     float volumeBoss;
     float volumeBattle;
@@ -60,19 +64,63 @@ public class AudioManager : MonoBehaviour, IEventListener
             lowHealthSound.volume = 0;
             DontDestroyOnLoad(lowHealth);
 
+            GameObject mainMenu = new GameObject("MainMenuTheme");    
+            mainMenu.transform.SetParent(gameObject.transform);
+            MainMenuTheme = mainMenu.AddComponent<AudioSource>();
+            MainMenuTheme.clip = MainMenuThemeMusic;
+            MainMenuTheme.volume = 0;
+            DontDestroyOnLoad(mainMenu);
+
+
+            battleTheme.loop = true;
+            bossTheme.loop = true;
+            lowHealthSound.loop = true;
+            MainMenuTheme.loop = true;
+
+            battleTheme.playOnAwake = false;
+            bossTheme.playOnAwake = false;
+            lowHealthSound.playOnAwake = false;
+            MainMenuTheme.playOnAwake = false;
+            
+            subscribe();
+
+            string name = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+            Debug.Log(name + " is the current scene");
+            
+            if(name.Equals("main_finalVersion")){
+                EnterNewScene(true);
+            }
+            else{
+                EnterNewScene(false);
+            }
+
         }
         else Destroy(gameObject);
-        subscribe();
         
-        battleTheme.loop = true;
-        bossTheme.loop = true;
-        lowHealthSound.loop = true;
-        battleTheme.Play();
-        StartCoroutine(FadeOutAudio(battleTheme,10,musicVolume));
 
 
         
     }
+
+/// <summary>
+/// entering a new scene
+/// </summary>
+/// <param name="scene"> true for the game scene, false for main menu scene</param>
+    public void EnterNewScene(bool scene){
+        if(scene){ // stop main menu musci and start battle theme with fade out
+            MainMenuTheme.Stop();
+            battleTheme.Play();
+            StartCoroutine(FadeOutAudio(battleTheme,10,musicVolume));
+        }
+        else{
+            battleTheme.Stop();
+            bossTheme.Stop();
+            lowHealthSound.Stop();
+            MainMenuTheme.Play();
+            StartCoroutine(FadeOutAudio(MainMenuTheme,10,musicVolume));
+        }
+    }
+
     private void OnDisable()
     {
         unsubscribe();
@@ -129,7 +177,7 @@ public class AudioManager : MonoBehaviour, IEventListener
         if(activate){
             bossTheme.Play();
             StartCoroutine(FadeOutAudio(bossTheme,4,musicVolume));
-            currentThemeSound = false;
+
             StartCoroutine(FadeOutAudio(battleTheme,4,0));
             Debug.Log("activate");
         }
@@ -139,7 +187,7 @@ public class AudioManager : MonoBehaviour, IEventListener
             StartCoroutine(FadeOutAudio(battleTheme,4,musicVolume));
             Debug.Log("deactivate");
         }
-        currentThemeSound = !activate;
+    
     }
 
 
@@ -165,15 +213,23 @@ public class AudioManager : MonoBehaviour, IEventListener
     float startVolume = audioSource.volume;
     float elapsedTime = 0f;
 
+
+
     while (elapsedTime < fadeDuration)
     {
         elapsedTime += Time.unscaledDeltaTime;
-        audioSource.volume = Mathf.Lerp(startVolume, endVolume, elapsedTime / fadeDuration);
+        float percentage = elapsedTime / fadeDuration;
+        float volume = percentage*endVolume;
+        if(endVolume.Equals(0f)){
+            volume = 1-(percentage*startVolume);
+        }
+        //audioSource.volume = Mathf.Lerp(startVolume, endVolume,percentage);
+        audioSource.volume = volume;
+  
         yield return null;
     }
-
-    //audioSource.Stop();
+    
     audioSource.volume = endVolume; 
-        //audioSource.mute = true;
+    
     }
 }

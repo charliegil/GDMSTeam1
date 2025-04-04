@@ -37,9 +37,8 @@ public class BeamAttackHandler : MonoBehaviour , IEventListener {
     private bool canAttack = true;
 
 
-
-    private void Awake() {
-        
+    void OnEnable()
+    {
         if (!TryGetComponent(out EnergyBeam _)) {
             gameObject.AddComponent<EnergyBeam>();
         }
@@ -49,9 +48,8 @@ public class BeamAttackHandler : MonoBehaviour , IEventListener {
             SliderCooldown.value = numberOfHits;
             targetSliderValue = numberOfHits;
         }
-    }
-    void OnEnable()
-    {
+
+
         subscribe();
         if(SliderCooldown!= null ) SliderCooldown.gameObject.SetActive(true);
         if(attackAutomatically && SliderCooldown!= null )SliderCooldown.gameObject.SetActive(false);

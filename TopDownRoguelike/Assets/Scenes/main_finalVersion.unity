@@ -1882,7 +1882,7 @@ MonoBehaviour:
   probabilityZeroChildren: 30
   enableCoolerTrees: 1
   seed: -1
-  initialPositionRootX: -32
+  initialPositionRootX: -31
   initialPositionRootY: 16
   lineWidth: 0.015
   NodeSize: 4
@@ -2581,97 +2581,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &333084345
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 333084347}
-  - component: {fileID: 333084349}
-  m_Layer: 0
-  m_Name: AudioManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &333084347
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 333084345}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -11.4067955, y: -30.301613, z: -0.08837524}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1854606015}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &333084349
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 333084345}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50c11f05fc63bcd40ae28247e644b972, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  musicVolume: 0.2
-  audioSourcePrefab: {fileID: 1280543880}
-  battleThemeMusic: {fileID: 8300000, guid: 1401bcfaad00f3d4ba2d65894e65e926, type: 3}
-  BossThemeMusic: {fileID: 8300000, guid: 95425395f45c94e439b57fe36ae404b2, type: 3}
-  lowHealthSoundMusic: {fileID: 8300000, guid: 1413d3272fdabc3439e3dcb1c186a041, type: 3}
-  currentThemeSound: 1
-  sounds:
-  - name: Fire
-    clip: {fileID: 8300000, guid: 33bfdce1f02b8174bb2c5937902efde1, type: 3}
-    volume: 0.1
-    pitch: 0.1
-  - name: FireAlt
-    clip: {fileID: 8300000, guid: f2dc8331bf3a4f5468369c9a8a568673, type: 3}
-    volume: 0.4
-    pitch: 0.1
-  - name: EnemyHurt
-    clip: {fileID: 8300000, guid: 17ef7d87e93ae8b48b7cbf46a8a5604e, type: 3}
-    volume: 0.2
-    pitch: 0.1
-  - name: skillBought
-    clip: {fileID: 8300000, guid: efbed38207bdd774cb8acc493b14a7f0, type: 3}
-    volume: 0.4
-    pitch: 0.1
-  - name: collectItem
-    clip: {fileID: 8300000, guid: 3f6193cb38549ce4bbbe3b91fbf18611, type: 3}
-    volume: 0.1
-    pitch: 0.1
-  - name: DamageTick
-    clip: {fileID: 8300000, guid: f7787552e729c4f03acbf8c8d22f20ad, type: 3}
-    volume: 0.4
-    pitch: 0.1
-  - name: Collect
-    clip: {fileID: 8300000, guid: 3f6193cb38549ce4bbbe3b91fbf18611, type: 3}
-    volume: 0.3
-    pitch: 0.1
-  - name: WaveStart
-    clip: {fileID: 8300000, guid: c3832884d923cf948a4e12d7e829032e, type: 3}
-    volume: 0.2
-    pitch: 0.1
-  - name: PlayerDeath
-    clip: {fileID: 8300000, guid: 1b7a27bca0fe6e94a870efc13c6309ac, type: 3}
-    volume: 0.4
-    pitch: 0.1
-  - name: clickButton
-    clip: {fileID: 8300000, guid: a1886eea04aff8f429757b48af118ede, type: 3}
-    volume: 0.3
-    pitch: 0.1
 --- !u!1 &343395517
 GameObject:
   m_ObjectHideFlags: 0
@@ -21901,6 +21810,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2898702787198773020, guid: 0ffb80c087b9ba4428d426892ef05487, type: 3}
   m_PrefabInstance: {fileID: 1071977564}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1716548651
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2329631889220765253, guid: 2b1dc511ae61c38499395279a143bc5e, type: 3}
+      propertyPath: m_Name
+      value: AudioManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871588898550724436, guid: 2b1dc511ae61c38499395279a143bc5e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -11.4067955
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871588898550724436, guid: 2b1dc511ae61c38499395279a143bc5e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -30.301613
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871588898550724436, guid: 2b1dc511ae61c38499395279a143bc5e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.08837524
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871588898550724436, guid: 2b1dc511ae61c38499395279a143bc5e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871588898550724436, guid: 2b1dc511ae61c38499395279a143bc5e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871588898550724436, guid: 2b1dc511ae61c38499395279a143bc5e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871588898550724436, guid: 2b1dc511ae61c38499395279a143bc5e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871588898550724436, guid: 2b1dc511ae61c38499395279a143bc5e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871588898550724436, guid: 2b1dc511ae61c38499395279a143bc5e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871588898550724436, guid: 2b1dc511ae61c38499395279a143bc5e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2b1dc511ae61c38499395279a143bc5e, type: 3}
 --- !u!1 &1721161179
 GameObject:
   m_ObjectHideFlags: 0
@@ -27345,7 +27311,6 @@ Transform:
   - {fileID: 1477096586}
   - {fileID: 1133037281}
   - {fileID: 583009641}
-  - {fileID: 333084347}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1858663695
@@ -218372,3 +218337,4 @@ SceneRoots:
   - {fileID: 617123588}
   - {fileID: 378176879}
   - {fileID: 80597014}
+  - {fileID: 1716548651}

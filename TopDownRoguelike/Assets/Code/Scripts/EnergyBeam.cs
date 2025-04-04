@@ -16,14 +16,17 @@ public class EnergyBeam : MonoBehaviour
     private List<Vector3> points = new List<Vector3>();
 
     
-    private void Awake() {
-        if (!TryGetComponent(out LineRenderer _)) {
-            gameObject.AddComponent<LineRenderer>();
-        }
-        lineRenderer = GetComponent<LineRenderer>();
+    private void OnEnable() {
+        
     }
     private void Start()
     {
+        if (!TryGetComponent(out LineRenderer _)) {
+            gameObject.AddComponent<LineRenderer>();
+        }
+
+        
+        lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = pointCount;
         lineRenderer.material = beamMaterial;
         lineRenderer.startWidth = beamWidth;

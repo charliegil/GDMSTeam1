@@ -72,7 +72,7 @@ public class PauseMenu : MonoBehaviour
     }
     public void goMenu()
     {
-        
+        AudioManager.instance.EnterNewScene(false);
         UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
     }
     public void showSkillTree(){
@@ -87,6 +87,7 @@ public class PauseMenu : MonoBehaviour
     }
     public void restart()
     {
+        AudioManager.instance.EnterNewScene(true);
         Time.timeScale = 1;
         UnityEngine.SceneManagement.SceneManager.LoadScene("main_finalVersion");
         

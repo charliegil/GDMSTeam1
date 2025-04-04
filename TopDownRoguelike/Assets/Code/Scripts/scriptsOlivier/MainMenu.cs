@@ -12,7 +12,8 @@ public class MainMenu : MonoBehaviour
     public void play()
     {
         Time.timeScale = 1;
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Main_finalVersion");
+        AudioManager.instance.EnterNewScene(true);
+        UnityEngine.SceneManagement.SceneManager.LoadScene("main_finalVersion");
         
     }
     public void load()
@@ -45,6 +46,7 @@ public class MainMenu : MonoBehaviour
 
     public void goMenu()
     {
+        AudioManager.instance.EnterNewScene(false);
         UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
         Time.timeScale = 1;
     }
