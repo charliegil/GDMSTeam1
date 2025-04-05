@@ -8,6 +8,9 @@ public class AudioManager : MonoBehaviour, IEventListener
 {
     
     [Range(0f, 1f)] public float musicVolume= 0.2f;
+
+   
+
     public static AudioManager instance;
     public AudioSource audioSourcePrefab;
 
@@ -110,14 +113,14 @@ public class AudioManager : MonoBehaviour, IEventListener
         if(scene){ // stop main menu musci and start battle theme with fade out
             MainMenuTheme.Stop();
             battleTheme.Play();
-            StartCoroutine(FadeOutAudio(battleTheme,10,musicVolume));
+            StartCoroutine(FadeOutAudio(battleTheme,3,musicVolume));
         }
         else{
             battleTheme.Stop();
             bossTheme.Stop();
             lowHealthSound.Stop();
             MainMenuTheme.Play();
-            StartCoroutine(FadeOutAudio(MainMenuTheme,10,musicVolume));
+            StartCoroutine(FadeOutAudio(MainMenuTheme,3,musicVolume));
         }
     }
 
@@ -138,12 +141,7 @@ public class AudioManager : MonoBehaviour, IEventListener
         return Source;
     }
 
-    public void PlaySound(Sound clip)
-    {
-        AudioSource source = GetAvailableSource();
-        source.volume = clip.volume;
-        source.PlayOneShot(clip.clip);
-    }
+    
     public void PlaySound(string clipName){
         //if(clipName.Equals("PlayerDeath")) battleTheme.mute = true;
         Sound clip = sounds.FirstOrDefault(s => s.name.Contains(clipName));
@@ -158,6 +156,7 @@ public class AudioManager : MonoBehaviour, IEventListener
         //battleTheme.mute = true;
         lowHealthSound.mute  = true;
         PlaySound("PlayerDeath");
+        PlaySound("BossBell");
         StartCoroutine(FadeOutAudio(battleTheme,3,0));
         StartCoroutine(FadeOutAudio(bossTheme,3,0));
 
@@ -176,15 +175,16 @@ public class AudioManager : MonoBehaviour, IEventListener
     public void ActivateBossTheme(bool activate){
         if(activate){
             bossTheme.Play();
-            StartCoroutine(FadeOutAudio(bossTheme,4,musicVolume));
+            StartCoroutine(FadeOutAudio(bossTheme,2,musicVolume));
 
-            StartCoroutine(FadeOutAudio(battleTheme,4,0));
+            StartCoroutine(FadeOutAudio(battleTheme,2,0));
             Debug.Log("activate");
         }
         else{
-            StartCoroutine(FadeOutAudio(bossTheme,4,0));
+            StartCoroutine(FadeOutAudio(bossTheme,2,0));
             battleTheme.Play();
-            StartCoroutine(FadeOutAudio(battleTheme,4,musicVolume));
+            StartCoroutine(FadeOutAudio(battleTheme,2,musicVolume));
+            
             Debug.Log("deactivate");
         }
     
@@ -210,21 +210,18 @@ public class AudioManager : MonoBehaviour, IEventListener
 
 
     public IEnumerator FadeOutAudio(AudioSource audioSource, float fadeDuration , float endVolume){
+
     float startVolume = audioSource.volume;
     float elapsedTime = 0f;
-
-
 
     while (elapsedTime < fadeDuration)
     {
         elapsedTime += Time.unscaledDeltaTime;
         float percentage = elapsedTime / fadeDuration;
-        float volume = percentage*endVolume;
-        if(endVolume.Equals(0f)){
-            volume = 1-(percentage*startVolume);
-        }
-        //audioSource.volume = Mathf.Lerp(startVolume, endVolume,percentage);
-        audioSource.volume = volume;
+        
+       //Debug.Log("the volume is "  + volume + " the fade duration " + fadeDuration);
+        audioSource.volume = Mathf.Lerp(startVolume, endVolume,percentage);
+        //audioSource.volume = volume;
   
         yield return null;
     }

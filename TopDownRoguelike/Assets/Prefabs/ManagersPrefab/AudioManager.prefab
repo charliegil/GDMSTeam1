@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50c11f05fc63bcd40ae28247e644b972, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicVolume: 0.2
+  musicVolume: 0.25
   audioSourcePrefab: {fileID: 6922738749489178237, guid: 069e7c3c75759614d84ed25d93e41c49, type: 3}
   battleThemeMusic: {fileID: 8300000, guid: 1401bcfaad00f3d4ba2d65894e65e926, type: 3}
   BossThemeMusic: {fileID: 8300000, guid: 95425395f45c94e439b57fe36ae404b2, type: 3}
@@ -52,16 +52,16 @@ MonoBehaviour:
   MainMenuThemeMusic: {fileID: 8300000, guid: 4a1441c17e6f1124aa445c35a733531e, type: 3}
   sounds:
   - name: Fire
-    clip: {fileID: 8300000, guid: 33bfdce1f02b8174bb2c5937902efde1, type: 3}
-    volume: 0.2
+    clip: {fileID: 8300000, guid: 572c5b07d69e78941a39ace887512079, type: 3}
+    volume: 0.6
     pitch: 0.1
-  - name: FireAlt
-    clip: {fileID: 8300000, guid: f2dc8331bf3a4f5468369c9a8a568673, type: 3}
+  - name: PlayerHurt
+    clip: {fileID: 8300000, guid: 21c594e57e57ef043befe88b55af3c67, type: 3}
     volume: 0.4
     pitch: 0.1
   - name: EnemyHurt
     clip: {fileID: 8300000, guid: 17ef7d87e93ae8b48b7cbf46a8a5604e, type: 3}
-    volume: 0.2
+    volume: 0.4
     pitch: 0.1
   - name: skillBought
     clip: {fileID: 8300000, guid: efbed38207bdd774cb8acc493b14a7f0, type: 3}
@@ -69,7 +69,7 @@ MonoBehaviour:
     pitch: 0.1
   - name: collectItem
     clip: {fileID: 8300000, guid: 3f6193cb38549ce4bbbe3b91fbf18611, type: 3}
-    volume: 0.1
+    volume: 0.3
     pitch: 0.1
   - name: DamageTick
     clip: {fileID: 8300000, guid: f7787552e729c4f03acbf8c8d22f20ad, type: 3}
@@ -77,15 +77,11 @@ MonoBehaviour:
     pitch: 0.1
   - name: Collect
     clip: {fileID: 8300000, guid: 3f6193cb38549ce4bbbe3b91fbf18611, type: 3}
-    volume: 0.3
+    volume: 0.7
     pitch: 0.1
   - name: WaveStart
     clip: {fileID: 8300000, guid: c3832884d923cf948a4e12d7e829032e, type: 3}
-    volume: 0.2
-    pitch: 0.1
-  - name: PlayerDeath
-    clip: {fileID: 8300000, guid: 1b7a27bca0fe6e94a870efc13c6309ac, type: 3}
-    volume: 0.4
+    volume: 0.3
     pitch: 0.1
   - name: clickButton
     clip: {fileID: 8300000, guid: a1886eea04aff8f429757b48af118ede, type: 3}
@@ -93,5 +89,9 @@ MonoBehaviour:
     pitch: 0.1
   - name: PlayerDeath
     clip: {fileID: 8300000, guid: 1b7a27bca0fe6e94a870efc13c6309ac, type: 3}
+    volume: 0.3
+    pitch: 0.1
+  - name: BossBell
+    clip: {fileID: 8300000, guid: 7dab2642fd541de429eaad529bcfbb6c, type: 3}
     volume: 0.3
     pitch: 0.1

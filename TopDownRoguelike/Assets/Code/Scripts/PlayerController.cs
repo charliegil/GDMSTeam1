@@ -269,6 +269,7 @@ public class PlayerController : MonoBehaviour , IEventListener , IStaticFieldsHa
             
             currentHealth -= damage;
             animator.SetTrigger("takingDamage");
+            AudioManager.instance.PlaySound("PlayerHurt");
             if(oneMoreChance && currentHealth <= 0 ){
                 oneMoreChance = false;
                 currentHealth =maxHealth;

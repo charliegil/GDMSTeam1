@@ -89,7 +89,7 @@ public class Health : MonoBehaviour
     }
 
     public void modifyHealthFromWaveNumber(int waveNumber){
-        waveNumber+=1;
+        waveNumber-=1;
         currentHealth = baseHealth + (waveNumber * increasePerWave);
         currentHealth *= Mathf.Pow(scaleFactor , (int)waveNumber/milestone);
         Debug.Log("my base health is " + baseHealth + " and my updated health is " + currentHealth + " from wave number "+ waveNumber);

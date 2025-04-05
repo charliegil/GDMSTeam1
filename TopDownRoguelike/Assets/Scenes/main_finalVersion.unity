@@ -2162,11 +2162,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13e7f181325656e469dcdd903a34ceef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDamage: 1
-  damageTickDelay: 1.5
+  attackDamage: 20
+  damageTickDelay: 2
   attackCooldown: 5
-  numberOfHits: 10
-  attackRange: 30
+  numberOfHits: 7
+  attackRange: 25
   attackAutomatically: 1
   SliderCooldown: {fileID: 0}
 --- !u!114 &320672553
@@ -8351,7 +8351,7 @@ MonoBehaviour:
   damageIncrease: {x: 1.5, y: 10}
   critChance: 0.05
   critiqualHitFactor: 2
-  maxHealth: 750
+  maxHealth: 250
   healthManager: {fileID: 865914809}
 --- !u!50 &865914804
 Rigidbody2D:
@@ -14565,9 +14565,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13e7f181325656e469dcdd903a34ceef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDamage: 30
-  damageTickDelay: 2
-  attackCooldown: 15
+  attackDamage: 200
+  damageTickDelay: 2.5
+  attackCooldown: 10
   numberOfHits: 3
   attackRange: 30
   attackAutomatically: 1
@@ -17344,10 +17344,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackDamage: 5
-  damageTickDelay: 1
+  damageTickDelay: 0.7
   attackCooldown: 4
   numberOfHits: 15
-  attackRange: 30
+  attackRange: 20
   attackAutomatically: 1
   SliderCooldown: {fileID: 0}
 --- !u!114 &1347089296
