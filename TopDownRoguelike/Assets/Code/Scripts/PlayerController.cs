@@ -408,20 +408,22 @@ public class PlayerController : MonoBehaviour , IEventListener , IStaticFieldsHa
 
     public Vector2 getExternalVelocity(){return externalVelocity;}
 
+   
+
 
     public void showStats(){
         statsContainer.SetActive(true);
       
         string stats = "";
-        stats += (critChance).ToString("F2") + "<";
-        stats += critiqualHitFactor.ToString("F1") + "<";
-        stats += phaseDuration.ToString("F2") + " s<";
-        stats += phaseCooldown.ToString("F2") + " s<";
-        stats += (attackMultiplier).ToString("F2") + "<";
-        stats += (defenceBoost).ToString("F2")+ "<";
-        stats += ""+BulletState.damage + "<";
-        stats += ""+PlayerShoot._timeBtwShots+"s<";
-        stats += ""+(CollectibleSpawner.DropRate*100) + "%";
+        stats += ((int)(critChance*100)).ToString() + "<";
+        stats += critiqualHitFactor.ToString("0.#") + "<";
+        stats += phaseDuration.ToString("0.##") + " s<";
+        stats += phaseCooldown.ToString("0.##") + " s<";
+        stats += (attackMultiplier).ToString("0.##") + "<";
+        stats += (defenceBoost).ToString("0.##")+ "<";
+        stats += ""+BulletState.damage.ToString("0.#") + "<";
+        stats += ""+PlayerShoot._timeBtwShots.ToString("0.##")+"s<";
+        stats += ""+(int)(CollectibleSpawner.DropRate*100) + "%";
         string[] statList = stats.Split("<");
         int i=0;
         foreach (TextMeshProUGUI txt in statsContainer.transform.Find("ValuesText").GetComponentsInChildren<TextMeshProUGUI>(false)){

@@ -56,7 +56,8 @@ public class Health : MonoBehaviour
             GameObject popup = Instantiate(damagePopupPrefab, transform.position , Quaternion.identity) as GameObject;//+ new Vector3(0,1,0)
             
             string StringDamage = damage.ToString("F1");
-            if(StringDamage.EndsWith(".0")) StringDamage = StringDamage.Split(".")[0];
+            Debug.Log(StringDamage);
+            if(StringDamage.EndsWith(",0")) StringDamage = StringDamage.Split(",")[0];
             popup.transform.GetChild(0).GetComponent<TextMesh>().text = ""+StringDamage;
             
             popup.transform.GetChild(0).GetComponent<MeshRenderer>().sortingOrder = 10;

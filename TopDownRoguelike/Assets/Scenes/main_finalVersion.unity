@@ -8352,7 +8352,7 @@ MonoBehaviour:
   damageIncrease: {x: 1.5, y: 10}
   critChance: 0.05
   critiqualHitFactor: 2
-  maxHealth: 250
+  maxHealth: 500
   healthManager: {fileID: 865914809}
 --- !u!50 &865914804
 Rigidbody2D:

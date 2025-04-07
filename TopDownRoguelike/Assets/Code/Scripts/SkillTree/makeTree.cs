@@ -67,7 +67,7 @@ public class makeTree : MonoBehaviour
         float height = getHeight(root);
         float widht = getWidth(root);
         int iterations = 0;
-        while(widht > 11 && iterations < 100){
+        while(widht > 10 && iterations < 100){
             root = setTree();
             TreeHelpers.CalculateNodePositions(root);
             height = getHeight(root);

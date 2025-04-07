@@ -191,7 +191,7 @@ MonoBehaviour:
   collectRadius: 10
   CollectAutomatically: 1
   keyToObtain: 101
-  value: 2
+  value: 5
   duration: 10
   type: 4
   movementDuration: 0.5

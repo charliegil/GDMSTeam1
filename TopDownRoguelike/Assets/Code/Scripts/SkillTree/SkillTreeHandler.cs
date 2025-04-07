@@ -7,6 +7,7 @@ public class SkillTreeHandler : MonoBehaviour , IEventListener
     public int skillPoints = 0;
     public TextMeshProUGUI skillPointsText;
 
+
     private List<skillTreeUpgrade> upgradesOwned = new List<skillTreeUpgrade>();
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
@@ -28,13 +29,16 @@ public class SkillTreeHandler : MonoBehaviour , IEventListener
         if(original != skillPoints){
             upgradesOwned.Add(skillnode.getNode().GetUpgrade());
             AudioManager.instance.PlaySound("skillBought");
-            //Debug.Log("you bought" + skillnode);
+            
             skillPointsText.text = ""+skillPoints;
             applyUpgrade(skillnode.getNode().GetUpgrade(),false);
             
         }
     }
     private void HandleSkillPointAcquired(int value){
+        if(upgradesOwned.Count > 30){
+            ScoreManager.Instance.AddScore(value);
+        }
         skillPoints+=value;
         skillPointsText.text = ""+skillPoints;
     }

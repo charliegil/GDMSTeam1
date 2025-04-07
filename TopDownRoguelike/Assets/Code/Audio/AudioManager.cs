@@ -113,14 +113,16 @@ public class AudioManager : MonoBehaviour, IEventListener
         if(scene){ // stop main menu musci and start battle theme with fade out
             MainMenuTheme.Stop();
             battleTheme.Play();
-            StartCoroutine(FadeOutAudio(battleTheme,3,musicVolume));
+            battleTheme.volume = musicVolume;
+            //StartCoroutine(FadeOutAudio(battleTheme,3,musicVolume));
         }
         else{
             battleTheme.Stop();
             bossTheme.Stop();
             lowHealthSound.Stop();
             MainMenuTheme.Play();
-            StartCoroutine(FadeOutAudio(MainMenuTheme,3,musicVolume));
+            MainMenuTheme.volume = musicVolume;
+            //StartCoroutine(FadeOutAudio(MainMenuTheme,3,musicVolume));
         }
     }
 
@@ -175,7 +177,7 @@ public class AudioManager : MonoBehaviour, IEventListener
     public void ActivateBossTheme(bool activate){
         if(activate){
             bossTheme.Play();
-            StartCoroutine(FadeOutAudio(bossTheme,2,musicVolume));
+            //StartCoroutine(FadeOutAudio(bossTheme,2,musicVolume));
 
             StartCoroutine(FadeOutAudio(battleTheme,2,0));
             Debug.Log("activate");
@@ -183,7 +185,7 @@ public class AudioManager : MonoBehaviour, IEventListener
         else{
             StartCoroutine(FadeOutAudio(bossTheme,2,0));
             battleTheme.Play();
-            StartCoroutine(FadeOutAudio(battleTheme,2,musicVolume));
+            //StartCoroutine(FadeOutAudio(battleTheme,2,musicVolume));
             
             Debug.Log("deactivate");
         }
