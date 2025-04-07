@@ -9,8 +9,8 @@ public class Health : MonoBehaviour
     [Header("Scale Health based on wave settings")]
     [SerializeField] private float baseHealth = 20f;
     [SerializeField] private float milestone = 7;
-    [SerializeField] private float scaleFactor = 1.2f;
-    [SerializeField] private float increasePerWave = 2;
+    [SerializeField] private float scaleFactor = 1.5f;
+    [SerializeField] private float increasePerWave = 3;
     private ParticleSystem deathParticlesInstance;
  
     [HideInInspector] public bool isTargeted = false;

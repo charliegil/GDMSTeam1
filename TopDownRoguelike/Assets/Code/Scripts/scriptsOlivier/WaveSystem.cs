@@ -143,7 +143,7 @@ public class WaveSystem : MonoBehaviour , IEventListener, IStaticFieldsHandler
             GameObject enemy = Instantiate(list[0], spawnLocation[randomSpawnPoint].transform.position, Quaternion.identity);
            
             list.RemoveAt(0);
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.35f);
         }
         
     }

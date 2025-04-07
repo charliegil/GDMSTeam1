@@ -5,7 +5,7 @@ public class Bullet : MonoBehaviour
 {
     void Start(){
         transform.localScale = new Vector3(BulletState.size,BulletState.size, BulletState.size);
-        Destroy(gameObject, 10f);
+        Destroy(gameObject, 2f);
     }
     void OnTriggerEnter2D(Collider2D collision){
         
