@@ -35,6 +35,10 @@ public class makeTree : MonoBehaviour
 
     private List<skillTreeUpgrade> possibleCommonUpgrades;
     private List<skillTreeUpgrade> possibleSpecialUpgrades;
+  
+    [SerializeField]  private bool addIcons;
+    [SerializeField]  private List<UpgradeIcon> icons;
+    
 
     private GameObject _nodesContainer;
     private GameObject _linesContainer;
@@ -200,7 +204,10 @@ public class makeTree : MonoBehaviour
         
         nodeObject.AddComponent<Image>();
         //nodeObject.GetComponent<Image>().sprite = SpriteLocked;
-        node.setUpgrade(getRandomUpgrade(depth));
+        skillTreeUpgrade upgrade = getRandomUpgrade(depth);
+        node.setUpgrade(upgrade);
+        
+        if(addIcons)addIcon(nodeObject,upgrade.type);
 
         skillNode SkillNode = nodeObject.AddComponent<skillNode>();
         SkillNode.setTreeNode(node);
@@ -275,11 +282,29 @@ public class makeTree : MonoBehaviour
         return max;
     }
     
-    
-    
-
-
-    
-
+    private Sprite getIcon(upgradeType type){
+        foreach (UpgradeIcon upgrade in icons){
+            if(upgrade.type.Contains(type.ToString()+",")|| upgrade.type.Contains(","+type.ToString())) return upgrade.icon;
+        }
+        return null;
+    }
+        private void addIcon(GameObject node , upgradeType type){
+            Sprite sprite = getIcon(type);
+            if(sprite == null) return;
+            
+            GameObject icon = new GameObject("icon");
+            Image image = icon.AddComponent<Image>();
+            image.SetNativeSize();
+            image.sprite = getIcon(type);
+            image.color = Color.white;
+            icon.transform.SetParent(node.transform);
+            icon.transform.localScale = new Vector3(0.015f,0.015f);
+        }
+}
+[Tooltip("map upgrade types to an icon")]
+[System.Serializable]
+public class UpgradeIcon{
+    public string type;
+    public Sprite icon;
 }
 

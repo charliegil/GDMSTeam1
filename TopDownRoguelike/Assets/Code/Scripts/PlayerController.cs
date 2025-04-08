@@ -272,7 +272,7 @@ public class PlayerController : MonoBehaviour , IEventListener , IStaticFieldsHa
             AudioManager.instance.PlaySound("PlayerHurt");
             if(oneMoreChance && currentHealth <= 0 ){
                 oneMoreChance = false;
-                currentHealth =maxHealth;
+                currentHealth =maxHealth/2;
             }
             if(currentHealth <= 0 ) OnDeath();
         }
@@ -415,7 +415,7 @@ public class PlayerController : MonoBehaviour , IEventListener , IStaticFieldsHa
         statsContainer.SetActive(true);
       
         string stats = "";
-        stats += ((int)(critChance*100)).ToString() + "<";
+        stats += ((int)(critChance*100)).ToString() + "%<";
         stats += critiqualHitFactor.ToString("0.#") + "<";
         stats += phaseDuration.ToString("0.##") + " s<";
         stats += phaseCooldown.ToString("0.##") + " s<";

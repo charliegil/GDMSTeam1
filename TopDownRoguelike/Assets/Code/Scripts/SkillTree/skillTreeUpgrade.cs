@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class skillTreeUpgrade
 {
-    private string description;
+    private string flavorText;
 
     public float value;
 
@@ -27,14 +27,14 @@ public class skillTreeUpgrade
         this.price = price;
         this.value = getValueFromUpgrade(type);
         this.type = type;
-        this.description = description;
+        this.flavorText = description;
 
     }
 /// <summary>
 /// For upgrades that are common
 /// </summary>
     public skillTreeUpgrade(string description, upgradeType type){
-        this.description = description;
+        this.flavorText = description;
         this.type = type;
         if(this.type == upgradeType.Random) type = getRandomUpgrade();
         rarity = getRandomRarity();
@@ -55,7 +55,7 @@ public class skillTreeUpgrade
         
         type = getRandomUpgrade();
         
-        description = $"Upgrade of type {type.ToString()} with value {value}"; 
+        flavorText = $"Upgrade of type {type.ToString()} with value {value}"; 
     }
     
 
@@ -87,14 +87,35 @@ public class skillTreeUpgrade
         bought = false;
         return skillPoints+price;
     }
+
+    public string valueToString(float valeur){
+        string valueString = valeur.ToString("0.##");
+  
+        if(valueString.EndsWith(".00")) valueString = valueString.Split(".")[0];
+        return valueString;
+    }
+    public string descriptionToString(){
+        if(! UpgradeToCategory.ContainsKey(type)) return type.ToString();
+         
+         string typeDescription = UpgradeToCategory[type];
+         if(typeDescription.Contains("]")){
+            string [] part = typeDescription.Split("]");
+            string valueText = valueToString(value);
+            if(part[1].Contains("%")){
+                valueText = valueToString(value*100);
+                part[1] = " percent " + part[1].Split("%")[1];
+            }
+            return part[0]  + valueToString(value) + part[1];
+         }
+         else return typeDescription;
+    }
     public override string ToString(){
         
         string typeDescription = type.ToString();
-        string valueString = value.ToString("F2");
-        if(valueString.EndsWith(".00")) valueString = valueString.Split(".")[0];
+        string valueString = valueToString(value);
         
         if(UpgradeToCategory.ContainsKey(type)) typeDescription= UpgradeToCategory[type];
-        return description + ";" + price + ";" + valueString +";"+rarity + ";" + typeDescription;
+        return flavorText + ";" + price + ";" + valueString +";"+rarity + ";" + descriptionToString();
     }
     public bool Isbought(){
         return bought;
@@ -146,38 +167,42 @@ public class skillTreeUpgrade
     }
     public static readonly Dictionary<upgradeType, string> UpgradeToCategory = new Dictionary<upgradeType, string>
     {
-        { upgradeType.Attack, "Increase Attack Damage" },
-        { upgradeType.Defence, "Decrease damage taken" },
+        { upgradeType.Attack, "multiplies attack damage by ]x" },
+        { upgradeType.Defence, "Decrease damage taken by ]x" },
         { upgradeType.PhaseCooldown, "Phase takes less time to recharge" },
-        { upgradeType.PhaseDuration, "Make phase last longer" },
-        { upgradeType.Health, "Increase max health" },
-        { upgradeType.CritiqualHit, "Increase chance of critiqual hits" },
-        { upgradeType.Speed, "increase speed" },
-        { upgradeType.DropRate, "increase chance of getting boosts" },
-        { upgradeType.PowerUpEffectMultiplier, "Boost effect" },
+        { upgradeType.PhaseDuration, "Make phase last longer by ]x" },
+        { upgradeType.Health, "Increase max health by ]x" },
+        { upgradeType.CritiqualHit, "Increase chance of critiqual hits by ]x" },
+        { upgradeType.Speed, "increase speed by ]x" },
+        { upgradeType.DropRate, "increase chance of getting boosts from dying enemies by ]%" },
+        { upgradeType.PowerUpEffectMultiplier, "the effects of the boosts are increased by ]x" },
         { upgradeType.PowerUpDurationtMultiplier, "Boost duration" },
         
         
-        { upgradeType.BeamAttackCooldown, "Reduce Laser Cooldown" },
-        { upgradeType.BeamAttackDuration, "Laser last longer" },
-        { upgradeType.BeamTickRate, "Beam" },
-        { upgradeType.BeamDamageIncrease, "Increase laser damage" },
-        { upgradeType.BeamAddTarget, "Add one more laser" },
+        { upgradeType.BeamAttackCooldown, "the cooldown of the laser takes ]x less time" },
+        { upgradeType.BeamAttackDuration, "the duration of the laser is increased by ]x" },
+        { upgradeType.BeamTickRate, "the dps of the laser is increase by ]x" },
+        { upgradeType.BeamDamageIncrease, "Increase laser damage by ]x" },
+        { upgradeType.BeamAddTarget, "you can now shoot one more laser" },
 
 
         { upgradeType.WeaponUnlocked, "Weapon" },
 
        
         { upgradeType.FullHealthAtWaveEnd, "gain full health when wave ends" },
-        { upgradeType.SkillPointAtWaveEnd, "gain Skill points when wave ends" },
-        { upgradeType.AllCritiqualHitBelowCertainHp, "Critiqual hits" },
-        { upgradeType.InstantKillBelowCertainHp, "Lethality" },
-        { upgradeType.Revival, "get an extra life" },
+        { upgradeType.SkillPointAtWaveEnd, "gain 3 Skill points when wave ends" },
+        { upgradeType.AllCritiqualHitBelowCertainHp, "below 30hp, all your hits are critiqual" },
+        { upgradeType.InstantKillBelowCertainHp, "below 3hp, all your hits kill the enemy" },
+        { upgradeType.Revival, "when you die, you get respawned with half of your max health" },
         { upgradeType.Random, "random" },
 
-        { upgradeType.RangedAttackCooldown, "Increase rate of fire" },
-        { upgradeType.RangedAttackSpeed, "bullets are faster" },
-        { upgradeType.RangedNumberProjectile , "increase number of bullets fired"}
+        { upgradeType.RangedAttackCooldown, "the time between shooting is reduced by ] seconds" },
+        { upgradeType.RangedAttackSpeed, "your bullets gain ] more speed" },
+        { upgradeType.RangedNumberProjectile , "each click spawns one more bullet"},
+        { upgradeType.RangedAttackDmg , "your bullets deal ] more damage"},
+        { upgradeType.RangedAttackAdd , "the gods dont know what to do with this power up"},
+
+
     };
 
   

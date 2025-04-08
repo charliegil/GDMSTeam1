@@ -1,51 +1,51 @@
 description;type
-The tiger’s fury empowers your strikes, increasing damage;Attack  
-The dragon’s wrath surges through you, greatly amplifying attack power;Attack  
-The turtle’s shell strengthens your body, reducing incoming damage;Defence  
-Your skin hardens like tempered steel, greatly increasing defense;Defence  
-Chi energy flows through you, extending your phase ability;PhaseDuration  
-The spirits warp time itself, allowing you to phase even longer;PhaseDuration  
-The phoenix’s fire fortifies your essence, increasing max health;Health  
-The elixir of immortality enhances your vitality, granting more health;Health  
-The crane’s precision sharpens your senses, boosting critical chance;CritiqualHit  
-Thunder strikes through your attacks, increasing the chance of critiqual hits;CritiqualHit  
-The wind spirit blesses your steps, making you move faster;Speed  
-You move with the speed of a galloping dragon, greatly increasing movement speed;Speed  
-The river of fortune flows in your favor, increasing enemy drop rates;DropRate  
-Luck shines upon you, making foes have more change to give power ups;DropRate  
-Ancient magic enhances power-ups, boosting their effectiveness;PowerUpEffectMultiplier  
-Celestial energy surges within, greatly amplifying power-up effects;PowerUpEffectMultiplier  
-The sands of time slow, extending power-up duration;PowerUpDurationtMultiplier  
-Temporal energy bends to your will, making power-ups last much longer;PowerUpDurationtMultiplier  
-Your laser pulses with divine force, reducing its cooldown time;BeamAttackCooldown  
-The gods hasten your attacks, allowing your laser to recharge faster;BeamAttackCooldown  
-Heavenly energy sustains your laser, increasing its duration;BeamAttackDuration  
-The dragon’s breath lingers, making your laser last even longer;BeamAttackDuration  
-The storm rages through your laser, striking enemies even faster;BeamTickRate  
-The sun’s fury fuels your laser, increasing its damage;BeamDamageIncrease  
-The wrath of the heavens empowers your laser, dealing massive damage;BeamDamageIncrease  
-The lion’s strength amplifies your strikes, making them hit harder;Attack  
-The dragon’s claws sharpen your blows, greatly increasing attack power;Attack  
-The stone golem’s might fortifies you, reducing incoming damage;Defence  
-The wind’s protection surrounds you, greatly enhancing defense;Defence  
-Your chi flows like an unbroken river, extending phase duration;PhaseDuration  
-The moon’s grace elongates your phase, letting you evade danger longer;PhaseDuration  
-The phoenix’s flames renew your vitality, increasing max health;Health  
-The celestial lotus blooms within you, greatly enhancing health;Health  
-The eagle’s precision guides your strikes, increasing your crit chance;CritiqualHit  
-The thunder god’s rage charges your strikes, dramatically boosting crit chance;CritiqualHit  
-The swift crane blesses your movements, enhancing speed;Speed  
-The tiger spirit infuses you with incredible speed, making you faster than ever;Speed  
-The gods smile upon you, increasing the power-up drop rate from enemies;DropRate  
-Fortune blesses you, making enemies drop more power-ups;DropRate  
-Ancient power strengthens power-ups, greatly enhancing their effects;PowerUpEffectMultiplier  
-The essence of the gods amplifies your power-ups, amplifying their effect;PowerUpEffectMultiplier  
-The stars align, extending the duration of your power-ups;PowerUpDurationtMultiplier  
-The winds of time extend your power-ups, making them last far longer;PowerUpDurationtMultiplier  
-The energy of the spirit channels the laser, allowing it to fire faster;BeamAttackCooldown  
-The dragon’s breath speeds up your Laser, allowing it to fire faster;BeamAttackCooldown  
-Heavenly winds empower your laser, increasing its duration;BeamAttackDuration  
-The sun’s blessing sustains your laser, letting it shine longer;BeamAttackDuration  
-The storm god’s fury supercharges your laser, increasing its damage per second;BeamTickRate  
-Your laser channels the power of the gods, increasing its damage;BeamDamageIncrease  
-The fury of the heavens intensifies your laser, causing more damage;BeamDamageIncrease  
+The tiger’s fury empowers your strikes;Attack  
+The dragon’s wrath surges through you;Attack  
+The turtle’s shell strengthens your body, hardening your resolve;Defence  
+Your skin hardens like tempered steel, unyielding to pressure;Defence  
+Chi energy flows through you, blurring the boundary between worlds;PhaseDuration  
+The spirits warp time itself, freeing you from the moment;PhaseDuration  
+The phoenix’s fire fortifies your essence, burning ever brighter;Health  
+The elixir of immortality courses through your veins;Health  
+The crane’s precision sharpens your senses, guiding your hand;CritiqualHit  
+Thunder strikes through your attacks, crackling with unseen force;CritiqualHit  
+The wind spirit blesses your steps, barely touching the ground;Speed  
+You move with the speed of a galloping dragon, leaving wind in your wake;Speed  
+The river of fortune flows in your favor, fate tipping its scales;DropRate  
+Luck shines upon you, as if destiny winks your way;DropRate  
+Ancient magic enhances power-ups, pulsing with newfound vigor;PowerUpEffectMultiplier  
+Celestial energy surges within, resonating through every boon;PowerUpEffectMultiplier  
+The sands of time slow, stretching every heartbeat;PowerUpDurationtMultiplier  
+Temporal energy bends to your will, the moment lingering;PowerUpDurationtMultiplier  
+Your laser pulses with divine force, eager to strike again;BeamAttackCooldown  
+The gods hasten your attacks, time folding inward;BeamAttackCooldown  
+Heavenly energy sustains your laser, its glow unwavering;BeamAttackDuration  
+The dragon’s breath lingers, its fire refusing to fade;BeamAttackDuration  
+The storm rages through your laser, each spark more furious than the last;BeamTickRate  
+The sun’s fury fuels your laser, its brilliance undeniable;BeamDamageIncrease  
+The wrath of the heavens empowers your laser, its force uncontainable;BeamDamageIncrease  
+The lion’s strength amplifies your strikes, a roar behind each blow;Attack  
+The dragon’s claws sharpen your blows, leaving deep trails of power;Attack  
+The stone golem’s might fortifies you, immovable in the storm;Defence  
+The wind’s protection surrounds you, as if untouched by force;Defence  
+Your chi flows like an unbroken river, timeless and steady;PhaseDuration  
+The moon’s grace elongates your phase, gliding between moments;PhaseDuration  
+The phoenix’s flames renew your vitality, ashes never settling;Health  
+The celestial lotus blooms within you, a quiet strength unfurling;Health  
+The eagle’s precision guides your strikes, as if time pauses for you;CritiqualHit  
+The thunder god’s rage charges your strikes, lightning in your veins;CritiqualHit  
+The swift crane blesses your movements, every motion a whisper;Speed  
+The tiger spirit infuses you with incredible speed, vanishing between heartbeats;Speed  
+The gods smile upon you, treasures seeming to follow your path;DropRate  
+Fortune blesses you, as if enemies fear to leave you empty-handed;DropRate  
+Ancient power strengthens power-ups, their aura growing fierce;PowerUpEffectMultiplier  
+The essence of the gods amplifies your power-ups, pulsing with energy;PowerUpEffectMultiplier  
+The stars align, and your gifts linger like echoes;PowerUpDurationtMultiplier  
+The winds of time extend your power-ups, moments drawn long;PowerUpDurationtMultiplier  
+The energy of the spirit channels the laser, eager to be unleashed;BeamAttackCooldown  
+The dragon’s breath speeds up your laser, fire itching to escape;BeamAttackCooldown  
+Heavenly winds empower your laser, drifting longer in the air;BeamAttackDuration  
+The sun’s blessing sustains your laser, basking in its own radiance;BeamAttackDuration  
+The storm god’s fury supercharges your laser, unrelenting in its strikes;BeamTickRate  
+Your laser channels the power of the gods, its wrath barely contained;BeamDamageIncrease  
+The fury of the heavens intensifies your laser, each beam a judgment;BeamDamageIncrease  

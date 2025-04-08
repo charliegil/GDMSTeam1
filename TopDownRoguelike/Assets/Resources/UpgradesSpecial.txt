@@ -1,15 +1,15 @@
 rarity,price,description;type
-4;10;At low health(30), all your strikes become critical, fueled by desperation;AllCritiqualHitBelowCertainHp  
-2;4;The spirits of war grant you wisdom, earning 3 skill points after each wave;SkillPointAtWaveEnd  
+4;10;At low health, all your strikes become critical, fueled by desperation;AllCritiqualHitBelowCertainHp  
+2;4;The spirits of war grant you wisdom, earning skill points after each wave;SkillPointAtWaveEnd  
 2;4;The ancient weapon of the heavens is now at your disposal, unlocking the powerful laser;BeamAddTarget 
 3;5;Your laser now strikes an additional enemy, expanding its reach;BeamAddTarget  
 3;6;Your laser gains the power to hit one more enemy, extending its fury;BeamAddTarget
-2;4;you manage to train your arms. your bullets travel faster ;RangedAttackSpeed
+2;4;you manage to train your arms;RangedAttackSpeed
 2;4;Your bullets are more powerful, they travel faster ;RangedAttackSpeed
-2;4;Your bullets are blessed by the village monk. They get more damage;RangedAttackDmg
-2;4;Your bullets are enchanted by the spirit of war. They deal more damage;RangedAttackDmg
+2;4;Your bullets are blessed by the village monk;RangedAttackDmg
+2;4;Your bullets are enchanted by the spirit of war;RangedAttackDmg
 2;4;Through extensive training, you manage to shoot faster;RangedAttackCooldown
-2;8;The winds hasten your strikes, reducing ranged attack cooldown;RangedAttackCooldown
+2;8;The winds hasten your strikes;RangedAttackCooldown
 5;15;The gods grant you a second chance, allowing you to be revived once more after falling;Revival  
 5;15; The gods grant you an extra projectile per shoot.;RangedNumberProjectile
 2;7; you gain the ability to shoot an extra projectile per shoot through extreme meditation.;RangedNumberProjectile 

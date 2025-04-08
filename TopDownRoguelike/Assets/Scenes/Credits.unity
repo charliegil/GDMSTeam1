@@ -783,7 +783,7 @@ GameObject:
   - component: {fileID: 525804689}
   - component: {fileID: 525804688}
   m_Layer: 5
-  m_Name: Mentors (1)
+  m_Name: playtest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -828,7 +828,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "<color=#E5D30D>Playtester :</color>  \n Emile"
+  m_text: "<color=#E5D30D>Playtester</color>  \n Emile"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ab1b87fc63f80824a9be12590afdc729, type: 2}
   m_sharedMaterial: {fileID: 879477382251229955, guid: ab1b87fc63f80824a9be12590afdc729, type: 2}
@@ -1047,7 +1047,9 @@ MonoBehaviour:
 
     Helyanny Perozo
 
-    acacie song'
+    acacie song
+
+    Valerie Lehar'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ab1b87fc63f80824a9be12590afdc729, type: 2}
   m_sharedMaterial: {fileID: 879477382251229955, guid: ab1b87fc63f80824a9be12590afdc729, type: 2}
