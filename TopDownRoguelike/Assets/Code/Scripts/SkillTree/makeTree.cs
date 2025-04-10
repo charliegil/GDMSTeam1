@@ -85,7 +85,7 @@ public class makeTree : MonoBehaviour
         
         // ============ Make sure the tree is fiting in the image  ===========
         spaceBetweenNodesY = 30f / (height-1);
-        spaceBetweenNodesX = 50f / (widht);
+        spaceBetweenNodesX = 48f / (widht);
         //Debug.Log("the withs is : "+getWidth(root));
         float max =  getMaxWidth(root,true)-root.X;
         float min = root.X - getMaxWidth(root,false);
