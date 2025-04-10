@@ -178,13 +178,14 @@ public class AudioManager : MonoBehaviour, IEventListener
         if(activate){
             bossTheme.Play();
             //StartCoroutine(FadeOutAudio(bossTheme,2,musicVolume));
-
+            bossTheme.volume = musicVolume;
             StartCoroutine(FadeOutAudio(battleTheme,2,0));
             Debug.Log("activate");
         }
         else{
             StartCoroutine(FadeOutAudio(bossTheme,2,0));
             battleTheme.Play();
+            battleTheme.volume = musicVolume;
             //StartCoroutine(FadeOutAudio(battleTheme,2,musicVolume));
             
             Debug.Log("deactivate");
