@@ -156,7 +156,9 @@ public class BeamAttackHandler : MonoBehaviour , IEventListener {
         float distanceToCurrent = Vector3.Distance(transform.position, enemies[i].transform.position);
 
         //Debug.Log(enemies[i]);
-        bool isTargeted = enemies[i].GetComponent<Health>().isTargeted;
+        Health component = enemies[i].GetComponent<Health>();
+        if(component == null) continue;
+        bool isTargeted = component.isTargeted;
         
        
         if (!isTargeted && distanceToCurrent < minDistance) {
