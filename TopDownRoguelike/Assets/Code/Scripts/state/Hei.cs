@@ -7,7 +7,6 @@ public class Hei : Core
     public HeiState2 state2;
     public HeiState1 state1;
     public ChaseState chase;
-    private int maxHp = 100;
     //[SerializeField] private int hp;
 
    
@@ -26,16 +25,16 @@ public class Hei : Core
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("hei state: "+machine.state);
+        //Debug.Log("hei state: "+machine.state);
         // Debug.Log("current state hei: "+machine.state);
 
         if(CloseEnough(target.position)){
-            Debug.Log("state 1 hei");
+            //Debug.Log("state 1 hei");
             Set(state1);
             
         }
         else if(machine.state!=chase){
-            Debug.Log("chase hei");
+            //Debug.Log("chase hei");
             Set(chase);
         }
 

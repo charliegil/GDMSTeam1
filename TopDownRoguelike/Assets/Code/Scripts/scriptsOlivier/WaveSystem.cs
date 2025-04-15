@@ -49,9 +49,12 @@ public class WaveSystem : MonoBehaviour , IEventListener, IStaticFieldsHandler
         ResetStaticFields();
         minValue = GetMinValue();
         subscribe();
-        GenerateWave();
         
-
+        GenerateWave();
+        //GameObject heiBoss = Instantiate(hei_boss , spawnLocation[1].transform.position , Quaternion.identity);
+        //GameObject BaiBoss = Instantiate(bai_boss , spawnLocation[1].transform.position , Quaternion.identity); 
+        
+        
         waveBeginCountdown = waveCompleteUIText.transform.Find("Countdown").GetComponent<TextMeshProUGUI>();
         waveHint = waveCompleteUIText.transform.Find("Hint").GetComponent<TextMeshProUGUI>();
         
@@ -104,7 +107,7 @@ public class WaveSystem : MonoBehaviour , IEventListener, IStaticFieldsHandler
 
         List<GameObject> enemiesToSpawn = GenerateEnemies();
         enemiesLeft = enemiesToSpawn.Count;
-        Debug.Log("generate wave current number enemies"+enemiesLeft);
+        //Debug.Log("generate wave current number enemies"+enemiesLeft);
         
         if(currentWave % 5 == 0 && spawnBoss && hei_boss != null && bai_boss != null){
 

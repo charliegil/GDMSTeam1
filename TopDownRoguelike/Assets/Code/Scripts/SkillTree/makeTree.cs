@@ -71,7 +71,7 @@ public class makeTree : MonoBehaviour
         float height = getHeight(root);
         float widht = getWidth(root);
         int iterations = 0;
-        while(widht > 10 && iterations < 100){
+        while(widht > 10 && iterations < 100 && height > 10){
             root = setTree();
             TreeHelpers.CalculateNodePositions(root);
             height = getHeight(root);
@@ -85,7 +85,7 @@ public class makeTree : MonoBehaviour
         
         // ============ Make sure the tree is fiting in the image  ===========
         spaceBetweenNodesY = 30f / (height-1);
-        spaceBetweenNodesX = 48f / (widht);
+        spaceBetweenNodesX = 46f / (widht);
         //Debug.Log("the withs is : "+getWidth(root));
         float max =  getMaxWidth(root,true)-root.X;
         float min = root.X - getMaxWidth(root,false);
@@ -284,7 +284,7 @@ public class makeTree : MonoBehaviour
     
     private Sprite getIcon(upgradeType type){
         foreach (UpgradeIcon upgrade in icons){
-            if(upgrade.type.Contains(type.ToString()+",")|| upgrade.type.Contains(","+type.ToString())) return upgrade.icon;
+            if(upgrade.show && (upgrade.type.Contains(type.ToString()+",")|| upgrade.type.Contains(","+type.ToString()))) return upgrade.icon;
         }
         return null;
     }
@@ -306,5 +306,7 @@ public class makeTree : MonoBehaviour
 public class UpgradeIcon{
     public string type;
     public Sprite icon;
+
+    public bool show = true;
 }
 

@@ -27,7 +27,7 @@ public class CollectibleSpawner : MonoBehaviour , IEventListener , IStaticFields
         float randomValue = UnityEngine.Random.value;
         if(randomValue >  DropRate) return;
         GameObject powerUp = GetRandomPowerUp();
-        Debug.Log(powerUp.name);
+        //Debug.Log(powerUp.name);
         Instantiate(powerUp,position,Quaternion.Euler(0,0,0));
     }
     public GameObject GetRandomPowerUp(){

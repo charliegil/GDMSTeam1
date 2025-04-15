@@ -265,7 +265,7 @@ public class PlayerController : MonoBehaviour , IEventListener , IStaticFieldsHa
             damage/= defenceBoost;
             
            
-            if(Invincible) return;
+            if(Invincible || isPhasing) return;
             
             currentHealth -= damage;
             animator.SetTrigger("takingDamage");

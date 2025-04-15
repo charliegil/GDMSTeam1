@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class BaiState1 : State
@@ -13,8 +14,15 @@ public class BaiState1 : State
         //animator.Play("Patrol");
     }
     void SpawnEnemy(){
+
+        StartCoroutine(SpanKusang());
+    }
+    private IEnumerator SpanKusang(){
+        
+        Vector3 position = player_transform.position;
+        yield return new WaitForSeconds(0.15f);
         animator.SetTrigger("attack");
-        GameObject current = Instantiate(sang, player_transform.position, Quaternion.identity);
+        GameObject current = Instantiate(sang, position, Quaternion.identity);
         if(prev!=null){
             Destroy(prev);
         }
@@ -32,5 +40,12 @@ public class BaiState1 : State
             Destroy(prev);
         }
         
+    }
+
+    public void OnDestroy()
+    {
+        if(prev!=null){
+            Destroy(prev);
+        }
     }
 }

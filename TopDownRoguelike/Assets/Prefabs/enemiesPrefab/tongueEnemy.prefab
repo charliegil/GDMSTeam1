@@ -51,6 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8898022347ea147b483cf0844e8fc6a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scaleHealth: 1
   baseHealth: 35
   milestone: 5
   scaleFactor: 1.5
@@ -86,8 +87,8 @@ MonoBehaviour:
   movingSpeed: 8
   trackingSpeed: 0.05
   RateOfChangeDirection: 2
-  rotateWhileAttacking: 1
-  moveWhileAttacking: 0
+  rotateWhileAttacking: 0
+  moveWhileAttacking: 1
   lineMaterial: {fileID: 2100000, guid: 5a9ac127c4d9f28449e31b850be7b00b, type: 2}
   tongue: {fileID: 8780588160096253109}
   tongueRenderer: {fileID: 4244936413889423027}

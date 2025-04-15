@@ -232,7 +232,6 @@ public class CloseEnemy : BaseEnemy
     {
         if (!scaleStatsByWave) return;
         int wave = WaveSystem.getCurrentWaveNumber();
-        GetComponent<Health>().modifyHealthFromWaveNumber(wave);
         GetComponentInChildren<Tongue>().damage += wave * 3 / 2;
     }
 }

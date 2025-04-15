@@ -1,6 +1,4 @@
 #if NETFX_CORE
-using System.Threading;
-using System.Threading.Tasks;
 using System.Reflection;
 using System.IO;
 using TP = System.Reflection.TypeInfo;

@@ -57,7 +57,7 @@ public class Bai : Core
     bool CloseEnough(Vector2 targetPos){
        
         float playerDistance = Vector2.Distance(body.position, targetPos);
-         Debug.Log("bai close detection Range"+detectionRange+"playerDistance "+playerDistance);
+        // Debug.Log("bai close detection Range"+detectionRange+"playerDistance "+playerDistance);
         return playerDistance <= detectionRange;
     }
     void FixedUpdate()

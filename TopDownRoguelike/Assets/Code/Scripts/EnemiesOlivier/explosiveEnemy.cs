@@ -72,9 +72,7 @@ public class explosiveEnemy : BaseEnemy
     }
 
     public override void updateStatsFromCurrentWave(){
-        if(!scaleStatsByWave) return;
-        int wave  = WaveSystem.getCurrentWaveNumber();
-        GetComponent<Health>().modifyHealthFromWaveNumber(wave);
+        
     }
 }
 

@@ -4,6 +4,8 @@ public class bell_script : MonoBehaviour
 {
     private playerControl player_script;
 
+    private bool DidDamage = false;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -21,9 +23,11 @@ public class bell_script : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         //Debug.Log("chain collision "+collision.gameObject.tag);
-        if(collision.gameObject.CompareTag("Player")){
+        if(collision.gameObject.CompareTag("Player") && !DidDamage){
             Debug.Log("bell collision IS INN"+collision.gameObject.tag);
+            DidDamage = true;
             EventManager.PlayerTakeDamage(30);
+            AudioManager.instance.PlaySound("BossBell");
             //player_script.dmgPlayer(10);
         
         }
@@ -33,5 +37,9 @@ public class bell_script : MonoBehaviour
         // }
         
     }
-    
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.gameObject.CompareTag("Player")) DidDamage = false;
+    }
+
 }

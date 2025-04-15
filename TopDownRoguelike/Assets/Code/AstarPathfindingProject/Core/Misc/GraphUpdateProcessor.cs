@@ -1,9 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using System.Threading;
-#if UNITY_5_5_OR_NEWER
-using UnityEngine.Profiling;
-#endif
+
 
 namespace Pathfinding {
 	using UnityEngine.Assertions;

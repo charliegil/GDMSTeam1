@@ -7,12 +7,12 @@ public class StateMachine
     public State state;
     
     public void Set(State newState, bool forceReset = false){
-        Debug.Log("Switching to new state: " + newState.GetType().Name);
+        //Debug.Log("Switching to new state: " + newState.GetType().Name);
         if(state!=newState||forceReset){
-        Debug.Log("should be in StateMachine");
+        //Debug.Log("should be in StateMachine");
         state?.Exit();
         state = newState;
-        Debug.Log("here is statemachine: " +state);
+        //Debug.Log("here is statemachine: " +state);
         state.Initialize(this);
         state.Enter();
         }

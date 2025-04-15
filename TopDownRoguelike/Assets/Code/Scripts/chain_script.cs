@@ -17,6 +17,7 @@ public class chain_script : MonoBehaviour
 
 
         rb = GetComponent<Rigidbody2D>();
+        
     }
 
     // Update is called once per frame

@@ -193,6 +193,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc69c2b93be282c458cdb4870955ebf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 0
 --- !u!1 &472624574039343883
 GameObject:
   m_ObjectHideFlags: 0
@@ -344,6 +345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8898022347ea147b483cf0844e8fc6a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scaleHealth: 1
   baseHealth: 100
   milestone: 7
   scaleFactor: 1.2
@@ -677,6 +679,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc69c2b93be282c458cdb4870955ebf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 0
 --- !u!1 &1821766090060110232
 GameObject:
   m_ObjectHideFlags: 0
@@ -919,6 +922,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc69c2b93be282c458cdb4870955ebf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 3
 --- !u!1 &2818549367767824859
 GameObject:
   m_ObjectHideFlags: 0
@@ -1296,6 +1300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc69c2b93be282c458cdb4870955ebf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 3
 --- !u!1 &3833154593984386562
 GameObject:
   m_ObjectHideFlags: 0
@@ -1683,7 +1688,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 0.5
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 0
@@ -1978,6 +1983,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc69c2b93be282c458cdb4870955ebf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 3
 --- !u!1 &7184374347318936940
 GameObject:
   m_ObjectHideFlags: 0
@@ -2253,6 +2259,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc69c2b93be282c458cdb4870955ebf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 3
 --- !u!1 &8364317859822732486
 GameObject:
   m_ObjectHideFlags: 0
@@ -2446,3 +2453,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc69c2b93be282c458cdb4870955ebf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 3

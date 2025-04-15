@@ -7,6 +7,8 @@ public class Health : MonoBehaviour
 {
     private float currentHealth;
     [Header("Scale Health based on wave settings")]
+
+    [SerializeField] private bool scaleHealth = true;
     [SerializeField] private float baseHealth = 20f;
     [SerializeField] private float milestone = 7;
     [SerializeField] private float scaleFactor = 1.5f;
@@ -27,12 +29,15 @@ public class Health : MonoBehaviour
 
     private static PlayerController playerController;
 
+    
+
    
     void Start()
     {
-
-        if(playerController==null) playerController = GameObject.Find("Player")?.GetComponent<PlayerController>();
         currentHealth = baseHealth;
+        if(scaleHealth) modifyHealthFromWaveNumber();
+        if(playerController==null) playerController = GameObject.Find("Player")?.GetComponent<PlayerController>();
+        
     }
 
     void Update(){   
@@ -43,9 +48,10 @@ public class Health : MonoBehaviour
     
         float attackMultiplier = playerController.getAttackMultiplier();
         float critiqual = playerController.IsAttackCritiqual();
-        Debug.Log($"the attack multiplier is {attackMultiplier} and the critiqual damage factor is {critiqual} ");
+       // Debug.Log($"the attack multiplier is {attackMultiplier} and the critiqual damage factor is {critiqual} ");
         damage =  (damage*critiqual*attackMultiplier);
         currentHealth -= damage;
+        //Debug.Log("my current Health is : " +currentHealth );
         AudioManager.instance.PlaySound("EnemyHurt");
         //Debug.Log(currentHealth);
         animator.SetTrigger("takeDamage");
@@ -56,7 +62,7 @@ public class Health : MonoBehaviour
             GameObject popup = Instantiate(damagePopupPrefab, transform.position , Quaternion.identity) as GameObject;//+ new Vector3(0,1,0)
             
             string StringDamage = damage.ToString("F1");
-            Debug.Log(StringDamage);
+           
             if(StringDamage.EndsWith(",0")) StringDamage = StringDamage.Split(",")[0];
             popup.transform.GetChild(0).GetComponent<TextMesh>().text = ""+StringDamage;
             
@@ -89,7 +95,8 @@ public class Health : MonoBehaviour
         
     }
 
-    public void modifyHealthFromWaveNumber(int waveNumber){
+    public void modifyHealthFromWaveNumber(){
+        int waveNumber = WaveSystem.getCurrentWaveNumber();
         waveNumber-=1;
         currentHealth = baseHealth + (waveNumber * increasePerWave);
         currentHealth *= Mathf.Pow(scaleFactor , (int)waveNumber/milestone);

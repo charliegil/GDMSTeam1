@@ -4,6 +4,7 @@
 using System.Collections.Generic;
 using System.Threading;
 
+
 namespace Pathfinding.Util {
 	/// <summary>
 	/// Helper for parallelizing tasks.
