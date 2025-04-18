@@ -54,8 +54,8 @@ MonoBehaviour:
   scaleHealth: 1
   baseHealth: 35
   milestone: 5
-  scaleFactor: 1.5
-  increasePerWave: 3.5
+  scaleFactor: 1.3
+  increasePerWave: 2
   isTargeted: 0
   enemyValue: 1
   animator: {fileID: 4671697816956284708}

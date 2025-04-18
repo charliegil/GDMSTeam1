@@ -52,7 +52,7 @@ public class ChaseState : State
 
     }
     private bool CloseEnough(Vector2 targetPos){
-        Debug.Log("isClosed Enough");
+        //Debug.Log("isClosed Enough");
         float playerDistance = Vector2.Distance(body.position, targetPos);
         if(playerDistance <= detectionRange){
             return true;

@@ -53,7 +53,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scaleStatsByWave: 1
-  maxSpeed: 20
+  maxSpeed: 19
   acceleration: 3
   attackRange: 3
   body: {fileID: 6345547693154022427}
@@ -61,7 +61,7 @@ MonoBehaviour:
   viewDistance: 300
   explosionParticles: {fileID: 2832167548909918162, guid: 2779b838dc2952d44a6322d47650cafe, type: 3}
   usePathFinding: 1
-  MaxAliveTime: 11
+  MaxAliveTime: 12
 --- !u!114 &8642414131343421290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74,10 +74,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8898022347ea147b483cf0844e8fc6a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scaleHealth: 1
   baseHealth: 20
   milestone: 5
-  scaleFactor: 1.3
-  increasePerWave: 3
+  scaleFactor: 1.5
+  increasePerWave: 1
   isTargeted: 0
   enemyValue: 1
   animator: {fileID: 8930256167911764117}

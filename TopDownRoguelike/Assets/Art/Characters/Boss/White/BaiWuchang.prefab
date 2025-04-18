@@ -89,7 +89,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1742424179183708321}
   - component: {fileID: 6999643686063152180}
-  - component: {fileID: 3238417254811488394}
   - component: {fileID: 2810602794417099953}
   - component: {fileID: 611831874233054428}
   - component: {fileID: 4062978814513628181}
@@ -145,52 +144,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!61 &3238417254811488394
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4832720869243899775}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: -0.13168684, y: -0.08244577}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 0.828322, y: 0.83510846}
-  m_EdgeRadius: 0
 --- !u!114 &2810602794417099953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227,6 +180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8898022347ea147b483cf0844e8fc6a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scaleHealth: 1
   baseHealth: 100
   milestone: 7
   scaleFactor: 1.2
@@ -266,12 +220,12 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: -0.1364556, y: -0.24331471}
-  m_Size: {x: 0.5545814, y: 2.140749}
+  m_Size: {x: 0.7, y: 2.31}
   m_Direction: 0
 --- !u!114 &5105953535363385972
 MonoBehaviour:

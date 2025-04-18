@@ -27,6 +27,7 @@ public class bell_script : MonoBehaviour
             Debug.Log("bell collision IS INN"+collision.gameObject.tag);
             DidDamage = true;
             EventManager.PlayerTakeDamage(30);
+            Debug.Log("the type of the collider: " + collision.GetComponent<Collider2D>().GetType().ToString());
             AudioManager.instance.PlaySound("BossBell");
             //player_script.dmgPlayer(10);
         

@@ -51,7 +51,7 @@ public class Health : MonoBehaviour
        // Debug.Log($"the attack multiplier is {attackMultiplier} and the critiqual damage factor is {critiqual} ");
         damage =  (damage*critiqual*attackMultiplier);
         currentHealth -= damage;
-        //Debug.Log("my current Health is : " +currentHealth );
+        Debug.Log("my current Health is : " +currentHealth );
         AudioManager.instance.PlaySound("EnemyHurt");
         //Debug.Log(currentHealth);
         animator.SetTrigger("takeDamage");

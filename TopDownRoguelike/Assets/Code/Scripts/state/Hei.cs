@@ -62,7 +62,7 @@ public class Hei : Core
     }
     
     bool CloseEnough(Vector2 targetPos){
-        Debug.Log("hei close");
+        //Debug.Log("hei close");
         float playerDistance = Vector2.Distance(body.position, targetPos);
         return playerDistance <= detectionRange;
     }

@@ -171,7 +171,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: -0.388938, y: -0.01746273}
-  m_ConnectedAnchor: {x: 0.25906238, y: 0.018537337}
+  m_ConnectedAnchor: {x: 0.25906208, y: 0.01853719}
   m_UseConnectedAnchor: 1
   m_UseMotor: 0
   m_Motor:
@@ -205,7 +205,6 @@ GameObject:
   - component: {fileID: 5429666254895291408}
   - component: {fileID: 993185162521554445}
   - component: {fileID: 3705767846457349977}
-  - component: {fileID: 2676237526086949942}
   - component: {fileID: 1948054064860570046}
   - component: {fileID: 8170103810474123798}
   - component: {fileID: 9064817842253348029}
@@ -287,52 +286,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!61 &2676237526086949942
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 472624574039343883}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: -0.11622244, y: -0.040994167}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 0.8948456, y: 0.91801167}
-  m_EdgeRadius: 0
 --- !u!114 &1948054064860570046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -346,7 +299,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scaleHealth: 1
-  baseHealth: 100
+  baseHealth: 150
   milestone: 7
   scaleFactor: 1.2
   increasePerWave: 2
@@ -385,12 +338,12 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.11274545, y: -0.25325483}
-  m_Size: {x: 0.64542997, y: 1.8900203}
+  m_Offset: {x: -0.19, y: -0.27}
+  m_Size: {x: 0.7, y: 2.21}
   m_Direction: 0
 --- !u!114 &9064817842253348029
 MonoBehaviour:
@@ -657,7 +610,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: -0.388938, y: -0.01746273}
-  m_ConnectedAnchor: {x: 0.22106169, y: 0.0075372644}
+  m_ConnectedAnchor: {x: 0.22106227, y: 0.0075372644}
   m_UseConnectedAnchor: 1
   m_UseMotor: 0
   m_Motor:
@@ -900,7 +853,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: -0.3849387, y: -0.017462822}
-  m_ConnectedAnchor: {x: 0.28506133, y: 0.01553709}
+  m_ConnectedAnchor: {x: 0.28506118, y: 0.0155369425}
   m_UseConnectedAnchor: 1
   m_UseMotor: 0
   m_Motor:
@@ -1961,7 +1914,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: -0.388938, y: -0.01746273}
-  m_ConnectedAnchor: {x: 0.34706178, y: 0.009537478}
+  m_ConnectedAnchor: {x: 0.34706178, y: 0.009537331}
   m_UseConnectedAnchor: 1
   m_UseMotor: 0
   m_Motor:
@@ -2237,7 +2190,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: -0.388938, y: -0.01746273}
-  m_ConnectedAnchor: {x: 0.27306166, y: 0.001537211}
+  m_ConnectedAnchor: {x: 0.27306226, y: 0.0015370639}
   m_UseConnectedAnchor: 1
   m_UseMotor: 0
   m_Motor:
@@ -2431,7 +2384,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: -0.388938, y: -0.01746273}
-  m_ConnectedAnchor: {x: 0.30406195, y: 0.0055373446}
+  m_ConnectedAnchor: {x: 0.30406168, y: 0.0055371975}
   m_UseConnectedAnchor: 1
   m_UseMotor: 0
   m_Motor:
