@@ -29,7 +29,7 @@ namespace Pathfinding {
 		bool anyGraphUpdateInProgress;
 
 #if UNITY_2017_3_OR_NEWER && !UNITY_WEBGL
-		CustomSampler asyncUpdateProfilingSampler;
+		//CustomSampler asyncUpdateProfilingSampler;
 #endif
 
 		/// <summary>
@@ -86,7 +86,7 @@ namespace Pathfinding {
 #if !UNITY_WEBGL
 			if (graphUpdateThread == null || !graphUpdateThread.IsAlive) {
 #if UNITY_2017_3_OR_NEWER && !UNITY_WEBGL
-				asyncUpdateProfilingSampler = CustomSampler.Create("Graph Update");
+				//asyncUpdateProfilingSampler = CustomSampler.Create("Graph Update");
 #endif
 
 				graphUpdateThread = new Thread(ProcessGraphUpdatesAsync);
@@ -311,14 +311,14 @@ namespace Pathfinding {
 		/// </summary>
 		void ProcessGraphUpdatesAsync () {
 #if UNITY_2017_3_OR_NEWER
-			Profiler.BeginThreadProfiling("Pathfinding", "Threaded Graph Updates");
+			//Profiler.BeginThreadProfiling("Pathfinding", "Threaded Graph Updates");
 #endif
 
 			var handles = new [] { graphUpdateAsyncEvent, exitAsyncThread };
 
 			while (true) {
 				// Wait for the next batch or exit event
-				var handleIndex = WaitHandle.WaitAny(handles);
+				var handleIndex = 1/*WaitHandle.WaitAny(handles)*/;
 
 				if (handleIndex == 1) {
 					// Exit even was fired
@@ -329,14 +329,14 @@ namespace Pathfinding {
 					}
 					asyncGraphUpdatesComplete.Set();
 #if UNITY_2017_3_OR_NEWER
-					Profiler.EndThreadProfiling();
+					//Profiler.EndThreadProfiling();
 #endif
 					return;
 				}
 
 				while (graphUpdateQueueAsync.Count > 0) {
 #if UNITY_2017_3_OR_NEWER
-					asyncUpdateProfilingSampler.Begin();
+					//asyncUpdateProfilingSampler.Begin();
 #endif
 					// Note that no locking is required here because the main thread
 					// cannot access it until asyncGraphUpdatesComplete is signaled
@@ -353,7 +353,7 @@ namespace Pathfinding {
 						Debug.LogError("Exception while updating graphs:\n"+e);
 					}
 #if UNITY_2017_3_OR_NEWER
-					asyncUpdateProfilingSampler.End();
+					//asyncUpdateProfilingSampler.End();
 #endif
 				}
 

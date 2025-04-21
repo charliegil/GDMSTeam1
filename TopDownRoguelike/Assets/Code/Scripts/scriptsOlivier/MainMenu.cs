@@ -26,7 +26,11 @@ public class MainMenu : MonoBehaviour
 
     public void quit()
     {
+    #if UNITY_WEBGL
+        UnityEngine.SceneManagement.SceneManager.LoadScene("WebGLQuit");
+    #else
         Application.Quit();
+    #endif
     }
     public void settings()
     {

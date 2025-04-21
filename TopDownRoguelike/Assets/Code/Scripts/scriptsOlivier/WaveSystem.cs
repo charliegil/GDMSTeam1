@@ -16,6 +16,9 @@ public class WaveSystem : MonoBehaviour , IEventListener, IStaticFieldsHandler
 
     public int timeBetweenWave = 5;
 
+[Tooltip("every x rounds, the bosses will spawn")]
+    public int BossRound =5 ;
+
     private float spawnTimer;
 
     private int enemiesLeft;
@@ -105,11 +108,15 @@ public class WaveSystem : MonoBehaviour , IEventListener, IStaticFieldsHandler
         currentWaveUIText.text = "Wave: " + currentWave;
 
 
-        List<GameObject> enemiesToSpawn = GenerateEnemies();
-        enemiesLeft = enemiesToSpawn.Count;
+        enemiesLeft = 0;
+        if(currentWave != BossRound ){
+            List<GameObject> enemiesToSpawn = GenerateEnemies();
+            enemiesLeft = enemiesToSpawn.Count;
+            StartCoroutine(SpawnEnemies(enemiesToSpawn));
+        }
         //Debug.Log("generate wave current number enemies"+enemiesLeft);
         
-        if(currentWave % 5 == 0 && spawnBoss && hei_boss != null && bai_boss != null){
+        if(currentWave % BossRound == 0 && spawnBoss && hei_boss != null && bai_boss != null){
 
             Debug.Log("currrent wave"+currentWave);
 
@@ -122,13 +129,12 @@ public class WaveSystem : MonoBehaviour , IEventListener, IStaticFieldsHandler
             
 
         }
-        else if(currentWave % 5 == 1 && currentWave != 1){
+        else if(currentWave % BossRound == 1 && currentWave != 1){
             AudioManager.instance.ActivateBossTheme(false);
         }
         
         if(enemiesLeft == 0) return;
         
-        StartCoroutine(SpawnEnemies(enemiesToSpawn));
         //waveValue = waveValue + currentWave*waveMultiplier;
         waveValue*= waveMultiplier;
     }

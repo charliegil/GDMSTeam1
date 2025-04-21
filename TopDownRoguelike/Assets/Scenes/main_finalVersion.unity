@@ -8504,9 +8504,9 @@ MonoBehaviour:
   showRedOverlayPercentage: 0.4
   durationShowOverlay: 0.5
   moveSpeed: 10
-  phaseDuration: 0.9
+  phaseDuration: 1
   phaseFactor: 2.3
-  phaseCooldown: 1
+  phaseCooldown: 0.8
   attackMultiplier: 1
   scaleDamageOverWave: 1
   damageIncrease: {x: 1.5, y: 10}
@@ -19483,6 +19483,7 @@ MonoBehaviour:
   waveValue: 11
   waveMultiplier: 1.2
   timeBetweenWave: 6
+  BossRound: 5
   enemylist:
   - enemyPrefab: {fileID: 1204319565315017930, guid: 0ffb80c087b9ba4428d426892ef05487, type: 3}
     value: 3

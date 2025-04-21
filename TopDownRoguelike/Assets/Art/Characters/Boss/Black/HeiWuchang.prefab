@@ -210,7 +210,7 @@ GameObject:
   - component: {fileID: 9064817842253348029}
   m_Layer: 3
   m_Name: HeiWuchang
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -299,7 +299,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scaleHealth: 1
-  baseHealth: 150
+  baseHealth: 250
   milestone: 7
   scaleFactor: 1.2
   increasePerWave: 2
