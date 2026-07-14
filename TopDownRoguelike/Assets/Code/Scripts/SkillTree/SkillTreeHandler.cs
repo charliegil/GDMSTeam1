@@ -108,7 +108,7 @@ public class SkillTreeHandler : MonoBehaviour , IEventListener
                 break;
 
             case upgradeType.PowerUpDurationtMultiplier:
-                Collectable.durationMultiplier /= value;
+                Collectable.durationMultiplier *= value;
                 break;
 
             case upgradeType.WeaponUnlocked:
