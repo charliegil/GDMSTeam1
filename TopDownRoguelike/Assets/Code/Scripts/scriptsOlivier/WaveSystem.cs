@@ -194,6 +194,9 @@ public class WaveSystem : MonoBehaviour , IEventListener, IStaticFieldsHandler
         if(gainFullHealthOnEnd) EventManager.PlayerTakeDamage(-1000);
         if(skillPointsOnEnd !=0) EventManager.SkillPointAcquired(skillPointsOnEnd);
         
+        if(currentWave < 10) EventManager.SkillPointAcquired(1);
+        else if (currentWave < 15) EventManager.SkillPointAcquired(2);
+        else EventManager.SkillPointAcquired(3);
         
         
         yield return StartCoroutine(FadeText(0f, 1f, 1f));

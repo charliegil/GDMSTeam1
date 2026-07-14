@@ -84,6 +84,7 @@ public class SkillTreeHandler : MonoBehaviour , IEventListener
             case upgradeType.Health:
                 Debug.Log("enhancing health");
                 EventManager.IncreaseMaxHealth(value);
+                EventManager.PlayerTakeDamage(-1000000000);
                 break;
 
             case upgradeType.PhaseCooldown:

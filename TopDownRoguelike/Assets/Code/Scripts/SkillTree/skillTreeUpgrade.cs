@@ -171,7 +171,7 @@ public class skillTreeUpgrade
         { upgradeType.Defence, "Decrease damage taken by ]x" },
         { upgradeType.PhaseCooldown, "Phase takes less time to recharge" },
         { upgradeType.PhaseDuration, "Make phase last longer by ]x" },
-        { upgradeType.Health, "Increase max health by ]x" },
+        { upgradeType.Health, "Increase max health by ]x, and heal completely" },
         { upgradeType.CritiqualHit, "Increase chance of critiqual hits by ]x" },
         { upgradeType.Speed, "increase speed by ]x" },
         { upgradeType.DropRate, "increase chance of getting boosts from dying enemies by ]%" },
