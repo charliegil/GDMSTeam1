@@ -1,0 +1,97 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2329631889220765253
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6871588898550724436}
+  - component: {fileID: 2912733295544729369}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6871588898550724436
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2329631889220765253}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -11.4067955, y: -30.301613, z: -0.08837524}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2912733295544729369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2329631889220765253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50c11f05fc63bcd40ae28247e644b972, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  musicVolume: 0.25
+  audioSourcePrefab: {fileID: 6922738749489178237, guid: 069e7c3c75759614d84ed25d93e41c49, type: 3}
+  battleThemeMusic: {fileID: 8300000, guid: 1401bcfaad00f3d4ba2d65894e65e926, type: 3}
+  BossThemeMusic: {fileID: 8300000, guid: 95425395f45c94e439b57fe36ae404b2, type: 3}
+  lowHealthSoundMusic: {fileID: 8300000, guid: 1413d3272fdabc3439e3dcb1c186a041, type: 3}
+  MainMenuThemeMusic: {fileID: 8300000, guid: 4a1441c17e6f1124aa445c35a733531e, type: 3}
+  sounds:
+  - name: Fire
+    clip: {fileID: 8300000, guid: 572c5b07d69e78941a39ace887512079, type: 3}
+    volume: 0.6
+    pitch: 0.1
+  - name: PlayerHurt
+    clip: {fileID: 8300000, guid: 21c594e57e57ef043befe88b55af3c67, type: 3}
+    volume: 0.4
+    pitch: 0.1
+  - name: EnemyHurt
+    clip: {fileID: 8300000, guid: 17ef7d87e93ae8b48b7cbf46a8a5604e, type: 3}
+    volume: 0.4
+    pitch: 0.1
+  - name: skillBought
+    clip: {fileID: 8300000, guid: efbed38207bdd774cb8acc493b14a7f0, type: 3}
+    volume: 0.4
+    pitch: 0.1
+  - name: collectItem
+    clip: {fileID: 8300000, guid: 3f6193cb38549ce4bbbe3b91fbf18611, type: 3}
+    volume: 0.3
+    pitch: 0.1
+  - name: DamageTick
+    clip: {fileID: 8300000, guid: f7787552e729c4f03acbf8c8d22f20ad, type: 3}
+    volume: 0.4
+    pitch: 0.1
+  - name: Collect
+    clip: {fileID: 8300000, guid: 3f6193cb38549ce4bbbe3b91fbf18611, type: 3}
+    volume: 0.7
+    pitch: 0.1
+  - name: WaveStart
+    clip: {fileID: 8300000, guid: c3832884d923cf948a4e12d7e829032e, type: 3}
+    volume: 0.3
+    pitch: 0.1
+  - name: clickButton
+    clip: {fileID: 8300000, guid: a1886eea04aff8f429757b48af118ede, type: 3}
+    volume: 0.2
+    pitch: 0.1
+  - name: PlayerDeath
+    clip: {fileID: 8300000, guid: 1b7a27bca0fe6e94a870efc13c6309ac, type: 3}
+    volume: 0.3
+    pitch: 0.1
+  - name: BossBell
+    clip: {fileID: 8300000, guid: 7dab2642fd541de429eaad529bcfbb6c, type: 3}
+    volume: 0.3
+    pitch: 0.1

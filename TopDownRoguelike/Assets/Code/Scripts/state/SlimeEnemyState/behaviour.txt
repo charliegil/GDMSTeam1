@@ -1,0 +1,38 @@
+Patrol : random movement in a big circle (zone of operation)
+
+Chase: will follow the player while making sure it stays in his FOV. 
+
+Patrol -> Chase : either the player attacked the enemy or the enemy sees him in his FOV
+
+Chase -> Patrol: either the player goes out of the zone of operation, or the player isnt in the FOV of the enemy. 
+in the later case, the enemy will go to the last known location of the enemy. 
+
+Attack : if Player just attacked, the enemy will attack immediately, with a reaction time
+If the player is close enough to the enemy, the enemy will do a circular attack
+If the player is not close enough, it will do a tongue attack
+
+
+
+In attackMode, will not move when attacking, and will try to keep him in his FOV
+
+Left to do: 
+implement the attack
+figure out how to display the FOV, as right now we are only changing the rotation of the rigidbody
+the FOV is not working, 
+Solution: make a variable that tracks the rotation, set it
+
+
+Global : do some testing
+ask acacie about the detection range from chase and patrol.
+ask acacie about the force and linear velocity
+ask acacie about return range
+ask acacie about isComplete IMPORTANT
+ask acacie about stopping the player at a certain distance. maybe with some deceleration
+ask acacie about the force that is not stopping t
+
+
+use late update to modify FOVLines
+problem is about isComplete
+
+
+Dont use SlimeStateSlime
