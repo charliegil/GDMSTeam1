@@ -66,13 +66,15 @@ public class makeTree : MonoBehaviour
 
         if(enableCoolerTrees) minNumOfChildren = Math.Max(minNumOfChildren, 1);
 
-        treeNode root = setTree();
+        System.Random random = seed == -1 ? new System.Random() : new System.Random(seed);
+
+        treeNode root = setTree(random);
         TreeHelpers.CalculateNodePositions(root);
         float height = getHeight(root);
         float widht = getWidth(root);
         int iterations = 0;
-        while(widht > 10 && iterations < 100 && height > 10){
-            root = setTree();
+        while((widht > 10 || height > 10) && iterations < 100){
+            root = setTree(random);
             TreeHelpers.CalculateNodePositions(root);
             height = getHeight(root);
             widht = getWidth(root);
@@ -84,8 +86,8 @@ public class makeTree : MonoBehaviour
         printTree(root);
         
         // ============ Make sure the tree is fiting in the image  ===========
-        spaceBetweenNodesY = 30f / (height-1);
-        spaceBetweenNodesX = 46f / (widht);
+        spaceBetweenNodesY = 30f / Mathf.Max(1, height-1);
+        spaceBetweenNodesX = 46f / Mathf.Max(1, widht);
         //Debug.Log("the withs is : "+getWidth(root));
         float max =  getMaxWidth(root,true)-root.X;
         float min = root.X - getMaxWidth(root,false);
@@ -101,7 +103,7 @@ public class makeTree : MonoBehaviour
     }
 
     private skillTreeUpgrade getRandomUpgrade(int rarity){
-       if(UnityEngine.Random.Range(0,1)==0){
+       if(UnityEngine.Random.Range(0,2)==0){
             skillTreeUpgrade upgrade = getRandomUpgrade(rarity,false);
             if(upgrade!=null) return upgrade;
        }
@@ -142,14 +144,9 @@ public class makeTree : MonoBehaviour
 
     // Update is called once per frame
 
-    private treeNode setTree(){
+    private treeNode setTree(System.Random random){
         Queue<treeNode> queue = new Queue<treeNode>();
-        
-        System.Random random = new System.Random(seed);
-        if(seed==-1){
-            random = new System.Random();
-        }
-        
+
         treeNode root = new treeNode(null);
         root.value = -1;
         queue.Enqueue(root);
